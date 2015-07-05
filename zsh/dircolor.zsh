@@ -1,1 +1,1 @@
-eval $(dircolors -b dircolors/dircolors.256dark)
+eval $(dircolors -b $DOTFILES/zsh/dircolors/dircolors.256dark)
