@@ -212,8 +212,8 @@ batterytimer:start()
 --Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = {"no","jp","dv"}
-kbdcfg.layoutName = {"no","jp2","us -variant dvp"}
+kbdcfg.layout = {"no","jp"}
+kbdcfg.layoutName = {"no","jp2"}
 kbdcfg.current = 1
 
 local layoutWidget = wibox.widget.base.make_widget()
