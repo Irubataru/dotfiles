@@ -14,11 +14,11 @@ echo ''
 
 if [ ! -e $AWESOMECONFIGFILE ]; then
   echo "Installing the rc.lua confiuration file"
-  echo "Select awesome configuration [laptop,uni]";
+  echo "Select awesome configuration [uni,laptop,skip]";
   select awesomecfg in "uni" "laptop" "skip"; do
     case $awesomecfg in
-      uni ) ln -sv $DOTFILES/awesome/rc.lua.uni $AWESOMEDIR/rc.lua;;
-      laptop ) ln -sv $DOTFILES/awesome/rc.lua.laptop $AWESOMEDIR/rc.lua;;
+      uni ) ln -sv $DOTFILES/awesome/rc.lua.uni $AWESOMEDIR/rc.lua; break;;
+      laptop ) ln -sv $DOTFILES/awesome/rc.lua.laptop $AWESOMEDIR/rc.lua; break;;
       skip ) ;;
     esac
   done
@@ -33,8 +33,8 @@ if [ ! -d $AWESOMEDIR/themes ]; then
   echo "Select aweome version":
   select awesomevrs in "3.4" "3.5" "skip"; do
     case $awesomevrs in
-      3.4 ) git clone $AWESOME34REPO $AWESOMEDIR/themes;;
-      3.5 ) git clone $AWESOME35REPO $AWESOMEDIR/themes;;
+      3.4 ) git clone $AWESOME34REPO $AWESOMEDIR/themes; break;;
+      3.5 ) git clone $AWESOME35REPO $AWESOMEDIR/themes; break;;
       skip ) ;;
     esac
   done
