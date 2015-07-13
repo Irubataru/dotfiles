@@ -7,7 +7,7 @@ SAVEHIST=10000
 ZSH=$HOME/.oh-my-zsh
 
 if [ "$DISPLAY" ]; then
-  ZSH_THEME="avit"
+  ZSH_THEME="gitster"
   DEFAULT_USER="glesaaen"
 else
   autoload -U promptinit
