@@ -1,6 +1,7 @@
 set -g default-terminal "xterm-256color"
 set -g status-utf8 on
 set -g automatic-rename off
+set -sq escape-time 0
 
 #new-session -n code zsh
 #new-window -n test zsh
