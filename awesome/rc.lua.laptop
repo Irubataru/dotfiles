@@ -41,7 +41,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/glesaaen/.config/awesome/themes/redhalo/theme.lua")
-beautiful.wallpaper = "/home/glesaaen/.config/awesome/Wallpapers/wwWpRes.jpg"
+beautiful.wallpaper = "/home/glesaaen/.config/awesome/Wallpapers/firelink.jpg"
 
 --Cycling wallpapers
 
