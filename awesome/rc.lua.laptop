@@ -41,7 +41,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/glesaaen/.config/awesome/themes/redhalo/theme.lua")
-beautiful.wallpaper = "/home/glesaaen/.config/awesome/Wallpapers/wwWpRes.jpg"
+beautiful.wallpaper = "/home/glesaaen/.config/awesome/Wallpapers/firelink.jpg"
 
 --Cycling wallpapers
 
@@ -130,9 +130,7 @@ end
 applications = {
 	{"Chrome", "google-chrome-stable"},
 	{"Mathematica", "mathematica"},
-	{"Skype", "skype"},
-	{"Steam", "steam"},
-	{"WiMP", "wimp"}
+	{"Skype", "apulse32 skype"}
 }
 
 directories = {
@@ -177,14 +175,29 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 batterywidget = wibox.widget.base.make_widget()
 
 batterywidget.fit = function(batterywidget, width, height)
+  local fh = assert(io.popen("acpi | cut -d, -f 1 | cut -d: -f 2"));
+  local chargestate = string.gsub(fh:read(), "%s+", "")
+  fh:close()
+
 	local size = math.min(width, height)
+
+  if chargestate == "Charging" then
+    return 2.4*size,size
+  end
+
 	return 1.8*size, size
 end
+
+batterychargeit = 0
 
 batterywidget.draw = function(batterywidget, wibox, cr, width, height)
   local fh = assert(io.popen("acpi | cut -d, -f 2 -", "r"))    
 	local percentage = fh:read()
 	fh:close()
+
+  local fhh = assert(io.popen("acpi | cut -d, -f 1 | cut -d: -f 2"));
+  local chargestate = string.gsub(fhh:read(), "%s+", "")
+  fhh:close()
 
 	local perNum = tonumber(string.sub(percentage,1,string.find(percentage, "%%")-1))
 	if perNum > 50 then
@@ -195,11 +208,17 @@ batterywidget.draw = function(batterywidget, wibox, cr, width, height)
 		cr:set_source_rgb(255,0,0)
 	end
 
-	local batteryLeft = " |" .. string.gsub(percentage, "%s+", "") .. "| "
+  local batteryString
+
+  if chargestate == "Charging" then
+    batteryString = " |+" .. string.gsub(percentage, "%s+", "") .. "| "
+  else
+    batteryString = " |" .. string.gsub(percentage, "%s+", "") .. "| "
+  end
+
 	cr:set_font_size(11)
-	--cr:set_source_rgb(255,167,26)
 	cr:move_to(0, height*0.7)
-	cr:show_text(batteryLeft)
+	cr:show_text(batteryString)
 end
 
 batterytimer = timer { timeout = 5 }
@@ -212,6 +231,7 @@ batterytimer:start()
 --Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
+kbdcfg.options = '-option "ctrl:nocaps"'
 kbdcfg.layout = {"no","jp"}
 kbdcfg.layoutName = {"no","jp2"}
 kbdcfg.current = 1
@@ -233,7 +253,7 @@ end
 
 kbdcfg.switch = function()
 	kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
-	os.execute( kbdcfg.cmd .. " " .. kbdcfg.layoutName[kbdcfg.current] )
+	os.execute( kbdcfg.cmd .. " " .. kbdcfg.layoutName[kbdcfg.current] .. " " .. kbdcfg.options )
 	layoutWidget:emit_signal("widget::updated")
 end
 
@@ -612,8 +632,5 @@ function run_once(cmd)
   end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
 end
-
-run_once("xscreensaver -no-splash")
-run_once("dropboxd")
 
 -- }}}
