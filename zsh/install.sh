@@ -1,6 +1,6 @@
 #! /bin/sh
 
-OHMYZSHDIST="https://github.com/robbyrussell/oh-my-zsh.git"
+OHMYZSHDIST="https://github.com/Irubataru/oh-my-zsh.git"
 
 echo ''
 echo "Checking for oh-my-zsh..."
