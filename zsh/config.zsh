@@ -19,6 +19,8 @@ fi
 source $ZSH/oh-my-zsh.sh
 plugins=(dircycle git vi-mode)
 
-if [[ -z "$TMUX" ]]; then
-  exec tmux
+if hash tmux 2> /dev/null; then
+  if [[ -z "$TMUX" ]]; then
+    exec tmux
+  fi
 fi
