@@ -18,7 +18,7 @@ URxvt.keysym.Control-Right:   \033[1;5C
 URxvt.tabbed.autohide: true
 
 Xft.dpi: 96
-URxvt*font: xft:Hack:style=Regular:pixelsize=14:antialias=true:hinting=true
+URxvt*font: xft:Hack:style=Regular:pixelsize=14:antialias=true:hinting=true,xft:Inconsolata for Powerline:style=medium:size=11
 URxvt.letterSpace: -1
 
 URxvt.intensityStyles: false
