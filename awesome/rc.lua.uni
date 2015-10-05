@@ -546,7 +546,7 @@ run_once("xscreensaver","-nosplash");
 run_once("numlockx","on");
 run_once("gnome-keyring-daemon","--start --components=pkcs11");
 run_once("xrdb","~/.Xresources");
---run_once("android-notifier-desktop");
+run_once("xrandr","--output HDMI1 --left-of VGA1");
 
 
 --autorunapps = {
