@@ -91,7 +91,7 @@ end
 -- Create a laucher widget and a main menu
 
 applications = {
-	{"Firefox", "/usr/bin/firefox"},
+	{"Chromium", "/usr/bin/chromium-browser"},
 	{"Mathematica", "/usr/local/bin/mathematica"},
 	{"Skype", "/usr/bin/skype"},
 	{"Spotify","/home/glesaaen/Installs/bin/spotify"},
@@ -547,6 +547,7 @@ run_once("numlockx","on");
 run_once("gnome-keyring-daemon","--start --components=pkcs11");
 run_once("xrdb","~/.Xresources");
 run_once("xrandr","--output HDMI1 --left-of VGA1");
+run_once("xflux","-l 50.116667 -g 8.683333");
 
 
 --autorunapps = {
