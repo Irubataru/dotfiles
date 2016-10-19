@@ -128,7 +128,9 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 applications = {
-	{"Chrome", "google-chrome-stable"},
+	--{"Chrome", "google-chrome-stable"},
+	{"Vivaldi", "vivaldi-stable"},
+  {"Google Music", "gpmdp"},
 	{"Mathematica", "mathematica"},
 	{"Skype", "apulse32 skype"}
 }
