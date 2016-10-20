@@ -3,18 +3,35 @@ set -g default-terminal "xterm-256color"
 set -g automatic-rename off
 set -sq escape-time 0
 
-#new-session -n code zsh
-#new-window -n test zsh
-#new-window -n lookup zsh
-#new-window -t 9 -n htop htop
-
 set -g status-right ""
 set -g status-left ""
-set-option -g status-bg colour8
-set-option -g status-fg colour4
 set-window-option -g window-status-current-format "[#{window_index}:#W]"
-set-window-option -g window-status-current-fg green
 set-window-option -g xterm-keys on
+
+# Use these when I have the seoul256 colourscheme
+set-window-option -g window-status-current-fg colour3
+set-option -g status-bg colour0
+set-option -g status-fg colour1
+
+# Use these when using base16-dark
+# set-window-option -g window-status-current-fg green
+# set-option -g status-bg colour18
+# set-option -g status-fg colour5
+
+
+# These are the rules you need to use True Color and Nova terminal ANSI colors
+# If you want Tmux to use the Nova color scheme, ensure you have installed a Nova plugin for your terminal first
+
+#set -g default-terminal "xterm-256color"
+#set -ga terminal-overrides ",xterm-256color:Tc"
+#set -g pane-border-style 'bg=black,fg=#1E272C'
+#set -g pane-active-border-style 'bg=black,fg=#1E272C'
+#set -g status-style 'bg=#1E272C,fg=#6A7D89'
+#set-window-option -g window-status-current-bg '#1E272C'
+#set-window-option -g window-status-current-fg cyan
+#set -wg mode-style 'bg=cyan,fg=black'
+#set -g message-style 'bg=black,fg=cyan'
+#set -g clock-mode-colour cyan
 
 # Set the prefix to ^A.
 unbind C-b

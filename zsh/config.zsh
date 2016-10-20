@@ -5,6 +5,8 @@ SAVEHIST=10000
 
 export DISABLE_LS_COLORS="true"
 
+fpath=($DOTFILES/zsh/completion $fpath)
+
 # Configuring oh-my-zsh
 ZSH=$HOME/.oh-my-zsh
 

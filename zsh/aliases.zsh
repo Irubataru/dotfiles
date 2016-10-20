@@ -8,3 +8,11 @@ alias lla='ls -al'
 alias rm='rm -v'
 alias mv='mv -v'
 alias cp='cp -v'
+ 
+alias vim='nvim'
+
+alias octave='/usr/bin/octave-cli'
+alias octave-gui='/usr/bin/octave'
+
+alias python='/usr/bin/python3'
+alias ipython='/usr/bin/ipython3'

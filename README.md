@@ -18,6 +18,18 @@ run the `script/install` bash script, which will
 Furthermore, one would want to run `script/bootstrap`, which will symink all
 files with the .symlink extension to their designated locations.
 
+## Colourschemes
+
+These are all the places I need to change in order to properly update the
+coloursceme:
+
+ * `.vim/ui.vim`
+   * operator-flashy (flashy colour if using Base16)
+   * lightline
+ * `X/xresources.symlink`
+ * `X/update_colours.zsh` (if using Base16)
+ * `tmux/tmux.conf.symlink`
+
 ## Branches
 
 I will have branches for every computer I use this on which has special

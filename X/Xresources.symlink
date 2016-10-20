@@ -18,10 +18,11 @@ URxvt.keysym.Control-Right:   \033[1;5C
 URxvt.tabbed.autohide: true
 
 Xft.dpi: 96
-URxvt*font: xft:Hack:style=Regular:antialias=true:hinting=true
+URxvt*font: xft:Hack:style=Regular:antialias=true:hinting=true:size=14
 !URxvt.letterSpace: -1
 
 URxvt.intensityStyles: false
 
 ! Colour Sceme
-#include ".dotfiles/X/colour_schemes/solarized_dark"
+!#include ".dotfiles/X/colour_schemes/base16_dark"
+#include ".dotfiles/X/colour_schemes/seoul256"

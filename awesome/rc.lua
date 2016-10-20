@@ -43,8 +43,12 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/glesaaen/.config/awesome/themes/redhalo/theme.lua")
+--beautiful.wallpaper = "/home/glesaaen/.config/awesome/wallpapers/gw2-1.jpg"
+beautiful.wallpaper = "/home/glesaaen/.config/awesome/wallpapers/wild_night.jpg"
 
---Cycling wallpapers
+for s = 1, screen.count() do		
+	gears.wallpaper.centered(beautiful.wallpaper, s, "#000000")		
+end
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt -e tmux"
@@ -81,7 +85,7 @@ local layouts =
 -- Define a tag table which hold all screen tags.
 tags = {
 	names = { "main", "pdf", "ssh" ,"chrome", "math", "music", "lookup", "tests", "GUI" },
-	layout = { layouts[4], layouts[10], layouts[10], layouts[1], layouts[1], layouts[10],
+	layout = { layouts[4], layouts[10], layouts[10], layouts[1], layouts[1], layouts[1],
 		   layouts[4], layouts[4], layouts[1]}
 }
 for s = 1, screen.count() do
@@ -93,12 +97,13 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 applications = {
-	{"Google Chrome", "google-chrome-stable"},
+	{"Google Chrome", "google-chrome"},
   {"Spacemacs", "emacs"},
   {"Google Music", "google-play-music-desktop-player"},
   {"Spotify", "spotify"},
 	{"Mathematica", "mathematica"},
-	{"Skype", "skype"}
+	{"Skype", "skype"},
+  {"GitKraken", "gitkraken"}
 }
 
 directories = {
@@ -430,7 +435,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
+      properties = { border_width = 0,
                      border_color = beautiful.border_normal,
                      size_hints_honor = false,
                      focus = awful.client.focus.filter,
@@ -523,8 +528,19 @@ client.connect_signal("manage", function (c, startup)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+--client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+--client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+--tag.connect_signal("property::selected", function() focus_on_last_in_history(mouse.screen) end)
+--client.connect_signal("unmanage", function() focus_on_last_in_history(mouse.screen) end)
+
+--function focus_on_last_in_history( screen )
+  --local c = awful.client.focus.history.get(screen, 0)
+  --if not (c == nil) then
+    --client.focus = c
+    --c:raise()
+  --end
+--end
 
 function run_once(prg,arg_string,pname,screen)
 	if not prg then
@@ -542,4 +558,12 @@ function run_once(prg,arg_string,pname,screen)
 	end
 end
 
+run_once("setxkbmap", 'no -option "ctrl:nocaps"')
+run_once("xautolock", "-time 15 -locker slock")
+run_once("xflux", "-l 51.621440 -g -3.943646 -r 1")
+--run_once("unclutter"," -noevents");
+run_once("compton")
+--run_once("conky")
+
+run_once("dropbox","start")
 -- }}}
