@@ -1,6 +1,6 @@
 #! /bin/sh
 
-OHMYZSHDIST="https://github.com/Irubataru/oh-my-zsh.git"
+OHMYZSHDIST="https://github.com/robbyrussell/oh-my-zsh.git"
 
 echo ''
 echo "Checking for oh-my-zsh..."
@@ -15,5 +15,14 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
   echo ''
 else
   echo "oh-my-zsh found! Continuing..."
+  echo ''
+fi
+
+if [ ! -f $HOME/.oh-my-zsh/themes/gitster.zsh-theme ]; then
+  echo "gitster theme  missing, pulling...";
+  echo ''
+  curl -fLo $HOME/.oh-my-zsh/themes/gitster.zsh-theme \
+    https://raw.githubusercontent.com/shashankmehta/dotfiles/master/thesetup/zsh/.oh-my-zsh/custom/themes/gitster.zsh-theme
+  echo "Done fetching the missing theme"
   echo ''
 fi
