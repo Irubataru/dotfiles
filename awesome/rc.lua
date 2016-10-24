@@ -143,6 +143,63 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+--Battery widget
+batterywidget = wibox.widget.base.make_widget()
+
+batterywidget.fit = function(batterywidget, width, height)
+  local fh = assert(io.popen("acpi | cut -d, -f 1 | cut -d: -f 2"));
+  local chargestate = string.gsub(fh:read(), "%s+", "")
+  fh:close()
+
+	local size = math.min(width, height)
+
+  if chargestate == "Charging" then
+    return 2.4*size,size
+  end
+
+	return 1.8*size, size
+end
+
+batterychargeit = 0
+
+batterywidget.draw = function(batterywidget, wibox, cr, width, height)
+  local fh = assert(io.popen("acpi | cut -d, -f 2 -", "r"))    
+	local percentage = fh:read()
+	fh:close()
+
+  local fhh = assert(io.popen("acpi | cut -d, -f 1 | cut -d: -f 2"));
+  local chargestate = string.gsub(fhh:read(), "%s+", "")
+  fhh:close()
+
+	local perNum = tonumber(string.sub(percentage,1,string.find(percentage, "%%")-1))
+	if perNum > 50 then
+		cr:set_source_rgb(0,255,0)
+	elseif perNum > 20 then
+		cr:set_source_rgb(255,211,0)
+	else
+		cr:set_source_rgb(255,0,0)
+	end
+
+  local batteryString
+
+  if chargestate == "Charging" then
+    batteryString = " |+" .. string.gsub(percentage, "%s+", "") .. "| "
+  else
+    batteryString = " |" .. string.gsub(percentage, "%s+", "") .. "| "
+  end
+
+	cr:set_font_size(11)
+	cr:move_to(0, height*0.7)
+	cr:show_text(batteryString)
+end
+
+batterytimer = timer { timeout = 5 }
+batterytimer:connect_signal("timeout", function()
+	batterywidget:emit_signal("widget::updated")
+end)
+
+batterytimer:start()
+
 --Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
@@ -267,6 +324,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(batterywidget)
     right_layout:add(layoutWidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
