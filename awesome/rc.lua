@@ -43,8 +43,10 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/glesaaen/.config/awesome/themes/redhalo/theme.lua")
-
---Cycling wallpapers
+beautiful.wallpaper = "/home/glesaaen/.config/awesome/wallpapers/gw2-1.jpg"
+for s = 1, screen.count() do		
+	gears.wallpaper.centered(beautiful.wallpaper, s, "#000000")		
+end
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt -e tmux"
@@ -430,7 +432,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
+      properties = { border_width = 0,
                      border_color = beautiful.border_normal,
                      size_hints_honor = false,
                      focus = awful.client.focus.filter,
@@ -541,5 +543,12 @@ function run_once(prg,arg_string,pname,screen)
 		awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. " ".. arg_string .."' || (" .. prg .. " " .. arg_string .. ")",screen)
 	end
 end
+
+-- run_once("xautolock", "-time 15 -locker slock")
+-- run_once("unclutter"," -noevents");
+-- run_once("dropbox","start");
+run_once("setxkbmap", 'no -option "ctrl:nocaps"')
+run_once("compton")
+run_once("conky")
 
 -- }}}
