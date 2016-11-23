@@ -602,9 +602,9 @@ function run_once(prg,arg_string,pname,screen)
 	end
 end
 
--- run_once("xautolock", "-time 15 -locker slock")
 -- run_once("unclutter"," -noevents");
 -- run_once("dropbox","start");
+run_once("xautolock", "-time 15 -locker slock")
 run_once("setxkbmap", 'no -option "ctrl:nocaps"')
 run_once("compton")
 run_once("conky")
