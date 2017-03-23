@@ -1,3 +1,3 @@
 #! /bin/bash
 
-cd terminal-programs && make
+cd programs/terminal-programs && make
