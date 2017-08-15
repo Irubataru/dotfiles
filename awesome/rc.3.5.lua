@@ -243,6 +243,19 @@ printscreen = function()
 	os.execute( "import -window root "..testfile )
 end
 
+--Touchpad toggle function
+toggle_touchpad = function()
+  local handle = io.popen("synclient -l | grep TouchpadOff | cut -d '=' -f 2 | tr -d '[:space:]'")
+  local result = handle:read("*a")
+  handle:close()
+
+  if (result == "0") then
+    os.execute("synclient TouchpadOff=1")
+  else
+    os.execute("synclient TouchpadOff=0")
+  end
+end
+
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
@@ -349,30 +362,33 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+  awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
+  awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
+  awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+  awful.key({ modkey,           }, "j",
+    function ()
+      awful.client.focus.byidx( 1)
+      if client.focus then client.focus:raise() end
+    end),
+  awful.key({ modkey,           }, "k",
+    function ()
+      awful.client.focus.byidx(-1)
+      if client.focus then client.focus:raise() end
+    end),
+  awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
-    -- Keyboard layout change
+  -- Keyboard layout change
 	awful.key({ "Mod1" },"Shift_L", function () kbdcfg.switch() end),
 	
-    -- Print screen
-    	awful.key({ }, "Print", function () printscreen() end),
+  -- Print screen
+  awful.key({ }, "Print", function () printscreen() end),
 
-    -- Lock screen
+  -- Lock screen
 	awful.key({ "Mod1", "Control" }, "l", function () awful.util.spawn("slock") end),
+
+  -- Toggle touchpad
+  awful.key({ modkey, "Control"   }, "t", toggle_touchpad),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
