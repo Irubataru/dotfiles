@@ -1,0 +1,42 @@
+! Nova colour scheme
+! Scheme: Trevor D. Miller (https://trevordmiller.com/projects/nova)
+! ------------------------------------------------------------------
+
+#define base00 #3C4C55
+#define base01 #DF8C8C
+#define base02 #A8CE93
+#define base03 #DADA93
+#define base04 #83AFE5
+#define base05 #9A93E1
+#define base06 #7FC1CA
+#define base07 #C5D4DD
+#define base08 #899BA6
+#define base09 #F2C38F
+#define base10 #A8CE93
+#define base11 #DADA93
+#define base12 #83AFE5
+#define base13 #D18EC2
+#define base14 #7FC1CA
+#define base15 #E6EEF3
+
+URxvt*foreground:   base07
+URxvt*background:   base00
+URxvt*cursorColor:  base06
+
+URxvt*color0:       base00
+URxvt*color1:       base01
+URxvt*color2:       base02
+URxvt*color3:       base03
+URxvt*color4:       base04
+URxvt*color5:       base05
+URxvt*color6:       base06
+URxvt*color7:       base07
+
+URxvt*color8:       base08
+URxvt*color9:       base09
+URxvt*color10:      base10
+URxvt*color11:      base11
+URxvt*color12:      base12
+URxvt*color13:      base13
+URxvt*color14:      base14
+URxvt*color15:      base15
