@@ -93,8 +93,8 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 applications = {
-	--{"Chrome", "google-chrome-stable"},
 	{"Google Chrome", "google-chrome-stable"},
+  {"Spacemacs", "emacs"},
   {"Google Music", "google-play-music-desktop-player"},
   {"Spotify", "spotify"},
 	{"Mathematica", "mathematica"},
