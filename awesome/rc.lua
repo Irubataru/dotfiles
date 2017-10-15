@@ -47,7 +47,7 @@ beautiful.init("/home/glesaaen/.config/awesome/themes/redhalo/theme.lua")
 --Cycling wallpapers
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvt -e tmux"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 file_browser = "pcmanfm"
