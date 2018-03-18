@@ -1,3 +1,7 @@
+-- If LuaRocks is installed, make sure that packages installed through it are
+-- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+pcall(require, "luarocks.loader")
+
 -- @DOC_REQUIRE_SECTION@
 -- Standard awesome library
 local gears = require("gears")
@@ -5,14 +9,16 @@ local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
+local lain = require("lain")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
--- Enable VIM help for hotkeys widget when client with matching name is opened:
-require("awful.hotkeys_popup.keys.vim")
+-- Enable hotkeys help widget for VIM and other apps
+-- when client with a matching name is opened:
+require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
 -- @DOC_ERROR_HANDLING@
@@ -42,14 +48,20 @@ end
 
 -- {{{ Variable definitions
 -- @DOC_LOAD_THEME@
+
+config_dir = awful.util.getdir("config")
+wallpaper_dir = config_dir .. "wallpapers/"
+
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.init( config_dir .. "themes/redhalo/theme.lua")
+beautiful.wallpaper = wallpaper_dir .. "wild_night.jpg"
 
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+terminal = "urxvt -e tmux"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
+file_browser = "pcmanfm"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -98,6 +110,25 @@ end
 -- {{{ Menu
 -- @DOC_MENU@
 -- Create a launcher widget and a main menu
+applications = {
+	{"Google Chrome", "google-chrome-stable"},
+  {"Spacemacs", "emacs"},
+  {"Google Music", "gpmdp"},
+  {"Spotify", "spotify"},
+	{"Mathematica", "mathematica"},
+	{"Skype", "skype"}
+}
+
+directories = {
+	{"Home", file_browser .. " " .. ""},
+	{"Documents", file_browser .. " " .. "Documents"},
+	{"Downloads", file_browser .. " " .. "Downloads"},
+	{"Dropbox", file_browser .. " " .. "Dropbox"},
+	{"Frankfurt", file_browser .. " " .. "Dropbox/Frankfurt"},
+	{"NTNU", file_browser .. " " .. "Dropbox/NTNU"},
+	{"Litteratur", file_browser .. " " .. "Dropbox/NTNU/Master/Litteratur"}
+}
+
 myawesomemenu = {
    { "hotkeys", function() return false, hotkeys_popup.show_help end},
    { "manual", terminal .. " -e man awesome" },
@@ -106,8 +137,18 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end}
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+systemcmd = {
+	{"Reboot", "systemctl reboot"},
+	{"Shutdown", "systemctl poweroff"},
+  {"Suspend", "systemctl suspend"},
+  {"Hibernate", "systemctl hibernate"}
+}
+
+mymainmenu = awful.menu({ items = { { "programs", applications },
+                                    { "dirs", directories },
+                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "open terminal", terminal },
+                                    { "system", systemcmd }
                                   }
                         })
 
@@ -118,8 +159,76 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+-- {{{ Widgets
+
+-- {{{ Battery widget
+
+local batterywidget = lain.widget.bat({
+  battery = "BAT0",
+  settings = function()
+    local charge_plus = ""
+    if bat_now.status == "Charging" then
+      charge_plus = "+"
+    end
+    widget:set_text(" " .. charge_plus .. bat_now.perc .. "%" .. " " )
+  end
+})
+
+-- }}}
+
+-- {{{ Keyboard layout widget
+
+kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.options = '-option "ctrl:nocaps"'
+kbdcfg.layout = {"no","jp"}
+kbdcfg.layoutName = {"no","jp2"}
+kbdcfg.current = 1
+
+local layoutwidget = wibox.widget.textbox(" {no} ")
+
+kbdcfg.switch = function()
+	kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+	os.execute( kbdcfg.cmd .. " " .. kbdcfg.layoutName[kbdcfg.current] .. " " .. kbdcfg.options )
+  layoutwidget.text = " {" .. kbdcfg.layout[kbdcfg.current] .. "} "
+end
+
+-- }}}
+
+-- {{{ Printscreen function
+
+screenshotloc = "/home/glesaaen/Pictures/Screenshots/" 
+
+printscreen = function()
+	local date = os.date("%d-%m-%y_%H.%M")
+	local testfile = screenshotloc..date..".png"
+	prtscr_c = 1
+	while (awful.util.file_readable(testfile) and (prtscr_c < 100)) do
+		testfile = screenshotloc..date.."_"..prtscr_c..".png"
+		prtscr_c = prtscr_c + 1
+	end
+	os.execute( "import -window root "..testfile )
+end
+
+-- }}}
+
+-- {{{ Touchpad toggle
+
+toggle_touchpad = function()
+  local handle = io.popen("synclient -l | grep TouchpadOff | cut -d '=' -f 2 | tr -d '[:space:]'")
+  local result = handle:read("*a")
+  handle:close()
+
+  if (result == "0") then
+    os.execute("synclient TouchpadOff=1")
+  else
+    os.execute("synclient TouchpadOff=0")
+  end
+end
+
+-- }}}
+
+-- }}}
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -192,11 +301,23 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag(
+      { "main", "pdf", "ssh" ,"chrome", "math",
+        "music", "lookup", "tests", "GUI" },
+      s,
+      { awful.layout.layouts[4],
+        awful.layout.layouts[10],
+        awful.layout.layouts[10],
+        awful.layout.layouts[1],
+        awful.layout.layouts[1],
+        awful.layout.layouts[10],
+        awful.layout.layouts[4],
+        awful.layout.layouts[4],
+        awful.layout.layouts[1]})
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
+    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox:buttons(gears.table.join(
@@ -227,8 +348,9 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
+            batterywidget.widget,
+            layoutwidget,
             mytextclock,
             s.mylayoutbox,
         },
@@ -344,7 +466,12 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+    -- Widget control
+    awful.key({ "Mod1" },"Shift_L", function () kbdcfg.switch() end),
+    awful.key({ }, "Print", function () printscreen() end),
+    awful.key({ "Mod1", "Control" }, "l", function () awful.util.spawn("slock") end),
+    awful.key({ modkey, "Control"   }, "t", toggle_touchpad)
 )
 
 -- @DOC_CLIENT_KEYBINDINGS@
@@ -460,16 +587,16 @@ awful.rules.rules = {
     -- @DOC_GLOBAL_RULE@
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
+      properties = { border_width = 0,
                      border_color = beautiful.border_normal,
+                     size_hints_honor = false,
                      focus = awful.client.focus.filter,
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
-    },
+     } },
 
     -- @DOC_FLOATING_RULE@
     -- Floating clients.
@@ -477,15 +604,16 @@ awful.rules.rules = {
         instance = {
           "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
+          "pinentry",
         },
         class = {
           "Arandr",
+          "Blueman-manager",
           "Gpick",
           "Kruler",
           "MessageWin",  -- kalarm.
           "Sxiv",
           "Wpa_gui",
-          "pinentry",
           "veromix",
           "xtightvncviewer"},
 
@@ -494,6 +622,7 @@ awful.rules.rules = {
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
+          "ConfigManager",  -- Thunderbird's about:config.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
@@ -501,7 +630,7 @@ awful.rules.rules = {
     -- @DOC_DIALOG_RULE@
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
@@ -518,8 +647,8 @@ client.connect_signal("manage", function (c)
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
-    if awesome.startup and
-      not c.size_hints.user_position
+    if awesome.startup
+      and not c.size_hints.user_position
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
@@ -580,4 +709,30 @@ end)
 -- @DOC_BORDER@
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+
+-- {{{ Startup programs
+
+function run_once(prg,arg_string,pname,screen)
+	if not prg then
+		do return nil end
+	end
+
+	if not pname then
+		pname = prg
+	end
+
+	if not arg_string then 
+		awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. "' || (" .. prg .. ")",screen)
+	else
+		awful.util.spawn_with_shell("pgrep -f -u $USER -x '" .. pname .. " ".. arg_string .."' || (" .. prg .. " " .. arg_string .. ")",screen)
+	end
+end
+
+run_once("unclutter");
+run_once("xautolock", "-time 45 -locker slock")
+run_once("setxkbmap", 'no -option "ctrl:nocaps"')
+run_once("xflux", "-l 51.621440 -g -3.943646 -k 2000")
+run_once("compton")
+
 -- }}}

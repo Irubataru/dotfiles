@@ -43,7 +43,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/glesaaen/.config/awesome/themes/redhalo/theme.lua")
-beautiful.wallpaper = "/home/glesaaen/.config/awesome/wallpapers/gw2-1.jpg"
+beautiful.wallpaper = "/home/glesaaen/.config/awesome/wallpapers/wild_night.jpg"
 for s = 1, screen.count() do		
 	gears.wallpaper.centered(beautiful.wallpaper, s, "#000000")		
 end
@@ -620,9 +620,10 @@ function run_once(prg,arg_string,pname,screen)
 end
 
 run_once("unclutter");
-run_once("xautolock", "-time 15 -locker slock")
+run_once("xautolock", "-time 45 -locker slock")
 run_once("setxkbmap", 'no -option "ctrl:nocaps"')
+run_once("xflux", "-l 51.621440 -g -3.943646 -k 2000")
 run_once("compton")
-run_once("conky")
+--run_once("conky")
 
 -- }}}
