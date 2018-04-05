@@ -111,22 +111,19 @@ end
 -- @DOC_MENU@
 -- Create a launcher widget and a main menu
 applications = {
-	{"Google Chrome", "google-chrome-stable"},
-  {"Spacemacs", "emacs"},
-  {"Google Music", "gpmdp"},
-  {"Spotify", "spotify"},
-	{"Mathematica", "mathematica"},
-	{"Skype", "skype"}
+	{"browser", "qutebrowser"},
+  {"spacemacs", "emacs"},
+  {"google music", "gpmdp"},
+  {"spotify", "spotify"},
+	{"mathematica", "mathematica"},
+	{"skype", "skype"}
 }
 
 directories = {
-	{"Home", file_browser .. " " .. ""},
-	{"Documents", file_browser .. " " .. "Documents"},
-	{"Downloads", file_browser .. " " .. "Downloads"},
-	{"Dropbox", file_browser .. " " .. "Dropbox"},
-	{"Frankfurt", file_browser .. " " .. "Dropbox/Frankfurt"},
-	{"NTNU", file_browser .. " " .. "Dropbox/NTNU"},
-	{"Litteratur", file_browser .. " " .. "Dropbox/NTNU/Master/Litteratur"}
+	{"home", file_browser .. " " .. ""},
+	{"documents", file_browser .. " " .. "Documents"},
+	{"downloads", file_browser .. " " .. "Downloads"},
+	{"dropbox", file_browser .. " " .. "Dropbox"}
 }
 
 myawesomemenu = {
@@ -138,10 +135,10 @@ myawesomemenu = {
 }
 
 systemcmd = {
-	{"Reboot", "systemctl reboot"},
-	{"Shutdown", "systemctl poweroff"},
-  {"Suspend", "systemctl suspend"},
-  {"Hibernate", "systemctl hibernate"}
+	{"reboot", "systemctl reboot"},
+	{"shutdown", "systemctl poweroff"},
+  {"suspend", "systemctl suspend"},
+  {"hibernate", "systemctl hibernate"}
 }
 
 mymainmenu = awful.menu({ items = { { "programs", applications },
@@ -302,7 +299,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag(
-      { "main", "pdf", "ssh" ,"chrome", "math",
+      { "main", "pdf", "ssh" ,"browser", "math",
         "music", "lookup", "tests", "GUI" },
       s,
       { awful.layout.layouts[4],
