@@ -84,7 +84,7 @@ local layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-	names = { "main", "pdf", "ssh" ,"chrome", "math", "music", "lookup", "tests", "GUI" },
+	names = { "main", "pdf", "ssh" ,"www", "math", "music", "lookup", "tests", "GUI" },
 	layout = { layouts[4], layouts[10], layouts[10], layouts[1], layouts[1], layouts[1],
 		   layouts[4], layouts[4], layouts[1]}
 }
@@ -97,23 +97,21 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 applications = {
-	{"Google Chrome", "google-chrome"},
-  {"Spacemacs", "emacs"},
-  {"Google Music", "google-play-music-desktop-player"},
-  {"Spotify", "spotify"},
-	{"Mathematica", "mathematica"},
-	{"Skype", "skype"},
-  {"GitKraken", "gitkraken"}
+	{"qutebrowser", "qutebrowser"},
+  {"spacemacs", "emacs"},
+  {"google Music", "google-play-music-desktop-player"},
+  {"spotify", "spotify"},
+	{"mathematica", "mathematica"},
+	{"skype", "skype"},
+  {"gitKraken", "gitkraken"}
 }
 
 directories = {
-	{"Home", file_browser .. " " .. ""},
-	{"Documents", file_browser .. " " .. "Documents"},
-	{"Downloads", file_browser .. " " .. "Downloads"},
-	{"Dropbox", file_browser .. " " .. "Dropbox"},
-	{"Frankfurt", file_browser .. " " .. "Dropbox/Frankfurt"},
-	{"NTNU", file_browser .. " " .. "Dropbox/NTNU"},
-	{"Litteratur", file_browser .. " " .. "Dropbox/NTNU/Master/Litteratur"}
+	{"home", file_browser .. " " .. ""},
+	{"downloads", file_browser .. " " .. "Downloads"},
+	{"dropbox", file_browser .. " " .. "Dropbox"},
+  {"papers", file_browser .. " " .. "Documents/Papers"},
+  {"books", file_browser .. " " .. "Documents/Books"}
 }
 
 
@@ -125,19 +123,19 @@ myawesomemenu = {
 }
 
 systemcmd = {
-	{"Reboot", "systemctl reboot"},
-	{"Shutdown", "systemctl poweroff"},
-  {"Suspend", "systemctl suspend"},
-  {"Hibernate", "systemctl hibernate"}
+	{"reboot", "systemctl reboot"},
+	{"shutdown", "systemctl poweroff"},
+  {"suspend", "systemctl suspend"},
+  {"hibernate", "systemctl hibernate"}
 }
 
-mymainmenu = awful.menu({ items = { 	{ "Programs", applications},
-					{ "Dirs", directories},
+mymainmenu = awful.menu({ items = {
+          { "programs", applications},
+					{ "dirs", directories},
 					{ "awesome", myawesomemenu, beautiful.awesome_icon },
 					{ "open terminal", terminal },
-					{ "System", systemcmd}
-                                  }
-                        })
+					{ "system", systemcmd} } }
+)
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })

@@ -2,37 +2,35 @@
 #
 
 [hub]
-        protocol = https
+  protocol = https
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
-[credential]
-        helper = GIT_CREDENTIAL_HELPER
-[alias]
-        co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
-        count   = !git shortlog -sn
+	name = Jonas Glesaaen
+  email = jonas@glesaaen.com
 [color]
-        diff = auto
-        status = auto
-        branch = auto
-        ui = true
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[alias]
+  lg1 = log --branches --remotes --tags --graph --oneline --decorate
+  exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
+  skip = update-index --skip-worktree
+  noskip = update-index --no-skip-worktree
+  ls-skip = !git ls-files -v | grep ^S | awk '{print $2}'
 [core]
-        excludesfile = ~/.gitignore
-        editor = vim
+  excludesfile = ~/.gitignore
+  editor = nvim
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 [mergetool]
-        keepBackup = false
+  keepBackup = false
 [difftool]
-        prompt = false
+  prompt = false
 [help]
-        autocorrect = 1
+  autocorrect = 1
 [push]
-        # See `git help config` (search for push.default)
-        # for more information on different options of the below setting.
-        #
-        # Setting to git 2.0 default to suppress warning message
-        default = simple
+  default = simple
+[credential]
+	helper = cache --timeout=14400
+[gpg]
+	program = gpg2

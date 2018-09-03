@@ -7,3 +7,4 @@ export MPI_HOME=/usr
 export MPI_INCLUDE=/usr/lib/openmpi/include
 export XDG_CONFIG_HOME=$HOME/.config
 export LD_LIBRARY_PATH=/opt/intel/mkl/lib/intel64
+export MANPATH="$HOME/.usr/clang/share/man:$MANPATH"

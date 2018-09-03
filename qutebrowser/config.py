@@ -46,7 +46,7 @@ c.url.searchengines = {
 c.url.start_pages = "https://google.com"
 c.url.default_page = "about:blank"
 
-c.zoom.default = "125%"
+c.zoom.default = "110%"
 
 config.bind('<Ctrl-F2>',
             'spawn --userscript ~/.config/qutebrowser/password_fill')

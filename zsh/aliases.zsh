@@ -14,5 +14,7 @@ alias vim='nvim'
 alias octave='/usr/bin/octave-cli'
 alias octave-gui='/usr/bin/octave'
 
-alias python='/usr/bin/python3'
-alias ipython='/usr/bin/ipython3'
+alias python='python3'
+alias ipython='ipython3'
+
+alias pip='pip3'
