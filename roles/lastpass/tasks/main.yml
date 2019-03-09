@@ -1,0 +1,6 @@
+- name: Download lastpass zsh completion
+  get_url:
+    url: "https://raw.githubusercontent.com/lastpass/lastpass-cli/master/contrib/lpass_zsh_completion"
+    dest: "{{ role_path }}/_lpass"
+
+# TODO Install lpass cli

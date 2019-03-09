@@ -1,0 +1,15 @@
+- name: Create awesomeWM config directory
+  file: 
+    path: "{{ awesome_install_path }}"
+    state: directory
+
+- name: Link awesomeWM config
+  file:
+    src: "{{ role_path }}/rc.4.2.arch-laptop.lua"
+    dest: "{{ awesome_install_path }}/rc.lua"
+    state: link
+
+- name: Cloning awesomeWM themes
+  git:
+    repo: "https://github.com/mikar/awesome-themes.git"
+    dest: "{{ awesome_install_path }}/themes"

@@ -1,0 +1,10 @@
+- name: Create conky config directory
+  file: 
+    path: "{{ conky_install_path }}"
+    state: directory
+
+- name: Link conky config
+  file:
+    src: "{{ role_path }}/conky.conf"
+    dest: "{{ conky_install_path }}/conky.conf"
+    state: link

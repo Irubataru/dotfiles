@@ -1,0 +1,14 @@
+# vi: set ft=yaml :
+
+all:
+  children:
+    arch_laptop:
+      hosts:
+        archlinux.laptop:
+          ansible_connection: local
+    swansea_desktop:
+      hosts:
+        swansea.desktop:
+          ansible_connection: local
+    #servers:
+

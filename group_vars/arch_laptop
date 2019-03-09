@@ -1,0 +1,10 @@
+# vi: set ft=yaml :
+
+system: arch-laptop
+
+# git
+has_git_signing_key: true
+git_signing_key: CF00E9AF2831BD66
+
+# latex
+use_xelatex: true

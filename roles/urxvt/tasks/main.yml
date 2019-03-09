@@ -1,0 +1,9 @@
+- name: Initialise Xresources 
+  template: 
+    src: "Xresources.j2"
+    dest: "~/.Xresources"
+  register: xresource_init
+
+- name: Reload Xresources if it has changed
+  shell: xrdb ~/.Xresources
+  when: xresource_init.changed

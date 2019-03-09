@@ -1,9 +1,0 @@
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
-xset m 2 10
-setxkbmap no -option grp:caps_switch
-
-xset +fp /usr/share/fonts/local
-xset fp rehash
-
-unclutter &
-exec awesome

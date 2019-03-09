@@ -1,0 +1,10 @@
+- name: Link default gitignore
+  file:
+    src: "{{ role_path }}/gitignore"
+    dest: "~/.gitignore"
+    state: link
+
+- name: Initialise gitconfig
+  template: 
+    src: "gitconfig.j2"
+    dest: "~/.gitconfig"

@@ -1,0 +1,5 @@
+- name: Link clang-format
+  file:
+    src: "{{ role_path }}/clang-format"
+    dest: "~/.clang-format"
+    state: link
