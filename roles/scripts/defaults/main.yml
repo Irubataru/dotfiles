@@ -1,1 +1,1 @@
-scipts_install_path: ~/.usr
+scipts_install_path: "{{ home_directory }}/.usr"

@@ -1,1 +1,1 @@
-awesome_install_path: ~/.config/awesome
+awesome_install_path: "{{ home_directory }}/.config/awesome"

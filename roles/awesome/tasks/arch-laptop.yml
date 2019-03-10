@@ -1,3 +1,8 @@
+- name: Install awesomeWM
+  pacman:
+    name: awesome
+    state: present
+
 - name: Create awesomeWM config directory
   file: 
     path: "{{ awesome_install_path }}"

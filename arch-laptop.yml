@@ -6,19 +6,21 @@
       - zsh
       - common
       - urxvt
-      - X
       - tmux
+      - X
+      - vim
+      - spacemacs
       - awesome
       - clang
       - conky
       - git
-      - go
       - lastpass
       - latex
       - qutebrowser
       - ruby
       - scripts
-      - spacemacs
+      - go
+      - fzf
   tasks:
     - include_role:
         name: "{{ item }}"

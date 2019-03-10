@@ -1,0 +1,2 @@
+- import_tasks: arch-laptop.yml
+  when: system == "arch-laptop"

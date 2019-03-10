@@ -1,0 +1,4 @@
+- name: Install fzf
+  pacman:
+    name: fzf
+    state: present

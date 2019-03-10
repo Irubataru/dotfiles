@@ -1,0 +1,6 @@
+- name: Install git programs
+  pacman:
+    name:
+      - git
+      - tig
+    state: present

@@ -1,0 +1,16 @@
+- name: Install neovim
+  pacman:
+    name: neovim
+    state: present
+
+- name: Install neovim python provider
+  pip:
+    name: pynvim
+    extra_args: --user
+    state: latest
+
+- name: Install neovim ruby provider
+  gem:
+    name: neovim
+    user_install: true
+    state: latest
