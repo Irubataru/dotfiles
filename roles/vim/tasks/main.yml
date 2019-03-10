@@ -1,0 +1,6 @@
+- import_tasks: arch-laptop.yml
+  when: system == "arch-laptop"
+
+- import_tasks: local.yml
+  when: (system == "arch-laptop") or
+        (system == "swansea-desktop")

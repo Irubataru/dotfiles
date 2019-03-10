@@ -1,0 +1,27 @@
+---
+
+- hosts: arch_laptop
+  vars:
+    roles:
+      - zsh
+      - common
+      - urxvt
+      - tmux
+      - X
+      - vim
+      - spacemacs
+      - awesome
+      - clang
+      - conky
+      - git
+      - lastpass
+      - latex
+      - qutebrowser
+      - ruby
+      - scripts
+      - go
+      - fzf
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ roles }}"

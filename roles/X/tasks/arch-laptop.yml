@@ -1,0 +1,5 @@
+- name: Link xinitrc
+  file:
+    src: "{{ role_path }}/xinitrc"
+    dest: ~/.xinitrc
+    state: link

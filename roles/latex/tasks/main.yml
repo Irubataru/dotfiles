@@ -1,0 +1,11 @@
+- include_tasks: xelatex.yml
+  when: use_xelatex
+
+- name: Creating latex beamer theme directory
+  file:
+    path: "{{ lookup('env', 'TEXMFHOME') }}/tex/latex/beamer"
+
+- name: Cloning latex beamer themes
+  git:
+    repo: "https://github.com/Irubataru/terminal-scripts.git"
+    dest: "{{ lookup('env', 'TEXMFHOME') }}/tex/latex/beamer/theme"

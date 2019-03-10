@@ -1,0 +1,19 @@
+- import_tasks: arch-laptop.yml
+  when: system == "arch-laptop"
+
+- name: Link default gitignore
+  file:
+    src: "{{ role_path }}/gitignore"
+    dest: "~/.gitignore"
+    state: link
+
+- name: Initialise gitconfig
+  template: 
+    src: "gitconfig.j2"
+    dest: "~/.gitconfig"
+
+- name: Link tig config file
+  file:
+    src: "{{ role_path }}/tigrc"
+    dest: "~/.tigrc"
+    state: link

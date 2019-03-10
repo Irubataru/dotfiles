@@ -1,0 +1,5 @@
+- name: Link tmux config file
+  file:
+    src: "{{ role_path }}/tmux.conf"
+    dest: "~/.tmux.conf"
+    state: link

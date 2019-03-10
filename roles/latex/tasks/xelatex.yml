@@ -1,0 +1,5 @@
+- name: Linking latexmk config
+  file:
+    src: "{{ role_path }}/latexmkrc"
+    dest: "~/.latexmkrc"
+    state: link

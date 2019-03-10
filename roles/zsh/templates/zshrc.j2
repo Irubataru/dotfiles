@@ -1,0 +1,68 @@
+# Path to the dotfiles
+export DOTFILES={{ dotfiles_directory }}
+
+typeset -U config_files
+config_files=($DOTFILES/**/*.zsh)
+
+roles=(
+{% for item in roles %}
+  "{{ item }}"
+{% endfor %}
+)
+
+# all of our zsh files
+typeset -U config_files
+config_files=()
+
+# loop through roles and collect zsh config files
+for role in ${roles}; do
+  config_files+=(${DOTFILES}/roles/${role}/*.zsh(N))
+done
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}; do
+  source $file
+done
+
+{% if oh_my_zsh.use %}
+# Configuring oh-my-zsh
+ZSH={{ oh_my_zsh.directory }}
+
+ZSH_THEME="{{ oh_my_zsh.theme }}"
+DEFAULT_USER="{{ user_name }}"
+
+#Set up oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+plugins=(dircycle git vi-mode)
+{% endif %}
+
+# load everything but the path and completion files
+for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/final.zsh}; do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit colors
+compinit
+colors
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}; do
+  source $file
+done
+
+for file in ${(M)config_files:#*/final.zsh}; do
+  source $file
+done
+
+unset config_files
+
+# TODO Remember fzf
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -a ~/.localrc ]]; then
+  source ~/.localrc
+fi

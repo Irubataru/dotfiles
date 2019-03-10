@@ -1,0 +1,35 @@
+[hub]
+        protocol = https
+[user]
+        name = {{ full_name }}
+        email = {{ git_email }}
+{% if has_git_signing_key %}
+        signingkey = {{ git_signing_key }}
+{% endif %}
+[credential]
+        helper = GIT_CREDENTIAL_HELPER
+[alias]
+        exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+        editor = vim
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+
+[help]
+        autocorrect = 1
+[push]
+        default = simple
+{% if has_git_signing_key %}
+[commit]
+        gpgsign = true
+{% endif %}

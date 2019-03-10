@@ -1,0 +1,12 @@
+# vi: set ft=yaml :
+
+# user
+full_name: Jonas Rylund Glesaaen
+user_name: glesaaen
+
+home_directory: "{{ '~' | expanduser }}"
+dotfiles_directory: "{{ home_directory }}/.dotfiles"
+
+# git
+git_user: irubataru
+git_email: jonas@glesaaen.com

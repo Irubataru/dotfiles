@@ -1,0 +1,30 @@
+- name: Create qutebrowser config directory
+  file:
+    path: "{{ qutebrowser_config_path }}"
+    state: directory
+
+- name: Link qutebrowser config files
+  file:
+    src: "{{ role_path }}/{{ link }}"
+    dest: "{{ qutebrowser_config_path }}/{{ link }}"
+    state: link
+  loop_control:
+    loop_var: link
+  loop:
+    - config.py
+    - password_fill_rc
+    - quickmarks
+
+- name: Check if password_fill exists
+  stat:
+    path: "{{ qutebrowser_files_path }}/userscripts/password_fill"
+  register: password_fill_stat
+
+- name: Copy password_fill userscript
+  get_url:
+    url: "https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/misc/userscripts/password_fill"
+    dest: "{{ qutebrowser_config_path }}/password_fill"
+  when: not password_fill_stat.stat.exists
+
+# TODO: Install spell checker
+# TODO: Install dependencies (e.g. zenity)

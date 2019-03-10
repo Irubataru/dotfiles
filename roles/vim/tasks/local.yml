@@ -1,0 +1,5 @@
+- name: Clone vim dotfiles
+  git:
+    repo: "git@github.com:Irubataru/dotfiles.git"
+    dest: "{{ home_directory }}/.vim"
+  ignore_errors: true
