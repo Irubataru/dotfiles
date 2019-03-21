@@ -21,6 +21,7 @@
       - scripts
       - go
       - fzf
+      - npm
   tasks:
     - include_role:
         name: "{{ item }}"
