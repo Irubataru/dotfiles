@@ -1,0 +1,5 @@
+- import_tasks: arch-laptop.yml
+  when: system == "arch-laptop"
+
+- name: Import keys
+  shell: "gpg --import {{ role_path }}/pubkey"

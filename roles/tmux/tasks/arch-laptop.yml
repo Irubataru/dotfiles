@@ -1,5 +1,5 @@
-- name: Install fzf
+- name: Install tmux
   pacman:
-    name: fzf
+    name: tmux
     state: present
   become: true

@@ -4,6 +4,7 @@
 - name: Creating latex beamer theme directory
   file:
     path: "{{ lookup('env', 'TEXMFHOME') }}/tex/latex/beamer"
+    state: directory
 
 - name: Cloning latex beamer themes
   git:

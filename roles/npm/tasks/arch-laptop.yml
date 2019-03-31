@@ -2,6 +2,7 @@
   pacman:
     name: npm
     state: present
+  become: true
 
 - name: Install terminalizer
   npm:

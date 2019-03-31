@@ -1,0 +1,11 @@
+- name: Installing basic dependencies
+  pacman:
+    name:
+      - clang
+      - python
+      - python-pip
+      - python2
+      - python2-pip
+      - ruby
+    state: present
+  become: true

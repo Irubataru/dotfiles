@@ -54,7 +54,7 @@ wallpaper_dir = config_dir .. "wallpapers/"
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init( config_dir .. "themes/redhalo/theme.lua")
-beautiful.wallpaper = wallpaper_dir .. "wild_night.jpg"
+--beautiful.wallpaper = wallpaper_dir .. "wild_night.jpg"
 
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.

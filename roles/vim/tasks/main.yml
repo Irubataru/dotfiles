@@ -4,3 +4,19 @@
 - import_tasks: local.yml
   when: (system == "arch-laptop") or
         (system == "swansea-desktop")
+
+- name: Crete vim temp storage directory
+  file: 
+    path: "{{ home_directory }}/.tmp"
+    state: directory
+
+- name: Create neovim config directory
+  file: 
+    path: "{{ home_directory }}/.config"
+    state: directory
+
+- name: Link neovim config
+  file:
+    src: "{{ home_directory }}/.vim"
+    dest: "{{ home_directory }}/.config/nvim"
+    state: link

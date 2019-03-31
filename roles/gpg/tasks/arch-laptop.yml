@@ -1,5 +1,5 @@
-- name: Install fzf
+- name: Install gpg
   pacman:
-    name: fzf
+    name: gnupg
     state: present
   become: true

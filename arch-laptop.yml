@@ -3,12 +3,14 @@
 - hosts: arch_laptop
   vars:
     roles:
+      - basic
       - zsh
       - common
       - urxvt
       - tmux
       - X
       - vim
+      - gpg
       - spacemacs
       - awesome
       - clang

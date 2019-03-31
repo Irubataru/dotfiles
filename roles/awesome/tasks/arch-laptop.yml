@@ -1,7 +1,11 @@
+
+# TODO Add lain (from AUR)
+
 - name: Install awesomeWM
   pacman:
     name: awesome
     state: present
+  become: true
 
 - name: Create awesomeWM config directory
   file: 

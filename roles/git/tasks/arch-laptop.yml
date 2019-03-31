@@ -4,3 +4,4 @@
       - git
       - tig
     state: present
+  become: true

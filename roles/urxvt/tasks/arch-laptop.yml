@@ -1,0 +1,7 @@
+- name: Install urxvt
+  pacman:
+    name:
+      - rxvt-unicode
+      - ttf-hack
+    state: present
+  become: true

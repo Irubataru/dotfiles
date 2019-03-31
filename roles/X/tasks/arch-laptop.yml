@@ -3,3 +3,13 @@
     src: "{{ role_path }}/xinitrc"
     dest: ~/.xinitrc
     state: link
+  ignore_errors: true
+
+- name: Copy personal keymap
+  copy:
+    src: "{{ role_path }}/jp2.keymap"
+    dest: /usr/share/X11/xkb/symbols/jp2
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  become: true

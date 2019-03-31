@@ -1,3 +1,6 @@
+- import_tasks: arch-laptop.yml
+  when: system == "arch-laptop"
+
 - name: Link tmux config file
   file:
     src: "{{ role_path }}/tmux.conf"
