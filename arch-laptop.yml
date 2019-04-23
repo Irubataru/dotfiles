@@ -24,6 +24,7 @@
       - go
       - fzf
       - npm
+      - vifm
   tasks:
     - include_role:
         name: "{{ item }}"

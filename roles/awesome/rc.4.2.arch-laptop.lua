@@ -54,14 +54,16 @@ wallpaper_dir = config_dir .. "wallpapers/"
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init( config_dir .. "themes/redhalo/theme.lua")
---beautiful.wallpaper = wallpaper_dir .. "wild_night.jpg"
+beautiful.wallpaper = wallpaper_dir .. "wild_night.jpg"
 
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt -e tmux"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
-file_browser = "pcmanfm"
+
+home_dir = os.getenv("HOME")
+file_browser = "urxvt -e vifm"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -120,10 +122,10 @@ applications = {
 }
 
 directories = {
-	{"home", file_browser .. " " .. ""},
-	{"documents", file_browser .. " " .. "Documents"},
-	{"downloads", file_browser .. " " .. "Downloads"},
-	{"dropbox", file_browser .. " " .. "Dropbox"}
+	{"home", file_browser .. " " .. home_dir},
+	{"documents", file_browser .. " " .. home_dir .. "/Documents"},
+	{"downloads", file_browser .. " " .. home_dir .. "/Downloads"},
+	{"dropbox", file_browser .. " " .. home_dir .. "/Dropbox"}
 }
 
 myawesomemenu = {
@@ -170,6 +172,10 @@ local batterywidget = lain.widget.bat({
     widget:set_text(" " .. charge_plus .. bat_now.perc .. "%" .. " " )
   end
 })
+
+local volumewidget = lain.widget.alsa {
+  channel = "Master"
+}
 
 -- }}}
 

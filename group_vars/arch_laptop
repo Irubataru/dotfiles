@@ -8,3 +8,9 @@ git_signing_key: CF00E9AF2831BD66
 
 # latex
 use_xelatex: true
+
+# ruby
+ruby_version: 2.6.0
+
+# urxvt
+font: "xft:Hack Nerd Font Mono:style=Regular:antialias=true:hinting=true:size=12"

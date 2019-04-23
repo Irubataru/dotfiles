@@ -1,0 +1,16 @@
+- name: Install vifm
+  pacman:
+    name: vifm
+    state: present
+  become: true
+
+- name: Create vifm config directory
+  file: 
+    path: "{{ vifm_config_path }}"
+    state: directory
+
+- name: Link vifm config
+  file:
+    src: "{{ role_path }}/vifmrc"
+    dest: "{{ vifm_config_path }}/vifmrc"
+    state: link

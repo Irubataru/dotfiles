@@ -1,2 +1,3 @@
 colour_scheme: seoul256
 dpi: 127
+font: "xft:Hack:style=Regular:antialias=true:hinting=true:size=12"

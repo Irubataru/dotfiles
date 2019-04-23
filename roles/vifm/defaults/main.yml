@@ -1,0 +1,1 @@
+vifm_config_path: "{{ home_directory }}/.config/vifm"
