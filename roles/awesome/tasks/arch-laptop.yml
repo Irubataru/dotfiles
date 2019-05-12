@@ -18,7 +18,7 @@
     dest: "{{ awesome_install_path }}/rc.lua"
     state: link
 
-- name: Cloning awesomeWM themes
+- name: Cloning seoul256 theme
   git:
-    repo: "https://github.com/mikar/awesome-themes.git"
-    dest: "{{ awesome_install_path }}/themes"
+    repo: "https://github.com/Irubataru/seoul256-awesomewm-theme.git"
+    dest: "{{ awesome_install_path }}/seoul256-awesomewm-theme"

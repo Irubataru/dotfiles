@@ -8,5 +8,5 @@
 
 - name: Cloning latex beamer themes
   git:
-    repo: "https://github.com/Irubataru/terminal-scripts.git"
+    repo: "https://github.com/Irubataru/beamer-themes.git"
     dest: "{{ lookup('env', 'TEXMFHOME') }}/tex/latex/beamer/theme"
