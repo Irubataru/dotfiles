@@ -1,0 +1,12 @@
+ - name: "Stat the dotfiles directory"
+   stat:
+     path: "{{ home_directory }}/.dotfiles"
+   register: dotfiles_stat
+
+ - name: "Change file permissions"
+   file:
+     dest: "{{ home_directory }}"
+     mode: "g-w,o-w"
+     recurse: true
+   when: dotfiles_stat.stat.mode == "0777"
+

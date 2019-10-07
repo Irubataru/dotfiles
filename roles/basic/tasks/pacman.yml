@@ -1,4 +1,4 @@
-- name: Installing basic dependencies
+- name: Installing basic dependencies (pacman)
   pacman:
     name:
       - clang

@@ -5,6 +5,9 @@ all:
     arch_laptop:
       hosts:
         archlinux.laptop:
+    windows_wsl:
+      hosts:
+        windows.wsl:
           ansible_connection: local
     swansea_desktop:
       hosts:

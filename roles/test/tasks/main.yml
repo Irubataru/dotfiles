@@ -1,4 +1,0 @@
-- name: Test template
-  template: 
-    src: "test.j2"
-    dest: "~/test.zsh"

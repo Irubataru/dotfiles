@@ -1,0 +1,5 @@
+- name: Installing clang-format (apt)
+  apt:
+    name: clang-format
+    state: present
+  become: true

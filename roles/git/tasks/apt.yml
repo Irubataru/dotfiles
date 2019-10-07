@@ -1,5 +1,5 @@
-- name: Install git programs
-  pacman:
+- name: Install git programs (apt)
+  apt:
     name:
       - git
       - tig

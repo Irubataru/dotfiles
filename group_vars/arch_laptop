@@ -1,6 +1,7 @@
 # vi: set ft=yaml :
 
 system: arch-laptop
+package_manager: pacman
 
 # git
 has_git_signing_key: true

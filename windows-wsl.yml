@@ -1,0 +1,19 @@
+---
+
+- hosts: windows_wsl
+  vars:
+    roles:
+      - basic
+      - common
+      - zsh
+      - tmux
+      - git
+      - clang
+      - fzf
+      - vim
+      - ruby
+      - windows_wsl
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ roles }}"

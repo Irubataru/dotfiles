@@ -1,5 +1,8 @@
-- import_tasks: arch-laptop.yml
+- import_tasks: pacman.yml
   when: system == "arch-laptop"
+
+- import_tasks: apt.yml
+  when: system == "windows-wsl"
 
 - name: Link tmux config file
   file:

@@ -1,9 +1,13 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+- import_tasks: apt.yml
+  when: package_manager == "apt"
 
 - import_tasks: local.yml
   when: (system == "arch-laptop") or
-        (system == "swansea-desktop")
+        (system == "swansea-desktop") or
+        (system == "windows-wsl")
 
 - name: Crete vim temp storage directory
   file: 

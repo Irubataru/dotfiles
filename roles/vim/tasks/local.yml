@@ -3,3 +3,15 @@
     repo: "git@github.com:Irubataru/dot-vim.git"
     dest: "{{ home_directory }}/.vim"
   ignore_errors: true
+
+- name: Install neovim python provider
+  pip:
+    name: pynvim
+    extra_args: --user
+    state: latest
+
+- name: Install neovim ruby provider
+  gem:
+    name: neovim
+    user_install: true
+    state: latest

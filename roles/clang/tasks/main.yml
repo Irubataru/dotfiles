@@ -1,3 +1,6 @@
+- import_tasks: apt.yml
+  when: package_manager == "apt"
+
 - name: Link clang-format
   file:
     src: "{{ role_path }}/clang-format"

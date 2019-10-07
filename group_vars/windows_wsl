@@ -1,0 +1,10 @@
+# vi: set ft=yaml :
+
+system: windows-wsl
+package_manager: apt
+
+# git
+has_git_signing_key: false
+
+# ruby
+ruby_version: 2.6.0

@@ -1,2 +1,5 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+- import_tasks: apt.yml
+  when: package_manager == "apt"

@@ -1,0 +1,12 @@
+- name: Installing basic dependencies (apt)
+  apt:
+    name:
+      - clang
+      - python3
+      - python3-pip
+      - python
+      - python-pip
+      - ruby
+      - ruby-dev
+    state: present
+  become: true
