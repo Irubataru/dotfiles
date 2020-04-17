@@ -16,7 +16,7 @@ c.spellcheck.languages = ["nb-NO", "en-GB"]
 
 c.url.searchengines = {
     "DEFAULT":
-    "https://google.com/search?q={}",
+    "https://duckduckgo.com/?q={}",
     "arch":
     "https://wiki.archlinux.org/index.php?title=Special%3ASearch&search={}",
     "aur":
@@ -43,7 +43,7 @@ c.url.searchengines = {
     "http://www.youtube.com/results?search_query={}"
 }
 
-c.url.start_pages = "https://google.com"
+c.url.start_pages = "https://start.duckduckgo.com/"
 c.url.default_page = "about:blank"
 
 c.zoom.default = "125%"
