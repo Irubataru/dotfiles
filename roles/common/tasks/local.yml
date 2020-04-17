@@ -1,6 +1,0 @@
-- name: Link environment variables
-  file:
-    src: "{{ role_path }}/files/environment.local.zsh"
-    dest: "{{ role_path }}/environment.zsh"
-    state: link
-

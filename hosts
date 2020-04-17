@@ -13,5 +13,9 @@ all:
       hosts:
         swansea.desktop:
           ansible_connection: local
+    ubuntu_vbox:
+      hosts:
+        ubuntu.virtualbox:
+          ansible_connection: local
     #servers:
 

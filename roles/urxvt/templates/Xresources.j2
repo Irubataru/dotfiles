@@ -11,11 +11,11 @@ URxvt.keysym.Control-Right:   \033[1;5C
 
 URxvt.tabbed.autohide: true
 
-Xft.dpi: {{ dpi }}
-URxvt*font: {{ font }}
+Xft.dpi: {{ urxvt_dpi }}
+URxvt*font: {{ urxvt_font }}
 !URxvt.letterSpace: -1
 
 URxvt.intensityStyles: false
 
 ! Colour Scheme
-#include "{{ role_path }}/colour_schemes/{{ colour_scheme }}"
+#include "{{ role_path }}/colour_schemes/{{ urxvt_colour_scheme }}"

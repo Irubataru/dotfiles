@@ -1,8 +1,36 @@
+- name: Install npm (pacman)
+  pacman:
+    name: npm
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install npm (apt)
+  apt:
+    name: npm
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- name: Install terminalizer
+  npm:
+    name: terminalizer
+    global: true
+    state: present
+
+- name: Creating terminalizer config directory
+  file:
+    path: "{{ home_directory }}/.terminalizer"
+    state: directory
+
+- name: Link terminalizer config
+  file:
+    src: "{{ role_path }}/terminalizer.config.yml"
+    dest: "{{ home_directory }}/.terminalizer/config.yml"
+    state: link
+
 - name: Link npm config
   file:
     src: "{{ role_path }}/npmrc"
     dest: "{{ home_directory }}/.npmrc"
     state: link
-
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"

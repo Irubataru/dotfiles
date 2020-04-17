@@ -3,15 +3,18 @@
 system: arch-laptop
 package_manager: pacman
 
+# awesome
+awesome_version: 4
+
 # git
-has_git_signing_key: true
+git_signing_key_has_key: true
 git_signing_key: CF00E9AF2831BD66
 
 # latex
-use_xelatex: true
+latex_use_xelatex: true
 
 # ruby
-ruby_version: 2.6.0
+ruby_version: "2.6.0"
 
-# urxvt
-font: "xft:Hack Nerd Font Mono:style=Regular:antialias=true:hinting=true:size=12"
+# rxvt
+rxvt_font: "xft:Hack Nerd Font Mono:style=Regular:antialias=true:hinting=true:size=12"

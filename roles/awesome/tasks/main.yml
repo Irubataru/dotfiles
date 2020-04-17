@@ -1,2 +1,16 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- name: Install awesomeWM (pacman)
+  pacman:
+    name: awesome
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install awesomeWM (apt)
+  apt:
+    name: awesome
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- import_tasks: awesome.4.config.yml
+  when: awesome_version == 4

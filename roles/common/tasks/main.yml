@@ -1,5 +1,5 @@
-- import_tasks: local.yml
-  when: system == "arch-laptop" or
-        system == "swansea-desktop" or
-        system == "windows-wsl"
-
+- name: Link environment variables
+  file:
+    src: "{{ role_path }}/files/environment.local.zsh"
+    dest: "{{ role_path }}/environment.zsh"
+    state: link

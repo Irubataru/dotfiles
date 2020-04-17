@@ -1,5 +1,0 @@
-- name: Install gpg
-  pacman:
-    name: gnupg
-    state: present
-  become: true

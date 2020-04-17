@@ -1,2 +1,6 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- name: Install fzf
+  pacman:
+    name: fzf
+    state: present
+  become: true
+  when: package_manager == "pacman"

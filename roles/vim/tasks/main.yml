@@ -5,11 +5,9 @@
   when: package_manager == "apt"
 
 - import_tasks: local.yml
-  when: (system == "arch-laptop") or
-        (system == "swansea-desktop") or
-        (system == "windows-wsl")
+  when: vim_use_server_vim == false
 
-- name: Crete vim temp storage directory
+- name: Create vim temp storage directory
   file: 
     path: "{{ home_directory }}/.tmp"
     state: directory
@@ -18,9 +16,11 @@
   file: 
     path: "{{ home_directory }}/.config"
     state: directory
+  when: vim_use_server_vim == false
 
 - name: Link neovim config
   file:
     src: "{{ home_directory }}/.vim"
     dest: "{{ home_directory }}/.config/nvim"
     state: link
+  when: vim_use_server_vim == false

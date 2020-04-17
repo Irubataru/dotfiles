@@ -1,5 +1,28 @@
-- import_tasks: pacman.yml
+- name: Installing basic dependencies (pacman)
+  pacman:
+    name:
+      - clang
+      - python
+      - python-pip
+      - python2
+      - python2-pip
+      - ruby
+      - dtrx
+    state: present
+  become: true
   when: package_manager == "pacman"
 
-- import_tasks: apt.yml
+- name: Installing basic dependencies (apt)
+  apt:
+    name:
+      - clang
+      - python3
+      - python3-pip
+      - python
+      - python-pip
+      - ruby
+      - ruby-dev
+      - dtrx
+    state: present
+  become: true
   when: package_manager == "apt"

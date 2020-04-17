@@ -1,5 +1,16 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- name: Install urxvt (pacman)
+  pacman:
+    name: rxvt-unicode
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install urxvt (apt)
+  pacman:
+    name: rxvt-unicode
+    state: present
+  become: true
+  when: package_manager == "pacman"
 
 - name: Initialise Xresources 
   template: 

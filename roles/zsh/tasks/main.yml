@@ -1,3 +1,17 @@
+- name: Install zsh (pacman)
+  pacman:
+    name: zsh
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install zsh (apt)
+  apt:
+    name: zsh
+    state: present
+  become: true
+  when: package_manager == "apt"
+
 - name: Copy zsh config file
   template:
     src: "zshrc.j2"
@@ -15,3 +29,9 @@
 
 - include_tasks: oh-my-zsh.yml
   when: oh_my_zsh.use
+
+- name: Change user default shell
+  user:
+    name: user_name
+    shell: /bin/zsh
+  become: true

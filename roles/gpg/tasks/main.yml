@@ -1,5 +1,16 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- name: Install gpg (pacman)
+  pacman:
+    name: gnupg
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install gpg (apt)
+  apt:
+    name: gnupg
+    state: present
+  become: true
+  when: package_manager == "apt"
 
 - name: Import keys
   shell: "gpg --import {{ role_path }}/pubkey"

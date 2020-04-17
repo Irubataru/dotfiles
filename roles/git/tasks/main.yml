@@ -1,8 +1,20 @@
-- import_tasks: pacman.yml
-  when: system == "arch-laptop"
+- name: Install git programs (pacman)
+  pacman:
+    name:
+      - git
+      - tig
+    state: present
+  become: true
+  when: package_manager == "pacman"
 
-- import_tasks: apt.yml
-  when: system == "windows-wsl"
+- name: Install git programs (apt)
+  apt:
+    name:
+      - git
+      - tig
+    state: present
+  become: true
+  when: package_manager == "apt"
 
 - name: Link default gitignore
   file:

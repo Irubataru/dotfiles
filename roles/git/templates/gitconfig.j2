@@ -3,7 +3,7 @@
 [user]
         name = {{ full_name }}
         email = {{ git_email }}
-{% if has_git_signing_key %}
+{% if git_signing_key_has_key %}
         signingkey = {{ git_signing_key }}
 {% endif %}
 [credential]
@@ -17,7 +17,7 @@
         ui = true
 [core]
         excludesfile = ~/.gitignore
-        editor = vim
+        editor = nvim
 [apply]
         whitespace = nowarn
 [mergetool]
@@ -29,7 +29,7 @@
         autocorrect = 1
 [push]
         default = simple
-{% if has_git_signing_key %}
+{% if git_signing_key_has_key %}
 [commit]
         gpgsign = true
 {% endif %}

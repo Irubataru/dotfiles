@@ -1,2 +1,6 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- name: Link xinitrc
+  file:
+    src: "{{ role_path }}/xinitrc"
+    dest: ~/.xinitrc
+    state: link
+  ignore_errors: true

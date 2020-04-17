@@ -1,3 +1,17 @@
+- name: Installing script dependencies (pacman)
+  pacman:
+    name: libboost-dev
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Installing script dependencies (apt)
+  apt:
+    name: libboost-dev
+    state: present
+  become: true
+  when: package_manager == "apt"
+
 - name: Clone terminal-scripts repo
   git:
     repo: "https://github.com/Irubataru/terminal-scripts.git"
@@ -24,13 +38,13 @@
 
 - name: Create scripts install directory
   file:
-    path: "{{ scipts_install_path }}"
+    path: "{{ scripts_install_path }}"
     state: directory
 
 - name: Copy terminal-programs binaries
   copy:
     src: "{{ role_path }}/terminal-programs/bin"
-    dest: "{{ scipts_install_path }}"
+    dest: "{{ scripts_install_path }}"
     mode: u+x,g+x,o+x
   when:
     - terminal_programs_build is defined

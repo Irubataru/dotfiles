@@ -1,6 +1,6 @@
 ---
 
-- hosts: arch_laptop
+- hosts: ubuntu_vbox
   vars:
     roles:
       - basic
@@ -9,17 +9,13 @@
       - urxvt
       - fonts
       - tmux
-      - X
       - keyboard
       - vim
       - gpg
-      - spacemacs
       - awesome
       - clang
-      - conky
       - git
       - lastpass
-      - latex
       - qutebrowser
       - ruby
       - scripts

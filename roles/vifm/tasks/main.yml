@@ -1,2 +1,24 @@
-- import_tasks: arch-laptop.yml
-  when: system == "arch-laptop"
+- name: Install vifm (pacman)
+  pacman:
+    name: vifm
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install vifm (apt)
+  apt:
+    name: vifm
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- name: Create vifm config directory
+  file: 
+    path: "{{ vifm.config_path }}"
+    state: directory
+
+- name: Link vifm config
+  file:
+    src: "{{ role_path }}/vifmrc"
+    dest: "{{ vifm.config_path }}/vifmrc"
+    state: link

@@ -1,7 +1,0 @@
-- name: Install git programs (pacman)
-  pacman:
-    name:
-      - git
-      - tig
-    state: present
-  become: true

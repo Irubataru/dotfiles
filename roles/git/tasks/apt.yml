@@ -1,7 +1,0 @@
-- name: Install git programs (apt)
-  apt:
-    name:
-      - git
-      - tig
-    state: present
-  become: true
