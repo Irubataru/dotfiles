@@ -17,4 +17,4 @@ latex_use_xelatex: true
 ruby_version: "2.6.0"
 
 # urxvt
-rxvt_font: "xft:Hack Nerd Font:style=Regular:antialias=true:hinting=true:size=12"
+urxvt_font: "xft:Hack Nerd Font Mono:style=Regular:antialias=true:hinting=true:size=12"

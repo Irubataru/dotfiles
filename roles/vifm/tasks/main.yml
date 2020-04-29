@@ -22,3 +22,8 @@
     src: "{{ role_path }}/vifmrc"
     dest: "{{ vifm.config_path }}/vifmrc"
     state: link
+
+- name: Clone colours repo
+  git:
+    repo: "https://github.com/vifm/vifm-colors.git"
+    dest: "{{ vifm.config_path }}/colors"
