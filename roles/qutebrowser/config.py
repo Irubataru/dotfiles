@@ -15,36 +15,31 @@ c.editor.command = [
 c.spellcheck.languages = ["nb-NO", "en-GB"]
 
 c.url.searchengines = {
-    "DEFAULT":
-    "https://duckduckgo.com/?q={}",
+    "DEFAULT": "https://duckduckgo.com/?q={}",
     "arch":
     "https://wiki.archlinux.org/index.php?title=Special%3ASearch&search={}",
-    "aur":
-    "https://aur.archlinux.org/packages/?O=0&K={}",
+    "aur": "https://aur.archlinux.org/packages/?O=0&K={}",
     "c":
     "http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search={}",
     "cpp":
     "http://en.cppreference.com/mwiki/index.php?title=Special%3ASearch&search={}",
-    "ctan":
-    "http://ctan.org/search?phrase={}",
-    "jap":
-    "http://jisho.org/words/?jap={}&eng=&dict=edict",
-    "eng":
-    "http://jisho.org/words/?eng={}&jap=&dict=edict",
+    "ctan": "http://ctan.org/search?phrase={}",
+    "jap": "http://jisho.org/words/?jap={}&eng=&dict=edict",
+    "eng": "http://jisho.org/words/?eng={}&jap=&dict=edict",
     "gw2":
     "https://wiki.guildwars2.com/index.php?title=Special:Search&search={}",
     "tex":
     "http://en.wikibooks.org/wiki/Special:Search?search={}&prefix=LaTeX&fulltext=Search+this+book&fulltext=Search",
-    "w":
-    "http://en.wikipedia.org/w/index.php?title=Special:Search&search={}",
+    "w": "http://en.wikipedia.org/w/index.php?title=Special:Search&search={}",
     "wno":
     "http://no.wikipedia.org/w/index.php?title=Spesial:S%C3%B8k&search={}",
-    "y":
-    "http://www.youtube.com/results?search_query={}"
+    "y": "http://www.youtube.com/results?search_query={}"
 }
 
 c.url.start_pages = "https://start.duckduckgo.com/"
 c.url.default_page = "about:blank"
+
+c.qt.force_software_rendering = "chromium"
 
 c.zoom.default = "125%"
 
