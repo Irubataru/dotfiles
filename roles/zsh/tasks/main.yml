@@ -32,6 +32,6 @@
 
 - name: Change user default shell
   user:
-    name: user_name
+    name: "{{ user_name }}"
     shell: /bin/zsh
   become: true

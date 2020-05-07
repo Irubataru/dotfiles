@@ -23,6 +23,7 @@
       - fzf
       - npm
       - vifm
+      - zathura
   tasks:
     - include_role:
         name: "{{ item }}"

@@ -149,7 +149,8 @@ run_once({
   "urxvtd", 
   "unclutter -root",
   "xautolock -time 45 -locker " .. scrlocker,
-  'setxkbmap no -option "ctr:nocaps"'
+  'setxkbmap no -option "ctr:nocaps"',
+  "xrdb " .. homedir .. "/.Xresources"
 })
 
 -- }}}

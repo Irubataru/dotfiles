@@ -1,0 +1,10 @@
+- name: Installing texlive (apt)
+  apt:
+    name:
+      - texlive
+      - texlive-xetex
+      - texlive-pictures
+      - texlive-science
+      - latexmk
+    state: present
+  become: true

@@ -4,8 +4,6 @@
       - clang
       - python
       - python-pip
-      - python2
-      - python2-pip
       - ruby
       - dtrx
     state: present
@@ -18,11 +16,8 @@
       - clang
       - python3
       - python3-pip
-      - python
-      - python-pip
       - ruby
       - ruby-dev
-      - dtrx
     state: present
   become: true
   when: package_manager == "apt"

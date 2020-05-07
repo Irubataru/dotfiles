@@ -12,6 +12,12 @@
   become: true
   when: package_manager == "apt"
 
+- name: Link npm config
+  file:
+    src: "{{ role_path }}/npmrc"
+    dest: "{{ home_directory }}/.npmrc"
+    state: link
+
 - name: Install terminalizer
   npm:
     name: terminalizer
@@ -27,10 +33,4 @@
   file:
     src: "{{ role_path }}/terminalizer.config.yml"
     dest: "{{ home_directory }}/.terminalizer/config.yml"
-    state: link
-
-- name: Link npm config
-  file:
-    src: "{{ role_path }}/npmrc"
-    dest: "{{ home_directory }}/.npmrc"
     state: link

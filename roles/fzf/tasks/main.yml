@@ -1,6 +1,13 @@
-- name: Install fzf
+- name: Install fzf (pacman)
   pacman:
     name: fzf
     state: present
   become: true
   when: package_manager == "pacman"
+
+- name: Install fzf (apt)
+  apt:
+    name: fzf
+    state: present
+  become: true
+  when: package_manager == "apt"

@@ -1,3 +1,6 @@
+- import_tasks: apt.yml
+  when: package_manager == "apt"
+
 - name: Download lastpass zsh completion
   get_url:
     url: "https://raw.githubusercontent.com/lastpass/lastpass-cli/master/contrib/lpass_zsh_completion"

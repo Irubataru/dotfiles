@@ -1,7 +1,12 @@
+- import_tasks: virtualenv.yml
+  when: package_manager == "apt"
+  tags: qutebrowser
+
 - name: Create qutebrowser config directory
   file:
     path: "{{ qutebrowser_config_path }}"
     state: directory
+  tags: qutebrowser
 
 - name: Link qutebrowser config files
   file:
@@ -12,19 +17,35 @@
     loop_var: link
   loop:
     - config.py
-    - password_fill_rc
     - quickmarks
+  tags: qutebrowser
 
 - name: Check if password_fill exists
   stat:
     path: "{{ qutebrowser_files_path }}/userscripts/password_fill"
   register: password_fill_stat
+  tags: qutebrowser
+
+- name: Create userscripts directory
+  file:
+    path: "{{ qutebrowser_script_path }}"
+    state: directory
+    recurse: true
+  when: not password_fill_stat.stat.exists
+  tags: qutebrowser
 
 - name: Copy password_fill userscript
   get_url:
     url: "https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/misc/userscripts/password_fill"
-    dest: "{{ qutebrowser_config_path }}/password_fill"
+    dest: "{{ qutebrowser_script_path }}/password_fill"
+    mode: 0755
   when: not password_fill_stat.stat.exists
+  tags: qutebrowser
 
-# TODO: Install spell checker
-# TODO: Install dependencies (e.g. zenity)
+- name: Link password_fill_rc userscript
+  file:
+    src: "{{ role_path }}/password_fill_rc"
+    dest: "{{ qutebrowser_script_path }}/password_fill_rc"
+    state: link
+  when: not password_fill_stat.stat.exists
+  tags: qutebrowser

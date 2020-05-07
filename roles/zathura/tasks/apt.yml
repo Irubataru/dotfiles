@@ -1,0 +1,7 @@
+- name: Installing zathura (apt)
+  apt:
+    name:
+      - zathura
+      - zathura-pdf-poppler
+    state: present
+  become: true

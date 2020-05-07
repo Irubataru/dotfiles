@@ -1,2 +1,4 @@
 qutebrowser_files_path: /usr/share/qutebrowser
-qutebrowser_config_path: ~/.config/qutebrowser
+qutebrowser_config_path: "{{ home_directory }}/.config/qutebrowser"
+qutebrowser_script_path: "{{ home_directory }}/.local/share/qutebrowser/userscripts"
+qutebrowser_virtualenv_install_root: "{{ home_directory }}/.local/"

@@ -1,0 +1,45 @@
+- name: Qutebrowser virtualenv dependencies (apt)
+  apt:
+    name:
+      - python3-venv
+      - asciidoc
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- name: Create qutebrowser install directory
+  file: 
+    path: "{{ qutebrowser_virtualenv_install_root }}"
+    state: directory
+
+- name: Clone qutebrowser repo
+  git:
+    repo: "https://github.com/qutebrowser/qutebrowser.git"
+    dest: "{{ qutebrowser_virtualenv_install_root }}/qutebrowser"
+  register: clone_status
+  tags: qutebrowser
+
+- name: Build qutebrowser (virtualenv)
+  shell: python3 scripts/mkvenv.py
+  args:
+    chdir: "{{ qutebrowser_virtualenv_install_root }}/qutebrowser"
+  tags: qutebrowser
+  when: clone_status.changed
+
+- name: Create qutebrowser bin directory
+  file: 
+    path: "{{ qutebrowser_virtualenv_install_root }}/bin"
+    state: directory
+
+- name: Initialise qutebrowser run script
+  template: 
+    src: "qutebrowser.j2"
+    dest: "{{ qutebrowser_virtualenv_install_root }}/bin/qutebrowser"
+    mode: 0755
+  when: clone_status.changed
+
+- name: Install dictionaries
+  shell: |
+    {{ qutebrowser_virtualenv_install_root }}/qutebrowser/.venv/bin/python3 \
+      {{ qutebrowser_virtualenv_install_root }}/qutebrowser/scripts/dictcli.py install nb-NO en-GB
+  when: clone_status.changed
