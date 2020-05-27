@@ -23,7 +23,19 @@
     dest: "{{ vifm.config_path }}/vifmrc"
     state: link
 
-- name: Clone colours repo
-  git:
-    repo: "https://github.com/vifm/vifm-colors.git"
-    dest: "{{ vifm.config_path }}/colors"
+#- name: Clone colours repo
+  #git:
+    #repo: "https://github.com/vifm/vifm-colors.git"
+    #dest: "{{ vifm.config_path }}/colors"
+
+- name: Create colours directory
+  file: 
+    path: "{{ vifm.config_path }}/colors"
+    state: directory
+    recurse: true
+
+- name: Add my own colour modifications
+  file:
+    src: "{{ role_path }}/Basically-Default.vifm"
+    dest: "{{ vifm.config_path }}/colors/Basically-Default.vifm"
+    state: link
