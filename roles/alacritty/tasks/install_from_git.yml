@@ -1,0 +1,35 @@
+- name: Get ansible latest release SHA
+  uri:
+    url: "https://api.github.com/repos/alacritty/alacritty/releases/latest"
+    method: GET
+  register: response
+
+- name: Clone ansible repo
+  git:
+    repo: "https://github.com/alacritty/alacritty.git"
+    dest: "{{ role_path }}/alacritty"
+    version: "{{ response.json.target_commitish }}"
+  register: clone_status
+  when:
+    - response.status == 200
+    - response.json.target_commitish != ""
+
+- name: Build alacritty
+  shell: cargo build --release
+  args:
+    chdir: "{{ role_path }}/alacritty"
+  register: build_status
+  when: 
+    - not clone_status.failed
+    - clone_status.changed
+
+- name: Install alacritty
+  shell: |
+    cp target/release/alacritty /usr/bin
+  args:
+    chdir: "{{ role_path }}/alacritty"
+  become: true
+  when:
+    - not clone_status.failed
+    - clone_status.changed
+    - build_status.rc == 0

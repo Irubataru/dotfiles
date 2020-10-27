@@ -48,10 +48,12 @@ end
 
 -- {{{ Variable definitions
 
+local terminal_cmd = "alacritty"
+
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "urxvtc -e tmux"
-local filebrowser  = "urxvtc -e vifm"
+local terminal     = terminal_cmd .. " -e tmux"
+local filebrowser  = terminal_cmd .. " -e vifm"
 local editor       = os.getenv("EDITOR") or "vim"
 local scrlocker    = "slock"
  
@@ -146,7 +148,6 @@ local function run_once(cmd_arr)
 end
 
 run_once({
-  "urxvtd", 
   "unclutter -root",
   "xautolock -time 45 -locker " .. scrlocker,
   'setxkbmap no -option "ctr:nocaps"',

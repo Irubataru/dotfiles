@@ -1,15 +1,7 @@
-- name: Install npm (pacman)
-  pacman:
-    name: npm
-    state: present
-  become: true
+- import_tasks: pacman.yml
   when: package_manager == "pacman"
 
-- name: Install npm (apt)
-  apt:
-    name: npm
-    state: present
-  become: true
+- import_tasks: apt.yml
   when: package_manager == "apt"
 
 - name: Link npm config

@@ -27,6 +27,8 @@
       - fzf
       - npm
       - vifm
+      - rust
+      - alacritty
   tasks:
     - include_role:
         name: "{{ item }}"

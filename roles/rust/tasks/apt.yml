@@ -1,0 +1,7 @@
+- name: Install rust programming language (apt)
+  apt:
+    name: 
+      - rust
+      - cargo
+    state: present
+  become: true

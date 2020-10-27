@@ -1,0 +1,15 @@
+- import_tasks: apt.yml
+  when: package_manager == "apt"
+
+- import_tasks: install_from_git.yml
+
+- name: Create alacritty config directory
+  file: 
+    path: "{{ alacritty_config_path }}"
+    state: directory
+
+- name: Link alacritty config
+  file:
+    src: "{{ role_path }}/alacritty.yml"
+    dest: "{{ alacritty_config_path }}/alacritty.yml"
+    state: link

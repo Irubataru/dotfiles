@@ -1,0 +1,5 @@
+- name: Install npm (pacman)
+  pacman:
+    name: npm
+    state: present
+  become: true
