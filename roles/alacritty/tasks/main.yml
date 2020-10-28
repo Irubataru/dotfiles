@@ -13,3 +13,10 @@
     src: "{{ role_path }}/alacritty.yml"
     dest: "{{ alacritty_config_path }}/alacritty.yml"
     state: link
+
+- name: Add GL3 fix
+  template: 
+    src: "libgl_fix.zsh.j2"
+    dest: "{{ home_directory }}/.local/bin/alacritty"
+    mode: u=rx,g=rx,o=rx
+  when: alacritty_gl3_fix

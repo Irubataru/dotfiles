@@ -1,0 +1,19 @@
+- name: Local rustup version
+  shell: |
+    {{ local_rustup }} -V | sed -e "s,.*(\(.*\)),\1,"
+  register: local_version
+
+- name: Web rustup-init version
+  shell: |
+    {{ web_rustup_cmd }} -V | sed -e "s,.*(\(.*\)),\1,"
+  args:
+    warn: false
+  register: web_version
+
+- name: Run rustup-init
+  shell: |
+    {{ web_rustup_cmd }}
+  when:
+    - local_version.rc == 0
+    - web_version.rc == 0
+    - local_version.stdout != web_version.stdout

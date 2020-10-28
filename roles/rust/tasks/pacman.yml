@@ -1,5 +1,0 @@
-- name: Install rust programming language (pacman)
-  pacman:
-    name: rust
-    state: present
-  become: true

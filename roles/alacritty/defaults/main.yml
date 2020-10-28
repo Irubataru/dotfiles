@@ -1,1 +1,2 @@
 alacritty_config_path: "{{ home_directory }}/.config/alacritty"
+alacritty_gl3_fix: false

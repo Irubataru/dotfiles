@@ -1,5 +1,1 @@
-- import_tasks: pacman.yml
-  when: package_manager == "pacman"
-
-- import_tasks: apt.yml
-  when: package_manager == "apt"
+- import_tasks: rustup.yml
