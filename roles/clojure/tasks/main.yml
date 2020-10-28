@@ -1,0 +1,19 @@
+- name: Installing clojure (apt)
+  apt:
+    name:
+      - clojure
+      - leiningen
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- name: Create leiningen config directrory
+  file: 
+    path: "{{ clojure_lein_config_path }}"
+    state: directory
+
+- name: Link leiningen config
+  file:
+    src: "{{ role_path }}/lein_profiles.clj"
+    dest: "{{ clojure_lein_config_path }}/profiles.clj"
+    state: link

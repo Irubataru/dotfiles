@@ -60,8 +60,8 @@ local scrlocker    = "slock"
 local homedir      = os.getenv("HOME")
 local confdir      = homedir .. "/.config/awesome"
 local themedir     = confdir .. "/seoul256-awesomewm-theme"
-local wallpaperdir = confdir .. "/wallpapers"
-local wallpaper    = wallpaperdir .. "/wild_night.jpg"
+local wallpaperdir = confdir
+local wallpaper    = wallpaperdir .. "/Solar.png"
 
 awful.util.terminal  = terminal
 awful.layout.layouts = {
@@ -133,7 +133,7 @@ awful.util.tasklist_buttons = gears.table.join(
   awful.button({ }, 5, function () awful.client.focus.byidx(-1) end))
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init( themedir .. "/theme.lua")
+beautiful.init(require("theme"))
 beautiful.wallpaper = wallpaper
 
 -- }}}

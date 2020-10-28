@@ -26,6 +26,7 @@
       - zathura
       - rust
       - alacritty
+      - clojure
   tasks:
     - include_role:
         name: "{{ item }}"
