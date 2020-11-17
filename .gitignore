@@ -1,2 +1,3 @@
 **/.nvimlog
 *.retry
+.lastpass-ansible.conf

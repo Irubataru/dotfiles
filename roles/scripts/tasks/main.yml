@@ -20,7 +20,7 @@
 - name: Initialise terminal-scripts path file
   template: 
     src: "path.zsh.j2"
-    dest: "{{ role_path }}/_path.zsh"
+    dest: "{{ role_path }}/path.zsh"
 
 - name: Clone terminal-programs repo
   git:

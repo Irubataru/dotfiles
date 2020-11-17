@@ -32,3 +32,9 @@
     src: "{{ role_path }}/tigrc"
     dest: "~/.tigrc"
     state: link
+
+- name: Initialise git api token
+  template: 
+    src: "github_api_token.zsh.j2"
+    dest: "{{ role_path }}/github_api_token.zsh"
+  ignore_errors: true

@@ -1,5 +1,5 @@
 - name: Initialise ruby path file
   template: 
     src: "path.zsh.j2"
-    dest: "{{ role_path }}/_path.zsh"
+    dest: "{{ role_path }}/path.zsh"
   when: ruby_version is defined

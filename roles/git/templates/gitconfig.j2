@@ -1,35 +1,35 @@
 [hub]
-        protocol = https
+  protocol = https
 [user]
-        name = {{ full_name }}
-        email = {{ git_email }}
+  name = {{ full_name }}
+  email = {{ git_email }}
 {% if git_signing_key_has_key %}
-        signingkey = {{ git_signing_key }}
+  signingkey = {{ git_signing_key }}
 {% endif %}
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+  helper = GIT_CREDENTIAL_HELPER
 [alias]
-        exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
+  exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
+  clean-vba = checkout -- **/*.frm **/*.frx
 [color]
-        diff = auto
-        status = auto
-        branch = auto
-        ui = true
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
 [core]
-        excludesfile = ~/.gitignore
-        editor = nvim
+  excludesfile = ~/.gitignore
+  editor = nvim
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 [mergetool]
-        keepBackup = false
+  keepBackup = false
 [difftool]
-        prompt = false
-
+  prompt = false
 [help]
-        autocorrect = 1
+  autocorrect = 1
 [push]
-        default = simple
+  default = simple
 {% if git_signing_key_has_key %}
 [commit]
-        gpgsign = true
+  gpgsign = true
 {% endif %}

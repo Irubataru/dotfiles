@@ -6,4 +6,13 @@
     url: "https://raw.githubusercontent.com/lastpass/lastpass-cli/master/contrib/lpass_zsh_completion"
     dest: "{{ role_path }}/_lpass"
 
-# TODO Install lpass cli
+- name: Install lastpass-ansible gem
+  gem:
+    name: lastpass-ansible
+    state: latest
+
+- name: Link lastpass-ansible config
+  file:
+    src: "{{ role_path }}/lastpass-ansible.conf"
+    dest: "{{ dotfiles_directory }}/.lastpass-ansible.conf"
+    state: link
