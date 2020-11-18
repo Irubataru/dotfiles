@@ -1,5 +1,5 @@
-export EDITOR=vim
-export VIDUAL=vim
+export EDITOR=nvim
+export VIDUAL=nvim
 export CC=clang
 export CXX=clang++
 export GCC=gcc

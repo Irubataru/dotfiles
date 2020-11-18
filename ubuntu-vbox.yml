@@ -27,6 +27,7 @@
       - rust
       - alacritty
       - clojure
+      - thefuck
   tasks:
     - include_role:
         name: "{{ item }}"
