@@ -15,7 +15,7 @@ c.editor.command = [
 c.spellcheck.languages = ["nb-NO", "en-GB"]
 
 c.url.searchengines = {
-    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "DEFAULT": "https://www.qwant.com/?q={}",
     "arch":
     "https://wiki.archlinux.org/index.php?title=Special%3ASearch&search={}",
     "aur": "https://aur.archlinux.org/packages/?O=0&K={}",
@@ -36,7 +36,7 @@ c.url.searchengines = {
     "y": "http://www.youtube.com/results?search_query={}"
 }
 
-c.url.start_pages = "https://start.duckduckgo.com/"
+c.url.start_pages = "https://www.qwant.com/"
 c.url.default_page = "about:blank"
 
 c.qt.force_software_rendering = "chromium"
