@@ -1,6 +1,6 @@
 ---
 
-- hosts: windows_wsl
+- hosts: sintef_wsl
   vars:
     roles:
       - basic

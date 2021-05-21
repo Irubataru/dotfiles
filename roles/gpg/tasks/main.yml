@@ -16,3 +16,9 @@
 
 - name: Import keys
   shell: "gpg --import {{ role_path }}/pubkey"
+
+- name: Set GPG TTY
+  template: 
+    src: "tty.zsh.j2"
+    dest: "{{ role_path }}/tty.zsh"
+  when: hw_cmd_only

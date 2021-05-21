@@ -7,9 +7,13 @@ user_name: glesaaen
 home_directory: "{{ '~' | expanduser }}"
 dotfiles_directory: "{{ home_directory }}/.dotfiles"
 
+# hardware
+hw_cmd_only: false
+
 # git
+git_full_name: Jonas Rylund Glesaaen
 git_user: irubataru
 git_email: jonas@glesaaen.com
 
-## vim
+# vim
 vim_use_server_vim: false

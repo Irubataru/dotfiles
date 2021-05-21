@@ -1,0 +1,16 @@
+# vi: set ft=yaml :
+
+system: sintef-wsl
+package_manager: apt
+
+# hardware
+hw_cmd_only: true
+
+# git
+git_full_name: Jonas Glesaaen
+git_email: Jonas.Glesaaen@sintef.no
+git_signing_key_has_key: true
+git_signing_key: "4A482FB559E5E707"
+
+# ruby
+ruby_version: "2.6.0"

@@ -9,6 +9,10 @@ all:
       hosts:
         windows.wsl:
           ansible_connection: local
+    sintef_wsl:
+      hosts:
+        sintef.wsl:
+          ansible_connection: local
     swansea_desktop:
       hosts:
         swansea.desktop:

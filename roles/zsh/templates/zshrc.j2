@@ -66,3 +66,8 @@ unset config_files
 if [[ -a ~/.localrc ]]; then
   source ~/.localrc
 fi
+{% if hw_cmd_only %}
+
+# Run tmux whenever zsh is launched if it isn't already running
+if [ "$TMUX" = "" ]; then tmux; fi
+{% endif %}

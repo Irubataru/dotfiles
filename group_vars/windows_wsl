@@ -3,6 +3,9 @@
 system: windows-wsl
 package_manager: apt
 
+# hardware
+hw_cmd_only: true
+
 # git
 git_signing_key_has_key: false
 
