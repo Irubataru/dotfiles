@@ -31,3 +31,18 @@
         url: "https://raw.githubusercontent.com/lenguyenthanh/nt9-oh-my-zsh-theme/master/nt9.zsh-theme",
         target: "nt9.zsh-theme"
       }
+
+- name: Downloading powerlevel10k theme
+  git:
+    repo: "https://github.com/romkatv/powerlevel10k.git"
+    dest: "{{ oh_my_zsh.directory }}/custom/themes/powerlevel10k"
+    depth: 1
+  register: p10k_init
+
+- name: Link powerlevel10k config
+  file:
+    src: "{{ role_path }}/p10krc"
+    dest: "{{ home_directory }}/.p10k.zsh"
+    state: link
+  when: 
+    - not p10k_init.failed

@@ -3,4 +3,4 @@ dircolor_theme: dircolors.256dark
 oh_my_zsh:
   use: true
   directory: "{{ home_directory }}/.oh-my-zsh"
-  theme: lambda-mod
+  theme: "powerlevel10k/powerlevel10k"
