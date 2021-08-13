@@ -1,0 +1,183 @@
+#!/usr/bin/env bash
+
+abort() {
+  printf 'Error: %s\n\n' "$1" >&2
+  usage >&2
+  exit 1
+}
+
+usage() {
+  local cmd="${0##*/}"
+  local line
+
+  cat <<HELP_TEXT_HEADER
+  Usage: ${cmd} [OPTIONS] <output>
+         ${cmd} -h
+
+HELP_TEXT_HEADER
+
+  cat <<HELP_TEXT_BODY
+  ${cmd} is a helper script to synchronise the changes from one svn folder to
+  another. The intended usage is to copy changes made to an external to the
+  location of the actual external.
+
+  <output> is the directory where the changes are to be copied to. This should
+  be the root directory of the svn repo the changes should en up in or the
+  subdirectory the external is using.
+HELP_TEXT_BODY
+}
+
+# Check if a modified file seems valid
+test_modified() {
+  local source_file="$1"
+  local target_file="${output_directory}/${source_file}"
+
+  if [[ ! -f ${target_file} ]]; then
+    abort "Expected ${source_file} to overwrite ${target_file}, but the file to ovwewrite does not exist."
+  fi
+}
+
+# Modify the file by copying it to the output directory
+modify_file() {
+  local source_file="$1"
+  local target_file="${output_directory}/${source_file}"
+
+  if [[ "$dry_run" == 1 ]]; then
+    printf "copy ${source_file} -> ${target_file}\n"
+  else
+    cp -v "${source_file}" "${target_file}"
+  fi
+
+}
+
+arguments=()
+
+# Unpack single-character options bundled together, e.g. -cr, -pr.
+for arg in "$@"; do
+  if [[ "$arg" =~ ^-[^-]. ]]; then
+    index=1
+    while option="${arg:$((index++)):1}"; do
+      if [[ -z "$option" ]]; then
+        break
+      fi
+      arguments+=("-$option")
+    done
+  else
+    arguments+=("$arg")
+  fi
+  shift
+done
+
+set -- "${arguments[@]}"
+unset arguments
+ignore_unknown_errors=0
+ignore_external_errors=0
+dry_run=0
+output_directory=
+
+while [[ "$#" -ne 0 ]]; do
+  case "$1" in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  -n | --dry-run)
+    dry_run=1
+    ;;
+  -e | --ignore-externals)
+    ignore_external_errors=1
+    ;;
+  --ignore_unknown_svn)
+    ignore_unknown_errors=1
+    ;;
+  -*)
+    abort "Bad command line option '$1'"
+    ;;
+  *)
+    output_directory="$1"
+    break
+    ;;
+  esac
+  shift
+done
+
+if [[ -z "$output_directory" ]]; then
+  abort "No output directory"
+elif [[ ! -d "$output_directory" ]]; then
+  abort "Output directory '$output_directory' doesn't exist"
+fi
+
+modified_files=()
+added_files=()
+deleted_files=()
+missing_files=()
+
+# Parse the output of svn status
+while read -r line; do
+
+  # Ignore empty lines in the output
+  pattern="^[[:space:]]*$" 
+  if [[ "$line" =~ ${pattern} ]]; then
+    continue
+  fi
+
+  # Ignore lines that does not start with a single character
+  pattern="^.[[:space:]]" 
+  if [[ ! "$line" =~ ${pattern} ]]; then
+    continue;
+  fi
+
+  # See if there are externals that have been modified
+  if [[ "$line" =~ ^X ]]; then
+    if [[ "$ignore_external_errors" == 0 ]]; then
+      read -r -d  '' error_message <<ERROR_MESSAGE
+The repo has externals with modifications which means that the copy will most
+likely fail. If you meant to copy the external changes only then cd to that repo
+and run the command again. Alternatively pass argument ... to the script to
+ignore this error.
+ERROR_MESSAGE
+      abort "$error_message"
+    fi
+    continue;
+  fi
+
+  # See if there are unhandled svn statuses
+  # Currently only modified is supported
+  #pattern="^[ADMI?]"
+  pattern="^[M]"
+  if [[ ! "$line" =~ ${pattern} ]]; then
+    if [[ "$ignore_errors" == 0 ]]; then
+      newline=$'\n'
+      abort "Unknown svn status on line:${newline}${line}"
+    fi
+    continue;
+  fi
+
+  path=$(sed 's/^.\s*//' <<< "$line")
+
+  # Otherwise append the filename to the correct array depending on its status
+  if [[ "$line" =~ ^M ]]; then
+    test_modified "$path"
+    modified_files+=("./$path")
+  elif [[ "$line" =~ ^A ]]; then
+    added_files+=("./$path")
+  elif [[ "$line" =~ ^D ]]; then
+    deleted_files+=("./$path")
+  elif [[ "$line" =~ ^[I?] ]]; then
+    missing_files+=("./$path")
+  fi
+
+done <<< "$(svn status)"
+
+for file in "${modified_files[@]}"; do
+  modify_file "$file"
+done
+
+#for file in "${added_files[@]}"; do
+#done
+
+#for file in "${deleted_files[@]}"; do
+#done
+
+#for file in "${missing_files[@]}"; do
+#done
