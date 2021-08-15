@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# This script toggles the extended monitor outputs if something is connected
+#
+
+# your notebook monitor
+DEFAULT_OUTPUT='eDP-1'
+
+# outputs to toggle if connected
+OUTPUTS='DP-1 HDMI-1 HDMI-2'
+
+# get info from xrandr
+XRANDR=`xrandr`
+
+EXECUTE="--output $DEFAULT_OUTPUT --auto "
+CURRENT='DP-1'
+
+
+for CURRENT in $OUTPUTS
+do
+  if [[ $XRANDR == *$CURRENT\ connected*  ]] # is connected
+    then
+    if [[ $XRANDR == *$CURRENT\ connected\ \(* ]] # is disabled
+      then EXECUTE="--output $CURRENT --auto --output $DEFAULT_OUTPUT --auto --same-as $CURRENT "
+      else EXECUTE+="--output $CURRENT --off "
+    fi
+    else # make sure disconnected outputs are off 
+      EXECUTE+="--output $CURRENT --off "
+  fi
+done
+
+xrandr $EXECUTE

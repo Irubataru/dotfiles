@@ -22,7 +22,7 @@
       - latex
       - qutebrowser
       - ruby
-      - scripts
+      - laptop
       - go
       - fzf
       - npm

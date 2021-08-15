@@ -16,3 +16,8 @@
     src: "{{ role_path }}/lastpass-ansible.conf"
     dest: "{{ dotfiles_directory }}/.lastpass-ansible.conf"
     state: link
+
+- name: Initialise the path template
+  template: 
+    src: "path.zsh.j2"
+    dest: "{{ role_path }}/path.zsh"
