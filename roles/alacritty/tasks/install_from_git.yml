@@ -1,10 +1,10 @@
-- name: Get ansible latest release SHA
+- name: Get alacritty latest release SHA
   uri:
     url: "https://api.github.com/repos/alacritty/alacritty/releases/latest"
     method: GET
   register: response
 
-- name: Clone ansible repo
+- name: Clone alacritty repo
   git:
     repo: "https://github.com/alacritty/alacritty.git"
     dest: "{{ role_path }}/alacritty"
@@ -13,6 +13,32 @@
   when:
     - response.status == 200
     - response.json.target_commitish != ""
+
+- name: Ensure build dependencies for alacritty (apt)
+  apt:
+    name:
+      - cmake
+      - pkg-config
+      - libfreetype6-dev
+      - libfontconfig1-dev
+      - libxcb-xfixes0-dev
+      - libxkbcommon-dev
+      - python3
+    state: present
+  when: package_manager == "apt"
+
+- name: Ensure build dependencies for alacritty (pacman)
+  pacman:
+    name:
+      - cmake
+      - freetype2
+      - fontconfig
+      - pkg-config
+      - make
+      - libxcb
+      - libxkbcommon
+    state: present
+  when: package_manager == "pacman"
 
 - name: Build alacritty
   shell: cargo build --release
