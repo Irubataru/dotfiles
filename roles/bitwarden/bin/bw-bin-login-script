@@ -1,0 +1,7 @@
+#!/bin/env bash
+
+session_key=$(bw login --raw)
+
+if [[ "$?" == "0" ]]; then
+  export BW_SESSION="$session_key"
+fi

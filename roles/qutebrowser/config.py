@@ -43,5 +43,5 @@ c.qt.force_software_rendering = "chromium"
 
 c.zoom.default = "125%"
 
-config.bind('<Ctrl-F2>', 'spawn --userscript password_fill')
+config.bind('<Ctrl-F2>', 'spawn --userscript qute-bitwarden')
 config.bind('cr', 'tab-only --prev')

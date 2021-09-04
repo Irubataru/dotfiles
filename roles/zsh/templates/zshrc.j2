@@ -14,7 +14,7 @@ typeset -U config_files
 config_files=($DOTFILES/**/*.zsh)
 
 roles=(
-{% for item in roles %}
+{% for item in modules %}
   "{{ item }}"
 {% endfor %}
 )

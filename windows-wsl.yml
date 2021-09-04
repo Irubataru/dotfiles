@@ -2,7 +2,7 @@
 
 - hosts: windows_wsl
   vars:
-    roles:
+    modules:
       - basic
       - common
       - windows_wsl
@@ -22,4 +22,4 @@
   tasks:
     - include_role:
         name: "{{ item }}"
-      loop: "{{ roles }}"
+      loop: "{{ modules }}"

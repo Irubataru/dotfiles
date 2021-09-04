@@ -1,0 +1,10 @@
+- name: Install bitwarden
+  npm:
+    name: "@bitwarden/cli"
+    global: true
+    state: present
+
+- name: Initialise the path template
+  template: 
+    src: "path.zsh.j2"
+    dest: "{{ role_path }}/path.zsh"

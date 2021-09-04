@@ -1,0 +1,4 @@
+#!/bin/env bash
+
+item="$(bw list items | jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | fzf | awk '{print $(NF -0)}' | sed 's/\"//g')"
+bw get item "$item" | jq '.login.password' | sed 's/\"//g' | xclip -sel clip

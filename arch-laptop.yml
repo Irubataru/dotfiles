@@ -2,7 +2,7 @@
 
 - hosts: arch_laptop
   vars:
-    roles:
+    modules:
       - basic
       - zsh
       - common
@@ -18,7 +18,7 @@
       - clang
       - conky
       - git
-      - lastpass
+      - bitwarden
       - latex
       - qutebrowser
       - ruby
@@ -32,4 +32,6 @@
   tasks:
     - include_role:
         name: "{{ item }}"
-      loop: "{{ roles }}"
+      loop: "{{ modules }}"
+  roles:
+    - ansible-modules-bitwarden

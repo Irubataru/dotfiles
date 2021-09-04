@@ -42,10 +42,22 @@
   when: not password_fill_stat.stat.exists
   tags: qutebrowser
 
-- name: Link password_fill_rc userscript
-  file:
-    src: "{{ role_path }}/password_fill_rc"
-    dest: "{{ qutebrowser_script_path }}/password_fill_rc"
-    state: link
+- name: Install qute-bitwarden dependencies (pip)
+  pip:
+    name: tldextract
+    extra_args: --user
+
+- name: Install qute-bitwarden dependencies (apt)
+  apt:
+    name: keyutils
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- name: Copy qute-bitwarden userscript
+  get_url:
+    url: "https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/misc/userscripts/qute-bitwarden"
+    dest: "{{ qutebrowser_script_path }}/qute-bitwarden"
+    mode: 0755
   when: not password_fill_stat.stat.exists
   tags: qutebrowser

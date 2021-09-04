@@ -1,6 +1,0 @@
-- name: Installing lpass-cli (apt)
-  apt:
-    name: lastpass-cli
-    state: present
-  become: true
-
