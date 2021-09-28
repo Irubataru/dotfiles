@@ -20,13 +20,21 @@ There are currently 3 configurations
  * __ubuntu-vbox__: The virtualbox installation I have for ubuntu
  * __windows-wsl__: Ubuntu installation I have using WSL in Windows
 
-## Ansible vault
+## Addons
 
-I currently use [`lastpass-ansible`][lastpass-ansible] for my vault password, this application is
-available as a gem
+The current addons must be installed before using some of the configurations,
+see the configurations themselves for which modules they expect.
 
-```sh
-gem install lastpass-ansible
+```
+ansible-galaxy install git+https://github.com/c0sco/ansible-modules-bitwarden
 ```
 
-[lastpass-ansible]: https://www.koszek.com/blog/2017/03/05/how-to-use-ansible-vault-with-lastpass/
+## Secrets
+
+I currently use bitwarden for secrets, on top of installing the bitwarden
+ansible module this means that one also must install the bitwarden CLI. This is
+handled by NPM
+
+```
+npm install -g @bitwarden/cli
+```

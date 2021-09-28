@@ -20,6 +20,7 @@
       - thefuck
       - vim
       - vifm
+      - bitwarden
   tasks:
     - include_role:
         name: "{{ item }}"

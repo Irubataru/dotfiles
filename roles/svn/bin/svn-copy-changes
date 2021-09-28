@@ -45,9 +45,74 @@ modify_file() {
   if [[ "$dry_run" == 1 ]]; then
     printf "copy ${source_file} -> ${target_file}\n"
   else
-    cp -v "${source_file}" "${target_file}"
+    cp -v -- "${source_file}" "${target_file}"
   fi
 
+}
+
+# Add new files to the output directory by copying
+add_file() {
+  local source_file="$1"
+  local target_file="${output_directory}/${source_file}"
+
+  local copy_flags="-v"
+  if [[ -d "$source_file" ]]; then
+
+    if [[ "$auto_yes" == 0 ]]; then
+
+      query_yes_no "Do you wish to copy the untracked folder $source_file?"
+
+      if [[ "$?" != 0 ]]; then
+        if [[ "$dry_run" == 1 ]]; then
+          printf "Skipping ${source_file} ...\n"
+        fi
+        return 0
+      fi
+
+    fi
+
+    # TODO Need to check more, if not running this twice will result in a set of
+    # nested folders.
+    copy_flags="${copy_flags} -r"
+
+  elif [[ -f "$source_file" ]]; then
+    if [[ "$auto_yes" == 0 ]]; then
+
+      query_yes_no "Do you wish to copy the untracked file $source_file?"
+    
+      if [[ "$?" != 0 ]]; then
+        if [[ "$dry_run" == 1 ]]; then
+          printf "Skipping ${source_file} ...\n"
+        fi
+        return 0
+      fi
+
+    fi
+  else
+    abort "Unknown object ${source_file}"
+  fi
+
+  if [[ "$dry_run" == 1 ]]; then
+    printf "copy ${source_file} -> ${target_file}\n"
+  else
+    cp ${copy_flags} -- "${source_file}" "${target_file}"
+  fi
+
+}
+
+query_yes_no() {
+  local query="$1 [yn] >"
+
+  while true; do
+    read -p "$query" yn
+    case "$yn" in
+      [Yy]* ) return 0 ;;
+      [Nn]* ) return 1 ;;
+      * ) continue ;;
+    esac
+  done
+
+  return 1
 }
 
 arguments=()
@@ -73,6 +138,7 @@ unset arguments
 ignore_unknown_errors=0
 ignore_external_errors=0
 dry_run=0
+auto_yes=0
 output_directory=
 
 while [[ "$#" -ne 0 ]]; do
@@ -83,6 +149,9 @@ while [[ "$#" -ne 0 ]]; do
     ;;
   -n | --dry-run)
     dry_run=1
+    ;;
+  -y | --yes)
+    auto_yes=1
     ;;
   -e | --ignore-externals)
     ignore_external_errors=1
@@ -144,9 +213,9 @@ ERROR_MESSAGE
   # See if there are unhandled svn statuses
   # Currently only modified is supported
   #pattern="^[ADMI?]"
-  pattern="^[M]"
+  pattern="^[AM?]"
   if [[ ! "$line" =~ ${pattern} ]]; then
-    if [[ "$ignore_errors" == 0 ]]; then
+    if [[ "$ignore_unknown_errors" == 0 ]]; then
       newline=$'\n'
       abort "Unknown svn status on line:${newline}${line}"
     fi
@@ -159,11 +228,11 @@ ERROR_MESSAGE
   if [[ "$line" =~ ^M ]]; then
     test_modified "$path"
     modified_files+=("./$path")
-  elif [[ "$line" =~ ^A ]]; then
+  elif [[ "$line" =~ ^[A?] ]]; then
     added_files+=("./$path")
   elif [[ "$line" =~ ^D ]]; then
     deleted_files+=("./$path")
-  elif [[ "$line" =~ ^[I?] ]]; then
+  elif [[ "$line" =~ ^I ]]; then
     missing_files+=("./$path")
   fi
 
@@ -173,8 +242,9 @@ for file in "${modified_files[@]}"; do
   modify_file "$file"
 done
 
-#for file in "${added_files[@]}"; do
-#done
+for file in "${added_files[@]}"; do
+  add_file "$file"
+done
 
 #for file in "${deleted_files[@]}"; do
 #done
