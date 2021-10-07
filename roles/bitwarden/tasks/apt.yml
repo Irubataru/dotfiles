@@ -1,0 +1,6 @@
+- name: Install bw dependencies (apt)
+  apt:
+    name: 
+      - jq
+    state: present
+  become: true

@@ -4,7 +4,16 @@
     global: true
     state: present
 
+- import_tasks: apt.yml
+  when: package_manager == "apt"
+
 - name: Initialise the path template
   template: 
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+
+- name: Initialise pwdfzf template
+  template:
+    src: "pwdfzf.j2"
+    dest: "{{ role_path }}/bin/pwdfzf"
+    mode: u=rwx,g=rx,o=rx

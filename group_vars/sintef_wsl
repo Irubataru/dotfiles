@@ -14,3 +14,6 @@ git_signing_key: "4A482FB559E5E707"
 
 # ruby
 ruby_version: "2.6.0"
+
+# Clipboard
+copy_command: "win32yank.exe -i"
