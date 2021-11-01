@@ -7,7 +7,7 @@ alias ll='ls -l'
 alias lla='ls -al'
 
 # Useful cd aliases
-alias cr='cd $(git rev-parse --show-toplevel)'
+alias cr='cd "$(git rev-parse --show-toplevel)"'
 
 # Verbose file operations
 alias rm='rm -v'
