@@ -1,0 +1,80 @@
+"" -- Options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+" Use space as leader
+let mapleader=" "
+
+"" -- Keymaps --
+nmap <leader>cf <Action>(ReformatCode)
+nmap <leader>cF <Action>(ShowReformatFileDialog)
+nmap za <Action>(ExpandRegion)
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
+
+" Refactoring
+nmap rr <Action>(Refactorings.QuickListPopupAction)
+nmap riv <Action>(IntroduceVariable)
+nmap rne <Action>(NewElement)
+nmap rnf <Action>(NewElementSamePlace)
+
+nmap rs <Action>(SurroundWith)
+vmap rs <Action>(SurroundWith)
+
+" Debugging
+
+" Running
+nmap <leader>ll <Action>(Run)
+nmap <leader>ld <Action>(Debug)
+nmap <leader>lb <Action>(BuildSolutionAction)
+nmap <leader>lt <Action>(RiderUnitTestDebugContextAction)
+
+"" -- Simulated plugins --
+nmap <leader>bp <Action>(ToggleLineBreakpoint)
+
+" vim-surround
+set surround
+
+" vim-commentary
+set commentary
+nmap <leader>cc <Action>(CommentByLineComment)
+vmap <leader>cc <Action>(CommentByLineComment)
+
+set easymotion
+
+" NERDTree
+set NERDTree
+map <C-N> :NERDTreeFocus<CR>
+nmap <leader>nc :NERDTreeClose<CR>
+
+"" -- Plugin-like keymaps --
+
+" vim-unimpaired
+
+nmap [<Space> <Action>(EditorStartNewLineBefore)
+nmap ]<Space> <Action>(EditorStartNewLine)
+
+nmap [b <Action>(PreviousTab)
+nmap ]b <Action>(NextTab)
+
+" coc.nvim
+
+nmap gt <Action>(ReSharperNavigateTo)
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(QuickImplementations)
+nmap gi <Action>(GotoImplementation)
+nmap gr <Action>(SolutionExplorerPopupMenuForReference)
+nmap gu <Action>(ShowUsages)
+nmap gU <Action>(FindUsages)
+
+" goyo.vim
+
+nmap <C-G> <Action>(ToggleZenMode)
+
+" ControlSpace
+
+nmap <C-B> <Action>(SearchEverywhere)

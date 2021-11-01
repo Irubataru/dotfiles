@@ -1,0 +1,4 @@
+IdeaVIM
+com.intellij.resharper.azure
+com.jetbrains.sh
+com.vincentp.gruvbox-theme
