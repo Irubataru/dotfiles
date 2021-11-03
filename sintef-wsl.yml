@@ -21,6 +21,7 @@
       - vim
       - vifm
       - bitwarden
+      - rider
   tasks:
     - include_role:
         name: "{{ item }}"
