@@ -1,4 +1,9 @@
 #!/bin/env bash
 
+if [[ -z $BW_SESSION ]]; then
+  directory=$(dirname -- $(readlink -fn -- "$0"))
+  source "${directory}/_bw-bin-unlock-script"
+fi
+
 item="$(bw list items | jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | fzf | awk '{print $(NF -0)}' | sed 's/\"//g')"
 bw get item "$item" | jq '.login.password' | sed 's/\"//g' | {{copy_command}}

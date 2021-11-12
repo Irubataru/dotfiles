@@ -15,5 +15,5 @@
 - name: Initialise pwdfzf template
   template:
     src: "pwdfzf.j2"
-    dest: "{{ role_path }}/bin/pwdfzf"
+    dest: "{{ role_path }}/bin/_pwdfzf-bin-script"
     mode: u=rwx,g=rx,o=rx
