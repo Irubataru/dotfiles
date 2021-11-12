@@ -1,0 +1,10 @@
+- name: Make navi config dir
+  file:
+    path: "{{ navi_data_dir }}/cheats"
+    state: directory
+
+- name: Link navi cheats
+  file:
+    src: "{{ role_path }}/cheats"
+    dest: "{{ navi_data_dir }}/cheats/personal"
+    state: link

@@ -1,0 +1,16 @@
+% dotnet, database
+
+# Update database migrations or create new 
+dotnet ef database update
+
+# Update database migrations to a specific migration
+dotnet ef database update <migration_name>
+
+# Drop the database
+dotnet ef database drop --no-build --force
+
+# Create a new database migration
+dotnet ef migrations add <migration_name>
+
+# Remove the alst migration
+dotnet ef migrations remove

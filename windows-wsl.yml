@@ -19,6 +19,8 @@
       - thefuck
       - vim
       - vifm
+      - rider
+      - navi
   tasks:
     - include_role:
         name: "{{ item }}"
