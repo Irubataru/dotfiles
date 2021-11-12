@@ -1,6 +1,0 @@
-- name: Link ideavimrc
-  file:
-    src: "{{ role_path }}/ideavimrc"
-    dest: "{{ windows_home_directory }}/.ideavimrc"
-    state: link
-  when: windows_home_directory is defined
