@@ -15,6 +15,7 @@
     name: terminalizer
     global: true
     state: present
+  ignore_errors: true
 
 - name: Creating terminalizer config directory
   file:

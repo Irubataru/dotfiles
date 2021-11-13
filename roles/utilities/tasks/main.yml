@@ -1,0 +1,35 @@
+- name: Install fzf, ripgrep (pacman)
+  pacman:
+    name:
+      - fzf
+      - ripgrep
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install fzf, ripgrep (apt)
+  apt:
+    name: 
+      - fzf
+      - ripgrep
+    state: present
+  become: true
+  when: package_manager == "apt"
+
+- name: Install thefuck, bpytop (pip)
+  pip:
+    name:
+      - thefuck
+      - bpytop
+    extra_args: --user
+    state: latest
+
+- name: Install fd (cargo)
+  shell: 
+    cmd: cargo install fd-find
+  ignore_errors: true
+
+- name: Install bat (cargo)
+  shell: 
+    cmd: cargo install bat
+  ignore_errors: true

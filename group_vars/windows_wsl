@@ -7,7 +7,12 @@ package_manager: apt
 hw_cmd_only: true
 
 # git
+git_full_name: Jonas Glesaaen
+git_email: Jonas.Glesaaen@sintef.no
 git_signing_key_has_key: false
 
 # ruby
 ruby_version: "2.6.0"
+
+# Clipboard
+copy_command: "win32yank.exe -i"

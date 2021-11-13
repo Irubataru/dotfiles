@@ -4,3 +4,4 @@
       - npm
     state: present
   become: true
+  ignore_errors: true

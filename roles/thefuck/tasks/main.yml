@@ -1,6 +1,0 @@
-- name: Install thefuck
-  pip:
-    name: thefuck
-    extra_args: --user
-    state: latest
-

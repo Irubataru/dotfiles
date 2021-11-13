@@ -20,14 +20,13 @@
       - qutebrowser
       - ruby
       - go
-      - fzf
       - npm
       - vifm
       - zathura
       - rust
       - alacritty
       - clojure
-      - thefuck
+      - utilities
   tasks:
     - include_role:
         name: "{{ item }}"
