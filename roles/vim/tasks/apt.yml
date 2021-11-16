@@ -7,6 +7,7 @@
 - name: Add neovim development ppa
   apt_repository:
     repo: ppa:neovim-ppa/unstable
+  become: true
 
 - name: Install neovim
   apt:
@@ -16,5 +17,3 @@
       - neovim
     state: present
   become: true
-
-# TODO Install ccls

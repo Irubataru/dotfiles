@@ -21,6 +21,7 @@
       - vim
       - vifm
       - bitwarden
+      - dotnet
       - rider
       - navi
   tasks:
