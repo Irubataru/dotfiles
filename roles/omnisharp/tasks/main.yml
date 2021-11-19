@@ -1,0 +1,10 @@
+- name: Create omnisharp config directory
+  file: 
+    path: "{{ home_directory }}/.omnisharp"
+    state: directory
+
+- name: Link omnisharp config
+  file:
+    src: "{{ role_path }}/omnisharp.json"
+    dest: "{{ home_directory }}/.omnisharp/omnisharp.json"
+    state: link
