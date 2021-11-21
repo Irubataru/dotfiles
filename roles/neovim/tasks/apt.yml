@@ -17,5 +17,3 @@
       - neovim
     state: present
   become: true
-
-# TODO Install ccls

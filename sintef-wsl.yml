@@ -18,10 +18,12 @@
       - go
       - fzf
       - thefuck
-      - vim
+      - neovim
       - vifm
       - bitwarden
+      - dotnet
       - rider
+      - omnisharp
       - navi
   tasks:
     - include_role:

@@ -4,4 +4,6 @@ session_key=$(bw unlock --raw)
 
 if [[ "$?" == "0" ]]; then
   export BW_SESSION="$session_key"
+else
+  return "$?"
 fi

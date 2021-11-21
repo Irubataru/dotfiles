@@ -1,6 +1,6 @@
 - name: Install npm (apt)
   apt:
-    name: 
+    name:
       - npm
     state: present
   become: true

@@ -1,0 +1,9 @@
+
+/*
+ * Created: %DAY%-%MONTH%-%YEAR%
+ * Copyright (c) %YEAR% Jonas R. Glesaaen (jonas@glesaaen.com)
+ */
+
+#include "%FILE%.hpp"
+
+%HERE%

@@ -1,8 +1,11 @@
 #!/bin/env bash
 
 if [[ -z $BW_SESSION ]]; then
-  directory=$(dirname -- $(readlink -fn -- "$0"))
-  source "${directory}/_bw-bin-unlock-script"
+  source "{{ role_path }}/bin/_bw-bin-unlock-script"
+fi
+
+if [[ -z $BW_SESSION ]]; then
+  return "$?"
 fi
 
 item="$(bw list items | jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | fzf | awk '{print $(NF -0)}' | sed 's/\"//g')"

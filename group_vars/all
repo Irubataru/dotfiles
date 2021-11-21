@@ -15,8 +15,5 @@ git_full_name: Jonas Rylund Glesaaen
 git_user: irubataru
 git_email: jonas@glesaaen.com
 
-# vim
-vim_use_server_vim: false
-
 # clipboard
 copy_command: "xclip -sel clip"

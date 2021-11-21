@@ -1,0 +1,1 @@
+vim.bo.foldmethod = "indent"
