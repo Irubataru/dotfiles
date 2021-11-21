@@ -11,7 +11,7 @@
       - tmux
       - X
       - keyboard
-      - vim
+      - neovim
       - gpg
       - spacemacs
       - awesome

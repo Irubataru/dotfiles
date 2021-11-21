@@ -18,7 +18,7 @@
       - go
       - fzf
       - thefuck
-      - vim
+      - neovim
       - vifm
       - bitwarden
       - dotnet

@@ -1,0 +1,12 @@
+
+/*
+ * Created: %DAY%-%MONTH%-%YEAR%
+ * Copyright (c) %YEAR% Jonas R. Glesaaen (jonas@glesaaen.com)
+ */
+
+#ifndef %GUARD%
+#define %GUARD%
+
+%HERE%
+
+#endif /* %GUARD% */

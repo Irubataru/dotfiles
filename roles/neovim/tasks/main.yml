@@ -1,0 +1,33 @@
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+- import_tasks: apt.yml
+  when: package_manager == "apt"
+
+- name: Create vim temp storage directory
+  file: 
+    path: "{{ home_directory }}/.tmp"
+    state: directory
+
+- name: Create neovim config directory
+  file: 
+    path: "{{ home_directory }}/.config"
+    state: directory
+
+- name: Link neovim config
+  file:
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.config/nvim"
+    state: link
+
+- name: Install neovim python provider
+  pip:
+    name: pynvim
+    extra_args: --user
+    state: latest
+
+- name: Install neovim ruby provider
+  gem:
+    name: neovim
+    user_install: true
+    state: latest

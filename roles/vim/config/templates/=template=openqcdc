@@ -1,0 +1,22 @@
+
+/*******************************************************************************
+ *
+ * File %FFILE%
+ *
+ * Copyright (c) (%YEAR%): Jonas Rylund Glesaaen
+ *
+ * This software is distributed under the terms of the GNU General Public
+ * License (GPL)
+ *
+ * The externally accessible functions are
+ *
+ *
+ * Notes:
+ *
+ *
+ *******************************************************************************/
+
+#define %GUARD%
+#define OPENQCD_INTERNAL
+
+%HERE%

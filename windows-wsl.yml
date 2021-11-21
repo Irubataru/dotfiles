@@ -17,7 +17,7 @@
       - go
       - fzf
       - thefuck
-      - vim
+      - neovim
       - vifm
       - rider
       - navi

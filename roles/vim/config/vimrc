@@ -1,0 +1,111 @@
+set nocompatible
+filetype plugin on
+
+" Get plugins using Plug
+call plug#begin("~/.vim/extensions")
+
+" General plugins
+Plug 'tpope/vim-sensible' " Defaults everyone can agree on
+Plug 'tpope/vim-repeat' " Enable repeating supported plugin maps with .
+Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
+Plug 'tpope/vim-unimpaired' " Pairs of handy bracket mappings
+Plug 'tpope/vim-dispatch' " Asynchronous build and test dispatcher
+Plug 'wikitopian/hardmode' " Disable arrow movement, update to takac/vim-hardtime eventually
+
+" Buffer and file-management
+Plug 'junegunn/fzf', {'do': './install --all'} " A command-line fuzzy finder
+Plug 'junegunn/fzf.vim' " fzf <3 vim
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } | 
+      \ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " File navigation
+Plug 'vim-ctrlspace/vim-ctrlspace' " Vim Space Controller, buffer and tab management
+
+" Auto-completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for Vim8 & Neovim, full language server protocol support as VSCode
+Plug 'SirVer/ultisnips' " UltiSnips - The ultimate snippet solution for Vim
+
+" Additional functionality
+Plug 'easymotion/vim-easymotion' " Vim motions on speed!
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' } " Gundo.vim is Vim plugin to visualize your Vim undo tree.
+Plug 'preservim/nerdcommenter' " Vim plugin for intensely nerdy commenting powers
+Plug 'xolox/vim-misc' | Plug 'xolox/vim-session' " Think this is a dependency of something
+Plug 'aperezdc/vim-template', { 'on': 'Template' } " Simple templates plugin for Vim
+Plug 'embear/vim-localvimrc' " Search local vimrc files ('.lvimrc') in the tree (root dir up to current dir) and load them.
+Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
+Plug 'unblevable/quick-scope' " Highlighting for f,F,t,T
+Plug 'skywind3000/vim-terminal-help' " Small changes make vim/nvim's internal terminal great again
+Plug 'AndrewRadev/linediff.vim' " A vim plugin to perform diffs on blocks of code
+
+" Note taking
+Plug 'vimwiki/vimwiki', {'branch': 'dev'} " Pesonalized wiki and note taking
+"Plug 'xolox/vim-misc' | Plug 'xolox/vim-notes' " Disabled due to conflict with coc
+
+" git related
+Plug 'tpope/vim-fugitive'  " The best git plugin
+Plug 'airblade/vim-rooter' " Changes the vim directory to project root
+Plug 'rhysd/git-messenger.vim' " Vim and Neovim plugin to reveal the commit messages under the cursor
+
+" Colour schemes
+Plug 'junegunn/seoul256.vim'
+Plug 'Irubataru/vim-colors-solarized'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'chriskempson/base16-vim'
+Plug 'trevordmiller/nova-vim'
+
+" Related to the look
+Plug 'itchyny/lightline.vim' " A light and configurable statusline/tabline plugin for Vim
+Plug 'haya14busa/vim-operator-flashy' | 
+      \ Plug 'kana/vim-operator-user' " Highlight yanked area
+Plug 'Yggdroot/indentLine', {'for': ['python']} " A vim plugin to display the indention levels with thin vertical lines
+Plug 'haya14busa/incsearch.vim' " Improved incremental searching for Vim
+Plug 'junegunn/limelight.vim' " Hyperfocus-writing in Vim
+Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim
+Plug 'mhinz/vim-startify' " The fancy start screen for Vim
+
+" For C++
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['cpp'] } " Additional Vim syntax highlighting for C++ (including C++11/14/17)
+Plug 'preservim/tagbar', {'for': 'cpp'} " Vim plugin that displays tags in a window, ordered by scope
+Plug 'rhysd/vim-clang-format', { 'for': ['cpp', 'hpp', 'c'] } | " Vim plugin for clang-format
+      \ Plug 'kana/vim-operator-user'
+
+" For python
+Plug 'Chiel92/vim-autoformat', { 'for': ['python', 'tex', 'html', 'css', 'javascript'] } " Provide easy code formatting in Vim by integrating existing code formatters
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' } " No-BS Python code folding for Vim
+
+" For Clojure
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' } " Clojure REPL support
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' } " Meikel Brandmeyer's excellent Clojure runtime files
+Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' } " Extend builtin syntax highlighting to referred and aliased vars in Clojure buffers
+Plug 'vim-scripts/paredit.vim', { 'for': 'clojure' } " Paredit Mode: Structured Editing of Lisp S-expressions
+Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } " A Vim plugin for cljfmt, the Clojure formatting tool.
+
+" For LaTeX
+Plug 'lervag/vimtex', { 'for': 'tex' } " A modern Vim and neovim filetype plugin for LaTeX files.
+Plug 'KeitaNakamura/tex-conceal.vim', { 'for': 'tex' } " This plugin extends the Conceal feature of Vim for LaTeX.
+
+" For JavaScript
+Plug 'ternjs/tern_for_vim', { 'for': [], 'do': 'npm install' } " Tern plugin for Vim
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " Vastly improved Javascript indentation and syntax support in Vim.
+Plug 'Olical/vim-syntax-expand', { 'for': 'javascript' } " Expand characters to code if not in a comment or string
+Plug 'elzr/vim-json', { 'for': 'json' } " A better JSON for Vim: distinct highlighting of keywords vs values, JSON-specific (non-JS) warnings, quote concealing.
+
+" For Markdown
+Plug 'SidOfc/mkdx', { 'for': 'markdown' } " A vim plugin that adds some nice extra's for working with markdown documents
+
+" Other syntax highlighting
+Plug 'lazywei/vim-matlab' " A matlab plugin for vim, includes syntax highlighting, correct indention and so on.
+Plug 'rsmenon/vim-mathematica' " Mathematica syntax highlighting (and more) for vim
+Plug 'vim-scripts/gnuplot.vim' " Syntax highlighting for Gnuplot
+Plug 'Glench/Vim-Jinja2-Syntax' " An up-to-date jinja2 syntax file.
+
+" Other filetype specific plugins
+Plug 'vifm/vifm', { 'rtp': 'data/vim' } " Vim-like file manager
+
+" nvim dependent plugins
+if has('nvim')
+  Plug 'mhinz/vim-signify' " Show a diff using Vim its sign column
+  Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
+  Plug 'jalvesaq/Nvim-R' " Vim plugin to work with R
+  Plug 'tversteeg/registers.nvim' " NeoVim plugin to preview the contents of the registers
+endif
+
+call plug#end()

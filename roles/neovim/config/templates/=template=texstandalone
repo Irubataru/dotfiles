@@ -1,0 +1,10 @@
+\documentclass[11pt,tikz]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\begin{tikzpicture}
+%HERE%
+\end{tikzpicture}
+
+\end{document}

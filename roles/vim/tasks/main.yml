@@ -1,26 +1,10 @@
-- import_tasks: pacman.yml
-  when: package_manager == "pacman"
-
-- import_tasks: apt.yml
-  when: package_manager == "apt"
-
-- import_tasks: local.yml
-  when: vim_use_server_vim == false
-
 - name: Create vim temp storage directory
   file: 
     path: "{{ home_directory }}/.tmp"
     state: directory
 
-- name: Create neovim config directory
-  file: 
-    path: "{{ home_directory }}/.config"
-    state: directory
-  when: vim_use_server_vim == false
-
-- name: Link neovim config
+- name: Link vim dotfiles
   file:
-    src: "{{ home_directory }}/.vim"
-    dest: "{{ home_directory }}/.config/nvim"
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.vim"
     state: link
-  when: vim_use_server_vim == false

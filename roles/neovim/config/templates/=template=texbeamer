@@ -1,0 +1,20 @@
+cumentclass[11pt,a4paper]{beamer}
+\usepackage{listings,algpseudocode}
+\usepackage{amsmath,tikz}
+
+\DeclareGraphicsExtensions{.pdf}
+
+
+\title[Small Title]{Title}
+\author{Jonas R. Glesaaen}
+\date{\today{}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%HERE%
+
+\end{document}

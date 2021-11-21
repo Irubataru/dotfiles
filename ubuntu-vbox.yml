@@ -10,7 +10,7 @@
       - fonts
       - tmux
       - keyboard
-      - vim
+      - neovim
       - gpg
       - awesome
       - clang

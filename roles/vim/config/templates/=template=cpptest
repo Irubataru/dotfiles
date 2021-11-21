@@ -1,0 +1,10 @@
+
+/*
+ * Created: %DAY%-%MONTH%-%YEAR%
+ * Copyright (c) %YEAR% Jonas R. Glesaaen (jonas@glesaaen.com)
+ */
+
+#include <gtest/gtest.h>
+#include <%HERE%>
+
+
