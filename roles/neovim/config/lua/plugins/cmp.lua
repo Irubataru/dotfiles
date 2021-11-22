@@ -8,6 +8,7 @@ local source_mapping = {
   nvim_lua = "[Lua]",
   cmp_tabnine = "[TN]",
   path = "[Path]",
+  cmp_git = "[Git]",
 }
 
 cmp.setup({
@@ -80,6 +81,7 @@ cmp.setup({
   },
 
   sources = cmp.config.sources({
+    { name = "cmp_git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'nvim_lua' },
@@ -105,6 +107,8 @@ cmp.setup({
   },
 
 })
+
+require("cmp_git").setup()
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {

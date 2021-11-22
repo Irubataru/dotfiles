@@ -81,6 +81,7 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-path' -- nvim-cmp source for path
   use 'hrsh7th/cmp-cmdline' -- nvim-cmp source for vim's cmdline
   use { 'tzachar/cmp-tabnine', run = './install.sh' } -- TabNine plugin for hrsh7th/nvim-cmp
+  use({"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"}) -- Git source for nvim-cmp
   use 'onsails/lspkind-nvim' -- vscode-like pictograms for neovim lsp completion items
   use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
   use { 'L3MON4D3/LuaSnip', config = configs.luasnip } -- Snippet Engine for Neovim written in Lua.
