@@ -15,7 +15,7 @@ local configs = {
   limelight = function() require('plugins/limelight') end,
   linediff = function() require('plugins/linediff') end,
   localvimrc = function() require('plugins/localvimrc') end,
-  lspconfig = function() require('plugins/lspconfig') end,
+  lspconfig = function() require('plugins/lsp') end,
   luasnip = function() require('plugins/luasnip') end,
   mkdx = function() require('plugins/mkdx') end,
   nvim_tree = function() require('plugins/nvim_tree') end,
@@ -27,6 +27,7 @@ local configs = {
   template = function() require('plugins/template') end,
   terminal_help = function() require('plugins/terminal-help') end,
   treesitter = function() require('plugins/treesitter') end,
+  trouble = function() require('plugins/trouble') end,
   vimtex = function() require('plugins/vimtex') end,
   vimwiki = function() require('plugins/vimwiki') end,
 }
@@ -85,6 +86,12 @@ return require('packer').startup(function(use)
   use 'onsails/lspkind-nvim' -- vscode-like pictograms for neovim lsp completion items
   use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
   use { 'L3MON4D3/LuaSnip', config = configs.luasnip } -- Snippet Engine for Neovim written in Lua.
+
+  use {
+    "folke/trouble.nvim", -- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
+    requires = "kyazdani42/nvim-web-devicons",
+    config = configs.trouble
+  }
 
   -- Tree sitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = configs.treesitter}
