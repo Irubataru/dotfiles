@@ -9,8 +9,10 @@ end
 
 local servers = {
   clangd = {},
-  sumneko_lua = require('plugins.lsp.sumneko_lua').config,
+  dockerls = {},
   omnisharp = require('plugins.lsp.omnisharp').config,
+  pyright = {},
+  sumneko_lua = require('plugins.lsp.sumneko_lua').config,
 }
 
 local lspconfig = require('lspconfig')

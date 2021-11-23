@@ -131,6 +131,7 @@ return require('packer').startup(function(use)
   use { 'tpope/vim-fugitive', config = configs.fugitive } -- The best git plugin
   use 'airblade/vim-rooter' -- Changes the vim directory to project root
   use 'rhysd/git-messenger.vim' -- Vim and Neovim plugin to reveal the commit messages under the cursor
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' } -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
 
   -- C/C++
   use { 'octol/vim-cpp-enhanced-highlight', config = configs.cpp_enhanced_highlight, ft = { 'cpp' } } -- Additional Vim syntax highlighting for C++ (including C++11/14/17)

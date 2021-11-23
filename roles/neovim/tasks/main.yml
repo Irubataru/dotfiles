@@ -20,14 +20,27 @@
     dest: "{{ home_directory }}/.config/nvim"
     state: link
 
-- name: Install neovim python provider
+- name: Install neovim python dependencies
   pip:
-    name: pynvim
+    name:
+      - pynvim
+      - pyright
     extra_args: --user
     state: latest
+  ignore_errors: true
 
-- name: Install neovim ruby provider
+- name: Install neovim ruby dependencies
   gem:
-    name: neovim
+    name:
+      - neovim
     user_install: true
     state: latest
+  ignore_errors: true
+
+- name: Install neovim npm dependencies
+  gem:
+    name:
+      - dockerfile-language-server-nodejs
+    global: true
+    state: latest
+  ignore_errors: true
