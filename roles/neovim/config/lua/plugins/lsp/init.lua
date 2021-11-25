@@ -10,6 +10,7 @@ end
 local servers = {
   clangd = {},
   dockerls = {},
+  jsonls = require('plugins.lsp.jsonls').config,
   omnisharp = require('plugins.lsp.omnisharp').config,
   pyright = {},
   sumneko_lua = require('plugins.lsp.sumneko_lua').config,

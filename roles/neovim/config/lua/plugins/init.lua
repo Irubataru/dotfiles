@@ -161,10 +161,11 @@ return require('packer').startup(function(use)
   use { 'lervag/vimtex', config = configs.vimtex, ft = { 'tex' } } -- A modern Vim and neovim filetype plugin for LaTeX files.
   use { 'KeitaNakamura/tex-conceal.vim', ft = { 'tex' } } -- This plugin extends the Conceal feature of Vim for LaTeX.
 
-  -- For JavaScript
+  -- For JavaScript / JSON
   use { 'pangloss/vim-javascript', ft = { 'javascript' } } -- Vastly improved Javascript indentation and syntax support in Vim.
   use { 'Olical/vim-syntax-expand', ft = { 'javascript' } } -- Expand characters to code if not in a comment or string
   use { 'elzr/vim-json', ft = { 'json' } } -- A better JSON for Vim: distinct highlighting of keywords vs values, JSON-specific (non-JS) warnings, quote concealing.
+  use { "b0o/schemastore.nvim" } -- A Neovim Lua plugin providing access to the SchemaStore catalog.
 
   -- For Markdown
   use { 'SidOfc/mkdx', ft = { 'markdown' } } -- A vim plugin that adds some nice extra's for working with markdown documents
