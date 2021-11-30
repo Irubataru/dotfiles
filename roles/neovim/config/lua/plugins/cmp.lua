@@ -39,30 +39,40 @@ cmp.setup({
     },
 
     -- No automatic tab completion
-    --["<tab>"] = cmp.mapping {
-    --i = cmp.config.disable,
-    --c = function(fallback)
-    --fallback()
-    --end,
-    --},
+    -- ["<Tab>"] = cmp.mapping {
+    -- i = cmp.config.disable,
+    -- c = function(fallback)
+    -- fallback()
+    -- end,
+    -- },
 
     -- With automatic tab completion
     --  First you have to just promise to read `:help ins-completion`.
-    ["<Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
+    ["<Tab>"] =  cmp.mapping {
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end,
+      c = function(fallback)
         fallback()
       end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
+    },
 
+    ["<S-Tab>"] = cmp.mapping {
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end,
+      c = function(fallback)
+        fallback()
+      end
+    },
 
     ["<c-y>"] = cmp.mapping(
     cmp.mapping.confirm {
