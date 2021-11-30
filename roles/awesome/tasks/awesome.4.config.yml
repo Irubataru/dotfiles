@@ -13,8 +13,11 @@
   git:
     repo: "https://github.com/Irubataru/seoul256-awesomewm-theme.git"
     dest: "{{ awesome_install_path }}/seoul256-awesomewm-theme"
+    update: no
+
 
 - name: Install lain
   git: 
     repo: "https://github.com/lcpz/lain.git"
     dest: "{{ awesome_install_path }}/lain"
+    update: no

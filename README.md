@@ -27,6 +27,7 @@ see the configurations themselves for which modules they expect.
 
 ```
 ansible-galaxy install git+https://github.com/c0sco/ansible-modules-bitwarden
+ansible-galaxy collection install kewlfft.aur
 ```
 
 ## Secrets

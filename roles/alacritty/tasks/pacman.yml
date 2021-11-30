@@ -1,0 +1,8 @@
+- name: Install alacritty X dependencies (pacman)
+  pacman:
+    name: 
+      - libxcursor
+      - libxi
+      - xorg-xrandr
+    state: present
+  become: true

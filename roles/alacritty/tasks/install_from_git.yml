@@ -26,6 +26,7 @@
       - python3
     state: present
   when: package_manager == "apt"
+  become: true
 
 - name: Ensure build dependencies for alacritty (pacman)
   pacman:
@@ -37,8 +38,10 @@
       - make
       - libxcb
       - libxkbcommon
+      - python
     state: present
   when: package_manager == "pacman"
+  become: true
 
 - name: Build alacritty
   shell: cargo build --release

@@ -1,0 +1,25 @@
+- name: Install applications (pacman)
+  pacman:
+    name:
+      - pcmanfm-gtk3
+      - zathura
+      - zathura-pdf-mupdf
+      - zathura-ps
+      - zathura-djvu
+      - vivaldi
+      - vivaldi-ffmpeg-codecs
+      - mpv
+      - mpd
+      - cmus
+    state: present
+  become: true
+
+- name: Install applications (AUR)
+  kewlfft.aur.aur:
+    name:
+      - nsxiv
+      - steam
+      - spotify
+    state: present
+  become: true
+  become_user: aur_builder

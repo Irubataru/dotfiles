@@ -133,7 +133,7 @@ awful.util.tasklist_buttons = gears.table.join(
   awful.button({ }, 5, function () awful.client.focus.byidx(-1) end))
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(require("theme"))
+beautiful.init(require("seoul256-awesomewm-theme"))
 beautiful.wallpaper = wallpaper
 
 -- }}}
@@ -147,9 +147,10 @@ local function run_once(cmd_arr)
   end
 end
 
+-- TODO I want this to check if already running
 run_once({
   "unclutter -root",
-  "xautolock -time 45 -locker " .. scrlocker,
+  "xidlehook --not-when-fullscreen --not-when-audio --timer 900 'systemctl suspend' ''",
   'setxkbmap no -option "ctr:nocaps"',
   "xrdb " .. homedir .. "/.Xresources"
 })
@@ -159,12 +160,10 @@ run_once({
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 local applications = {
-	{"browser",      "qutebrowser"},
-  {"spacemacs",    "emacs"},
-  {"google music", "gpmdp"},
-  {"spotify",      "spotify"},
-	{"mathematica",  "mathematica"},
-	{"skype",        "skype"}
+	{"vivaldi", "vivaldi-stable"},
+	{"qutebrowser", "qutebrowser"},
+  {"discord", "discord" },
+	{"steam", "steam"},
 }
 
 local directories = {

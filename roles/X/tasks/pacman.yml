@@ -1,0 +1,6 @@
+- name: Install greeter
+  kewlfft.aur.aur:
+    name: lightdm-webkit-theme-aether
+    state: present
+  become: true
+  become_user: aur_builder
