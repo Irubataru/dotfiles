@@ -31,11 +31,26 @@ M.config = {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = {
+
+          -- neovim
+          'vim',
+
+          -- awesome
+          'awesome',
+          'client',
+          'root',
+
+        },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.list_extend(
+          {
+            '/usr/share/awesome/lib'
+          },
+          vim.api.nvim_get_runtime_file("", true)
+        ),
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {

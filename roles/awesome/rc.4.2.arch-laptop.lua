@@ -59,7 +59,6 @@ local scrlocker    = "slock"
  
 local homedir      = os.getenv("HOME")
 local confdir      = homedir .. "/.config/awesome"
-local themedir     = confdir .. "/seoul256-awesomewm-theme"
 local wallpaperdir = confdir
 local wallpaper    = wallpaperdir .. "/Solar.png"
 
@@ -83,57 +82,67 @@ awful.layout.layouts = {
   -- awful.layout.suit.corner.se,
 }
 
-awful.util.taglist_buttons = gears.table.join(
-  awful.button({ }, 1, function(t) t:view_only() end),
-  awful.button({ modkey }, 1, function(t)
-    if client.focus then
-      client.focus:move_to_tag(t)
+local taglist_buttons = gears.table.join(
+  awful.button( { }, 1,
+    function(t) t:view_only() end
+  ),
+  awful.button( { modkey }, 1,
+    function(t)
+      if client.focus then
+          client.focus:move_to_tag(t)
+      end
     end
-  end),
-  awful.button({ }, 3, awful.tag.viewtoggle),
-  awful.button({ modkey }, 3, function(t)
-    if client.focus then
-      client.focus:toggle_tag(t)
+  ),
+  awful.button( { }, 3, awful.tag.viewtoggle),
+  awful.button( { modkey }, 3,
+    function(t)
+      if client.focus then
+          client.focus:toggle_tag(t)
+      end
     end
-  end),
+  ),
   awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
   awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-  )
+)
 
-awful.util.tasklist_buttons = gears.table.join(
-  awful.button({ }, 1, function (c)
-    if c == client.focus then
-      c.minimized = true
-    else
-      -- Without this, the following
-      -- :isvisible() makes no sense
-      c.minimized = false
-      if not c:isvisible() and c.first_tag then
-        c.first_tag:view_only()
-      end
-      -- This will also un-minimize
-      -- the client, if needed
-      client.focus = c
-      c:raise()
-    end
-  end),
-  awful.button({ }, 3, function ()
-    local instance = nil
-
-    return function ()
-      if instance and instance.wibox.visible then
-        instance:hide()
-        instance = nil
+local tasklist_buttons = gears.table.join(
+  awful.button( { }, 1,
+    function (c)
+      if c == client.focus then
+        c.minimized = true
       else
-        instance = awful.menu.clients({theme = {width = dpi(250)}})
+        c:emit_signal(
+        "request::activate",
+        "tasklist",
+        {raise = true}
+        )
       end
     end
-  end),
-  awful.button({ }, 4, function () awful.client.focus.byidx(1) end),
-  awful.button({ }, 5, function () awful.client.focus.byidx(-1) end))
+  ),
+  awful.button( { }, 3,
+    function()
+      awful.menu.client_list({ theme = { width = 250 } })
+    end
+  ),
+  awful.button( { }, 4,
+    function ()
+      awful.client.focus.byidx(1)
+    end
+  ),
+  awful.button( { }, 5,
+    function ()
+      awful.client.focus.byidx(-1)
+    end))
+
+local theme = require("seoul256-awesomewm-theme")
+theme.setup{
+  taglist_buttons = taglist_buttons,
+  tasklist_buttons = tasklist_buttons
+}
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(require("seoul256-awesomewm-theme.theme"))
+beautiful.init(theme)
+-- beautiful.init(require("seoul256-awesomewm-theme").setup{ taglist_buttons = taglist_buttons, tasklist_buttons = tasklist_buttons })
 beautiful.wallpaper = wallpaper
 
 -- }}}
@@ -188,7 +197,7 @@ local systemcmd = {
   {"hibernate", "systemctl hibernate"}
 }
 
-awful.util.mymainmenu = awful.menu({ 
+awful.util.mymainmenu = awful.menu({
   items = { { "programs",      applications },
             { "dirs",          directories },
             { "awesome",       myawesomemenu, beautiful.awesome_icon },
@@ -224,12 +233,12 @@ beautiful.widgets.keyboard.update(kbdcfg.layout[kbdcfg.current])
 
 -- {{{ Printscreen function
 
-screenshotloc = homedir .. "/Pictures/Screenshots/" 
+local screenshotloc = homedir .. "/Pictures/Screenshots/"
 
-printscreen = function()
+local printscreen = function()
 	local date = os.date("%d-%m-%y_%H.%M")
 	local testfile = screenshotloc..date..".png"
-	prtscr_c = 1
+	local prtscr_c = 1
 	while (awful.util.file_readable(testfile) and (prtscr_c < 100)) do
 		testfile = screenshotloc..date.."_"..prtscr_c..".png"
 		prtscr_c = prtscr_c + 1
@@ -241,7 +250,7 @@ end
 
 -- {{{ Touchpad toggle
 
-toggle_touchpad = function()
+local toggle_touchpad = function()
   local handle = io.popen("synclient -l | grep TouchpadOff | cut -d '=' -f 2 | tr -d '[:space:]'")
   local result = handle:read("*a")
   handle:close()
@@ -269,10 +278,10 @@ local brightness = {
     handle:close()
     result = string.gsub(
       string.gsub(
-        string.gsub(result, '^%s+', ''), 
-        '%s+$', 
+        string.gsub(result, '^%s+', ''),
+        '%s+$',
         ''
-      ), 
+      ),
       '[\n\r]+',
       ' '
     )
@@ -320,6 +329,7 @@ end)
 
 ---- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) end)
+
 
 -- }}}
 
@@ -574,64 +584,64 @@ clientkeys = gears.table.join(
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
-  -- Hack to only show tags 1 and 9 in the shortcut window (mod+s)
-  local descr_view, descr_toggle, descr_move, descr_toggle_focus
-  if i == 1 or i == 9 then
-    descr_view = {description = "view tag #", group = "tag"}
-    descr_toggle = {description = "toggle tag #", group = "tag"}
-    descr_move = {description = "move focused client to tag #", group = "tag"}
-    descr_toggle_focus = {description = "toggle focused client on tag #", group = "tag"}
-  end
-  globalkeys = gears.table.join(globalkeys,
-  -- View tag only.
-  awful.key({ modkey }, "#" .. i + 9,
-            function ()
-              local screen = awful.screen.focused()
-              local tag = screen.tags[i]
-              if tag then
-                tag:view_only()
-              end
-            end,
-            descr_view),
-  -- Toggle tag display.
-  awful.key({ modkey, "Control" }, "#" .. i + 9,
-            function ()
-              local screen = awful.screen.focused()
-              local tag = screen.tags[i]
-              if tag then
-                awful.tag.viewtoggle(tag)
-              end
-            end,
-            descr_toggle),
-  -- Move client to tag.
-  awful.key({ modkey, "Shift" }, "#" .. i + 9,
-            function ()
-              if client.focus then
-                local tag = client.focus.screen.tags[i]
-                if tag then
-                  client.focus:move_to_tag(tag)
-                end
-              end
-            end,
-            descr_view),
-  -- Toggle tag on focused client.
-  awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-            function ()
-              if client.focus then
-                local tag = client.focus.screen.tags[i]
-                if tag then
-                  client.focus:toggle_tag(tag)
-                end
-              end
-            end,
-            descr_toggle_focus)
-  )
+    globalkeys = gears.table.join(globalkeys,
+        -- View tag only.
+        awful.key({ modkey }, "#" .. i + 9,
+                  function ()
+                        local screen = awful.screen.focused()
+                        local tag = screen.tags[i]
+                        if tag then
+                           tag:view_only()
+                        end
+                  end,
+                  {description = "view tag #"..i, group = "tag"}),
+        -- Toggle tag display.
+        awful.key({ modkey, "Control" }, "#" .. i + 9,
+                  function ()
+                      local screen = awful.screen.focused()
+                      local tag = screen.tags[i]
+                      if tag then
+                         awful.tag.viewtoggle(tag)
+                      end
+                  end,
+                  {description = "toggle tag #" .. i, group = "tag"}),
+        -- Move client to tag.
+        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                  function ()
+                      if client.focus then
+                          local tag = client.focus.screen.tags[i]
+                          if tag then
+                              client.focus:move_to_tag(tag)
+                          end
+                     end
+                  end,
+                  {description = "move focused client to tag #"..i, group = "tag"}),
+        -- Toggle tag on focused client.
+        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                  function ()
+                      if client.focus then
+                          local tag = client.focus.screen.tags[i]
+                          if tag then
+                              client.focus:toggle_tag(tag)
+                          end
+                      end
+                  end,
+                  {description = "toggle focused client on tag #" .. i, group = "tag"})
+    )
 end
 
 clientbuttons = gears.table.join(
-  awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-  awful.button({ modkey }, 1, awful.mouse.client.move),
-  awful.button({ modkey }, 3, awful.mouse.client.resize)
+    awful.button({ }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+    end),
+    awful.button({ modkey }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ modkey }, 3, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.resize(c)
+    end)
 )
 
 -- Set keys
@@ -681,58 +691,55 @@ end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
-  -- Custom
-  if beautiful.titlebar_fun then
-    beautiful.titlebar_fun(c)
-    return
-  end
+  -- -- Custom
+  -- if beautiful.titlebar_fun then
+  --   beautiful.titlebar_fun(c)
+  --   return
+  -- end
 
   -- Default
   -- buttons for the titlebar
-  local buttons = my_table.join(
-    awful.button({ }, 1, function()
-      c:emit_signal("request::activate", "titlebar", {raise = true})
-      awful.mouse.client.move(c)
-    end),
-    awful.button({ }, 2, function() c:kill() end),
-    awful.button({ }, 3, function()
-      c:emit_signal("request::activate", "titlebar", {raise = true})
-      awful.mouse.client.resize(c)
-    end)
-  )
+    -- buttons for the titlebar
+    local buttons = gears.table.join(
+        awful.button({ }, 1, function()
+            c:emit_signal("request::activate", "titlebar", {raise = true})
+            awful.mouse.client.move(c)
+        end),
+        awful.button({ }, 3, function()
+            c:emit_signal("request::activate", "titlebar", {raise = true})
+            awful.mouse.client.resize(c)
+        end)
+    )
 
-  awful.titlebar(c, {size = dpi(16)}) : setup {
-    { -- Left
-      awful.titlebar.widget.iconwidget(c),
-      buttons = buttons,
-      layout  = wibox.layout.fixed.horizontal
-    },
-    { -- Middle
-      { -- Title
-        align  = "center",
-        widget = awful.titlebar.widget.titlewidget(c)
-      },
-      buttons = buttons,
-      layout  = wibox.layout.flex.horizontal
-    },
-    { -- Right
-      awful.titlebar.widget.floatingbutton (c),
-      awful.titlebar.widget.maximizedbutton(c),
-      awful.titlebar.widget.stickybutton   (c),
-      awful.titlebar.widget.ontopbutton    (c),
-      awful.titlebar.widget.closebutton    (c),
-      layout = wibox.layout.fixed.horizontal()
-    },
-    layout = wibox.layout.align.horizontal
-  }
+    awful.titlebar(c) : setup {
+        { -- Left
+            awful.titlebar.widget.iconwidget(c),
+            buttons = buttons,
+            layout  = wibox.layout.fixed.horizontal
+        },
+        { -- Middle
+            { -- Title
+                align  = "center",
+                widget = awful.titlebar.widget.titlewidget(c)
+            },
+            buttons = buttons,
+            layout  = wibox.layout.flex.horizontal
+        },
+        { -- Right
+            awful.titlebar.widget.floatingbutton (c),
+            awful.titlebar.widget.maximizedbutton(c),
+            awful.titlebar.widget.stickybutton   (c),
+            awful.titlebar.widget.ontopbutton    (c),
+            awful.titlebar.widget.closebutton    (c),
+            layout = wibox.layout.fixed.horizontal()
+        },
+        layout = wibox.layout.align.horizontal
+    }
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
-  if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-    and awful.client.focus.filter(c) then
-    client.focus = c
-  end
+    c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
