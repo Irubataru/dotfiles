@@ -11,6 +11,7 @@
       - mpv
       - mpd
       - cmus
+      - discord
     state: present
   become: true
 
@@ -19,7 +20,7 @@
     name:
       - nsxiv
       - steam
-      - spotify
+      # - spotify
     state: present
   become: true
   become_user: aur_builder

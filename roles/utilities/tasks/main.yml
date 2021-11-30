@@ -29,7 +29,4 @@
     cmd: cargo install fd-find
   ignore_errors: true
 
-- name: Install bat (cargo)
-  shell: 
-    cmd: cargo install bat
-  ignore_errors: true
+- import_tasks: bat.yml

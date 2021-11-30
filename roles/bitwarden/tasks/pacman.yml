@@ -1,0 +1,7 @@
+- name: Install bw dependencies (pacman)
+  pacman:
+    name: 
+      - jq
+      - xclip
+    state: present
+  become: true

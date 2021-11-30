@@ -1,0 +1,15 @@
+- name: Install bat (cargo)
+  shell: 
+    cmd: cargo install bat
+  ignore_errors: true
+
+- name: Link bat config file
+  file: 
+    path: "{{ home_directory }}/.config/bat"
+    state: directory
+
+- name: Link bat config file
+  file:
+    src: "{{ role_path }}/bat.config"
+    dest: "{{ home_directory }}/.config/bat/config"
+    state: link

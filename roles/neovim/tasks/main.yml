@@ -31,16 +31,14 @@
 
 - name: Install neovim ruby dependencies
   gem:
-    name:
-      - neovim
+    name: neovim
     user_install: true
     state: latest
   ignore_errors: true
 
 - name: Install neovim npm dependencies
-  gem:
-    name:
-      - dockerfile-language-server-nodejs
+  npm:
+    name: dockerfile-language-server-nodejs
     global: true
     state: latest
   ignore_errors: true

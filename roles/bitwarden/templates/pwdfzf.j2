@@ -8,5 +8,13 @@ if [[ -z $BW_SESSION ]]; then
   return "$?"
 fi
 
-item="$(bw list items | jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | fzf | awk '{print $(NF -0)}' | sed 's/\"//g')"
-bw get item "$item" | jq '.login.password' | sed 's/\"//g' | {{copy_command}}
+item="$(bw list items | \
+  jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | \
+  sed 's/^\"\(.*\)"$/\1/' | \
+  fzf --preview='{{ role_path }}/bin/_pwdfzf-preview-script {}' --preview-window=wrap | \
+  awk '{print $(NF -0)}')"
+
+bw get item "$item" | \
+  jq '.login.password' | \
+  sed 's/\"//g' | \
+  {{copy_command}}

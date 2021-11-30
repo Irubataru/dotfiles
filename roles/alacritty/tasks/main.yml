@@ -5,6 +5,7 @@
   when: package_manager == "pacman"
 
 - import_tasks: install_from_git.yml
+  when: package_manager == "apt"
 
 - name: Create alacritty config directory
   file: 

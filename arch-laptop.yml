@@ -6,14 +6,12 @@
       - basic
       - zsh
       - common
-      - urxvt
       - fonts
       - tmux
       - X
       - keyboard
       - neovim
       - gpg
-      - spacemacs
       - awesome
       - clang
       - conky
@@ -24,11 +22,12 @@
       - ruby
       - laptop
       - go
-      - fzf
       - npm
       - vifm
       - rust
       - alacritty
+      - applications
+      - utilities
   tasks:
     - include_role:
         name: "{{ item }}"

@@ -1,0 +1,106 @@
+#!/bin/env python
+
+import sys
+import subprocess
+import json
+from termcolor import colored
+from typing import List, Dict
+
+def red(value: str) -> str:
+    return colored(value, 'red')
+
+def blue(value: str) -> str:
+    return colored(value, 'blue')
+
+
+def get_bw_item(id: str) -> Dict:
+    # process = subprocess.run(['bw',  "list" , "items"], capture_output=True)
+    process = subprocess.run(['bw', 'get', 'item', id], capture_output=True)
+    if process.returncode != 0:
+        return {}
+    else:
+        return json.loads(process.stdout.decode())
+
+def print_property(prop: str, value: str):
+    print("%s: %s" % (red(prop), blue(value)))
+
+def print_properties(prop: str, values: List[str]):
+    print("%s:" % red(prop))
+    for value in values:
+        print(" - %s" % blue(value))
+
+def print_name(bw_item: Dict):
+    if 'name' in bw_item:
+        print_property("Name", bw_item['name'])
+
+def print_login(bw_item: Dict):
+    if not 'login' in bw_item:
+        return
+
+    bw_login_item = bw_item['login']
+    print_URI(bw_login_item)
+    print_username(bw_login_item)
+    print_password(bw_login_item)
+
+def print_URI(bw_login_item: Dict):
+    bw_uris: List[Dict] = bw_login_item['uris']
+
+    uris = []
+    for bw_uri in bw_uris:
+        uri: str = bw_uri['uri']
+        if uri != 'http://':
+            uris.append(bw_uri['uri'])
+
+    if len(uris) == 0:
+        return
+    elif len(uris) == 1:
+        print_property("Uri", uris[0])
+    else:
+        print_properties("Uris", uris)
+
+def print_username(bw_item: Dict):
+    if 'username' in bw_item:
+        uname = bw_item['username']
+        if uname != None:
+            print_property("Username", uname)
+
+def print_password(bw_item: Dict):
+    if 'password' in bw_item:
+        print_property("Password", bw_item['password'])
+
+def print_fields(bw_item: Dict):
+    if not 'fields' in bw_item:
+        return
+
+    fields: List[Dict] = bw_item['fields']
+
+    if len(fields) == 0:
+        return
+
+    print_property("Fields", "")
+    for field in fields:
+        print(" - %s: %s" % (blue(field['name']), field['value']))
+
+def print_notes(bw_item: Dict):
+    if not 'notes' in bw_item:
+        return
+
+    bw_notes_item = bw_item['notes']
+    if bw_notes_item != None:
+        print_property("Notes", "")
+        print(bw_notes_item)
+
+def main(args: List[str]):
+    bw_id = args[0].split(' | ')[2][4:]
+    bw_item = get_bw_item(bw_id)
+
+    if bw_item.__len__ == 0:
+        return
+
+    print_name(bw_item)
+    print_login(bw_item)
+    print_fields(bw_item)
+    print_notes(bw_item)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

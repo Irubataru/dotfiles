@@ -133,7 +133,7 @@ awful.util.tasklist_buttons = gears.table.join(
   awful.button({ }, 5, function () awful.client.focus.byidx(-1) end))
 
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(require("seoul256-awesomewm-theme"))
+beautiful.init(require("seoul256-awesomewm-theme.theme"))
 beautiful.wallpaper = wallpaper
 
 -- }}}
@@ -150,7 +150,7 @@ end
 -- TODO I want this to check if already running
 run_once({
   "unclutter -root",
-  "xidlehook --not-when-fullscreen --not-when-audio --timer 900 'systemctl suspend' ''",
+  -- "xidlehook --not-when-fullscreen --not-when-audio --timer 900 'systemctl suspend' ''",
   'setxkbmap no -option "ctr:nocaps"',
   "xrdb " .. homedir .. "/.Xresources"
 })

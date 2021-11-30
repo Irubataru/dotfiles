@@ -6,3 +6,10 @@
       - xorg-xrandr
     state: present
   become: true
+
+- name: Install alacritty (pacman)
+  kewlfft.aur.aur:
+    name: alacritty-git
+    state: present
+  become: yes
+  become_user: aur_builder
