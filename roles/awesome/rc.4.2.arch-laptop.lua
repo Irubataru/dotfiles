@@ -56,7 +56,6 @@ local terminal     = terminal_cmd .. " -e tmux"
 local filebrowser  = terminal_cmd .. " -e vifm"
 local editor       = os.getenv("EDITOR") or "vim"
 local scrlocker    = "slock"
- 
 local homedir      = os.getenv("HOME")
 local confdir      = homedir .. "/.config/awesome"
 local wallpaperdir = confdir
@@ -151,17 +150,16 @@ beautiful.wallpaper = wallpaper
 
 -- This function will run once every time Awesome is started
 local function run_once(cmd_arr)
-  for _, cmd in ipairs(cmd_arr) do
-    awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+  for _, item in ipairs(cmd_arr) do
+    awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", item.cmd, item.cmd .. " " .. item.args))
   end
 end
 
--- TODO I want this to check if already running
 run_once({
-  "unclutter -root",
-  -- "xidlehook --not-when-fullscreen --not-when-audio --timer 900 'systemctl suspend' ''",
-  'setxkbmap no -option "ctr:nocaps"',
-  "xrdb " .. homedir .. "/.Xresources"
+  { cmd = "unclutter", args = "-root" },
+  { cmd = "xidlehook", args = "--not-when-fullscreen --not-when-audio --timer 900 'systemctl suspend' ''" },
+  { cmd = "setxkbmap", args = 'no -option "ctr:nocaps"'},
+  { cmd = "xrdb", args =  homedir .. "/.Xresources"}
 })
 
 -- }}}
@@ -173,13 +171,13 @@ local applications = {
 	{"qutebrowser", "qutebrowser"},
   {"discord", "discord" },
 	{"steam", "steam"},
+  {"rider", "/opt/jetbrains/rider/bin/rider.sh"},
 }
 
 local directories = {
 	{"home",      filebrowser .. " " .. homedir},
 	{"documents", filebrowser .. " " .. homedir .. "/Documents"},
 	{"downloads", filebrowser .. " " .. homedir .. "/Downloads"},
-	{"dropbox",   filebrowser .. " " .. homedir .. "/Dropbox"}
 }
 
 local myawesomemenu = {
