@@ -1,18 +1,17 @@
-require('Comment').setup({
+require("Comment").setup({
   toggler = {
-    line = '<leader>cc',
-    block = '<leader>cbb',
+    line = "gcc",
+    block = "gcb",
   },
   opleader = {
-    line =  '<leader>c',
-    block =  '<leader>cb',
+    line = "gc",
+    block = "gb",
   },
   mappings = {
     basic = true,
-    extra = false,
-    extended = false,
+    extra = true,
+    extended = true,
   },
 })
 
--- TODO Add <leader>cy
--- TODO Add <leader>co
+-- TODO Add gcy

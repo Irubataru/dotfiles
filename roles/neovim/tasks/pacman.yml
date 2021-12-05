@@ -5,16 +5,36 @@
   become: true
   become_user: aur_builder
 
-- name: Install neovim language servers (AUR)
+- name: Install neovim utilities (AUR)
   kewlfft.aur.aur:
     name:
       - omnisharp-roslyn-bin
+      - clojure-lsp-bin
+      - glow
     state: present
   become: true
   become_user: aur_builder
 
-- name: Install neovim language servers (AUR)
+- name: Install docker language server (npm)
   npm:
     name: dockerfile-language-server-nodejs
+    global: true
+    state: present
+
+- name: Install json language server (npm)
+  npm:
+    name: vscode-langservers-extracted
+    global: true
+    state: present
+
+- name: Install typescript (npm)
+  npm:
+    name: typescript
+    global: true
+    state: present
+
+- name: Install typescript language server (npm)
+  npm:
+    name: typescript-language-server
     global: true
     state: present

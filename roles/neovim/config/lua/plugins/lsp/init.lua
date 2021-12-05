@@ -8,12 +8,16 @@ local on_attach = function(client)
 end
 
 local servers = {
-  clangd = {},
+  ccls = {},
+  -- clangd = {},
+  clojure_lsp = {},
   dockerls = {},
+  eslint = {},
   jsonls = require('plugins.lsp.jsonls').config,
   omnisharp = require('plugins.lsp.omnisharp').config,
   pyright = {},
   sumneko_lua = require('plugins.lsp.sumneko_lua').config,
+  tsserver = {},
 }
 
 local lspconfig = require('lspconfig')

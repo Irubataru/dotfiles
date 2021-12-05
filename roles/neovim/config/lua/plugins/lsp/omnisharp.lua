@@ -1,5 +1,5 @@
 local pid = vim.fn.getpid()
-local omnisharp_bin = "/home/glesaaen/Downloads/omnisharp-linux-x64/run"
+local omnisharp_bin = "omnisharp"
 
 local M = {}
 

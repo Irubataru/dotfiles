@@ -1,8 +1,4 @@
-- name: Install vifm (pacman)
-  pacman:
-    name: vifm
-    state: present
-  become: true
+- import_tasks: pacman.yml
   when: package_manager == "pacman"
 
 - name: Install vifm (apt)

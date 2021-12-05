@@ -18,6 +18,7 @@ local configs = {
   lspconfig = function() require('plugins/lsp') end,
   luasnip = function() require('plugins/luasnip') end,
   mkdx = function() require('plugins/mkdx') end,
+  null_ls = function() require('plugins/null_ls') end,
   nvim_tree = function() require('plugins/nvim_tree') end,
   operator_flashy = function() require('plugins/operator-flashy') end,
   quickscope = function() require('plugins/quickscope') end,
@@ -93,6 +94,11 @@ return require('packer').startup(function(use)
     config = configs.trouble
   }
 
+  use {
+    "jose-elias-alvarez/null-ls.nvim", -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+    config = configs.null_ls
+  }
+
   -- Tree sitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = configs.treesitter}
 
@@ -105,7 +111,6 @@ return require('packer').startup(function(use)
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 
   -- Additional functionality
-  --use 'preservim/nerdcommenter' -- Vim plugin for intensely nerdy commenting powers
   use {
     'numToStr/Comment.nvim', -- 🧠 💪 // Smart and powerful comment plugin for neovim. Supports commentstring, dot repeat, left-right/up-down motions, hooks, and more
     config = configs.commenter
@@ -123,6 +128,7 @@ return require('packer').startup(function(use)
     requires = 'kyazdani42/nvim-web-devicons',
     config = configs.nvim_tree
   }
+  use { "b0o/mapx.nvim" } -- A better way to create key mappings in Neovim.
 
   -- Note taking
   use {'vimwiki/vimwiki', config = configs.vimwiki, branch = 'dev'} -- Pesonalized wiki and note taking
@@ -151,11 +157,19 @@ return require('packer').startup(function(use)
   use {'tmhedberg/SimpylFold',ft =  { 'python' } } -- No-BS Python code folding for Vim
 
   -- For Clojure
-  use { 'tpope/vim-fireplace', ft = { 'clojure' } } -- Clojure REPL support
-  use { 'guns/vim-clojure-static', ft = { 'clojure' } } -- Meikel Brandmeyer's excellent Clojure runtime files
-  use { 'guns/vim-clojure-highlight', ft = { 'clojure' } } -- Extend builtin syntax highlighting to referred and aliased vars in Clojure buffers
-  use { 'vim-scripts/paredit.vim', ft = { 'clojure' } } -- Paredit Mode: Structured Editing of Lisp S-expressions
-  use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
+  use { 'Olical/conjure', ft = { 'clojure' } } -- Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
+
+  use {
+    'tpope/vim-sexp-mappings-for-regular-people', -- vim-sexp mappings for regular people
+    ft = { 'clojure' },
+    requires = { 'guns/vim-sexp', ft = { 'clojure' } } -- Precision Editing for S-expressions
+  }
+
+  -- use { 'tpope/vim-fireplace', ft = { 'clojure' } } -- Clojure REPL support
+  -- use { 'guns/vim-clojure-static', ft = { 'clojure' } } -- Meikel Brandmeyer's excellent Clojure runtime files
+  -- use { 'guns/vim-clojure-highlight', ft = { 'clojure' } } -- Extend builtin syntax highlighting to referred and aliased vars in Clojure buffers
+  -- use { 'vim-scripts/paredit.vim', ft = { 'clojure' } } -- Paredit Mode: Structured Editing of Lisp S-expressions
+  -- use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
 
   -- For LaTeX
   use { 'lervag/vimtex', config = configs.vimtex, ft = { 'tex' } } -- A modern Vim and neovim filetype plugin for LaTeX files.
@@ -169,6 +183,7 @@ return require('packer').startup(function(use)
 
   -- For Markdown
   use { 'SidOfc/mkdx', ft = { 'markdown' } } -- A vim plugin that adds some nice extra's for working with markdown documents
+  use({ "npxbr/glow.nvim", cmd = "Glow" }) -- A markdown preview directly in your neovim.
 
   -- Other syntax highlighting
   use 'lazywei/vim-matlab' -- A matlab plugin for vim, includes syntax highlighting, correct indention and so on.
