@@ -3,6 +3,7 @@
 - hosts: arch_laptop
   vars:
     modules:
+      - system
       - basic
       - zsh
       - common
@@ -28,6 +29,7 @@
       - alacritty
       - applications
       - utilities
+      - rider
   tasks:
     - include_role:
         name: "{{ item }}"

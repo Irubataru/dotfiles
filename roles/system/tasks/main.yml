@@ -1,0 +1,5 @@
+- name: Init system path profile
+  template:
+    src: "paths.j2"
+    dest: "/etc/profile.d/{{ ansible_user_id }}_userpaths.sh"
+  become: true

@@ -3,6 +3,7 @@
 - hosts: windows_wsl
   vars:
     modules:
+      - system
       - basic
       - common
       - windows_wsl

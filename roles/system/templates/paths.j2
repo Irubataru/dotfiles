@@ -1,0 +1,26 @@
+#!/bin/env bash
+
+roles=(
+{% for item in modules %}
+  "{{ item }}"
+{% endfor %}
+)
+
+# Prepend "$1" to $PATH when not already in.
+prepend_path () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            export PATH="$1:${PATH:+$PATH}"
+    esac
+}
+
+for role in ${roles[@]}; do
+  pathfile_path="{{ playbook_dir }}/roles/$role/__paths"
+  if [[ -f "$pathfile_path" ]]; then
+    while IFS= read -r line; do
+      prepend_path "$line"
+    done < "$pathfile_path"
+  fi
+done

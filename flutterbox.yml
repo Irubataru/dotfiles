@@ -3,6 +3,7 @@
 - hosts: flutterbox
   vars:
     modules:
+      - system
       - basic
       - zsh
       - common
