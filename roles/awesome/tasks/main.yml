@@ -1,6 +1,6 @@
-- name: Install awesomeWM (pacman)
-  pacman:
-    name: awesome
+- name: Install awesomeWM (aur)
+  kewlfft.aur.aur:
+    name: awesome-git
     state: present
   become: true
   when: package_manager == "pacman"

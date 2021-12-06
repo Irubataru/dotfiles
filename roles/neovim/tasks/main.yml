@@ -36,9 +36,41 @@
     state: latest
   ignore_errors: true
 
-- name: Install neovim npm dependencies
+- name: Install typescript (npm)
+  npm:
+    name: typescript
+    global: true
+    state: present
+
+- name: Install typescript language server (npm)
+  npm:
+    name: typescript-language-server
+    global: true
+    state: present
+
+- name: Install json language server (npm)
+  npm:
+    name: vscode-langservers-extracted
+    global: true
+    state: present
+
+- name: Install docker file language server (npm)
   npm:
     name: dockerfile-language-server-nodejs
+    global: true
+    state: latest
+  ignore_errors: true
+
+- name: Install eslint_d (npm)
+  npm:
+    name: eslint_d
+    global: true
+    state: latest
+  ignore_errors: true
+
+- name: Install prettierd (npm)
+  npm:
+    name: "@fsouza/prettierd"
     global: true
     state: latest
   ignore_errors: true
