@@ -37,13 +37,13 @@ M.setup = function()
     "<cmd>lua vim.lsp.buf.definition()<cr>",
     { noremap = true }
   )
-  buf_keymap(
-    0,
-    "n",
-    "gD",
-    "<cmd>lua vim.lsp.buf.declaration()<cr>",
-    { noremap = true }
-  )
+  -- buf_keymap(
+  --   0,
+  --   "n",
+  --   "gD",
+  --   "<cmd>lua vim.lsp.buf.declaration()<cr>",
+  --   { noremap = true }
+  -- )
   buf_keymap(
     0,
     "n",

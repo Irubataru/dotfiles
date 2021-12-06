@@ -8,6 +8,7 @@ local configs = {
   cpp_enhanced_highlight = function() require('plugins/cpp_enhanced_highlight') end,
   easyalign = function() require('plugins/easyalign') end,
   fugitive = function() require('plugins/fugitive') end,
+  goto_preview = function() require('plugins/goto-preview') end,
   goyo = function() require('plugins/goyo') end,
   incsearch = function() require('plugins/incsearch') end,
   indentline = function() require('plugins/indentline') end,
@@ -97,6 +98,11 @@ return require('packer').startup(function(use)
   use {
     "jose-elias-alvarez/null-ls.nvim", -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     config = configs.null_ls
+  }
+
+  use {
+    "rmagatti/goto-preview", -- A small Neovim plugin for previewing definitions using floating windows.
+    config = configs.goto_preview
   }
 
   -- Tree sitter
