@@ -9,6 +9,8 @@
   kewlfft.aur.aur:
     name:
       - xidlehook-git
+      - handlr-bin
+      - xdg-utils-handlr
     state: present
   become: true
   become_user: aur_builder

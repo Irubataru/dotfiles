@@ -1,9 +1,18 @@
 - name: Install neovim
+  pacman:
+    name: neovim
+    state: present
+  become: true
+  become_user: aur_builder
+  when: neovim_git == false
+
+- name: Install neovim-git
   kewlfft.aur.aur:
     name: neovim-git
     state: present
   become: true
   become_user: aur_builder
+  when: neovim_git == true
 
 - name: Install neovim utilities (AUR)
   kewlfft.aur.aur:

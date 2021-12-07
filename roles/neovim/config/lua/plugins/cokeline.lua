@@ -1,6 +1,6 @@
 local get_hex = require('cokeline/utils').get_hex
 require('cokeline').setup({
-  cycle_prev_next_mappings = true,
+  -- cycle_prev_next_mappings = true,
   default_hl = {
     focused = {
       fg = get_hex('Normal', 'fg'),
@@ -12,12 +12,16 @@ require('cokeline').setup({
     },
   },
   buffers = {
-    filter = function(buffer)
+    filter_valid = function(buffer)
       return
         buffer.type ~= "terminal" and
         buffer.type ~= "quickfix" and
         buffer.filetype ~= "fugitive"
     end,
+  },
+
+  mappings = {
+    cycle_prev_next = true,
   },
 
   components = {

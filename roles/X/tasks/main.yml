@@ -7,3 +7,10 @@
     dest: ~/.xinitrc
     state: link
   ignore_errors: true
+
+- name: Link mimeapps list
+  file:
+    src: "{{ role_path }}/mimeapps.list"
+    dest: ~/.config/mimeapps.list
+    state: link
+  ignore_errors: true

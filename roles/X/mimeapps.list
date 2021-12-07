@@ -1,0 +1,11 @@
+[Added Associations]
+image/gif=nsxiv.desktop;
+image/jpeg=nsxiv.desktop;
+image/png=nsxiv.desktop;
+
+[Default Applications]
+image/gif=nsxiv.desktop;
+image/jpeg=nsxiv.desktop;
+image/png=nsxiv.desktop;
+x-scheme-handler/http=vivaldi-stable.desktop;
+x-scheme-handler/https=vivaldi-stable.desktop;

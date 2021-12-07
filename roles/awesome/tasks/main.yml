@@ -3,6 +3,7 @@
     name: awesome-git
     state: present
   become: true
+  become_user: aur_builder
   when: package_manager == "pacman"
 
 - name: Install awesomeWM (apt)
