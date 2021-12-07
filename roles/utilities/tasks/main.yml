@@ -11,7 +11,7 @@
   apt:
     name: 
       - fzf
-      - ripgrep
+      # - ripgrep
     state: present
   become: true
   when: package_manager == "apt"

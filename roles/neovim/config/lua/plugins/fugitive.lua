@@ -1,8 +1,8 @@
-local keymap = vim.api.nvim_set_keymap
+local m = require('mapx')
 
-keymap('n', '<Leader>gg', ':aboveleft 16split|0Git<CR>', { noremap=true, silent = true })
-keymap('n', '<Leader>gc', ':Gcommit<CR>', { noremap=true, silent = true })
-keymap('n', '<Leader>gd', ':Gdiff<CR>', { noremap=true, silent = true })
+m.nnoremap('<Leader>gg', ':aboveleft 16split|0Git<CR>', {silent = true})
+m.nnoremap('<Leader>gc', ':Gcommit<CR>', {silent = true})
+m.nnoremap('<Leader>gc', ':Gdiffsplit<CR>', {silent = true})
 
 vim.cmd([[
 if has("autocmd")

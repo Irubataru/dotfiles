@@ -17,8 +17,7 @@
       - rust
       - npm
       - go
-      - fzf
-      - thefuck
+      - utilities
       - neovim
       - vifm
       - bitwarden
