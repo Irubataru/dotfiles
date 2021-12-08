@@ -1,3 +1,7 @@
+local M = {}
+
+function M.setup(options)
+
 local null_ls = require("null-ls")
 
 null_ls.config({
@@ -10,7 +14,8 @@ null_ls.config({
   }
 })
 
-require("lspconfig")["null-ls"].setup({})
+require("lspconfig")["null-ls"].setup(options)
 
-local keymap = vim.api.nvim_set_keymap
-keymap('n', "<leader>cf", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>", {noremap = true})
+end
+
+return M

@@ -14,22 +14,22 @@ local servers = {
   dockerls = {},
   eslint = {},
   jsonls = require('plugins.lsp.jsonls').config,
+  ltex = {},
   omnisharp = require('plugins.lsp.omnisharp').config,
   pyright = {},
   sumneko_lua = require('plugins.lsp.sumneko_lua').config,
+  texlab = {},
   tsserver = {},
 }
 
-local lspconfig = require('lspconfig')
-for server, config in pairs(servers) do
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  lspconfig[server].setup(vim.tbl_deep_extend("force", {
-    on_attach = on_attach
-  }, config))
+local options = {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
 
-  local cfg = lspconfig[server]
-  if not (cfg and cfg.cmd and vim.fn.executable(cfg.cmd[1]) == 1) then
-    vim.notify(server .. ": cmd not found: " .. vim.inspect(cfg.cmd))
-  end
+require("plugins.lsp.null-ls").setup(options)
+require("plugins.lsp.install").setup(servers, options);
 
-end
+require("plugins.lsp.global-keymaps")

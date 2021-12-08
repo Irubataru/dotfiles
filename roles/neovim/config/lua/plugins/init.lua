@@ -20,7 +20,6 @@ local configs = {
   lspconfig = function() require('plugins/lsp') end,
   luasnip = function() require('plugins/luasnip') end,
   mkdx = function() require('plugins/mkdx') end,
-  null_ls = function() require('plugins/null_ls') end,
   nvim_tree = function() require('plugins/nvim_tree') end,
   operator_flashy = function() require('plugins/operator-flashy') end,
   quickscope = function() require('plugins/quickscope') end,
@@ -96,10 +95,7 @@ return require('packer').startup(function(use)
     config = configs.trouble
   }
 
-  use {
-    "jose-elias-alvarez/null-ls.nvim", -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
-    config = configs.null_ls
-  }
+  use { "jose-elias-alvarez/null-ls.nvim" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. 
 
   use {
     "rmagatti/goto-preview", -- A small Neovim plugin for previewing definitions using floating windows.
