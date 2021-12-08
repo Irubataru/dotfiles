@@ -3,3 +3,8 @@
     src: "paths.j2"
     dest: "/etc/profile.d/{{ ansible_user_id }}_userpaths.sh"
   become: true
+
+- name: Add paths to home
+  template:
+    src: "paths.j2"
+    dest: "{{ home_directory }}/.bash_userpaths.sh"

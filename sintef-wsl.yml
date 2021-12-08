@@ -25,6 +25,7 @@
       - rider
       - omnisharp
       - navi
+      - latex
   tasks:
     - include_role:
         name: "{{ item }}"

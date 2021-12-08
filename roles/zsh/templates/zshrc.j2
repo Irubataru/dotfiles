@@ -19,6 +19,9 @@ roles=(
 {% endfor %}
 )
 
+# Add paths in case the ones from /etc/profile.d weren't sourced
+source ~/.bash_userpaths.sh
+
 # all of our zsh files
 typeset -U config_files
 config_files=()
