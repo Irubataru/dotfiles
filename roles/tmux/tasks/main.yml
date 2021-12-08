@@ -17,3 +17,13 @@
     src: "{{ role_path }}/tmux.conf"
     dest: "~/.tmux.conf"
     state: link
+
+- name: Create tmux plugins directory
+  file: 
+    path: "{{ home_directory }}/.tmux/plugins"
+    state: directory
+
+- name: Get Tmux Plugin Manager
+  git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "{{ home_directory }}/.tmux/plugins"
