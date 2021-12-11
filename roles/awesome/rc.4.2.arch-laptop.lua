@@ -244,6 +244,10 @@ local printscreen = function()
 	os.execute( "import -window root "..testfile )
 end
 
+local snipping = function()
+  os.execute("maim -s | xclip -selection clipboard -t image/png")
+end
+
 -- }}}
 
 -- {{{ Touchpad toggle
@@ -499,9 +503,10 @@ globalkeys = gears.table.join(
 
   -- Widget control
   awful.key({ altkey },"Shift_L", function () kbdcfg.switch() end),
-  awful.key({ }, "Print", function () printscreen() end),
+  awful.key({ }, "Print", printscreen),
   awful.key({ altkey, "Control" }, "l", function () awful.util.spawn(scrlocker) end),
   awful.key({ modkey, "Control"   }, "t", toggle_touchpad),
+  awful.key({ modkey, "Shift" }, "s", snipping),
 
 
   -- Brightness
