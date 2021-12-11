@@ -7,5 +7,5 @@ image/png=nsxiv.desktop;
 image/gif=nsxiv.desktop;
 image/jpeg=nsxiv.desktop;
 image/png=nsxiv.desktop;
-x-scheme-handler/http=vivaldi-stable.desktop;
-x-scheme-handler/https=vivaldi-stable.desktop;
+x-scheme-handler/http=vivaldi-stable.desktop;org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/https=vivaldi-stable.desktop;org.qutebrowser.qutebrowser.desktop;

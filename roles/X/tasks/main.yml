@@ -14,3 +14,10 @@
     dest: ~/.config/mimeapps.list
     state: link
   ignore_errors: true
+
+- name: Link handlr config
+  file:
+    src: "{{ role_path }}/handlr.toml"
+    dest: ~/.config/handlr/handlr.toml
+    state: link
+  ignore_errors: true
