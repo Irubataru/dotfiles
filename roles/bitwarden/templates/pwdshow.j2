@@ -17,10 +17,6 @@ fi
 item="$(bw list items | \
   jq '.[] | "\(.name) | username: \(.login.username) | id: \(.id)" ' | \
   sed 's/^\"\(.*\)"$/\1/' | \
-  fzf --preview='{{ role_path }}/bin/_pwdfzf-preview-script {}' --preview-window=wrap | \
-  awk '{print $(NF -0)}')"
+  fzf --preview='{{ role_path }}/bin/_pwdfzf-preview-script {}' --preview-window=wrap)"
 
-bw get item "$item" | \
-  jq '.login.password' | \
-  sed 's/\"//g' | \
-  {{copy_command}}
+{{ role_path }}/bin/_pwdfzf-preview-script "$item"
