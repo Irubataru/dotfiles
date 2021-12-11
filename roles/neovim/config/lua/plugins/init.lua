@@ -45,6 +45,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
   use 'tpope/vim-dispatch' -- Asynchronous build and test dispatcher
   use 'wikitopian/hardmode' -- Disable arrow movement, update to takac/vim-hardtime eventually
+  use 'nvim-lua/plenary.nvim' -- plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.
 
   -- Colour schemes
   use 'junegunn/seoul256.vim'
@@ -198,6 +199,6 @@ return require('packer').startup(function(use)
   use 'vim-scripts/gnuplot.vim' -- Syntax highlighting for Gnuplot
   use 'Glench/Vim-Jinja2-Syntax' -- An up-to-date jinja2 syntax file.
   use 'jalvesaq/Nvim-R' -- Vim plugin to work with R
-  use 'tmux-plugins/vim-tmux' -- vim plugin for tmux.conf
+  use {'tmux-plugins/vim-tmux', ft = { 'tmux' } } -- vim plugin for tmux.conf
 
 end)

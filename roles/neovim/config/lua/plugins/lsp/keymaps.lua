@@ -54,7 +54,7 @@ M.setup = function()
   buf_keymap(
     0,
     "n",
-    "gh",
+    "K",
     "<cmd>lua vim.lsp.buf.hover()<cr>",
     { noremap = true }
   )

@@ -3,7 +3,6 @@
     name: neovim
     state: present
   become: true
-  become_user: aur_builder
   when: neovim_git == false
 
 - name: Install neovim-git

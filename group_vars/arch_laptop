@@ -10,6 +10,9 @@ awesome_version: 4
 git_signing_key_has_key: true
 git_signing_key: CF00E9AF2831BD66
 
+# neovim
+neovim_git: true
+
 # latex
 latex_use_xelatex: true
 
