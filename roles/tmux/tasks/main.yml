@@ -26,4 +26,4 @@
 - name: Get Tmux Plugin Manager
   git:
     repo: "https://github.com/tmux-plugins/tpm"
-    dest: "{{ home_directory }}/.tmux/plugins"
+    dest: "{{ home_directory }}/.tmux/plugins/tpm"
