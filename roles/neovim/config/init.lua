@@ -20,5 +20,4 @@ vim.g.snippets = "luasnip"
 
 require('general')
 require('colours')
-require('keymaps')
 require('plugins')

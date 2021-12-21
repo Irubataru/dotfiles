@@ -32,6 +32,7 @@ local configs = {
   trouble = function() require('plugins/trouble') end,
   vimtex = function() require('plugins/vimtex') end,
   vimwiki = function() require('plugins/vimwiki') end,
+  which_key = function() require('plugins/which-key') end,
 }
 
 return require('packer').startup(function(use)
@@ -73,7 +74,6 @@ return require('packer').startup(function(use)
   use { 'junegunn/goyo.vim', config = configs.goyo } -- Distraction-free writing in Vim
   use { 'mhinz/vim-startify', config = configs.startify } -- The fancy start screen for Vim
   use { 'mhinz/vim-signify', config = configs.signify } -- Show a diff using Vim its sign column
-  use 'tversteeg/registers.nvim' -- NeoVim plugin to preview the contents of the registers
 
   -- LSP
   use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
@@ -84,11 +84,18 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
   use 'hrsh7th/cmp-path' -- nvim-cmp source for path
   use 'hrsh7th/cmp-cmdline' -- nvim-cmp source for vim's cmdline
+  -- use 'saadparwaiz1/cmp_luasnip' -- luasnip completion source for nvim-cmp
   use { 'tzachar/cmp-tabnine', run = './install.sh' } -- TabNine plugin for hrsh7th/nvim-cmp
-  use({"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"}) -- Git source for nvim-cmp
+  use {"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"}  -- Git source for nvim-cmp
   use 'onsails/lspkind-nvim' -- vscode-like pictograms for neovim lsp completion items
   use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
-  use { 'L3MON4D3/LuaSnip', config = configs.luasnip } -- Snippet Engine for Neovim written in Lua.
+
+  use {
+    'L3MON4D3/LuaSnip', -- Snippet Engine for Neovim written in Lua.
+    wants = "friendly-snippets",
+    requires = "rafamadriz/friendly-snippets",
+    config = configs.luasnip
+  }
 
   use {
     "folke/trouble.nvim", -- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
@@ -133,6 +140,13 @@ return require('packer').startup(function(use)
     config = configs.nvim_tree
   }
   use { "b0o/mapx.nvim" } -- A better way to create key mappings in Neovim.
+  use { "windwp/nvim-autopairs", config = function() require('nvim-autopairs').setup{} end, } -- autopairs for neovim written by lua
+
+  use({
+    "folke/which-key.nvim",
+    event = "VimEnter",
+    config = configs.which_key,
+  })
 
   -- Note taking
   use {'vimwiki/vimwiki', config = configs.vimwiki, branch = 'dev'} -- Pesonalized wiki and note taking
@@ -202,3 +216,4 @@ return require('packer').startup(function(use)
   use {'tmux-plugins/vim-tmux', ft = { 'tmux' } } -- vim plugin for tmux.conf
 
 end)
+

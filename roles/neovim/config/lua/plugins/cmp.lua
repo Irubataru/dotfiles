@@ -1,8 +1,15 @@
 -- Setup nvim-cmp.
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 local source_mapping = {
+  luasnip = "[Snip]",
   buffer = "[Buffer]",
   nvim_lsp = "[LSP]",
   nvim_lua = "[Lua]",
@@ -23,7 +30,9 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
 
-    ["<c-space>"] = cmp.mapping {
+    ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+    -- ["<C-Space>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+    ["<C-Space>"] = cmp.mapping {
       i = cmp.mapping.complete(),
       c = function(
         _ --[[fallback]]
@@ -47,32 +56,28 @@ cmp.setup({
     -- },
 
     -- With automatic tab completion
-    --  First you have to just promise to read `:help ins-completion`.
-    ["<Tab>"] =  cmp.mapping {
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        else
-          fallback()
-        end
-      end,
-      c = function(fallback)
+    -- First you have to just promise to read `:help ins-completion`.
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({behavior = cmp.SelectBehavior.Select})
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
         fallback()
       end
-    },
+    end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping {
-      i = function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end,
-      c = function(fallback)
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item({behavior = cmp.SelectBehavior.Select})
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
         fallback()
       end
-    },
+    end, { "i", "s" }),
 
     ["<c-y>"] = cmp.mapping(
     cmp.mapping.confirm {
@@ -86,8 +91,6 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-
-    ['<CR>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
   },
 
   sources = cmp.config.sources({
@@ -128,72 +131,20 @@ cmp.setup.cmdline('/', {
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(":", {
-  completion = {
-    autocomplete = false,
-  },
-
-  sources = cmp.config.sources({
-    {
-      name = "path",
-    },
-  }, {
-    {
-      name = "cmdline",
-      max_item_count = 20,
-      keyword_length = 4,
-    },
-  }),
-})
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
---   capabilities = capabilities
--- }
-
-local function prequire(...)
-  local status, lib = pcall(require, ...)
-  if (status) then return lib end
-  return nil
-end
-
-local luasnip = prequire('luasnip')
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-    return true
-  else
-    return false
-  end
-end
-
-_G.tab_complete = function()
-  if cmp and cmp.visible() then
-    cmp.select_next_item()
-  elseif luasnip and luasnip.expand_or_jumpable() then
-    return t("<Plug>luasnip-expand-or-jump")
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    cmp.complete()
-  end
-  return ""
-end
-
-_G.s_tab_complete = function()
-  if cmp and cmp.visible() then
-    cmp.select_prev_item()
-  elseif luasnip and luasnip.jumpable(-1) then
-    return t("<Plug>luasnip-jump-prev")
-  else
-    return t "<S-Tab>"
-  end
-  return ""
-end
+-- cmp.setup.cmdline(":", {
+--   completion = {
+--     autocomplete = false,
+--   },
+--
+--   sources = cmp.config.sources({
+--     {
+--       name = "path",
+--     },
+--   }, {
+--     {
+--       name = "cmdline",
+--       max_item_count = 20,
+--       keyword_length = 4,
+--     },
+--   }),
+-- })

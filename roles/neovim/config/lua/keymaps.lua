@@ -1,6 +1,7 @@
 -- vim: foldmethod=marker
 
 local keymap = vim.api.nvim_set_keymap
+local wk = require("which-key")
 
 -- Navigation
 -- {{{
@@ -44,13 +45,28 @@ keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd() <CR>", { noremap = true })
 -- {{{
 
 keymap("n", "<Leader><Leader>", "zz", { noremap = true })
-keymap(
-  "n",
-  "<Leader>zz",
-  ":let &scrolloff=810-&scrolloff<CR>",
-  { noremap = true }
-)
-keymap("n", "<Leader>rf", ":set foldlevel=0<CR>", { noremap = true })
+
+wk.register({
+  z = {
+    name = "+folds",
+    z = { ":let &scrolloff=810-&scrolloff<CR>", "toogle-scroll-distance" }
+  }
+}, {prefix = "<leader>"})
+
+wk.register({
+  ["["] = {
+    o = {
+      name = "quickfix",
+      q = { ":copen<cr>", "open-quickfix" }
+    }
+  },
+  ["]"] = {
+    o = {
+      name = "quickfix",
+      q = { ":cclose<cr>", "close-quickfix" }
+    }
+  }
+})
 
 -- Toggles for quickfix consistent with vim-unimpaired
 -- Toggle-command from the vim-togglelist plugin
