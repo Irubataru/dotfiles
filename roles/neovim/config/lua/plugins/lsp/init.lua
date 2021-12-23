@@ -2,7 +2,6 @@ require('plugins.lsp.diagnostics')
 
 local on_attach = function(client)
   require('lsp-status').on_attach(client)
-  require('plugins.lsp.keymaps').setup()
   require('plugins.lsp.highlighting').setup(client)
   require('plugins.lsp.code_lens').setup(client)
 end

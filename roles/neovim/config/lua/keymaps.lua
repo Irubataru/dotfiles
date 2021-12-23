@@ -70,6 +70,9 @@ wk.register({
   }
 
 })
+
+keymap('n', '<C-b>', "<cmd>lua require('telescope.builtin').buffers()<cr>", {noremap = true})
+
 -- Toggles for quickfix consistent with vim-unimpaired
 -- Toggle-command from the vim-togglelist plugin
 -- keymap('n', 'coq', vim.cmd([[:call ToggleQuickfixList()<CR>]]), {noremap=true, silent=true, script=true})
@@ -124,6 +127,16 @@ wk.register({
     name = "+diff",
     r = {":LinediffReset<cr>", "Linediff reset"},
   },
+  f = {
+    name = "+find",
+    b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
+    e = { "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics({severity = 1})<cr>", "Find errors" },
+    E = { "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>", "Find all diagnostics" },
+    f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
+    g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep" },
+    h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Find help" },
+    v = { "<cmd>lua require('plugins.telescope').search_dotfiles()<cr>", "Vim dotfiles" },
+  },
   g = {
     name = "+git",
     c = {":Gcommit<CR>", "git commit"},
@@ -134,6 +147,14 @@ wk.register({
   },
   s = {
     s = {":SignifyToggle<CR>", "Toggle sign column"},
+  },
+  x = {
+    name = "+diagnostics",
+    d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Document diagnostics" },
+    l = { "<cmd>Trouble loclist<cr>", "Location list" },
+    q = { "<cmd>Trouble quickfix<cr>", "To quickfix list" },
+    w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace diagnostics" },
+    x = { "<cmd>Trouble<cr>", "Open diagnostics" },
   },
   z = {
     name = "+folds",
@@ -155,14 +176,39 @@ wk.register({
   prefix = "<leader>",
 })
 
-
 -- LSP
 -- {{{
 
 wk.register({
   g = {
-    D = {"<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "Preview definition"}
+    name = "+goto",
+    d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Definitions" },
+    D = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "Preview definition"},
+    i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Implementations" },
+    r = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "References" },
+    R = { "<cmd>Trouble lsp_references<cr>", "Show references" },
+    s = { "<cmd>lua require('telescope.builtin')lsp_document_symbols()<cr>", "Symbols (document)"},
+    S = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>", "Symbols (workspace)"},
   },
+  K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Lsp hover"},
+  ["<a-cr>"] = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Code actions" }
+})
+
+wk.register({
+  r = {
+    name = "+refactor",
+    a = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Code actions" },
+    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+  }
+
+}, {
+  prefix = "<leader>",
+})
+
+wk.register({
+  ["<c-s>"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
+}, {
+  mode = "i"
 })
 
 -- }}}
@@ -185,7 +231,9 @@ wk.register({
     c = "Toggle comment",
     b = "Toggle comment (block style)",
   }
-}, {mode = "v"})
+}, {
+  mode = "v"
+})
 
 -- }}}
 
@@ -202,7 +250,9 @@ wk.register({
   g = {
     a = {"<Plug>(EasyAlign)", "easy align"},
   }
-}, {mode = "x"})
+}, {
+  mode = "x"
+})
 
 -- }}}
 
