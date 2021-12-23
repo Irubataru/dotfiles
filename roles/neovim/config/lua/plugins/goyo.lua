@@ -1,7 +1,3 @@
-local keymap = vim.api.nvim_set_keymap
-
-keymap('n', '<C-g>', ':Goyo<CR>', { noremap=true, silent = true })
-
 vim.g.goyo_width = 100
 
 vim.cmd([[

@@ -63,10 +63,3 @@ require('cokeline').setup({
     },
   },
 })
-
-local keymap = vim.api.nvim_set_keymap
-keymap('n', '[b', '<Plug>(cokeline-focus-prev)', {silent=true})
-keymap('n', ']b', '<Plug>(cokeline-focus-next)', {silent=true})
-
-keymap('n', '[B', '<Plug>(cokeline-switch-prev)', {silent=true})
-keymap('n', ']B', '<Plug>(cokeline-switch-next)', {silent=true})

@@ -14,28 +14,37 @@ keymap("n", "<Right>", "<NOP>", { noremap = true })
 
 -- Fold movement
 -- Replace the zj zk calls to move to next closed fold
-keymap(
-  "n",
-  "zj",
-  ":call NextClosedFold('j')<CR>",
-  { noremap = true, silent = true }
-)
-keymap(
-  "n",
-  "zk",
-  ":call NextClosedFold('k')<CR>",
-  { noremap = true, silent = true }
-)
+wk.register({
+  z = {
+    j = {":call NextClosedFold('j')<cr>", "Next closed fold"},
+    k = {":call NextClosedFold('k')<cr>", "Previous closed fold"}
+  }
+}, {noremap = true, silent = true})
 
 -- Tab movement
 keymap("n", "<C-Left>", ":tabp<CR>", { noremap = true })
 keymap("n", "<C-Right>", ":tabn<CR>", { noremap = true })
+
+-- Buffer movement
+wk.register({
+  ["["] = {
+    b = {"<Plug>(cokeline-focus-prev)", "Goto previous buffer"},
+    B = {"<Plug>(cokeline-switch-prev)", "Switch with previous buffer"},
+  },
+  ["]"] = {
+    b = {"<Plug>(cokeline-focus-next)", "Goto next buffer"},
+    B = {"<Plug>(cokeline-switch-next)", "Switch with next buffer"},
+  }
+}, {silent = true})
 
 -- File navigation
 -- {{{
 
 -- Start a :e with the dir of the current buffer already filled in
 keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd() <CR>", { noremap = true })
+
+-- File tree
+keymap("n", "<C-N>", ":NvimTreeToggle<CR>", {})
 
 -- }}}
 
@@ -45,13 +54,6 @@ keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd() <CR>", { noremap = true })
 -- {{{
 
 keymap("n", "<Leader><Leader>", "zz", { noremap = true })
-
-wk.register({
-  z = {
-    name = "+folds",
-    z = { ":let &scrolloff=810-&scrolloff<CR>", "toogle-scroll-distance" }
-  }
-}, {prefix = "<leader>"})
 
 wk.register({
   ["["] = {
@@ -66,8 +68,8 @@ wk.register({
       q = { ":cclose<cr>", "close-quickfix" }
     }
   }
-})
 
+})
 -- Toggles for quickfix consistent with vim-unimpaired
 -- Toggle-command from the vim-togglelist plugin
 -- keymap('n', 'coq', vim.cmd([[:call ToggleQuickfixList()<CR>]]), {noremap=true, silent=true, script=true})
@@ -111,6 +113,112 @@ keymap("i", "?", "?<c-g>u", { noremap = true })
 
 -- Unknown next greatest remap
 keymap("x", "<leader>p", '"_dP', { noremap = true })
+
+-- }}}
+
+-- Plugin keymaps
+-- {{{
+
+wk.register({
+  d = {
+    name = "+diff",
+    r = {":LinediffReset<cr>", "Linediff reset"},
+  },
+  g = {
+    name = "+git",
+    c = {":Gcommit<CR>", "git commit"},
+    d = {":Gdiffsplit<CR>", "git diff"},
+    g = {":aboveleft 16split|0Git<CR>", "git status"},
+    h = {":DiffviewFileHistory<CR>", "git file history"},
+    l = {":DiffviewOpen<CR>", "git diff log"},
+  },
+  s = {
+    s = {":SignifyToggle<CR>", "Toggle sign column"},
+  },
+  z = {
+    name = "+folds",
+    z = { ":let &scrolloff=810-&scrolloff<CR>", "toogle-scroll-distance" }
+  },
+},
+{
+  prefix = "<leader>"
+})
+
+wk.register({
+  d = {
+    name = "+diff",
+    a = {":Linediff<CR>", "Linediff add"},
+  },
+},
+{
+  mode = "v",
+  prefix = "<leader>",
+})
+
+
+-- LSP
+-- {{{
+
+wk.register({
+  g = {
+    D = {"<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "Preview definition"}
+  },
+})
+
+-- }}}
+
+-- Commenter
+-- {{{
+
+wk.register({
+  g = {
+    c = {
+      name = "+comment",
+      c = "Toggle comment line",
+      b = "Toggle comment line (block style)",
+    }
+  }
+})
+
+wk.register({
+  g = {
+    c = "Toggle comment",
+    b = "Toggle comment (block style)",
+  }
+}, {mode = "v"})
+
+-- }}}
+
+-- EasyAlign
+-- {{{
+
+wk.register({
+  g = {
+    a = {"<Plug>(EasyAlign)", "easy align"},
+  }
+})
+
+wk.register({
+  g = {
+    a = {"<Plug>(EasyAlign)", "easy align"},
+  }
+}, {mode = "x"})
+
+-- }}}
+
+-- Goyo
+-- {{{
+
+keymap('n', '<C-g>', ':Goyo<CR>', { noremap=true, silent = true })
+
+-- }}}
+
+-- Limelight
+-- {{{
+
+keymap('n', '<C-y>', ':Limelight!!<CR>', { noremap=true, silent = true })
+
+-- }}}
 
 -- }}}
 

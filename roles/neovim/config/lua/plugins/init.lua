@@ -6,16 +6,12 @@ local configs = {
   commenter = function() require('plugins/commenter') end,
   cokeline = function() require('plugins/cokeline') end,
   cpp_enhanced_highlight = function() require('plugins/cpp_enhanced_highlight') end,
-  diffview = function() require('plugins/diffview') end,
-  easyalign = function() require('plugins/easyalign') end,
   fugitive = function() require('plugins/fugitive') end,
   goto_preview = function() require('plugins/goto-preview') end,
   goyo = function() require('plugins/goyo') end,
   incsearch = function() require('plugins/incsearch') end,
   indentline = function() require('plugins/indentline') end,
   lightline = function() require('plugins/lightline') end,
-  limelight = function() require('plugins/limelight') end,
-  linediff = function() require('plugins/linediff') end,
   localvimrc = function() require('plugins/localvimrc') end,
   lspconfig = function() require('plugins/lsp') end,
   luasnip = function() require('plugins/luasnip') end,
@@ -23,7 +19,6 @@ local configs = {
   nvim_tree = function() require('plugins/nvim_tree') end,
   operator_flashy = function() require('plugins/operator-flashy') end,
   quickscope = function() require('plugins/quickscope') end,
-  signify = function() require('plugins/signify') end,
   startify = function() require('plugins/startify') end,
   telescope = function() require('plugins/telescope') end,
   template = function() require('plugins/template') end,
@@ -39,6 +34,13 @@ return require('packer').startup(function(use)
 
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
+
+  -- Keymaps
+  use({
+    "folke/which-key.nvim",
+    event = "VimEnter",
+    config = configs.which_key,
+  })
 
   -- General plugins
   use 'tpope/vim-repeat' -- Enable repeating supported plugin maps with .
@@ -70,10 +72,10 @@ return require('packer').startup(function(use)
   }
   use { 'Yggdroot/indentLine', config = configs.indentline, ft = { 'python' }} -- A vim plugin to display the indention levels with thin vertical lines
   use { 'haya14busa/incsearch.vim', config = configs.incsearch } -- Improved incremental searching for Vim
-  use { 'junegunn/limelight.vim', config = configs.limelight } -- Hyperfocus-writing in Vim
+  use { 'junegunn/limelight.vim' } -- Hyperfocus-writing in Vim
   use { 'junegunn/goyo.vim', config = configs.goyo } -- Distraction-free writing in Vim
   use { 'mhinz/vim-startify', config = configs.startify } -- The fancy start screen for Vim
-  use { 'mhinz/vim-signify', config = configs.signify } -- Show a diff using Vim its sign column
+  use { 'mhinz/vim-signify' } -- Show a diff using Vim its sign column
 
   -- LSP
   use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
@@ -129,10 +131,10 @@ return require('packer').startup(function(use)
   use 'xolox/vim-misc' -- A dependency but can't remember of what
   use { 'aperezdc/vim-template', config = configs.template, cmd = { 'Template' } } -- Simple templates plugin for Vim
   use { 'embear/vim-localvimrc', config = configs.localvimrc } -- Search local vimrc files ('.lvimrc') in the tree (root dir up to current dir) and load them.
-  use { 'junegunn/vim-easy-align', config = configs.easyalign } -- A Vim alignment plugin
+  use { 'junegunn/vim-easy-align' } -- A Vim alignment plugin
   use { 'unblevable/quick-scope', config = configs.quickscope } -- Highlighting for f,F,t,T
   use { 'skywind3000/vim-terminal-help', config = configs.terminal_help } -- Small changes make vim/nvim's internal terminal great again
-  use { 'AndrewRadev/linediff.vim', config = configs.linediff } -- A vim plugin to perform diffs on blocks of code
+  use { 'AndrewRadev/linediff.vim' } -- A vim plugin to perform diffs on blocks of code
   use 'skywind3000/asyncrun.vim' -- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
   use {
     'kyazdani42/nvim-tree.lua', -- A file explorer tree for neovim written in lua
@@ -141,12 +143,6 @@ return require('packer').startup(function(use)
   }
   use { "b0o/mapx.nvim" } -- A better way to create key mappings in Neovim.
   use { "windwp/nvim-autopairs", config = function() require('nvim-autopairs').setup{} end, } -- autopairs for neovim written by lua
-
-  use({
-    "folke/which-key.nvim",
-    event = "VimEnter",
-    config = configs.which_key,
-  })
 
   -- Note taking
   use {'vimwiki/vimwiki', config = configs.vimwiki, branch = 'dev'} -- Pesonalized wiki and note taking
@@ -158,7 +154,6 @@ return require('packer').startup(function(use)
   use { -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    config = configs.diffview
   }
 
   -- C/C++
