@@ -6,7 +6,7 @@ local keymap = vim.api.nvim_set_keymap
 
 -- General settings
 -- {{{
-vim.bo.foldmethod = "syntax"
+vim.wo.foldmethod = "syntax"
 -- }}}
 
 -- Keymaps

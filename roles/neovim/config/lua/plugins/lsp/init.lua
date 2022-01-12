@@ -16,6 +16,7 @@ local servers = {
   ltex = require('plugins.lsp.ltex').config,
   omnisharp = require('plugins.lsp.omnisharp').config,
   pyright = {},
+  r_language_server = {},
   sumneko_lua = require('plugins.lsp.sumneko_lua').config,
   texlab = {},
   tsserver = {},
@@ -27,6 +28,8 @@ local options = {
   on_attach = on_attach,
   capabilities = capabilities
 }
+
+require'lspconfig'.r_language_server.setup(options);
 
 require("plugins.lsp.null-ls").setup(options)
 require("plugins.lsp.install").setup(servers, options);
