@@ -18,6 +18,7 @@ local servers = {
   pyright = {},
   r_language_server = {},
   sumneko_lua = require('plugins.lsp.sumneko_lua').config,
+  tailwindcss = {},
   texlab = {},
   tsserver = {},
 }
