@@ -208,8 +208,10 @@ return require('packer').startup(function(use)
   use 'vim-scripts/gnuplot.vim' -- Syntax highlighting for Gnuplot
   use 'Glench/Vim-Jinja2-Syntax' -- An up-to-date jinja2 syntax file.
   use 'jalvesaq/Nvim-R' -- Vim plugin to work with R
+  use {'nvim-orgmode/orgmode', config = function()
+          require('orgmode').setup{}
+  end }
   use {'tmux-plugins/vim-tmux', ft = { 'tmux' } } -- vim plugin for tmux.conf
-  use { 'nvim-orgmode/orgmode', ft = { 'org' } }
 
 end)
 

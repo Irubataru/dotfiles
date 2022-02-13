@@ -101,8 +101,8 @@ keymap("n", "N", "Nzzzv", { noremap = true })
 keymap("n", "J", "miJ`i", { noremap = true })
 
 -- Moving text
-keymap("v", "J", ":m '>+1<cr>gv=gv", { noremap = true })
-keymap("v", "K", ":m '<-2<cr>gv=gv", { noremap = true })
+keymap("v", "<C-j>", ":m '>+1<cr>gv=gv", { noremap = true })
+keymap("v", "<C-k>", ":m '<-2<cr>gv=gv", { noremap = true })
 keymap("i", "<C-j>", "<esc>:m .+1<cr>==", { noremap = true })
 keymap("i", "<C-k>", "<esc>:m .-2<cr>==", { noremap = true })
 keymap("n", "<leader>j", ":m .+1<cr>==", { noremap = true })
