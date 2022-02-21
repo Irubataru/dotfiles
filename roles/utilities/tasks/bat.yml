@@ -3,7 +3,7 @@
     cmd: cargo install bat
   ignore_errors: true
 
-- name: Link bat config file
+- name: Create bat config directory
   file: 
     path: "{{ home_directory }}/.config/bat"
     state: directory
@@ -13,3 +13,22 @@
     src: "{{ role_path }}/bat.config"
     dest: "{{ home_directory }}/.config/bat/config"
     state: link
+
+- name: Create bat theme directory
+  file: 
+    path: "{{ home_directory }}/.config/bat/themes"
+    state: directory
+
+- name: Download gruvbox theme
+  git:
+    repo: "https://github.com/subnut/gruvbox-tmTheme.git"
+    dest: "{{ home_directory }}/.config/bat/themes/gruvbox"
+    version: bat-source
+  ignore_errors: true
+  register: clone_status
+
+- name: Update bat cache
+  shell:
+    cmd: bat cache --build
+  ignore_errors: true
+  when: clone_status.changed
