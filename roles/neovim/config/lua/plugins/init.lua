@@ -5,6 +5,7 @@ local configs = {
   cmp = function() require('plugins/cmp') end,
   commenter = function() require('plugins/commenter') end,
   cokeline = function() require('plugins/cokeline') end,
+  copilot = function() require('plugins/copilot') end,
   cpp_enhanced_highlight = function() require('plugins/cpp_enhanced_highlight') end,
   fugitive = function() require('plugins/fugitive') end,
   goto_preview = function() require('plugins/goto-preview') end,
@@ -88,9 +89,14 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-cmdline' -- nvim-cmp source for vim's cmdline
   -- use 'saadparwaiz1/cmp_luasnip' -- luasnip completion source for nvim-cmp
   use { 'tzachar/cmp-tabnine', run = './install.sh' } -- TabNine plugin for hrsh7th/nvim-cmp
-  use {"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"}  -- Git source for nvim-cmp
+  use {'petertriho/cmp-git', requires = "nvim-lua/plenary.nvim"}  -- Git source for nvim-cmp
   use 'onsails/lspkind-nvim' -- vscode-like pictograms for neovim lsp completion items
   use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
+
+  if require("plugins.copilot").options.use then
+    use 'hrsh7th/cmp-copilot' -- copilot.vim source for nvim-cmp
+    use { 'github/copilot.vim', config = configs.copilot } -- Neovim plugin for GitHub Copilot
+  end
 
   use {
     'L3MON4D3/LuaSnip', -- Snippet Engine for Neovim written in Lua.

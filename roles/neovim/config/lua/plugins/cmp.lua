@@ -2,6 +2,7 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
+local copilot = require('plugins.copilot')
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -15,8 +16,22 @@ local source_mapping = {
   nvim_lua = "[Lua]",
   cmp_tabnine = "[TN]",
   path = "[Path]",
-  cmp_git = "[Git]",
+  cmp_git = "[Git]"
 }
+
+local sources = {
+    { name = "cmp_git" },
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'nvim_lua' },
+    { name = 'path' },
+    { name = 'cmp_tabnine' }
+}
+
+if copilot.options.use then
+  source_mapping.copilot = "[Copilot]"
+  table.insert(sources, { name = "copilot" })
+end
 
 cmp.setup({
 
@@ -93,16 +108,7 @@ cmp.setup({
     }),
   },
 
-  sources = cmp.config.sources({
-    { name = "cmp_git" },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'nvim_lua' },
-    { name = 'path' },
-    { name = 'cmp_tabnine' },
-  }, {
-    { name = 'buffer', keyword_length = 4 },
-  }),
+  sources = cmp.config.sources(sources, { { name = 'buffer', keyword_length = 4 }, }),
 
   formatting = {
     format = function(entry, vim_item)
