@@ -15,15 +15,4 @@ vim.bo.expandtab = true
 vim.bo.autoindent = true
 vim.bo.fileformat = "unix"
 
-vim.g.formatters_python = {'yapf'}
-
--- }}}
-
--- Keymaps
--- {{{
-
--- autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
-keymap('n', '<F5>', ':AsyncRun -raw python %<CR>', { noremap=true, silent = true })
-keymap('n', '<leader>cf', ':Autoformat<CR>', { noremap=true })
-
 -- }}}

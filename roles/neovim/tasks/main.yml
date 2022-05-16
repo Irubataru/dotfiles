@@ -25,6 +25,7 @@
     name:
       - pynvim
       - pyright
+      - autopep8
     extra_args: --user
     state: latest
   ignore_errors: true

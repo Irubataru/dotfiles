@@ -11,6 +11,7 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua.with({
       extra_args = { "--config-path", vim.fn.expand("~/.config/stylua/stylua.toml") },
     }),
+    null_ls.builtins.formatting.autopep8
   },
   on_attach = options.on_attach
 })

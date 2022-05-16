@@ -10,6 +10,7 @@ local configs = {
   fugitive = function() require('plugins/fugitive') end,
   goto_preview = function() require('plugins/goto-preview') end,
   goyo = function() require('plugins/goyo') end,
+  illuminate = function() require('plugins/illuminate') end,
   incsearch = function() require('plugins/incsearch') end,
   indentline = function() require('plugins/indentline') end,
   lightline = function() require('plugins/lightline') end,
@@ -77,6 +78,19 @@ return require('packer').startup(function(use)
   use { 'junegunn/goyo.vim', config = configs.goyo } -- Distraction-free writing in Vim
   use { 'mhinz/vim-startify', config = configs.startify } -- The fancy start screen for Vim
   use { 'mhinz/vim-signify' } -- Show a diff using Vim its sign column
+
+  use {
+    "luukvbaal/stabilize.nvim", -- Neovim plugin to stabilize window open/close events.
+    config = function() require("stabilize").setup() end
+  }
+
+  use {
+    "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.
+    event = "CursorHold",
+    module = "illuminate",
+    config = configs.illuminate
+  }
+
 
   -- LSP
   use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
