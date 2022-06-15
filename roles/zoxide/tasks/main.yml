@@ -1,0 +1,4 @@
+- name: Install zoxide (cargo)
+  shell:
+    cmd: cargo install zoxide
+  register: local_version
