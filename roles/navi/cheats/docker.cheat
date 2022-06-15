@@ -1,0 +1,4 @@
+% docker
+
+# Start the docker service daemon
+sudo service docker start

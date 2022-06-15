@@ -17,3 +17,8 @@
     - local_version.rc == 0
     - web_version.rc == 0
     - local_version.stdout != web_version.stdout
+
+- name: Update rust
+  shell: |
+    rustup update
+  ignore_errors: true
