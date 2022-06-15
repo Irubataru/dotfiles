@@ -17,6 +17,7 @@
       - rust
       - npm
       - go
+      - lua
       - utilities
       - neovim
       - vifm
@@ -26,6 +27,8 @@
       - omnisharp
       - navi
       - latex
+      - tldr
+      - zoxide
   tasks:
     - include_role:
         name: "{{ item }}"

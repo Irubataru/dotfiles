@@ -17,12 +17,14 @@
       - rust
       - npm
       - go
+      - lua
       - neovim
       - vifm
       - bitwarden
       - rider
       - navi
       - utilities
+      - tldr
   tasks:
     - include_role:
         name: "{{ item }}"
