@@ -1,0 +1,15 @@
+- name: Install tldr (cargo)
+  shell: 
+    cmd: cargo install tealdeer
+  ignore_errors: true
+
+- name: Create tldr config directory
+  file: 
+    path: "{{ home_directory }}/.local/share/tealdeer"
+    state: directory
+
+- name: Link tldr pages directory
+  file:
+    src: "{{ role_path }}/pages"
+    dest: "{{ home_directory }}/.local/share/tealdeer/pages"
+    state: link
