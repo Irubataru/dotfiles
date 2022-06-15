@@ -1,0 +1,15 @@
+- name: Install stylua (cargo)
+  shell: 
+    cmd: cargo install stylua
+  ignore_errors: true
+
+- name: Create stylua config directory
+  file: 
+    path: "{{ home_directory }}/.config/stylua"
+    state: directory
+
+- name: Link stylua config
+  file:
+    src: "{{ role_path }}/stylua.toml"
+    dest: "{{ home_directory }}/.config/stylua/stylua.toml"
+    state: link
