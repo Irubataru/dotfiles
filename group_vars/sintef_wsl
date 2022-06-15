@@ -20,3 +20,7 @@ copy_command: "clip.exe"
 
 # Windows
 windows_home_directory: "/mnt/c/Users/jonasgl/"
+
+# bitwarden
+bw_ssh_item_name: "SINTEF WSL SSH"
+bw_pgp_item_name: "SINTEF PGP WSL"

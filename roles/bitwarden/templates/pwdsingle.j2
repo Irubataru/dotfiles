@@ -1,0 +1,20 @@
+#!/bin/env bash
+
+is_logged_in() {
+  [[ $(bw status | jq '.status') == "\"unlocked\"" ]] && true
+}
+
+is_logged_in
+if [[ $? -eq 1 ]]; then
+  source "{{ role_path }}/bin/_bw-bin-unlock-script"
+fi
+
+is_logged_in
+if [[ $? -eq 1 ]]; then
+  return 1
+fi
+
+bw get password "{{ bw_item }}" | \
+{{copy_command}}
+
+print "${fg[green]}✓ Copied!${reset_color}"

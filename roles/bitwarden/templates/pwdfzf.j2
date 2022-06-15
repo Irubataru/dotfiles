@@ -20,7 +20,5 @@ item="$(bw list items | \
   fzf --preview='{{ role_path }}/bin/_pwdfzf-preview-script {}' --preview-window=wrap | \
   awk '{print $(NF -0)}')"
 
-bw get item "$item" | \
-  jq '.login.password' | \
-  sed 's/\"//g' | \
+bw get password "$item" | \
   {{copy_command}}
