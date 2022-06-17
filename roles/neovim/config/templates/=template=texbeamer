@@ -6,7 +6,7 @@ cumentclass[11pt,a4paper]{beamer}
 
 
 \title[Small Title]{Title}
-\author{Jonas R. Glesaaen}
+\author{Aleksandra R. Glesaaen}
 \date{\today{}}
 
 \begin{document}

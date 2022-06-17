@@ -16,11 +16,11 @@ local source_mapping = {
   nvim_lua = "[Lua]",
   cmp_tabnine = "[TN]",
   path = "[Path]",
-  cmp_git = "[Git]"
+  git = "[Git]"
 }
 
 local sources = {
-    { name = "cmp_git" },
+    { name = "git" },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'nvim_lua' },

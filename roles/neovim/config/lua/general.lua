@@ -2,7 +2,8 @@ local opt = vim.opt
 
 opt.backupdir = vim.fn.expand "~/.tmp"
 
-opt.diffopt = "filler,vertical"
+-- Start diff-mode in vertical split, ignore all whitespace
+opt.diffopt = "filler,vertical,iwhiteall"
 
 --Command line file completion
 opt.wildmode = "longest,list,full" -- bash-like filename autocompletion

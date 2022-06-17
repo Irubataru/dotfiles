@@ -25,6 +25,20 @@ wk.register({
 keymap("n", "<C-Left>", ":tabp<CR>", { noremap = true })
 keymap("n", "<C-Right>", ":tabn<CR>", { noremap = true })
 
+wk.register({
+  t = {
+    name = "+tab",
+    c = {":tabclose<cr>", "Close tab"},
+    n = {":tabn<cr>", "Next tab"},
+    p = {":tabp<cr>", "Previous tab"}
+  }
+}, {
+  noremap = true,
+  silent = true,
+  prefix = "<leader>"
+})
+
+
 -- Buffer movement
 wk.register({
   ["["] = {

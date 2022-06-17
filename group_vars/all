@@ -1,7 +1,7 @@
 # vi: set ft=yaml :
 
 # user
-full_name: Jonas Rylund Glesaaen
+full_name: Aleksandra Rylund Glesaaen
 user_name: glesaaen
 
 home_directory: "{{ '~' | expanduser }}"
@@ -11,9 +11,9 @@ dotfiles_directory: "{{ home_directory }}/.dotfiles"
 hw_cmd_only: false
 
 # git
-git_full_name: Jonas Rylund Glesaaen
+git_full_name: Aleksandra Rylund Glesaaen
 git_user: irubataru
-git_email: jonas@glesaaen.com
+git_email: aleksandra@glesaaen.com
 
 # clipboard
 copy_command: "xclip -sel clip"
