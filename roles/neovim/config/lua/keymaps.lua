@@ -2,6 +2,7 @@
 
 local keymap = vim.api.nvim_set_keymap
 local wk = require("which-key")
+local wk_operators = require("which-key.plugins.presets").operators
 
 -- Navigation
 -- {{{
@@ -130,6 +131,18 @@ keymap("i", "?", "?<c-g>u", { noremap = true })
 
 -- Unknown next greatest remap
 keymap("x", "<leader>p", '"_dP', { noremap = true })
+
+-- Register replace
+wk.register({
+  gx = { "<Plug>ReplaceWithRegisterOperator", "Replace with register" },
+  gxx = { "<Plug>ReplaceWithRegisterLine", "Replace line with register" }
+}, { mode = "n" })
+
+wk.register({
+  gx = { "<Plug>ReplaceWithRegisterVisual", "Replace with register" }
+}, { mode = "x" })
+
+wk_operators["gx"] = "Replace with register"
 
 -- }}}
 

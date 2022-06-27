@@ -1,7 +1,7 @@
 require('plugins.lsp.diagnostics')
 
 local on_attach = function(client)
-  require('lsp-status').on_attach(client)
+  -- require('lsp-status').on_attach(client)
   require('plugins.lsp.highlighting').setup(client)
 end
 

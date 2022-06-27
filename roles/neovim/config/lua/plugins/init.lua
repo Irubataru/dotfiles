@@ -32,6 +32,10 @@ local configs = {
   which_key = function() require('plugins/which-key') end,
 }
 
+local setups = {
+  replace_with_register = require("plugins/replace-with-register").setup
+}
+
 return require('packer').startup(function(use)
 
   use 'wbthomason/packer.nvim'
@@ -93,7 +97,7 @@ return require('packer').startup(function(use)
 
 
   -- LSP
-  use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
+  -- use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
   use { 'neovim/nvim-lspconfig', config = configs.lspconfig } -- Quickstart configurations for the Nvim LSP client
   use 'williamboman/nvim-lsp-installer' -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim builtin LSP client
@@ -163,6 +167,10 @@ return require('packer').startup(function(use)
   }
   use { "b0o/mapx.nvim" } -- A better way to create key mappings in Neovim.
   use { "windwp/nvim-autopairs", config = function() require('nvim-autopairs').setup{} end, } -- autopairs for neovim written by lua
+  use {
+    "inkarkat/vim-ReplaceWithRegister", -- Replace text with the contents of a register.
+    setup = setups.replace_with_register
+  }
 
   -- Note taking
   use {'vimwiki/vimwiki', config = configs.vimwiki, branch = 'dev'} -- Pesonalized wiki and note taking
