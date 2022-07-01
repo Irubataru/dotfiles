@@ -9,6 +9,7 @@
 [alias]
   exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
   clean-vba = checkout -- **/*.frm **/*.frx
+  clone-worktree = !_git_clone_worktree
 [color]
   diff = auto
   status = auto
@@ -17,8 +18,6 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-[init]
-  defaultBranch = main
 [apply]
   whitespace = nowarn
 [mergetool]
@@ -30,7 +29,7 @@
 [push]
   default = simple
 [init]
-	defaultbranch = main
+	defaultBranch = main
 [diff]
 	external = difft
 {% if git_signing_key_has_key %}

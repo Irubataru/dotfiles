@@ -27,6 +27,11 @@
     src: "gitconfig.j2"
     dest: "~/.gitconfig"
 
+- name: Initialise the path template
+  template: 
+    src: "path.zsh.j2"
+    dest: "{{ role_path }}/path.zsh"
+
 - name: Link tig config file
   file:
     src: "{{ role_path }}/tigrc"
