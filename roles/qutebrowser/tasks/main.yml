@@ -2,6 +2,9 @@
   when: package_manager == "apt"
   tags: qutebrowser
 
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
 - name: Create qutebrowser config directory
   file:
     path: "{{ qutebrowser_config_path }}"

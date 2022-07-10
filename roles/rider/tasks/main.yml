@@ -1,0 +1,5 @@
+- name: "Link ideavim config"
+  file:
+    src: "{{ role_path }}/ideavimrc"
+    dest: "{{ home_directory }}/.ideavimrc"
+    state: link

@@ -6,6 +6,7 @@ local on_attach = function(client)
 end
 
 local servers = {
+  ansiblels = {},
   ccls = {},
   -- clangd = {},
   clojure_lsp = {},

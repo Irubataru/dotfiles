@@ -1,0 +1,39 @@
+# vi: set ft=yaml.ansible :
+
+---
+
+- hosts: arch_nuc
+  vars:
+    modules:
+      - system
+      - basic
+      - zsh
+      - common
+      - fonts
+      - tmux
+      - X
+      - keyboard
+      - neovim
+      - gpg
+      - awesome
+      - clang
+      - conky
+      - git
+      - bitwarden
+      - latex
+      - qutebrowser
+      - ruby
+      - go
+      - npm
+      - vifm
+      - rust
+      - alacritty
+      - rider
+      - applications
+      - utilities
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ modules }}"
+  roles:
+    - ansible-modules-bitwarden
