@@ -1,33 +1,39 @@
+# vi: set ft=yaml.ansible :
 ---
 
 - hosts: ubuntu_vbox
   vars:
     modules:
+      # Basic
       - system
       - basic
-      - zsh
-      - common
-      - urxvt
-      - fonts
-      - tmux
       - keyboard
-      - neovim
-      - gpg
-      - awesome
+      - zsh
+      - fonts
+
+      # Programming languages
       - clang
-      - git
-      - latex
-      - bitwarden
-      - qutebrowser
-      - ruby
+      - clojure
       - go
       - npm
+      - ruby
+      - rust
+
+      # Applications
+      - alacritty
+      - awesome
+      - bitwarden
+      - common
+      - git
+      - gpg
+      - latex
+      - neovim
+      - qutebrowser
+      - tmux
+      - urxvt
+      - utilities
       - vifm
       - zathura
-      - rust
-      - alacritty
-      - clojure
-      - utilities
   tasks:
     - include_role:
         name: "{{ item }}"

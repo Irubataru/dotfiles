@@ -1,33 +1,39 @@
+# vi: set ft=yaml.ansible :
 ---
 
 - hosts: sintef_wsl
   vars:
     modules:
+      # Basics
       - system
       - basic
-      - common
-      - windows_wsl
-      - git
-      - svn
       - zsh
-      - gpg
-      - tmux
+      - windows_wsl
+
+      # Programming languages
       - clang
-      - ruby
-      - rust
-      - npm
+      - dotnet
       - go
       - lua
-      - utilities
-      - neovim
-      - vifm
+      - npm
+      - ruby
+      - rust
+
+      # Applications
       - bitwarden
-      - dotnet
-      - rider
-      - omnisharp
-      - navi
+      - common
+      - git
+      - gpg
       - latex
+      - navi
+      - neovim
+      - omnisharp
+      - rider
+      - svn
       - tldr
+      - tmux
+      - utilities
+      - vifm
       - zoxide
   tasks:
     - include_role:

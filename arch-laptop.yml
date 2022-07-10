@@ -1,35 +1,41 @@
+# vi: set ft=yaml.ansible :
 ---
 
 - hosts: arch_laptop
   vars:
     modules:
+      # Basics
       - system
       - basic
-      - zsh
-      - common
-      - fonts
-      - tmux
-      - X
       - keyboard
-      - neovim
-      - gpg
-      - awesome
-      - clang
-      - conky
-      - git
-      - bitwarden
-      - latex
-      - qutebrowser
-      - ruby
+      - zsh
+      - fonts
       - laptop
+
+      # Programming
+      - clang
+      - ruby
       - go
       - npm
-      - vifm
       - rust
+
+      # Applications
+      - X
       - alacritty
       - applications
-      - utilities
+      - awesome
+      - bitwarden
+      - common
+      - conky
+      - git
+      - gpg
+      - latex
+      - neovim
       - rider
+      - qutebrowser
+      - tmux
+      - utilities
+      - vifm
   tasks:
     - include_role:
         name: "{{ item }}"

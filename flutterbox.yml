@@ -1,33 +1,39 @@
+# vi: set ft=yaml.ansible :
 ---
 
 - hosts: flutterbox
   vars:
     modules:
+      # Basics
       - system
       - basic
-      - zsh
-      - common
-      - fonts
-      - tmux
-      - X
       - keyboard
-      - neovim
-      - gpg
-      - awesome
-      - clang
-      - conky
-      - git
-      - bitwarden
-      - latex
-      - qutebrowser
-      - ruby
+      - zsh
+      - fonts
+
+      # Programming languages
       - go
       - npm
-      - vifm
+      - ruby
       - rust
+
+      # Applications
+      - X
       - alacritty
       - applications
+      - awesome
+      - bitwarden
+      - clang
+      - common
+      - conky
+      - git
+      - gpg
+      - latex
+      - neovim
+      - qutebrowser
+      - tmux
       - utilities
+      - vifm
   tasks:
     - include_role:
         name: "{{ item }}"

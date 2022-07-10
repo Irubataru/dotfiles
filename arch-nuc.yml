@@ -4,35 +4,41 @@
 - hosts: arch_nuc
   vars:
     modules:
+      # Basics
       - system
       - basic
       - keyboard
       - zsh
       - zoxide
-      - tmux
       - fonts
-      - gpg
-      - git
-      - neovim
+
+      # Programming languages
       - clang
       - dotnet
       - lua
       - go
       - ruby
       - rust
+
+      # Applications
       - X
-      - applications
       - alacritty
+      - applications
       - awesome
       - bitwarden
       - common
+      - git
+      - gpg
       - latex
+      - navi
+      - neovim
       - npm
       - qutebrowser
       - rider
       - tldr
-      - vifm
+      - tmux
       - utilities
+      - vifm
   tasks:
     - include_role:
         name: "{{ item }}"
