@@ -1,0 +1,55 @@
+- name: Clone private font repo
+  git:
+    repo: "git@github.com:Irubataru/fonts-private.git"
+    dest: "{{ role_path }}/private"
+    version: main
+  register: git_status
+  ignore_errors: true
+
+- name: Check if Comic Code exists
+  stat:
+    path: "{{ role_path }}/private/comic-code-nerd-font"
+  register: comic_code_dir
+
+- name: Install Comic Code globally
+  copy:
+    src: "{{ font_file }}"
+    dest: /usr/share/fonts/OTF
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  with_fileglob: "{{ role_path }}/private/comic-code-nerd-font/*"
+  loop_control:
+    loop_var: font_file
+  become: true
+  when:
+    - fonts_global_install
+    - git_status.changed 
+    - comic_code_dir.stat.exists
+  register: comic_code_installed
+
+- name: Check if Dank Mono exists
+  stat:
+    path: "{{ role_path }}/private/dank-mono-nerd-font"
+  register: dank_mono_dir
+
+- name: Install Comic Code globally
+  copy:
+    src: "{{ font_file }}"
+    dest: /usr/share/fonts/OTF
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  with_fileglob: "{{ role_path }}/private/dank-mono-nerd-font/*"
+  loop_control:
+    loop_var: font_file
+  become: true
+  when:
+    - fonts_global_install
+    - git_status.changed 
+    - dank_mono_dir.stat.exists
+  register: dank_mono_installed
+
+- name: Update font cache
+  shell: fc-cache -f -v
+  when: (dank_mono_installed.changed) or (comic_code_installed.changed)

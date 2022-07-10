@@ -1,5 +1,4 @@
 # vi: set ft=yaml.ansible :
-
 ---
 
 - hosts: arch_nuc
@@ -7,29 +6,32 @@
     modules:
       - system
       - basic
-      - zsh
-      - common
-      - fonts
-      - tmux
-      - X
       - keyboard
-      - neovim
+      - zsh
+      - zoxide
+      - tmux
+      - fonts
       - gpg
-      - awesome
-      - clang
-      - conky
       - git
-      - bitwarden
-      - latex
-      - qutebrowser
-      - ruby
+      - neovim
+      - clang
+      - dotnet
+      - lua
       - go
-      - npm
-      - vifm
+      - ruby
       - rust
-      - alacritty
-      - rider
+      - X
       - applications
+      - alacritty
+      - awesome
+      - bitwarden
+      - common
+      - latex
+      - npm
+      - qutebrowser
+      - rider
+      - tldr
+      - vifm
       - utilities
   tasks:
     - include_role:
