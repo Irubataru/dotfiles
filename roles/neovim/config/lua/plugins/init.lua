@@ -32,10 +32,6 @@ local configs = {
   which_key = function() require('plugins/which-key') end,
 }
 
-local setups = {
-  replace_with_register = require("plugins/replace-with-register").setup
-}
-
 return require('packer').startup(function(use)
 
   use 'wbthomason/packer.nvim'
@@ -169,7 +165,7 @@ return require('packer').startup(function(use)
   use { "windwp/nvim-autopairs", config = function() require('nvim-autopairs').setup{} end, } -- autopairs for neovim written by lua
   use {
     "inkarkat/vim-ReplaceWithRegister", -- Replace text with the contents of a register.
-    setup = setups.replace_with_register
+    setup = function() require("plugins/replace-with-register").setup() end
   }
 
   -- Note taking
