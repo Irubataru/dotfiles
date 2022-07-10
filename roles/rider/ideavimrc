@@ -6,8 +6,11 @@ set scrolloff=5
 " Do incremental searching.
 set incsearch
 
+" Use vim for all shortcuts
+sethandler n:vim i:ide
+
 " Use space as leader
-let mapleader=" "
+let mapleader="\\"
 
 "" -- Keymaps --
 nmap <leader>cf <Action>(ReformatCode)
@@ -30,7 +33,8 @@ vmap rs <Action>(SurroundWith)
 " Running
 nmap <leader>ll <Action>(Run)
 nmap <leader>ld <Action>(Debug)
-nmap <leader>lb <Action>(BuildSolutionAction)
+nmap <leader>lb <Action>(BuildCurrentProject)
+nmap <leader>lB <Action>(BuildSolutionAction)
 nmap <leader>lt <Action>(RiderUnitTestDebugContextAction)
 
 "" -- Simulated plugins --
@@ -40,9 +44,9 @@ nmap <leader>bp <Action>(ToggleLineBreakpoint)
 set surround
 
 " vim-commentary
-set commentary
-nmap <leader>cc <Action>(CommentByLineComment)
-vmap <leader>cc <Action>(CommentByLineComment)
+" set commentary
+nmap gcc <Action>(CommentByLineComment)
+vmap gc <Action>(CommentByLineComment)
 
 set easymotion
 
@@ -53,6 +57,9 @@ nmap <leader>nc :NERDTreeClose<CR>
 
 "" -- Plugin-like keymaps --
 
+" fugitive
+nmap <Space>gd <Action>(Compare.SameVersion)
+
 " vim-unimpaired
 
 nmap [<Space> <Action>(EditorStartNewLineBefore)
@@ -61,8 +68,7 @@ nmap ]<Space> <Action>(EditorStartNewLine)
 nmap [b <Action>(PreviousTab)
 nmap ]b <Action>(NextTab)
 
-" coc.nvim
-
+" LSP
 nmap gt <Action>(ReSharperNavigateTo)
 nmap gd <Action>(GotoDeclaration)
 nmap gD <Action>(QuickImplementations)
@@ -71,10 +77,12 @@ nmap gr <Action>(SolutionExplorerPopupMenuForReference)
 nmap gu <Action>(ShowUsages)
 nmap gU <Action>(FindUsages)
 
+" Telescope
+
+nmap <C-B> <Action>(SearchEverywhere)
+nmap <space>ff <Action>(FindInPath)
+
 " goyo.vim
 
 nmap <C-G> <Action>(ToggleZenMode)
-
-" ControlSpace
-
-nmap <C-B> <Action>(SearchEverywhere)
+nmap <C-S-G> <Action>(TogglePresentationMode)
