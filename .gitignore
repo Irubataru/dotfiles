@@ -1,3 +1,5 @@
 **/.nvimlog
 *.retry
 .lastpass-ansible.conf
+.lsp
+.clj-kondo
