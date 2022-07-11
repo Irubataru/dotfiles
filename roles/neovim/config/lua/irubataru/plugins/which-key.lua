@@ -7,4 +7,4 @@ wk.setup({
   key_labels = { ["<leader>"] = "\\" },
 })
 
-require("keymaps")
+require("irubataru.keymaps")

@@ -1,8 +1,8 @@
-require('plugins.lsp.diagnostics')
+require('irubataru.lsp.diagnostics')
 
 local on_attach = function(client)
   -- require('lsp-status').on_attach(client)
-  require('plugins.lsp.highlighting').setup(client)
+  require('irubataru.lsp.highlighting').setup(client)
 end
 
 local servers = {
@@ -12,12 +12,12 @@ local servers = {
   clojure_lsp = {},
   dockerls = {},
   eslint = {},
-  jsonls = require('plugins.lsp.jsonls').config,
-  ltex = require('plugins.lsp.ltex').config,
-  omnisharp = require('plugins.lsp.omnisharp').config,
+  jsonls = require('irubataru.lsp.jsonls').config,
+  ltex = require('irubataru.lsp.ltex').config,
+  omnisharp = require('irubataru.lsp.omnisharp').config,
   pyright = {},
   r_language_server = {},
-  sumneko_lua = require('plugins.lsp.sumneko_lua').config,
+  sumneko_lua = require('irubataru.lsp.sumneko_lua').config,
   tailwindcss = {},
   texlab = {},
   tsserver = {},
@@ -32,7 +32,7 @@ local options = {
 
 require'lspconfig'.r_language_server.setup(options);
 
-require("plugins.lsp.null-ls").setup(options)
-require("plugins.lsp.install").setup(servers, options);
+require("irubataru.lsp.null-ls").setup(options)
+require("irubataru.lsp.install").setup(servers, options);
 
-require("plugins.lsp.global-keymaps")
+require("irubataru.lsp.global-keymaps")

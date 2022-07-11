@@ -4,6 +4,10 @@ local keymap = vim.api.nvim_set_keymap
 local wk = require("which-key")
 local wk_operators = require("which-key.plugins.presets").operators
 
+local opts = { noremap = true, silent = true }
+local leader_opts = { noremap = true, silent = true, prefix = "<Leader>" }
+local term_opts = { silent = true }
+
 -- Navigation
 -- {{{
 
@@ -20,7 +24,7 @@ wk.register({
     j = {":call NextClosedFold('j')<cr>", "Next closed fold"},
     k = {":call NextClosedFold('k')<cr>", "Previous closed fold"}
   }
-}, {noremap = true, silent = true})
+}, opts)
 
 -- Tab movement
 keymap("n", "<C-Left>", ":tabp<CR>", { noremap = true })
@@ -33,12 +37,13 @@ wk.register({
     n = {":tabn<cr>", "Next tab"},
     p = {":tabp<cr>", "Previous tab"}
   }
-}, {
-  noremap = true,
-  silent = true,
-  prefix = "<leader>"
-})
+}, leader_opts)
 
+-- Split movement
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Buffer movement
 wk.register({
@@ -50,13 +55,13 @@ wk.register({
     b = {"<Plug>(cokeline-focus-next)", "Goto next buffer"},
     B = {"<Plug>(cokeline-switch-next)", "Switch with next buffer"},
   }
-}, {silent = true})
+}, opts)
 
 -- File navigation
 -- {{{
 
 -- Start a :e with the dir of the current buffer already filled in
-keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd() <CR>", { noremap = true })
+keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd() <CR>", opts)
 
 -- File tree
 keymap("n", "<C-N>", ":NvimTreeToggle<CR>", {})
@@ -68,7 +73,16 @@ keymap("n", "<C-N>", ":NvimTreeToggle<CR>", {})
 -- UI Related
 -- {{{
 
-keymap("n", "<Leader><Leader>", "zz", { noremap = true })
+-- Resize splits with arrows
+keymap("n", "<C-Up>", ":resize -2<CR>", opts)
+keymap("n", "<C-Down>", ":resize +2<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+
+-- Center the window
+wk.register({
+  ["<Leader><Leader>"] = { "zz", "Center view" }
+}, opts)
 
 wk.register({
   ["["] = {
@@ -83,16 +97,9 @@ wk.register({
       q = { ":cclose<cr>", "close-quickfix" }
     }
   }
+}, opts)
 
-})
-
-keymap('n', '<C-b>', "<cmd>lua require('telescope.builtin').buffers()<cr>", {noremap = true})
-
--- Toggles for quickfix consistent with vim-unimpaired
--- Toggle-command from the vim-togglelist plugin
--- keymap('n', 'coq', vim.cmd([[:call ToggleQuickfixList()<CR>]]), {noremap=true, silent=true, script=true})
-keymap("n", "[oq", ":copen<cr>", { noremap = true })
-keymap("n", "]oq", ":cclose<cr>", { noremap = true })
+keymap('n', '<C-b>', "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
 
 -- Disable EX mode
 keymap("n", "Q", "<NOP>", { noremap = true })
@@ -160,10 +167,11 @@ wk.register({
     e = { "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics({severity = 1})<cr>", "Find errors" },
     E = { "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>", "Find all diagnostics" },
     f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "Find files" },
-    g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep" },
+    g = { "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>", "Find text" },
     h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Find help" },
     v = { "<cmd>lua require('plugins.telescope').search_dotfiles()<cr>", "Vim dotfiles" },
   },
+  F = { "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>", "Find text" },
   g = {
     name = "+git",
     c = {":Gcommit<CR>", "git commit"},

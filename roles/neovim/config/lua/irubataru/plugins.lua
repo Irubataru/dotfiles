@@ -1,40 +1,78 @@
-vim.cmd [[packadd packer.nvim]]
+local fn = vim.fn
 
-local configs = {
-  clang_format = function() require('plugins/clang-format') end,
-  cmp = function() require('plugins/cmp') end,
-  commenter = function() require('plugins/commenter') end,
-  cokeline = function() require('plugins/cokeline') end,
-  copilot = function() require('plugins/copilot') end,
-  cpp_enhanced_highlight = function() require('plugins/cpp_enhanced_highlight') end,
-  fugitive = function() require('plugins/fugitive') end,
-  goto_preview = function() require('plugins/goto-preview') end,
-  goyo = function() require('plugins/goyo') end,
-  illuminate = function() require('plugins/illuminate') end,
-  incsearch = function() require('plugins/incsearch') end,
-  indentline = function() require('plugins/indentline') end,
-  lightline = function() require('plugins/lightline') end,
-  localvimrc = function() require('plugins/localvimrc') end,
-  lspconfig = function() require('plugins/lsp') end,
-  luasnip = function() require('plugins/luasnip') end,
-  mkdx = function() require('plugins/mkdx') end,
-  nvim_tree = function() require('plugins/nvim_tree') end,
-  operator_flashy = function() require('plugins/operator-flashy') end,
-  quickscope = function() require('plugins/quickscope') end,
-  startify = function() require('plugins/startify') end,
-  telescope = function() require('plugins/telescope') end,
-  template = function() require('plugins/template') end,
-  terminal_help = function() require('plugins/terminal-help') end,
-  treesitter = function() require('plugins/treesitter') end,
-  trouble = function() require('plugins/trouble') end,
-  vimtex = function() require('plugins/vimtex') end,
-  vimwiki = function() require('plugins/vimwiki') end,
-  which_key = function() require('plugins/which-key') end,
+-- Automatically install packer
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+  PACKER_BOOTSTRAP = fn.system {
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  }
+  print "Installing packer close and reopen Neovim..."
+  vim.cmd [[packadd packer.nvim]]
+end
+
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+vim.cmd [[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]]
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+-- Have packer use a popup window
+packer.init {
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "rounded" }
+    end,
+  },
 }
 
-return require('packer').startup(function(use)
+local configs = {
+  clang_format = function() require('irubataru.plugins.clang-format') end,
+  cmp = function() require('irubataru.plugins.cmp') end,
+  commenter = function() require('irubataru.plugins.commenter') end,
+  cokeline = function() require('irubataru.plugins.cokeline') end,
+  copilot = function() require('irubataru.plugins.copilot') end,
+  cpp_enhanced_highlight = function() require('irubataru.plugins.cpp_enhanced_highlight') end,
+  fugitive = function() require('irubataru.plugins.fugitive') end,
+  goto_preview = function() require('irubataru.plugins.goto-preview') end,
+  goyo = function() require('irubataru.plugins.goyo') end,
+  illuminate = function() require('irubataru.plugins.illuminate') end,
+  incsearch = function() require('irubataru.plugins.incsearch') end,
+  indentline = function() require('irubataru.plugins.indentline') end,
+  lightline = function() require('irubataru.plugins.lightline') end,
+  localvimrc = function() require('irubataru.plugins.localvimrc') end,
+  lspconfig = function() require('irubataru.lsp') end,
+  luasnip = function() require('irubataru.plugins.luasnip') end,
+  mkdx = function() require('irubataru.plugins.mkdx') end,
+  nvim_tree = function() require('irubataru.plugins.nvim_tree') end,
+  operator_flashy = function() require('irubataru.plugins.operator-flashy') end,
+  quickscope = function() require('irubataru.plugins.quickscope') end,
+  startify = function() require('irubataru.plugins.startify') end,
+  telescope = function() require('irubataru.plugins.telescope') end,
+  template = function() require('irubataru.plugins.template') end,
+  terminal_help = function() require('irubataru.plugins.terminal-help') end,
+  treesitter = function() require('irubataru.plugins.treesitter') end,
+  trouble = function() require('irubataru.plugins.trouble') end,
+  vimtex = function() require('irubataru.plugins.vimtex') end,
+  vimwiki = function() require('irubataru.plugins.vimwiki') end,
+  which_key = function() require('irubataru.plugins.which-key') end,
+}
 
-  use 'wbthomason/packer.nvim'
+return packer.startup(function(use)
+
+  use 'wbthomason/packer.nvim' -- Have packer manage itself
   use 'lewis6991/impatient.nvim'
 
   -- Keymaps
@@ -90,7 +128,6 @@ return require('packer').startup(function(use)
     module = "illuminate",
     config = configs.illuminate
   }
-
 
   -- LSP
   -- use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
@@ -165,7 +202,7 @@ return require('packer').startup(function(use)
   use { "windwp/nvim-autopairs", config = function() require('nvim-autopairs').setup{} end, } -- autopairs for neovim written by lua
   use {
     "inkarkat/vim-ReplaceWithRegister", -- Replace text with the contents of a register.
-    setup = function() require("plugins/replace-with-register").setup() end
+    setup = function() require("irubataru.plugins.replace-with-register").setup() end
   }
 
   -- Note taking
@@ -232,10 +269,11 @@ return require('packer').startup(function(use)
   use 'vim-scripts/gnuplot.vim' -- Syntax highlighting for Gnuplot
   use 'Glench/Vim-Jinja2-Syntax' -- An up-to-date jinja2 syntax file.
   use 'jalvesaq/Nvim-R' -- Vim plugin to work with R
-  use {'nvim-orgmode/orgmode', config = function()
-          require('orgmode').setup{}
-  end }
   use {'tmux-plugins/vim-tmux', ft = { 'tmux' } } -- vim plugin for tmux.conf
 
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if PACKER_BOOTSTRAP then
+    require("packer").sync()
+  end
 end)
-

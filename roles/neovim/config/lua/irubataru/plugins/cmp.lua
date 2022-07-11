@@ -2,7 +2,7 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
-local copilot = require('plugins.copilot')
+local copilot = require('irubataru.plugins.copilot')
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))

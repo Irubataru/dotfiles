@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+-- Treat both system clipboards as the same
+opt.clipboard = "unnamedplus"
+
 opt.backupdir = vim.fn.expand "~/.tmp"
 
 -- Start diff-mode in vertical split, ignore all whitespace
@@ -8,9 +11,6 @@ opt.diffopt = "filler,vertical,iwhiteall"
 --Command line file completion
 opt.wildmode = "longest,list,full" -- bash-like filename autocompletion
 opt.wildmenu = true                   -- zsh-like filename list chooser
-
--- Files in general shouldn't start folded, can fix individual files with autocmd
--- set foldlevelstart=99
 
 -- Use treesitter to fold
 opt.foldmethod = "expr"
@@ -22,15 +22,9 @@ opt.hidden = true
 -- Timeoutlen is used for e.g. the which-key plugin (default value 1000 ms)
 opt.timeoutlen = 500
 
-vim.g.tex_flavor = "--latex"
-
 -- Remove line numbering in new terminals
 vim.cmd [[autocmd TermOpen term://* set nonumber]]
 vim.cmd [[autocmd TermOpen term://* set norelativenumber]]
-
--- Run e on all elements of the arglist
--- This is so that I populate a "tab" in CtrlSpace with all files from the arglist
---vim.cmd [[au VimEnter * nested silent! exe "argdo set eventignore-=Syntax e" | bn]]
 
 -- Backup if necessary
 vim.cmd([[
@@ -85,5 +79,7 @@ opt.shiftwidth = 2
 opt.inccommand = "nosplit"
 opt.laststatus = 2
 opt.showmode = false
+
+vim.g.tex_flavor = "--latex"
 
 ---}}}
