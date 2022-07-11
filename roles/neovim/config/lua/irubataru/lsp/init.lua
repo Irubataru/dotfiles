@@ -1,8 +1,13 @@
-require('irubataru.lsp.diagnostics')
+require("nvim-lsp-installer").setup({})
 
-local on_attach = function(client)
-  -- require('lsp-status').on_attach(client)
-  require('irubataru.lsp.highlighting').setup(client)
+local status_ok, lspconfig = pcall(require, "lspconfig")
+if not status_ok then
+  return
+end
+
+local on_attach = function(client, bufnr)
+  require("irubataru.lsp.highlighting").setup(client)
+  require("irubataru.keymaps").register_lsp_keymaps(bufnr)
 end
 
 local servers = {
@@ -12,27 +17,37 @@ local servers = {
   clojure_lsp = {},
   dockerls = {},
   eslint = {},
-  jsonls = require('irubataru.lsp.jsonls').config,
-  ltex = require('irubataru.lsp.ltex').config,
-  omnisharp = require('irubataru.lsp.omnisharp').config,
+  jsonls = require("irubataru.lsp.servers.jsonls").config,
+  ltex = require("irubataru.lsp.servers.ltex").config,
+  omnisharp = require("irubataru.lsp.servers.omnisharp").config,
   pyright = {},
   r_language_server = {},
-  sumneko_lua = require('irubataru.lsp.sumneko_lua').config,
+  sumneko_lua = require("irubataru.lsp.servers.sumneko_lua").config,
   tailwindcss = {},
   texlab = {},
   tsserver = {},
 }
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local options = {
   on_attach = on_attach,
-  capabilities = capabilities
+  capabilities = capabilities,
 }
 
-require'lspconfig'.r_language_server.setup(options);
+for server, server_options in pairs(servers) do
+  local opts = vim.tbl_deep_extend("force", options, server_options or {})
+  lspconfig[server].setup(opts)
+end
 
+require("irubataru.lsp.diagnostics")
 require("irubataru.lsp.null-ls").setup(options)
-require("irubataru.lsp.install").setup(servers, options);
 
-require("irubataru.lsp.global-keymaps")
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "rounded",
+})

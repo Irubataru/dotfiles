@@ -38,6 +38,9 @@ endif
 -- Colors and styling
 --{{{
 
+-- Additional colours support
+opt.termguicolors = true
+
 vim.cmd [[set t_Co=256]]
 vim.cmd [[set t_ut=]] --Fix for bg colour issues in tmux http://sunaku.github.io/vim-256color-bce.html
 

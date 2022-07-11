@@ -39,6 +39,7 @@ packer.init {
 }
 
 local configs = {
+  alpha = function () require("irubataru.plugins.alpha") end,
   clang_format = function() require('irubataru.plugins.clang-format') end,
   cmp = function() require('irubataru.plugins.cmp') end,
   commenter = function() require('irubataru.plugins.commenter') end,
@@ -46,23 +47,23 @@ local configs = {
   copilot = function() require('irubataru.plugins.copilot') end,
   cpp_enhanced_highlight = function() require('irubataru.plugins.cpp_enhanced_highlight') end,
   fugitive = function() require('irubataru.plugins.fugitive') end,
+  gitsigns = function() require('irubataru.plugins.gitsigns') end,
   goto_preview = function() require('irubataru.plugins.goto-preview') end,
   goyo = function() require('irubataru.plugins.goyo') end,
   illuminate = function() require('irubataru.plugins.illuminate') end,
   incsearch = function() require('irubataru.plugins.incsearch') end,
   indentline = function() require('irubataru.plugins.indentline') end,
-  lightline = function() require('irubataru.plugins.lightline') end,
   localvimrc = function() require('irubataru.plugins.localvimrc') end,
-  lspconfig = function() require('irubataru.lsp') end,
+  lualine = function() require('irubataru.plugins.lualine') end,
   luasnip = function() require('irubataru.plugins.luasnip') end,
   mkdx = function() require('irubataru.plugins.mkdx') end,
   nvim_tree = function() require('irubataru.plugins.nvim_tree') end,
   operator_flashy = function() require('irubataru.plugins.operator-flashy') end,
+  project = function() require('irubataru.plugins.project') end,
   quickscope = function() require('irubataru.plugins.quickscope') end,
-  startify = function() require('irubataru.plugins.startify') end,
   telescope = function() require('irubataru.plugins.telescope') end,
   template = function() require('irubataru.plugins.template') end,
-  terminal_help = function() require('irubataru.plugins.terminal-help') end,
+  toggleterm = function() require('irubataru.plugins.toggleterm') end,
   treesitter = function() require('irubataru.plugins.treesitter') end,
   trouble = function() require('irubataru.plugins.trouble') end,
   vimtex = function() require('irubataru.plugins.vimtex') end,
@@ -78,7 +79,6 @@ return packer.startup(function(use)
   -- Keymaps
   use({
     "folke/which-key.nvim",
-    event = "VimEnter",
     config = configs.which_key,
   })
 
@@ -92,11 +92,6 @@ return packer.startup(function(use)
 
   -- Colour schemes
   use 'junegunn/seoul256.vim'
-  use 'Irubataru/vim-colors-solarized'
-  use 'NLKNguyen/papercolor-theme'
-  use 'chriskempson/base16-vim'
-  use 'trevordmiller/nova-vim'
-  use 'dracula/vim'
 
   -- UI and look
   use {
@@ -104,7 +99,12 @@ return packer.startup(function(use)
     config = configs.cokeline,
     requires = 'kyazdani42/nvim-web-devicons'
   }
-  use { 'itchyny/lightline.vim', config = configs.lightline } -- A light and configurable statusline/tabline plugin for Vim
+  use {
+    "nvim-lualine/lualine.nvim", -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
+    config = configs.lualine,
+    requires = "arkav/lualine-lsp-progress"
+  }
+
   use {
     'haya14busa/vim-operator-flashy', -- Highlight yanked area
     config = configs.operator_flashy,
@@ -114,8 +114,10 @@ return packer.startup(function(use)
   use { 'haya14busa/incsearch.vim', config = configs.incsearch } -- Improved incremental searching for Vim
   use { 'junegunn/limelight.vim' } -- Hyperfocus-writing in Vim
   use { 'junegunn/goyo.vim', config = configs.goyo } -- Distraction-free writing in Vim
-  use { 'mhinz/vim-startify', config = configs.startify } -- The fancy start screen for Vim
-  use { 'mhinz/vim-signify' } -- Show a diff using Vim its sign column
+  use { "goolord/alpha-nvim", config = configs.alpha }
+  -- use { 'mhinz/vim-startify', config = configs.startify } -- The fancy start screen for Vim
+  -- use { 'mhinz/vim-signify' } -- Show a diff using Vim its sign column
+  use { "lewis6991/gitsigns.nvim", config = configs.gitsigns } -- Git integration for buffers
 
   use {
     "luukvbaal/stabilize.nvim", -- Neovim plugin to stabilize window open/close events.
@@ -131,27 +133,30 @@ return packer.startup(function(use)
 
   -- LSP
   -- use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
-  use { 'neovim/nvim-lspconfig', config = configs.lspconfig } -- Quickstart configurations for the Nvim LSP client
+  use { 'neovim/nvim-lspconfig' } -- Quickstart configurations for the Nvim LSP client
   use 'williamboman/nvim-lsp-installer' -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
+  use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim builtin LSP client
   use 'hrsh7th/cmp-nvim-lua' -- nvim-cmp source for nvim lua
   use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
   use 'hrsh7th/cmp-path' -- nvim-cmp source for path
   use 'hrsh7th/cmp-cmdline' -- nvim-cmp source for vim's cmdline
-  -- use 'saadparwaiz1/cmp_luasnip' -- luasnip completion source for nvim-cmp
+  use 'saadparwaiz1/cmp_luasnip' -- luasnip completion source for nvim-cmp
   use { 'tzachar/cmp-tabnine', run = './install.sh' } -- TabNine plugin for hrsh7th/nvim-cmp
-  use {'petertriho/cmp-git', requires = "nvim-lua/plenary.nvim"}  -- Git source for nvim-cmp
+  use {
+    'petertriho/cmp-git', -- Git source for nvim-cmp
+    requires = "nvim-lua/plenary.nvim",
+    config = function () require("cmp_git").setup() end
+  }
   use 'onsails/lspkind-nvim' -- vscode-like pictograms for neovim lsp completion items
-  use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
 
-  if require("plugins.copilot").options.use then
+  if require("irubataru.plugins.copilot").options.use then
     use 'hrsh7th/cmp-copilot' -- copilot.vim source for nvim-cmp
     use { 'github/copilot.vim', config = configs.copilot } -- Neovim plugin for GitHub Copilot
   end
 
   use {
     'L3MON4D3/LuaSnip', -- Snippet Engine for Neovim written in Lua.
-    wants = "friendly-snippets",
     requires = "rafamadriz/friendly-snippets",
     config = configs.luasnip
   }
@@ -190,7 +195,7 @@ return packer.startup(function(use)
   use { 'embear/vim-localvimrc', config = configs.localvimrc } -- Search local vimrc files ('.lvimrc') in the tree (root dir up to current dir) and load them.
   use { 'junegunn/vim-easy-align' } -- A Vim alignment plugin
   use { 'unblevable/quick-scope', config = configs.quickscope } -- Highlighting for f,F,t,T
-  use { 'skywind3000/vim-terminal-help', config = configs.terminal_help } -- Small changes make vim/nvim's internal terminal great again
+  use { "akinsho/toggleterm.nvim", config = configs.toggleterm } -- A neovim lua plugin to help easily manage multiple terminal windows
   use { 'AndrewRadev/linediff.vim' } -- A vim plugin to perform diffs on blocks of code
   use 'skywind3000/asyncrun.vim' -- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
   use {
@@ -204,13 +209,13 @@ return packer.startup(function(use)
     "inkarkat/vim-ReplaceWithRegister", -- Replace text with the contents of a register.
     setup = function() require("irubataru.plugins.replace-with-register").setup() end
   }
+  use { "ahmedkhalf/project.nvim", config = configs.project } -- The superior project management solution for neovim.
 
   -- Note taking
   use {'vimwiki/vimwiki', config = configs.vimwiki, branch = 'dev'} -- Pesonalized wiki and note taking
 
   -- Git
   use { 'tpope/vim-fugitive', config = configs.fugitive } -- The best git plugin
-  use 'airblade/vim-rooter' -- Changes the vim directory to project root
   use 'rhysd/git-messenger.vim' -- Vim and Neovim plugin to reveal the commit messages under the cursor
   use { -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
     'sindrets/diffview.nvim',

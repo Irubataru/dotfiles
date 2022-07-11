@@ -9,6 +9,9 @@ vim.g.mapleader = "\\"
 -- These don't have any special meaning.
 vim.g.snippets = "luasnip"
 
-require('irubataru.options')
-require('irubataru.colours')
-require('irubataru.plugins')
+require("irubataru.options")
+require("irubataru.colours")
+require("irubataru.plugins")
+require("irubataru.keymaps")
+require("irubataru.lsp")
+require("irubataru.impatient")

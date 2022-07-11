@@ -4,8 +4,16 @@ local trouble = require("trouble.providers.telescope")
 require('telescope').setup({
   defaults = {
     mappings = {
-      i = { ["<c-t>"] = trouble.open_with_trouble },
-      n = { ["<c-t>"] = trouble.open_with_trouble },
+      i = {
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+      },
+      n = {
+        ["?"] = actions.which_key,
+      },
     }
   },
   pickers = {
@@ -15,9 +23,6 @@ require('telescope').setup({
           ["<C-x>"] = actions.delete_buffer,
         },
       },
-    },
-    lsp_workspace_diagnostics = {
-
     },
   },
 })

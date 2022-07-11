@@ -6,5 +6,3 @@ wk.setup({
   plugins = { spelling = true },
   key_labels = { ["<leader>"] = "\\" },
 })
-
-require("irubataru.keymaps")
