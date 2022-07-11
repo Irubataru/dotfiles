@@ -3,6 +3,7 @@
     name:
       - git
       - tig
+      - lazygit
     state: present
   become: true
   when: package_manager == "pacman"
