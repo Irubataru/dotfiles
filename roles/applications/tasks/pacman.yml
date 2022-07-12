@@ -2,10 +2,6 @@
   pacman:
     name:
       - pcmanfm-gtk3
-      - zathura
-      - zathura-pdf-mupdf
-      - zathura-ps
-      - zathura-djvu
       - vivaldi
       - vivaldi-ffmpeg-codecs
       - mpv

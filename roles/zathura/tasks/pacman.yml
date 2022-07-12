@@ -1,0 +1,9 @@
+- name: Install zathura (pacman)
+  pacman:
+    name:
+      - zathura
+      - zathura-pdf-mupdf
+      - zathura-ps
+      - zathura-djvu
+    state: present
+  become: true
