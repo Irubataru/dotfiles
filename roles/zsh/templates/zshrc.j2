@@ -2,8 +2,11 @@
 # Set the gpg tty so we are prompted for passwords and pins
 export GPG_TTY=$(tty)
 
+# Path to the dotfiles
+export DOTFILES={{ dotfiles_directory }}
+
 {% endif %}
-{% if oh_my_zsh.theme == "powerlevel10k/powerlevel10k" %}
+{% if zsh.theme == "powerlevel10k/powerlevel10k" %}
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -12,20 +15,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 {% endif %}
-# Path to the dotfiles
-export DOTFILES={{ dotfiles_directory }}
+{% if zplug.use %}
+{% include "zplug.j2" %}
 
-typeset -U config_files
-config_files=($DOTFILES/**/*.zsh)
+{% endif %}
+# Add paths in case the ones from /etc/profile.d weren't sourced
+source ~/.bash_userpaths.sh
 
 roles=(
 {% for item in modules %}
   "{{ item }}"
 {% endfor %}
 )
-
-# Add paths in case the ones from /etc/profile.d weren't sourced
-source ~/.bash_userpaths.sh
 
 # all of our zsh files
 typeset -U config_files
@@ -42,17 +43,9 @@ for file in ${(M)config_files:#*/path.zsh}; do
 done
 
 {% if oh_my_zsh.use %}
-# Configuring oh-my-zsh
-ZSH={{ oh_my_zsh.directory }}
+{% include "oh-my-zsh.j2" %}
 
-ZSH_THEME="{{ oh_my_zsh.theme }}"
-DEFAULT_USER="{{ user_name }}"
-
-#Set up oh-my-zsh
-source $ZSH/oh-my-zsh.sh
-plugins=(dircycle git vi-mode)
 {% endif %}
-
 # load everything but the path and completion files
 for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/final.zsh}; do
   source $file
@@ -74,22 +67,29 @@ done
 
 unset config_files
 
+{% if not zplug.use %}
 # TODO Remember fzf
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+{% endif %}
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
 if [[ -a ~/.localrc ]]; then
   source ~/.localrc
 fi
-{% if oh_my_zsh.theme == "powerlevel10k/powerlevel10k" %}
 
+{% if zplug.use %}
+# Source plugins and add commands to $PATH
+zplug load
+
+{% endif %}
+{% if zsh.theme == "powerlevel10k/powerlevel10k" %}
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 {% endif %}
 {% if hw_cmd_only %}
-
 # Run tmux whenever zsh is launched if it isn't already running
 if [ "$TMUX" = "" ]; then tmux; fi
 {% endif %}

@@ -1,6 +1,15 @@
 dircolor_theme: dircolors.256dark
 
-oh_my_zsh:
-  use: true
-  directory: "{{ home_directory }}/.oh-my-zsh"
+zsh:
   theme: "powerlevel10k/powerlevel10k"
+
+# Using zplug to manage packages
+zplug:
+  use: true
+  directory: "{{ home_directory }}/.zplug"
+
+# Use oh-my-zsh configuration, this should not be used while zplug is also in
+# user, this is what I used to do, but I prefer zplug now
+oh_my_zsh:
+  use: false
+  directory: "{{ home_directory }}/.oh-my-zsh"

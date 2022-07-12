@@ -27,6 +27,9 @@
     src: "dircolor.zsh.j2"
     dest: "{{ role_path }}/dircolor.zsh"
 
+- include_tasks: zplug.yml
+  when: zplug.use
+
 - include_tasks: oh-my-zsh.yml
   when: oh_my_zsh.use
 
