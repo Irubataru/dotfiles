@@ -51,3 +51,17 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = "rounded",
 })
+
+vim.api.nvim_create_autocmd("FileType",{
+  pattern = "lspinfo",
+  callback = function()
+    vim.api.nvim_win_set_config(0, { border = "rounded" })
+  end
+})
+
+vim.api.nvim_create_autocmd("FileType",{
+  pattern = "lsp-installer",
+  callback = function()
+    vim.api.nvim_win_set_config(0, { border = "rounded" })
+  end
+})
