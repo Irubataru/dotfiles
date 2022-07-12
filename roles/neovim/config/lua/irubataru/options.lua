@@ -19,6 +19,9 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- Make it so I can switch buffers even if they have changed
 opt.hidden = true
 
+-- Highlight the current cursorline
+opt.cursorline = true
+
 -- Timeoutlen is used for e.g. the which-key plugin (default value 1000 ms)
 opt.timeoutlen = 500
 
