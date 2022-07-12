@@ -13,5 +13,12 @@
   become: true
   when: package_manager == "apt"
 
+- name: Instrall awesmeWM dependencies (pacman)
+  pacman:
+    name: maim
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
 - import_tasks: awesome.4.config.yml
   when: awesome_version == 4
