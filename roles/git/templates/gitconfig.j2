@@ -31,7 +31,7 @@
 [init]
 	defaultBranch = main
 [diff]
-	external = difft
+  external = {{ git_difftool }}
 {% if git_signing_key_has_key %}
 [commit]
   gpgsign = true

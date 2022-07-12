@@ -1,0 +1,5 @@
+- name: Install obsidian
+  pacman:
+    name: obsidian
+    state: present
+  become: true
