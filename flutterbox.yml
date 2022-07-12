@@ -9,9 +9,13 @@
       - basic
       - keyboard
       - zsh
+      - zoxide
       - fonts
 
       # Programming languages
+      - clang
+      - dotnet
+      - lua
       - go
       - npm
       - ruby
@@ -29,11 +33,15 @@
       - git
       - gpg
       - latex
+      - navi
       - neovim
+      - obsidian
       - qutebrowser
+      - tldr
       - tmux
       - utilities
       - vifm
+      - zathura
   tasks:
     - include_role:
         name: "{{ item }}"

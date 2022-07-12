@@ -8,7 +8,7 @@ awesome_version: 4
 
 # git
 git_signing_key_has_key: true
-git_signing_key: CF00E9AF2831BD66
+git_signing_key: 77DF2021FD23B02D
 
 # latex
 latex_use_xelatex: true
