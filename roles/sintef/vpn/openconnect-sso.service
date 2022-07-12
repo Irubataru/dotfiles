@@ -1,0 +1,12 @@
+[Unit]
+Description=openconnect-sso daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/openconnect-sso --server vpn.sintef.no --browser-display-mode hidden -l DEBUG --user aleksandra.glesaaen@sintef.no 
+Restart=on-failure
+RestartSec=360
+
+[Install]
+Alias=openconnect-sso.target
