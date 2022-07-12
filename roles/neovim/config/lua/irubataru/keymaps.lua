@@ -8,16 +8,17 @@ local wk_operators = require("which-key.plugins.presets").operators
 
 local opts = { noremap = true, silent = true }
 local leader_opts = { noremap = true, silent = true, prefix = "<Leader>" }
+local leader_vopts = { mode = "v", noremap = true, silent = true, prefix = "<Leader>" }
 local term_opts = { silent = true }
 
 -- Navigation
 -- {{{
 
 -- Dont move with the arrows
-keymap("n", "<Up>", "<NOP>", { noremap = true })
-keymap("n", "<Down>", "<NOP>", { noremap = true })
-keymap("n", "<Left>", "<NOP>", { noremap = true })
-keymap("n", "<Right>", "<NOP>", { noremap = true })
+keymap("n", "<Up>", "<NOP>", opts)
+keymap("n", "<Down>", "<NOP>", opts)
+keymap("n", "<Left>", "<NOP>", opts)
+keymap("n", "<Right>", "<NOP>", opts)
 
 -- Fold movement
 -- Replace the zj zk calls to move to next closed fold
@@ -29,8 +30,8 @@ wk.register({
 }, opts)
 
 -- Tab movement
-keymap("n", "<C-Left>", ":tabp<CR>", { noremap = true })
-keymap("n", "<C-Right>", ":tabn<CR>", { noremap = true })
+keymap("n", "<C-Left>", ":tabp<CR>", opts)
+keymap("n", "<C-Right>", ":tabn<CR>", opts)
 
 wk.register({
   t = {
@@ -67,7 +68,7 @@ keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd()<CR>", opts)
 -- keymap("n", ",e", ":e <C-R>=lua require('irubataru.functions').get_file_directory()<CR>", opts)
 
 -- File tree
-keymap("n", "<C-N>", ":NvimTreeFindFileToggle<CR>", {})
+keymap("n", "<C-N>", ":NvimTreeFindFileToggle<CR>", opts)
 
 -- }}}
 
@@ -105,48 +106,45 @@ wk.register({
 keymap("n", "<C-b>", "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
 
 -- Disable EX mode
-keymap("n", "Q", "<NOP>", { noremap = true })
+keymap("n", "Q", "<NOP>", opts)
 
 -- }}}
 
 -- Other keymaps
 -- {{{
 
--- Source changes to .vim
--- keymap('n', '<leader><cr>', '<cmd>lua require("functions").reload()<cr>', {noremap=true});
-
 -- Yank to clipboard
-keymap("n", "<leader>y", '"+y', { noremap = true })
-keymap("v", "<leader>y", '"+y', { noremap = true })
-keymap("n", "<leader>Y", 'gg"+yG', { noremap = true })
+keymap("n", "<leader>y", '"+y', opts)
+keymap("v", "<leader>y", '"+y', opts)
+keymap("n", "<leader>Y", 'gg"+yG', opts)
 
 -- Better cursor positioning on searching
-keymap("n", "n", "nzzzv", { noremap = true })
-keymap("n", "N", "Nzzzv", { noremap = true })
-keymap("n", "J", "miJ`i", { noremap = true })
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
+keymap("n", "J", "miJ`i", opts)
 
 -- Moving text
-keymap("v", "<C-j>", ":m '>+1<cr>gv=gv", { noremap = true })
-keymap("v", "<C-k>", ":m '<-2<cr>gv=gv", { noremap = true })
-keymap("i", "<C-j>", "<esc>:m .+1<cr>==", { noremap = true })
-keymap("i", "<C-k>", "<esc>:m .-2<cr>==", { noremap = true })
-keymap("n", "<leader>j", ":m .+1<cr>==", { noremap = true })
-keymap("n", "<leader>k", ":m .-2<cr>==", { noremap = true })
+keymap("v", "<C-j>", ":m '>+1<cr>gv=gv", opts)
+keymap("v", "<C-k>", ":m '<-2<cr>gv=gv", opts)
+keymap("i", "<C-j>", "<esc>:m .+1<cr>==", opts)
+keymap("i", "<C-k>", "<esc>:m .-2<cr>==", opts)
+keymap("n", "<leader>j", ":m .+1<cr>==", opts)
+keymap("n", "<leader>k", ":m .-2<cr>==", opts)
 
 -- Undo break points
-keymap("i", ",", ",<c-g>u", { noremap = true })
-keymap("i", " ", " <c-g>u", { noremap = true })
-keymap("i", "!", "!<c-g>u", { noremap = true })
-keymap("i", "?", "?<c-g>u", { noremap = true })
+keymap("i", ",", ",<c-g>u", opts)
+keymap("i", " ", " <c-g>u", opts)
+keymap("i", "!", "!<c-g>u", opts)
+keymap("i", "?", "?<c-g>u", opts)
 
 -- Unknown next greatest remap
-keymap("x", "<leader>p", '"_dP', { noremap = true })
+keymap("x", "<leader>p", '"_dP', opts)
 
 -- Register replace
 wk.register({
   gx = { "<Plug>ReplaceWithRegisterOperator", "Replace with register" },
   gxx = { "<Plug>ReplaceWithRegisterLine", "Replace line with register" },
-}, { mode = "n" })
+}, opts)
 
 wk.register({
   gx = { "<Plug>ReplaceWithRegisterVisual", "Replace with register" },
@@ -197,6 +195,8 @@ wk.register({
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
+    r = { "<cmd>lua require('irubataru.plugins.telescope.reload').reload()<cr>", "Reload lua module"},
+    R = { "<cmd>lua require('irubataru.functions').reload()<cr>", "Reload all modules"},
     s = { "<cmd>PackerSync<cr>", "Sync" },
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
@@ -222,19 +222,14 @@ wk.register({
     name = "+folds",
     z = { ":let &scrolloff=810-&scrolloff<CR>", "toogle-scroll-distance" },
   },
-}, {
-  prefix = "<leader>",
-})
+}, leader_opts)
 
 wk.register({
   d = {
     name = "+diff",
     a = { ":Linediff<CR>", "Linediff add" },
   },
-}, {
-  mode = "v",
-  prefix = "<leader>",
-})
+}, leader_vopts)
 
 -- LSP
 -- {{{
@@ -330,7 +325,7 @@ wk.register({
   g = {
     a = { "<Plug>(EasyAlign)", "easy align" },
   },
-})
+}, opts)
 
 wk.register({
   g = {
@@ -345,14 +340,14 @@ wk.register({
 -- Goyo
 -- {{{
 
-keymap("n", "<C-g>", ":Goyo<CR>", { noremap = true, silent = true })
+keymap("n", "<C-g>", ":Goyo<CR>", opts)
 
 -- }}}
 
 -- Limelight
 -- {{{
 
-keymap("n", "<C-y>", ":Limelight!!<CR>", { noremap = true, silent = true })
+keymap("n", "<C-y>", ":Limelight!!<CR>", opts)
 
 -- }}}
 
@@ -361,7 +356,7 @@ keymap("n", "<C-y>", ":Limelight!!<CR>", { noremap = true, silent = true })
 -- Terminal related
 -- {{{
 
-keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+keymap("t", "<Esc>", "<C-\\><C-n>", term_opts)
 
 -- }}}
 

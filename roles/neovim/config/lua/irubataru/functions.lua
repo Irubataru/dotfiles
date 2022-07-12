@@ -3,9 +3,17 @@ local M = {}
 -- TODO This needs some work
 -- https://neovim.discourse.group/t/reload-init-lua-and-all-require-d-scripts/971/11
 function M.reload()
-  local plenary = require("plenary.reload")
-  plenary.reload_module("")
+
+  local plenary_reload = require("plenary.reload").reload_module
+
+  for name, _ in pairs(package.loaded) do
+    if name:match("^irubataru%.") then
+      plenary_reload(name)
+    end
+  end
+
   dofile(vim.env.MYVIMRC)
+
 end
 
 function M.get_file_directory()
