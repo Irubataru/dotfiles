@@ -25,6 +25,10 @@ opt.cursorline = true
 -- Timeoutlen is used for e.g. the which-key plugin (default value 1000 ms)
 opt.timeoutlen = 500
 
+-- Splits should be to the right and below
+opt.splitbelow = true
+opt.splitright = true
+
 -- Remove line numbering in new terminals
 vim.cmd [[autocmd TermOpen term://* set nonumber]]
 vim.cmd [[autocmd TermOpen term://* set norelativenumber]]

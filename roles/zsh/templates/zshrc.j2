@@ -15,6 +15,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 {% endif %}
+# Some options (man zshoptions)
+setopt autocd extendedglob nomatch menucomplete
+
+# No one likes beep
+unsetopt BEEP
+
+# Tab through options
+zstyle ':completion:*' menu select
+
 {% if zplug.use %}
 {% include "zplug.j2" %}
 
