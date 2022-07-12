@@ -46,6 +46,7 @@ local configs = {
   cokeline = function() require('irubataru.plugins.cokeline') end,
   copilot = function() require('irubataru.plugins.copilot') end,
   cpp_enhanced_highlight = function() require('irubataru.plugins.cpp_enhanced_highlight') end,
+  dap_install = function() require('irubataru.plugins.dap-install') end,
   fugitive = function() require('irubataru.plugins.fugitive') end,
   gitsigns = function() require('irubataru.plugins.gitsigns') end,
   goto_preview = function() require('irubataru.plugins.goto-preview') end,
@@ -67,7 +68,6 @@ local configs = {
   treesitter = function() require('irubataru.plugins.treesitter') end,
   trouble = function() require('irubataru.plugins.trouble') end,
   vimtex = function() require('irubataru.plugins.vimtex') end,
-  vimwiki = function() require('irubataru.plugins.vimwiki') end,
   which_key = function() require('irubataru.plugins.which-key') end,
 }
 
@@ -81,14 +81,6 @@ return packer.startup(function(use)
     "folke/which-key.nvim",
     config = configs.which_key,
   })
-
-  -- General plugins
-  use 'tpope/vim-repeat' -- Enable repeating supported plugin maps with .
-  use 'tpope/vim-surround' -- quoting/parenthesizing made simple
-  use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
-  use 'tpope/vim-dispatch' -- Asynchronous build and test dispatcher
-  use 'wikitopian/hardmode' -- Disable arrow movement, update to takac/vim-hardtime eventually
-  use 'nvim-lua/plenary.nvim' -- plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.
 
   -- Colour schemes
   use 'junegunn/seoul256.vim'
@@ -115,8 +107,6 @@ return packer.startup(function(use)
   use { 'junegunn/limelight.vim' } -- Hyperfocus-writing in Vim
   use { 'junegunn/goyo.vim', config = configs.goyo } -- Distraction-free writing in Vim
   use { "goolord/alpha-nvim", config = configs.alpha }
-  -- use { 'mhinz/vim-startify', config = configs.startify } -- The fancy start screen for Vim
-  -- use { 'mhinz/vim-signify' } -- Show a diff using Vim its sign column
   use { "lewis6991/gitsigns.nvim", config = configs.gitsigns } -- Git integration for buffers
 
   use {
@@ -124,17 +114,8 @@ return packer.startup(function(use)
     config = function() require("stabilize").setup() end
   }
 
-  use {
-    "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.
-    event = "CursorHold",
-    module = "illuminate",
-    config = configs.illuminate
-  }
 
-  -- LSP
-  -- use 'wbthomason/lsp-status.nvim' -- Utility functions for getting diagnostic status and progress messages from LSP servers, for use in the Neovim statusline
-  use { 'neovim/nvim-lspconfig' } -- Quickstart configurations for the Nvim LSP client
-  use 'williamboman/nvim-lsp-installer' -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
+  -- Autocomplete
   use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim builtin LSP client
   use 'hrsh7th/cmp-nvim-lua' -- nvim-cmp source for nvim lua
@@ -155,10 +136,16 @@ return packer.startup(function(use)
     use { 'github/copilot.vim', config = configs.copilot } -- Neovim plugin for GitHub Copilot
   end
 
+  -- LSP
+  use { 'neovim/nvim-lspconfig' } -- Quickstart configurations for the Nvim LSP client
+  use 'williamboman/nvim-lsp-installer' -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
+  use { "jose-elias-alvarez/null-ls.nvim" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. 
+
   use {
-    'L3MON4D3/LuaSnip', -- Snippet Engine for Neovim written in Lua.
-    requires = "rafamadriz/friendly-snippets",
-    config = configs.luasnip
+    "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.
+    event = "CursorHold",
+    module = "illuminate",
+    config = configs.illuminate
   }
 
   use {
@@ -167,11 +154,16 @@ return packer.startup(function(use)
     config = configs.trouble
   }
 
-  use { "jose-elias-alvarez/null-ls.nvim" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. 
-
   use {
     "rmagatti/goto-preview", -- A small Neovim plugin for previewing definitions using floating windows.
     config = configs.goto_preview
+  }
+
+  -- Snippets
+  use {
+    'L3MON4D3/LuaSnip', -- Snippet Engine for Neovim written in Lua.
+    requires = "rafamadriz/friendly-snippets",
+    config = configs.luasnip
   }
 
   -- Tree sitter
@@ -185,25 +177,29 @@ return packer.startup(function(use)
   }
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 
-  -- Additional functionality
+  -- Other plugins
+  use 'tpope/vim-repeat' -- Enable repeating supported plugin maps with .
+  use 'tpope/vim-surround' -- quoting/parenthesizing made simple
+  use 'tpope/vim-unimpaired' -- Pairs of handy bracket mappings
+  use 'tpope/vim-dispatch' -- Asynchronous build and test dispatcher
+  use 'wikitopian/hardmode' -- Disable arrow movement, update to takac/vim-hardtime eventually
+  use 'nvim-lua/plenary.nvim' -- plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.
   use {
     'numToStr/Comment.nvim', -- 🧠 💪 // Smart and powerful comment plugin for neovim. Supports commentstring, dot repeat, left-right/up-down motions, hooks, and more
     config = configs.commenter
   }
-  use 'xolox/vim-misc' -- A dependency but can't remember of what
   use { 'aperezdc/vim-template', config = configs.template, cmd = { 'Template' } } -- Simple templates plugin for Vim
   use { 'embear/vim-localvimrc', config = configs.localvimrc } -- Search local vimrc files ('.lvimrc') in the tree (root dir up to current dir) and load them.
   use { 'junegunn/vim-easy-align' } -- A Vim alignment plugin
   use { 'unblevable/quick-scope', config = configs.quickscope } -- Highlighting for f,F,t,T
   use { "akinsho/toggleterm.nvim", config = configs.toggleterm } -- A neovim lua plugin to help easily manage multiple terminal windows
   use { 'AndrewRadev/linediff.vim' } -- A vim plugin to perform diffs on blocks of code
-  use 'skywind3000/asyncrun.vim' -- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
+  use { 'skywind3000/asyncrun.vim' } -- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
   use {
     'kyazdani42/nvim-tree.lua', -- A file explorer tree for neovim written in lua
     requires = 'kyazdani42/nvim-web-devicons',
     config = configs.nvim_tree
   }
-  use { "b0o/mapx.nvim" } -- A better way to create key mappings in Neovim.
   use { "windwp/nvim-autopairs", config = function() require('nvim-autopairs').setup{} end, } -- autopairs for neovim written by lua
   use {
     "inkarkat/vim-ReplaceWithRegister", -- Replace text with the contents of a register.
@@ -211,8 +207,10 @@ return packer.startup(function(use)
   }
   use { "ahmedkhalf/project.nvim", config = configs.project } -- The superior project management solution for neovim.
 
-  -- Note taking
-  use {'vimwiki/vimwiki', config = configs.vimwiki, branch = 'dev'} -- Pesonalized wiki and note taking
+  -- DAP
+  -- use { "mfussenegger/nvim-dap" }
+  -- use { "theHamsta/nvim-dap-virtual-text" }
+  -- use { "rcarriga/nvim-dap-ui" }
 
   -- Git
   use { 'tpope/vim-fugitive', config = configs.fugitive } -- The best git plugin
@@ -221,6 +219,9 @@ return packer.startup(function(use)
     'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
   }
+
+  -- Language specific plugins
+  -- {{{
 
   -- C/C++
   use { 'octol/vim-cpp-enhanced-highlight', config = configs.cpp_enhanced_highlight, ft = { 'cpp' } } -- Additional Vim syntax highlighting for C++ (including C++11/14/17)
@@ -239,7 +240,7 @@ return packer.startup(function(use)
   }
   use {'tmhedberg/SimpylFold',ft =  { 'python' } } -- No-BS Python code folding for Vim
 
-  -- For Clojure
+  -- Clojure
   use { 'Olical/conjure', ft = { 'clojure' } } -- Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
 
   use {
@@ -254,17 +255,17 @@ return packer.startup(function(use)
   -- use { 'vim-scripts/paredit.vim', ft = { 'clojure' } } -- Paredit Mode: Structured Editing of Lisp S-expressions
   -- use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
 
-  -- For LaTeX
+  -- LaTeX
   use { 'lervag/vimtex', config = configs.vimtex, ft = { 'tex' } } -- A modern Vim and neovim filetype plugin for LaTeX files.
   use { 'KeitaNakamura/tex-conceal.vim', ft = { 'tex' } } -- This plugin extends the Conceal feature of Vim for LaTeX.
 
-  -- For JavaScript / JSON
+  -- JavaScript / JSON
   use { 'pangloss/vim-javascript', ft = { 'javascript' } } -- Vastly improved Javascript indentation and syntax support in Vim.
   use { 'Olical/vim-syntax-expand', ft = { 'javascript' } } -- Expand characters to code if not in a comment or string
   use { 'elzr/vim-json', ft = { 'json' } } -- A better JSON for Vim: distinct highlighting of keywords vs values, JSON-specific (non-JS) warnings, quote concealing.
   use { "b0o/schemastore.nvim" } -- A Neovim Lua plugin providing access to the SchemaStore catalog.
 
-  -- For Markdown
+  -- Markdown
   use { 'SidOfc/mkdx', ft = { 'markdown' } } -- A vim plugin that adds some nice extra's for working with markdown documents
   use({ "npxbr/glow.nvim", cmd = "Glow" }) -- A markdown preview directly in your neovim.
 
@@ -275,6 +276,8 @@ return packer.startup(function(use)
   use 'Glench/Vim-Jinja2-Syntax' -- An up-to-date jinja2 syntax file.
   use 'jalvesaq/Nvim-R' -- Vim plugin to work with R
   use {'tmux-plugins/vim-tmux', ft = { 'tmux' } } -- vim plugin for tmux.conf
+
+  -- }}}
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
