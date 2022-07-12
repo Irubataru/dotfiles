@@ -1,6 +1,6 @@
 -- LaTeX specific settings
 
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 vim.opt.smartindent = true
 vim.opt.tabstop=2

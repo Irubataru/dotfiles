@@ -1,4 +1,4 @@
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 keymap('n', '<leader>ll', '<cmd>VimtexCompile<cr>', { noremap = true })
 keymap('n', '<leader>tt', '<cmd>VimtexTocToggle<cr>', { noremap = true })
 

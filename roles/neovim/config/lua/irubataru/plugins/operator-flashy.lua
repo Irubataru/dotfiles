@@ -1,4 +1,4 @@
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 -- Replace yank with flashy-yank that highlights yanked area
 keymap('n', 'y', '<Plug>(operator-flashy)', {})

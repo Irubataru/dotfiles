@@ -1,6 +1,6 @@
 -- C specific settings
 
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 keymap('n', '<leader>rf', ':set foldlevel=0<CR>', { noremap=true })
 keymap('n', '<leader>rF', ':set foldlevel=1<CR>', { noremap=true })

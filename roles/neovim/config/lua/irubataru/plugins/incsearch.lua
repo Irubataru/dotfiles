@@ -1,4 +1,4 @@
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 -- Use incsearch.vim as default search function
 keymap('', '/', '<Plug>(incsearch-forward)', {})

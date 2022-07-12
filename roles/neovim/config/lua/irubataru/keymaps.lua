@@ -2,7 +2,7 @@
 
 local M = {}
 
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 local wk = require("which-key")
 local wk_operators = require("which-key.plugins.presets").operators
 
@@ -10,6 +10,7 @@ local opts = { noremap = true, silent = true }
 local leader_opts = { noremap = true, silent = true, prefix = "<Leader>" }
 local leader_vopts = { mode = "v", noremap = true, silent = true, prefix = "<Leader>" }
 local term_opts = { silent = true }
+
 
 -- Navigation
 -- {{{

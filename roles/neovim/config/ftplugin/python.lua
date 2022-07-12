@@ -2,8 +2,6 @@
 -- python specific settings --
 ------------------------------
 
-local keymap = vim.api.nvim_set_keymap
-
 -- UI
 -- {{{
 
