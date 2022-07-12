@@ -114,7 +114,6 @@ return packer.startup(function(use)
     config = function() require("stabilize").setup() end
   }
 
-
   -- Autocomplete
   use { 'hrsh7th/nvim-cmp', config = configs.cmp } -- A completion plugin for neovim coded in Lua.tr
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim builtin LSP client
@@ -140,6 +139,7 @@ return packer.startup(function(use)
   use { 'neovim/nvim-lspconfig' } -- Quickstart configurations for the Nvim LSP client
   use 'williamboman/nvim-lsp-installer' -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
   use { "jose-elias-alvarez/null-ls.nvim" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. 
+  use { "SmiteshP/nvim-navic" } -- Simple winbar/statusline plugin that shows your current code context
 
   use {
     "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.

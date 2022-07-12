@@ -5,11 +5,6 @@ if not status_ok then
   return
 end
 
-local on_attach = function(client, bufnr)
-  require("irubataru.lsp.highlighting").setup(client)
-  require("irubataru.keymaps").register_lsp_keymaps(bufnr)
-end
-
 local servers = {
   ansiblels = {},
   ccls = {},
@@ -27,6 +22,15 @@ local servers = {
   texlab = {},
   tsserver = {},
 }
+
+local on_attach = function(client, bufnr)
+  require("irubataru.lsp.highlighting").setup(client)
+  require("irubataru.keymaps").register_lsp_keymaps(bufnr)
+
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
+end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)

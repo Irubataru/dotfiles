@@ -27,4 +27,22 @@ function M.get_file_directory()
   end
 end
 
+function M.item_in_array(item, dict)
+  for _, value in pairs(dict) do
+    if item == value then
+      return true
+    end
+  end
+  return false
+end
+
+function M.item_in_dictionary(item, dict)
+  for key, _ in pairs(dict) do
+    if item == key then
+      return true
+    end
+  end
+  return false
+end
+
 return M
