@@ -8,6 +8,11 @@
     state: link
   ignore_errors: true
 
+- name: Initialise Xresources 
+  template: 
+    src: "Xresources.j2"
+    dest: "~/.Xresources"
+
 - name: Link mimeapps list
   file:
     src: "{{ role_path }}/mimeapps.list"

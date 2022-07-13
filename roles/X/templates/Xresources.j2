@@ -1,0 +1,6 @@
+{% if 'urxvt' in modules %}
+{% include "Urxvt.j2" %}
+
+{% endif %}
+! Colour Scheme
+#include "{{ role_path }}/colour_schemes/{{ colour_scheme }}"

@@ -22,5 +22,14 @@
   become: true
   when: package_manager == "pacman"
 
-- import_tasks: awesome.4.config.yml
-  when: awesome_version == 4
+- name: Link awesomeWM config
+  file:
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.config/awesome"
+    state: link
+
+- name: Install lain
+  git: 
+    repo: "https://github.com/lcpz/lain.git"
+    dest: "{{ role_path }}/config/lain"
+    update: no
