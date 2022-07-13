@@ -4,4 +4,6 @@ export GTK_IM_MODULE='uim'
 export QT_IM_MODULE='uim'
 export XMODIFIERS='@im=uim'
 
+[[ -x "$(command -v picom)" ]] && picom -b --experimental-backends --dbus
+
 exec awesome

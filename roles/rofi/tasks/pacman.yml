@@ -1,0 +1,8 @@
+# vi: set ft=yaml.ansible :
+
+- name: "Install rofi (pacman)"
+  pacman:
+    name:
+      - rofi
+    state: present
+  become: true

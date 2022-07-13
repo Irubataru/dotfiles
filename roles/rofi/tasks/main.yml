@@ -1,0 +1,13 @@
+# vi: set ft=yaml.ansible :
+
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+# - import_tasks: apt.yml
+#   when: package_manager == "apt"
+
+- name: Link rofi configuration director
+  file:
+    src: "{{ role_path}}/config"
+    dest: "{{ home_directory }}/.config/rofi"
+    state: link

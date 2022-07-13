@@ -21,3 +21,14 @@
     dest: ~/.config/handlr/handlr.toml
     state: link
   ignore_errors: true
+
+- name: Create picom config directory directory
+  file:
+    path: "{{ home_directory }}/.config/picom"
+    state: directory
+
+- name: Link picom config
+  file:
+    src: "{{ role_path}}/picom.conf"
+    dest: "{{ home_directory }}/.config/picom/picom.conf"
+    state: link
