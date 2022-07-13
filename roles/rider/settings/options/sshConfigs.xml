@@ -1,0 +1,8 @@
+<application>
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="git:https://stash.code.sintef.no" id="2239346f-31be-45bc-b79c-d0791b01a826" keyPath="C:\Users\jonasgl\.ssh\id_rsa" port="22" nameFormat="DESCRIPTIVE" username="jonasgl" useOpenSSHConfig="true" />
+      <sshConfig host="git:https://jonasgl@stash.code.sintef.no" id="27a0242e-b045-4245-8153-1c6774db83d6" keyPath="C:\Users\jonasgl\.ssh\id_rsa" port="22" nameFormat="DESCRIPTIVE" username="jonasgl" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</application>

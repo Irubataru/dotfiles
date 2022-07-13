@@ -1,0 +1,25 @@
+<application>
+  <component name="XDebuggerSettings">
+    <data-views>
+      <option name="valueLookupDelay" value="150" />
+    </data-views>
+    <general />
+    <debuggers>
+      <debugger id="dotnet_debugger">
+        <configuration>
+          <option name="breakOnUserUnhandledExceptions" value="true" />
+          <option name="needNotifyWhenStoppedInExternalCode" value="false" />
+          <option name="sshCredentials">
+            <option value="&lt;credentials HOST=&quot;git:https://stash.code.sintef.no&quot; PORT=&quot;22&quot; USERNAME=&quot;jonasgl&quot; PRIVATE_KEY_FILE=&quot;C:\Users\jonasgl\.ssh\id_rsa&quot; USE_KEY_PAIR=&quot;true&quot; USE_AUTH_AGENT=&quot;false&quot; /&gt;" />
+            <option value="&lt;credentials HOST=&quot;git:https://jonasgl@stash.code.sintef.no&quot; PORT=&quot;22&quot; USERNAME=&quot;jonasgl&quot; PRIVATE_KEY_FILE=&quot;C:\Users\jonasgl\.ssh\id_rsa&quot; USE_KEY_PAIR=&quot;true&quot; USE_AUTH_AGENT=&quot;false&quot; /&gt;" />
+          </option>
+        </configuration>
+      </debugger>
+      <debugger id="javascript">
+        <configuration>
+          <custom-object-presentation />
+        </configuration>
+      </debugger>
+    </debuggers>
+  </component>
+</application>

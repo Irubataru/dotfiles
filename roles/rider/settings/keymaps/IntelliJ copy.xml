@@ -3,4 +3,7 @@
     <keyboard-shortcut first-keystroke="alt f12" />
     <keyboard-shortcut first-keystroke="ctrl at" />
   </action>
+  <action id="copilot.applyInlays">
+    <keyboard-shortcut first-keystroke="alt at" />
+  </action>
 </keymap>
