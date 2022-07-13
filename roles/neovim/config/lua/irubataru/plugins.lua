@@ -188,7 +188,6 @@ return packer.startup(function(use)
     'numToStr/Comment.nvim', -- 🧠 💪 // Smart and powerful comment plugin for neovim. Supports commentstring, dot repeat, left-right/up-down motions, hooks, and more
     config = configs.commenter
   }
-  use { 'aperezdc/vim-template', config = configs.template, cmd = { 'Template' } } -- Simple templates plugin for Vim
   use { 'embear/vim-localvimrc', config = configs.localvimrc } -- Search local vimrc files ('.lvimrc') in the tree (root dir up to current dir) and load them.
   use { 'junegunn/vim-easy-align' } -- A Vim alignment plugin
   use { 'unblevable/quick-scope', config = configs.quickscope } -- Highlighting for f,F,t,T
@@ -206,6 +205,7 @@ return packer.startup(function(use)
     setup = function() require("irubataru.plugins.replace-with-register").setup() end
   }
   use { "ahmedkhalf/project.nvim", config = configs.project } -- The superior project management solution for neovim.
+  -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
 
   -- DAP
   -- use { "mfussenegger/nvim-dap" }

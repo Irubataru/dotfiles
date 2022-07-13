@@ -11,7 +11,6 @@ local leader_opts = { noremap = true, silent = true, prefix = "<Leader>" }
 local leader_vopts = { mode = "v", noremap = true, silent = true, prefix = "<Leader>" }
 local term_opts = { silent = true }
 
-
 -- Navigation
 -- {{{
 

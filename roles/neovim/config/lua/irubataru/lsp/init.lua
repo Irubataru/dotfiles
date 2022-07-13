@@ -14,11 +14,12 @@ local servers = {
   eslint = {},
   jsonls = require("irubataru.lsp.servers.jsonls").config,
   ltex = require("irubataru.lsp.servers.ltex").config,
+  marksman = {},
   omnisharp = require("irubataru.lsp.servers.omnisharp").config,
   pyright = {},
   r_language_server = {},
   sumneko_lua = require("irubataru.lsp.servers.sumneko_lua").config,
-  tailwindcss = {},
+  tailwindcss = require("irubataru.lsp.servers.tailwindcss").config,
   texlab = {},
   tsserver = {},
 }
