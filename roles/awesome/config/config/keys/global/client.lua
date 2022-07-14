@@ -1,5 +1,4 @@
 local awful = require("awful")
-local lain = require("lain")
 local modkey = require("config.keys.mod").mod_key
 local altkey = require("config.keys.mod").alt_key
 
