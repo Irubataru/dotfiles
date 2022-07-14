@@ -31,6 +31,18 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
+
+  if servers[client.name] == nil then
+    return
+  end
+
+  local post = servers[client.name].on_attach_post
+  if post == nil then
+    return
+  end
+
+  post(client, bufnr)
+
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
