@@ -1,5 +1,4 @@
-local configdir = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config"
-local path = configdir .. "/awesome/theme/icons"
+local path = require("config.config").dirs.awesome_config .. "/theme/icons"
 
 return {
   layouts = {
