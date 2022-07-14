@@ -12,14 +12,18 @@ local function setup_libraries()
   end
 
   local homedir = vim.env.HOME
-  local workdir = vim.fn.getcwd()
+  local filedir = vim.fn.expand("%:p")
 
   local function dev_vim()
-    return workdir:find("^" .. homedir .. "/.config/nvim") ~= nil or workdir:find("^" .. homedir .. "/.dotfiles") ~= nil
+    return filedir:find("^" .. homedir .. "/.config/nvim") ~= nil or filedir:find("^" .. homedir .. "/.dotfiles/roles/neovim/config") ~= nil
   end
 
   local function dev_awesome()
-    return workdir:find("^" .. homedir .. "/.config/awesome") ~= nil or workdir:find("^" .. homedir .. "/config/awesome") ~= nil
+    return filedir:find("^" .. homedir .. "/.config/awesome") ~= nil or filedir:find("^" .. homedir .. "/.dotfiles/roles/awesome/config") ~= nil
+  end
+
+  local function dev_awesome_custom()
+    return filedir:find("^" .. homedir .. "/config/awesome") ~= nil
   end
 
   if dev_vim() then
@@ -34,10 +38,20 @@ local function setup_libraries()
     add("~/.local/share/nvim/site/pack/packer/opt/*")
     add("~/.local/share/nvim/site/pack/packer/start/*")
   elseif dev_awesome() then
+    add(homedir .. "/.dotfiles/roles/awesome/config")
+    add(homedir .. "/.dotfiles/roles/awesome/config/*")
+    add("/usr/share/awesome/lib")
+    add("/usr/share/awesome/lib/*")
+  elseif dev_awesome_custom() then
     add("$PWD")
     add("/usr/share/awesome/lib")
+    add("/usr/share/awesome/lib/*")
   else
     add("$PWD")
+  end
+
+  for k, _ in pairs(library) do
+    print(k)
   end
 
   return library
@@ -73,7 +87,7 @@ M.config = {
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library =setup_libraries(),
+        library = setup_libraries(),
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = { enable = false },
