@@ -1,4 +1,5 @@
 local awful = require("awful")
+local gears = require("gears")
 local wibox = require("wibox")
 
 local widgets = {
@@ -11,10 +12,42 @@ local widgets = {
   task_list = require("widgets.task-list"),
 }
 
+print(widgets.battery.widget.batteries)
+
 return function(s)
   s.prompt = awful.widget.prompt(s)
   s.task_list = widgets.task_list.setup(s)
   s.tag_list = widgets.tag_list.setup(s)
+
+  local left_widgets = {
+    layout = wibox.layout.fixed.horizontal,
+    s.tag_list,
+    s.prompt,
+  }
+
+  local middle_widgets = s.task_list
+
+  local right_widgets = {
+    layout = wibox.layout.fixed.horizontal,
+    wibox.widget.systray(),
+    widgets.keyboard.iconbox,
+    widgets.keyboard.widget,
+    widgets.audio.iconbox,
+    widgets.audio.widget,
+  }
+
+  if widgets.battery.has_battery then
+    right_widgets = gears.table.join(right_widgets, {
+      widgets.battery.iconbox,
+      widgets.battery.widget,
+    })
+  end
+
+  right_widgets = gears.table.join(right_widgets, {
+    widgets.clock.iconbox,
+    widgets.clock.widget,
+    widgets.layouts.setup(s),
+  })
 
   -- Create the wibox
   s.top_panel = awful.wibar({
@@ -22,28 +55,9 @@ return function(s)
     screen = s,
     widget = {
       layout = wibox.layout.align.horizontal,
-      -- Left widgets
-      {
-        layout = wibox.layout.fixed.horizontal,
-        s.tag_list,
-        s.prompt,
-      },
-      -- Middle widgets
-      s.task_list,
-      -- Right widgets
-      {
-        layout = wibox.layout.fixed.horizontal,
-        wibox.widget.systray(),
-        widgets.keyboard.iconbox,
-        widgets.keyboard.widget,
-        widgets.audio.iconbox,
-        widgets.audio.widget,
-        widgets.battery.iconbox,
-        widgets.battery.widget,
-        widgets.clock.iconbox,
-        widgets.clock.widget,
-        widgets.layouts.setup(s),
-      },
+      left_widgets,
+      middle_widgets,
+      right_widgets,
     },
   })
 end

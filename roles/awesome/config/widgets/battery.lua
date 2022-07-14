@@ -2,13 +2,30 @@ local lain = require("lain")
 local wibox = require("wibox")
 local icons = require("theme.icons").widgets.battery
 local theme = require("theme")
+local spawn  = require("awful.spawn")
+
+local function has_battery(name)
+    local pspath = "/sys/class/power_supply/"
+
+    local has = false
+    spawn.with_line_callback("ls -1 " .. pspath, {
+        stdout = function (line)
+          if not has and line == name then
+            has = true
+          end
+        end,
+    })
+
+    return has
+end
 
 local M = {}
 
+M.battery_name = "BAT0"
 M.iconbox = wibox.widget.imagebox()
 
 M.widget = lain.widget.bat({
-  battery = "BAT0",
+  battery = M.battery_name,
   settings = function()
 
     local bat_icons = {}
@@ -42,5 +59,7 @@ M.widget = lain.widget.bat({
     widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, bat_now.perc .. "% "))
   end
 })
+
+M.has_battery = has_battery(M.battery_name)
 
 return M
