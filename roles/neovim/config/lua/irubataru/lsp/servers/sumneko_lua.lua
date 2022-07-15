@@ -50,10 +50,6 @@ local function setup_libraries()
     add("$PWD")
   end
 
-  for k, _ in pairs(library) do
-    print(k)
-  end
-
   return library
 end
 
