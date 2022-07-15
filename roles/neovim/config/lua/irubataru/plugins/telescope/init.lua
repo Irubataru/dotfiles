@@ -1,7 +1,13 @@
-local actions = require('telescope.actions')
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+  return
+end
+
+local actions = require("telescope.actions")
+local themes = require("telescope.themes")
 local trouble = require("trouble.providers.telescope")
 
-require('telescope').setup({
+telescope.setup({
   defaults = {
     mappings = {
       i = {
@@ -14,7 +20,7 @@ require('telescope').setup({
       n = {
         ["?"] = actions.which_key,
       },
-    }
+    },
   },
   pickers = {
     buffers = {
@@ -25,15 +31,24 @@ require('telescope').setup({
       },
     },
   },
+  extensions = {
+    ["ui-select"] = {
+      themes.get_dropdown({}),
+    },
+  },
 })
 
+telescope.load_extension("ui-select")
+telescope.load_extension("projects")
+
 local M = {}
+
 M.search_dotfiles = function()
-    require("telescope.builtin").find_files({
-        prompt_title = "< VimRC >",
-        cwd = "~/.config/nvim/",
-        hidden = true,
-    })
+  require("telescope.builtin").find_files({
+    prompt_title = "< VimRC >",
+    cwd = "~/.config/nvim/",
+    hidden = true,
+  })
 end
 
-return M;
+return M
