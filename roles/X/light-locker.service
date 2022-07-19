@@ -1,0 +1,10 @@
+[Unit]
+Description=Light Locker Daemon
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/light-locker --late-locking
+Restart=always
+
+[Install]
+WantedBy=graphical.target

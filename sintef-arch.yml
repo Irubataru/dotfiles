@@ -1,0 +1,53 @@
+# vi: set ft=yaml.ansible :
+---
+
+- hosts: sintef_arch
+  vars:
+    modules:
+      # Basics
+      - system
+      - basic
+      - keyboard
+      - bluetooth
+      - zsh
+      - zoxide
+      - fonts
+
+      # Programming languages
+      - clang
+      - dotnet
+      - lua
+      - go
+      - ruby
+      - rust
+
+      # Applications
+      - X
+      - alacritty
+      - applications
+      - awesome
+      - bitwarden
+      - common
+      - git
+      - gpg
+      - latex
+      - navi
+      - neovim
+      - npm
+      - obsidian
+      - qutebrowser
+      - rider
+      - rofi
+      - sintef
+      - ssh
+      - tldr
+      - tmux
+      - utilities
+      - vifm
+      - zathura
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ modules }}"
+  roles:
+    - ansible-modules-bitwarden

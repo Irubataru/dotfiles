@@ -21,6 +21,10 @@ all:
       hosts:
         sintef.wsl:
           ansible_connection: local
+    sintef_arch:
+      hosts:
+        sintef.arch:
+          ansible_connection: local
     swansea_desktop:
       hosts:
         swansea.desktop:

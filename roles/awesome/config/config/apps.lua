@@ -28,7 +28,7 @@ return {
     -- Default IDE
     development = "rider",
     -- Default network manager
-    network_manager = terminal_cmd .. " -e iwctl",
+    network_manager = terminal_cmd .. " -e nmtui",
     -- Default bluetooth manager
     bluetooth_manager = "blueman-manager",
     -- Default power manager

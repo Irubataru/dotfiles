@@ -1,0 +1,15 @@
+# vi: set ft=yaml.ansible :
+
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+- name: Create systemd directory
+  file:
+    path: "{{ home_directory }}/.config/systemd/user"
+    state: directory
+
+- name: Link openconnect-sso service
+  file:
+    src: "{{ role_path}}/vpn/openconnect-sso.service"
+    dest: "{{ home_directory }}/.config/systemd/user/openconnect-sso.service"
+    state: link

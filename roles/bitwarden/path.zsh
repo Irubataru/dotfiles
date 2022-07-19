@@ -1,1 +1,1 @@
-export PATH="/home/glesaaen/.dotfiles/roles/bitwarden/bin:$PATH"
+export PATH="/home/alegle/.dotfiles/roles/bitwarden/bin:$PATH"

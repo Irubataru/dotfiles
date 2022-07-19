@@ -1,0 +1,8 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install rider (AUR)
+  kewlfft.aur.aur:
+    name: rider
+    state: present
+  become: true
+  become_user: aur_builder

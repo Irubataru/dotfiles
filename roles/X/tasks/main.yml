@@ -20,6 +20,11 @@
     state: link
   ignore_errors: true
 
+- name: Make handlr config directory
+  file:
+    path: "{{ home_directory }}/.config/handlr"
+    state: directory
+
 - name: Link handlr config
   file:
     src: "{{ role_path }}/handlr.toml"
@@ -34,6 +39,22 @@
 
 - name: Link picom config
   file:
-    src: "{{ role_path}}/picom.conf"
+    src: "{{ role_path }}/picom.conf"
     dest: "{{ home_directory }}/.config/picom/picom.conf"
     state: link
+
+- name: Copy autolock service
+  ansible.builtin.copy:
+    src: "{{ role_path }}/lock@.service"
+    dest: "/etc/systemd/system/lock@.service"
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  become: true
+
+- name: Enable autolock service
+  ansible.builtin.systemd:
+    name: "lock@{{ user_name }}.service"
+    enabled: true
+    scope: system
+  become: true
