@@ -9,6 +9,9 @@ set incsearch
 " Use vim for all shortcuts
 sethandler n:vim i:ide
 
+" Use the system clipboard by default
+set clipboard+=unnamed
+
 " Use the IDE to do joins
 set ideajoin
 
