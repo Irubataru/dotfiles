@@ -13,7 +13,7 @@ sethandler n:vim i:ide
 set ideajoin
 
 " Use space as leader
-let mapleader="\\"
+let mapleader=" "
 
 "" -- Keymaps --
 nmap <leader>cf <Action>(ReformatCode)
