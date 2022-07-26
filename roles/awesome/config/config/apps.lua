@@ -47,5 +47,9 @@ return {
     "xidlehook --not-when-fullscreen --not-when-audio --timer 600 'systemctl suspend' ''",
     -- Change keyboard map to default
     "setxkbmap no -option 'ctr:nocaps'",
+    -- Start bluetooth manager
+    "blueman-applet",
+    -- Start network manager
+    "nm-applet"
   },
 }

@@ -15,8 +15,8 @@ return {
         name = "no",
       },
       {
-        command = kbmap_base_command .. "jp2",
-        name = "jp",
+        command = kbmap_base_command .. "us",
+        name = "us",
       },
     },
   },

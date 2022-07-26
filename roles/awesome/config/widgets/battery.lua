@@ -29,6 +29,7 @@ M.iconbox = wibox.widget.imagebox()
 
 M.widget = lain.widget.bat({
   battery = M.battery_name,
+  full_notify = false,
   settings = function()
     local bat_icons = {}
     if bat_now.status == "Charging" then

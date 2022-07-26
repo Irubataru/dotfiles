@@ -3,6 +3,8 @@ local modkey = require("config.keys.mod").mod_key
 local altkey = require("config.keys.mod").alt_key
 local apps = require("config.apps")
 
+local modkey = require("config.keys.mod").mod_key
+
 local modules = {
   monitor = require("modules.screen"),
   screenshot = require("modules.screenshot"),
@@ -43,15 +45,20 @@ awful.keyboard.append_global_keybindings({
 
   -- Volume control
   awful.key({}, "XF86AudioRaiseVolume", function()
-    os.execute(string.format("amixer -q set %s 1%%+", "Master"))
+    os.execute("pactl set-sink-volume @DEFAULT_SINK@ +3%")
     widgets.audio.widget.update()
   end, { description = "volume up", group = "hotkeys" }),
   awful.key({}, "XF86AudioLowerVolume", function()
-    os.execute(string.format("amixer -q set %s 1%%-", "Master"))
+    os.execute("pactl set-sink-volume @DEFAULT_SINK@ -3%")
     widgets.audio.widget.update()
   end, { description = "volume down", group = "hotkeys" }),
   awful.key({}, "XF86AudioMute", function()
-    os.execute(string.format("amixer -q set %s toggle", "Master"))
+    os.execute("pactl set-sink-mute @DEFAULT_SINK@ toggle")
     widgets.audio.widget.update()
   end, { description = "toggle mute", group = "hotkeys" }),
+
+  -- Media control
+  awful.key({ modkey }, "p", function()
+    awful.spawn("playerctl play-pause")
+  end, { description = "play/pause media", group = "media" }),
 })

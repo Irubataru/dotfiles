@@ -21,6 +21,10 @@ awful.keyboard.append_global_keybindings({
 
   -- Prompt
   awful.key({ modkey }, "r", function()
+    awful.spawn("rofi -show drun")
+  end, { description = "run prompt", group = "rofi" }),
+
+  awful.key({ modkey, "Shift" }, "r", function()
     awful.screen.focused().prompt:run()
   end, { description = "run prompt", group = "launcher" }),
 
@@ -32,4 +36,13 @@ awful.keyboard.append_global_keybindings({
       history_path = awful.util.get_cache_dir() .. "/history_eval",
     })
   end, { description = "lua execute prompt", group = "awesome" }),
+
+  awful.key({ modkey}, ".", function()
+    awful.spawn("rofi -show emoji")
+  end, { description = "show emoji menu", group = "rofi"}),
+  
+  awful.key({ }, "XF86Calculator", function()
+    awful.spawn("rofi -show calc")
+  end, { description = "show calculator", group = "rofi"}),
+
 })
