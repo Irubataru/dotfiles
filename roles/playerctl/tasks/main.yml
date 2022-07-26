@@ -1,0 +1,16 @@
+# vi: set ft=yaml.ansible :
+
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+- name: Link playerctld service
+  file:
+    src: "{{ role_path }}/playerctld.service"
+    dest: "{{ home_directory }}/.config/systemd/user/playerctld.service"
+    state: link
+
+- name: Enable playerctld service
+  ansible.builtin.systemd:
+    name: "playerctld.service"
+    enabled: true
+    scope: user

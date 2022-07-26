@@ -35,6 +35,7 @@
       - neovim
       - npm
       - obsidian
+      - playerctl
       - qutebrowser
       - rider
       - rofi

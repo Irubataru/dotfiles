@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install playerctl (pacman)
+  pacman:
+    name: playerctl
+    state: present
+  become: true
