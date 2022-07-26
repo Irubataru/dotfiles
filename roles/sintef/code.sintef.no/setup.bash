@@ -16,7 +16,7 @@ openssl req -new -config code_sintef_no.conf -key code_sintef_no.key -out certre
 
 # 4. Create a PKCS12 that is recognised by most browsers
 openssl pkcs7 -inform pem -in certnew.p7b -print_certs -out code_sintef_no.pem 
-openssl pkcs12 -export -in code_sintef_no.pem -inkey code_sintef_no.key
+openssl pkcs12 -export -in code_sintef_no.pem -inkey code_sintef_no.key -out code_sinted_no.p12
 
 # 5. (Optional) Add the certificate to the browser you will be using
 #    - Vivaldi: chrome://settings/certificates

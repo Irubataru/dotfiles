@@ -4,5 +4,7 @@
   pacman:
     name:
       - rofi
+      - rofi-calc
+      - rofi-emoji
     state: present
   become: true
