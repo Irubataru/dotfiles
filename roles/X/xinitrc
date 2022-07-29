@@ -3,6 +3,6 @@ export QT_IM_MODULE='uim'
 export XMODIFIERS='@im=uim'
 
 # Turn off system beep
-setx b off
+xset b off
 
 exec awesome
