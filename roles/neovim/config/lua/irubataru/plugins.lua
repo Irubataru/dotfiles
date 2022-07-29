@@ -96,7 +96,7 @@ local configs = {
   mkdx = function()
     require("irubataru.plugins.mkdx")
   end,
-  neotest = function ()
+  neotest = function()
     require("irubataru.plugins.neotest")
   end,
   nvim_tree = function()
@@ -139,16 +139,16 @@ return packer.startup(function(use)
   use("lewis6991/impatient.nvim")
   use("nvim-lua/plenary.nvim") -- plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.
   use("antoinemadec/FixCursorHold.nvim")
-  
+
   -- Keymaps
   use({
     "folke/which-key.nvim",
     config = configs.which_key,
   })
-  
+
   -- Colour schemes
   use("junegunn/seoul256.vim")
-  
+
   -- UI and look
   use({
     "noib3/cokeline.nvim", -- 👃 A neovim bufferline for people with addictive personalities
@@ -160,7 +160,7 @@ return packer.startup(function(use)
     config = configs.lualine,
     requires = "arkav/lualine-lsp-progress",
   })
-  
+
   use({
     "haya14busa/vim-operator-flashy", -- Highlight yanked area
     config = configs.operator_flashy,
@@ -179,7 +179,7 @@ return packer.startup(function(use)
       require("stabilize").setup()
     end,
   })
-  
+
   -- Autocomplete
   use({ "hrsh7th/nvim-cmp", config = configs.cmp }) -- A completion plugin for neovim coded in Lua.tr
   use("hrsh7th/cmp-nvim-lsp") -- nvim-cmp source for neovim builtin LSP client
@@ -197,70 +197,73 @@ return packer.startup(function(use)
     end,
   })
   use("onsails/lspkind-nvim") -- vscode-like pictograms for neovim lsp completion items
-  
+
   if require("irubataru.plugins.copilot").options.use then
     use("hrsh7th/cmp-copilot") -- copilot.vim source for nvim-cmp
     use({ "github/copilot.vim", config = configs.copilot }) -- Neovim plugin for GitHub Copilot
   end
-  
+
   -- LSP
   use({ "neovim/nvim-lspconfig" }) -- Quickstart configurations for the Nvim LSP client
   use("williamboman/nvim-lsp-installer") -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
   use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use({ "SmiteshP/nvim-navic" }) -- Simple winbar/statusline plugin that shows your current code context
-  
+
   use({
     "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.
     event = "CursorHold",
     module = "illuminate",
     config = configs.illuminate,
   })
-  
+
   use({
     "folke/trouble.nvim", -- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
     requires = "kyazdani42/nvim-web-devicons",
     config = configs.trouble,
   })
-  
+
   use({
     "rmagatti/goto-preview", -- A small Neovim plugin for previewing definitions using floating windows.
     config = configs.goto_preview,
   })
-  
+
+  use({
+    "ray-x/lsp_signature.nvim", -- LSP signature hint as you type
+  })
+
   -- Snippets
   use({
     "L3MON4D3/LuaSnip", -- Snippet Engine for Neovim written in Lua.
     requires = "rafamadriz/friendly-snippets",
     config = configs.luasnip,
   })
-  
+
   -- Tree sitter
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = configs.treesitter })
-  
+
   -- Fuzzy finding
   use({
     "nvim-telescope/telescope.nvim",
     config = configs.telescope,
-    wants = "plenary.nvim",
+    requires = "nvim-lua/plenary.nvim",
   })
   use("nvim-telescope/telescope-ui-select.nvim")
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  
+
   -- Unit testing
   use({
     "nvim-neotest/neotest", -- An extensible framework for interacting with tests within NeoVim.
-    wants = { "nvim-treesitter", "plenary", "FixCursorHold.nvim" },
+    requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter", "antoinemadec/FixCursorHold.nvim" },
     config = configs.neotest,
   })
   use("nvim-neotest/neotest-python")
-  use({"nvim-neotest/neotest-vim-test", requires = "vim-test/vim-test"})
-  
-  
+  use({ "nvim-neotest/neotest-vim-test", requires = "vim-test/vim-test" })
+
   -- DAP
   -- use { "mfussenegger/nvim-dap" }
   -- use { "theHamsta/nvim-dap-virtual-text" }
   -- use { "rcarriga/nvim-dap-ui" }
-  
+
   -- Other plugins
   use("tpope/vim-repeat") -- Enable repeating supported plugin maps with .
   use("tpope/vim-surround") -- quoting/parenthesizing made simple
@@ -295,8 +298,13 @@ return packer.startup(function(use)
     end,
   })
   use({ "ahmedkhalf/project.nvim", config = configs.project }) -- The superior project management solution for neovim.
+  use({
+    "rafcamlet/nvim-luapad",
+    requires = "antoinemadec/FixCursorHold.nvim" ,
+    cmd = { "Luapad", "LuaRun" }
+  })
   -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
-  
+
   -- Git
   use({ "tpope/vim-fugitive", config = configs.fugitive }) -- The best git plugin
   use("rhysd/git-messenger.vim") -- Vim and Neovim plugin to reveal the commit messages under the cursor
@@ -304,10 +312,10 @@ return packer.startup(function(use)
     "sindrets/diffview.nvim",
     requires = "nvim-lua/plenary.nvim",
   })
-  
+
   -- Language specific plugins
   -- {{{
-  
+
   -- C/C++
   use({ "octol/vim-cpp-enhanced-highlight", config = configs.cpp_enhanced_highlight, ft = { "cpp" } }) -- Additional Vim syntax highlighting for C++ (including C++11/14/17)
   use({ "preservim/tagbar", ft = { "cpp" } }) -- Vim plugin that displays tags in a window, ordered by scope
@@ -317,43 +325,43 @@ return packer.startup(function(use)
     ft = { "hpp", "cpp", "c" },
     requires = "kana/vim-operator-user",
   })
-  
+
   -- Python
   use({
     "Chiel92/vim-autoformat", -- Provide easy code formatting in Vim by integrating existing code formatters
     ft = { "python", "tex", "html", "css", "javascript" },
   })
   use({ "tmhedberg/SimpylFold", ft = { "python" } }) -- No-BS Python code folding for Vim
-  
+
   -- Clojure
   use({ "Olical/conjure", ft = { "clojure" } }) -- Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
-  
+
   use({
     "tpope/vim-sexp-mappings-for-regular-people", -- vim-sexp mappings for regular people
     ft = { "clojure" },
     requires = { "guns/vim-sexp", ft = { "clojure" } }, -- Precision Editing for S-expressions
   })
-  
+
   -- use { 'tpope/vim-fireplace', ft = { 'clojure' } } -- Clojure REPL support
   -- use { 'guns/vim-clojure-static', ft = { 'clojure' } } -- Meikel Brandmeyer's excellent Clojure runtime files
   -- use { 'guns/vim-clojure-highlight', ft = { 'clojure' } } -- Extend builtin syntax highlighting to referred and aliased vars in Clojure buffers
   -- use { 'vim-scripts/paredit.vim', ft = { 'clojure' } } -- Paredit Mode: Structured Editing of Lisp S-expressions
   -- use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
-  
+
   -- LaTeX
   use({ "lervag/vimtex", config = configs.vimtex, ft = { "tex" } }) -- A modern Vim and neovim filetype plugin for LaTeX files.
   use({ "KeitaNakamura/tex-conceal.vim", ft = { "tex" } }) -- This plugin extends the Conceal feature of Vim for LaTeX.
-  
+
   -- JavaScript / JSON
   use({ "pangloss/vim-javascript", ft = { "javascript" } }) -- Vastly improved Javascript indentation and syntax support in Vim.
   use({ "Olical/vim-syntax-expand", ft = { "javascript" } }) -- Expand characters to code if not in a comment or string
   use({ "elzr/vim-json", ft = { "json" } }) -- A better JSON for Vim: distinct highlighting of keywords vs values, JSON-specific (non-JS) warnings, quote concealing.
   use({ "b0o/schemastore.nvim" }) -- A Neovim Lua plugin providing access to the SchemaStore catalog.
-  
+
   -- Markdown
   use({ "SidOfc/mkdx", ft = { "markdown" } }) -- A vim plugin that adds some nice extra's for working with markdown documents
   use({ "npxbr/glow.nvim", cmd = "Glow" }) -- A markdown preview directly in your neovim.
-  
+
   -- Other syntax highlighting
   use("lazywei/vim-matlab") -- A matlab plugin for vim, includes syntax highlighting, correct indention and so on.
   use("rsmenon/vim-mathematica") -- Mathematica syntax highlighting (and more) for vim

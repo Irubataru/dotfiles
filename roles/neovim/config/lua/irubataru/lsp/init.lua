@@ -27,6 +27,13 @@ local servers = {
 local on_attach = function(client, bufnr)
   require("irubataru.lsp.highlighting").setup(client)
   require("irubataru.keymaps").register_lsp_keymaps(bufnr)
+  require("lsp_signature").on_attach({
+    bind = true,
+    handler_opts = {
+      border = "rounded"
+    },
+    hint_enabled = true
+  })
 
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
