@@ -122,7 +122,9 @@ require('cokeline').setup({
       return
         buffer.type ~= "terminal" and
         buffer.type ~= "quickfix" and
-        buffer.filetype ~= "fugitive"
+        buffer.filetype ~= "fugitive" and
+        buffer.filetype ~= "DiffviewFiles" and
+        buffer.filetype ~= "alpha"
     end,
     -- filter_visible = function(buffer) return buffer.type ~= 'terminal' end,
     new_buffers_position = 'next',
@@ -144,6 +146,18 @@ require('cokeline').setup({
          or get_hex('Comment', 'fg')
     end,
     bg = get_hex('ColorColumn', 'bg'),
+  },
+
+  sidebar = {
+    filetype = "NvimTree",
+    components = {
+      {
+        text = "  NvimTree",
+        bg = get_hex("NvimTreeNormal", "bg"),
+        fg = yellow,
+        style = "bold",
+      }
+    }
   },
 
   components = {

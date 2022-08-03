@@ -11,7 +11,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("p", "  Find project", "<cmd>Telescope projects <CR>"),
 	dashboard.button("r", "  Recently used files", "<cmd>Telescope oldfiles <CR>"),
 	dashboard.button("t", "  Find text", "<cmd>Telescope live_grep <CR>"),
-  dashboard.button("g", "  Git status", "<cmd>aboveleft 16split|0Git<CR>"),
+  dashboard.button("g", "  Git status", "<cmd>DiffviewOpen<CR>"),
 	dashboard.button("c", "  Configuration", "<cmd>e ~/.config/nvim/init.lua <CR>"),
 	dashboard.button("q", "  Quit Neovim", "<cmd>qa<CR>"),
 }

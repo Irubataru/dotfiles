@@ -43,10 +43,16 @@ wk.register({
 }, leader_opts)
 
 -- Split movement
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-h>", "<cmd>WinShift left<cr>", opts)
+keymap("n", "<C-j>", "<cmd>WinShift down<cr>", opts)
+keymap("n", "<C-k>", "<cmd>WinShift up<cr>", opts)
+keymap("n", "<C-l>", "<cmd>WinShift right<cr>", opts)
+
+wk.register({
+  ["<C-W>"] = {
+    m = { "<cmd>WinShift<cr>", "Enter Win-Move mode" },
+  },
+}, opts)
 
 -- Buffer movement
 wk.register({
@@ -212,6 +218,10 @@ wk.register({
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+  },
+  w = {
+    name = "+windows",
+    w = { "<cmd>WinShift<cr>", "Enter Win-Move mode" },
   },
   x = {
     name = "+diagnostics",
