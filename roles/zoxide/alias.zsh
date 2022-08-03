@@ -1,2 +1,2 @@
 # Alias cd to use zoxide
-alias cd='zi'
+alias cd='z'
