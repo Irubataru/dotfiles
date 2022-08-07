@@ -30,6 +30,7 @@
       - common
       - git
       - gpg
+      - gtk
       - latex
       - navi
       - neovim

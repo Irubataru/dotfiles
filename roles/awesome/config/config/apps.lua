@@ -44,7 +44,7 @@ return {
     -- Load X colors
     "xrdb $HOME/.Xresources",
     -- Lockscreen timer
-    "xidlehook --not-when-fullscreen --not-when-audio --timer 600 'systemctl suspend' ''",
+    "xidlehook --not-when-fullscreen --not-when-audio --timer 1800 'systemctl suspend' ''",
     -- Change keyboard map to default
     "setxkbmap no -option 'ctr:nocaps'",
     -- Start bluetooth manager

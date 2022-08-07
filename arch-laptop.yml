@@ -29,6 +29,7 @@
       - conky
       - git
       - gpg
+      - gtk
       - latex
       - neovim
       - rider
