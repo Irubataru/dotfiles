@@ -22,6 +22,7 @@ local servers = {
   tailwindcss = require("irubataru.lsp.servers.tailwindcss").config,
   texlab = {},
   tsserver = {},
+  volar = {},
 }
 
 local on_attach = function(client, bufnr)
@@ -35,7 +36,7 @@ local on_attach = function(client, bufnr)
     hint_enabled = true
   })
 
-  if client.server_capabilities.documentSymbolProvider then
+  if client.server_capabilities.documentSymbolProvider and client.name ~= "volar" then
     require("nvim-navic").attach(client, bufnr)
   end
 

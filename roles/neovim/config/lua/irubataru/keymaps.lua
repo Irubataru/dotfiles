@@ -1,5 +1,3 @@
--- vim: foldmethod=marker
-
 local M = {}
 
 local keymap = vim.keymap.set
@@ -109,7 +107,9 @@ wk.register({
   },
 }, opts)
 
-keymap("n", "<C-b>", "<cmd>lua require('telescope.builtin').buffers()<cr>", opts)
+keymap("n", "<C-b>", function()
+  require("telescope.builtin").buffers()
+end, opts)
 
 -- Disable EX mode
 keymap("n", "Q", "<NOP>", opts)
@@ -163,38 +163,105 @@ wk_operators["gx"] = "Replace with register"
 -- Plugin keymaps
 -- {{{
 
-wk.register({
+wk.register({ -- Normal mode leader keymaps
   d = {
     name = "+diff",
     r = { ":LinediffReset<cr>", "Linediff reset" },
   },
   f = {
     name = "+find",
-    b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Find buffers" },
+    b = {
+      function()
+        require("telescope.builtin").buffers()
+      end,
+      "Find buffers",
+    },
     C = { "<cmd>Telescope commands<cr>", "Find commands" },
-    d = { "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", "Find definitions" },
-    e = { "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics({severity = 1})<cr>", "Find errors" },
-    E = { "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>", "Find all diagnostics" },
-    f = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", "Find files" },
+    d = {
+      function()
+        require("telescope.builtin").lsp_definitions()
+      end,
+      "Find definitions",
+    },
+    e = {
+      function()
+        require("telescope.builtin").lsp_workspace_diagnostics({ severity = 1 })
+      end,
+      "Find errors",
+    },
+    E = {
+      function()
+        require("telescope.builtin").lsp_workspace_diagnostics()
+      end,
+      "Find all diagnostics",
+    },
+    f = {
+      function()
+        require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({ previewer = false }))
+      end,
+      "Find files",
+    },
     g = {
-      "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>",
+      function()
+        require("telescope.builtin").live_grep(require("telescope.themes").get_ivy())
+      end,
       "Find text",
     },
-    h = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "Find help" },
-    i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Find implementations" },
+    h = {
+      function()
+        require("telescope.builtin").help_tags()
+      end,
+      "Find help",
+    },
+    i = {
+      function()
+        require("telescope.builtin").lsp_implementations()
+      end,
+      "Find implementations",
+    },
     k = { "<cmd>Telescope keymaps<cr>", "Find keymaps" },
     p = { "<cmd>Telescope projects<cr>", "Find projects" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open recent file" },
-    R = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Find references" },
-    v = { "<cmd>lua require('irubataru.plugins.telescope').search_dotfiles()<cr>", "Vim dotfiles" },
+    R = {
+      function()
+        require("telescope.builtin").lsp_references()
+      end,
+      "Find references",
+    },
+    v = {
+      function()
+        require("irubataru.plugins.telescope").search_dotfiles()
+      end,
+      "Vim dotfiles",
+    },
   },
-  F = { "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>", "Find text" },
+  F = {
+    function()
+      require("telescope.builtin").live_grep(require("telescope.themes").get_ivy())
+    end,
+    "Find text",
+  },
   g = {
     name = "+git",
-    b = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+    b = {
+      function()
+        require("gitsigns").blame_line()
+      end,
+      "Blame",
+    },
     c = { ":Gcommit<CR>", "git commit" },
-    j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next hunk" },
-    k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev hunk" },
+    j = {
+      function()
+        require("gitsigns").next_hunk()
+      end,
+      "Next hunk",
+    },
+    k = {
+      function()
+        require("gitsigns").prev_hunk()
+      end,
+      "Prev hunk",
+    },
     d = { ":Gdiffsplit<CR>", "git diff" },
     g = { ":aboveleft 16split|0Git<CR>", "git status" },
     h = { ":DiffviewFileHistory<CR>", "git file history" },
@@ -204,17 +271,42 @@ wk.register({
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
-    r = { "<cmd>lua require('irubataru.plugins.telescope.reload').reload()<cr>", "Reload lua module"},
-    R = { "<cmd>lua require('irubataru.functions').reload()<cr>", "Reload all modules"},
+    r = {
+      function()
+        require("irubataru.plugins.telescope.reload").reload()
+      end,
+      "Reload lua module",
+    },
+    R = {
+      function()
+        require("irubataru.functions").reload()
+      end,
+      "Reload all modules",
+    },
     s = { "<cmd>PackerSync<cr>", "Sync" },
     S = { "<cmd>PackerStatus<cr>", "Status" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
   t = {
     name = "Terminal",
-    n = { "<cmd>lua require('irubataru.plugins.toggleterm').node_toggle()<cr>",  "Node" },
-    g = { "<cmd>lua require('irubataru.plugins.toggleterm').lazy_git_toggle()<cr>", "Lazygit" },
-    p = { "<cmd>lua require('irubataru.plugins.toggleterm').python_toggle()<cr>", "Python" },
+    n = {
+      function()
+        require("irubataru.plugins.toggleterm").node_toggle()
+      end,
+      "Node",
+    },
+    g = {
+      function()
+        require("irubataru.plugins.toggleterm").lazy_git_toggle()
+      end,
+      "Lazygit",
+    },
+    p = {
+      function()
+        require("irubataru.plugins.toggleterm").python_toggle()
+      end,
+      "Python",
+    },
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
@@ -237,7 +329,7 @@ wk.register({
   },
 }, leader_opts)
 
-wk.register({
+wk.register({ -- Visual mode leader keymaps
   d = {
     name = "+diff",
     a = { ":Linediff<CR>", "Linediff add" },
@@ -251,31 +343,86 @@ wk.register({
 M.register_lsp_keymaps = function(bufnr)
   local wk = require("which-key")
 
-  wk.register({
+  wk.register({ -- Normal mode keymaps
     g = {
       name = "+goto",
-      d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Definitions" },
+      d = {
+        function()
+          vim.lsp.buf.definition()
+        end,
+        "Definitions",
+      },
       D = { "<cmd>Trouble lsp_definitions<cr>", "Trouble definition" },
-      i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Implementations" },
+      i = {
+        function()
+          vim.lsp.buf.implementation()
+        end,
+        "Implementations",
+      },
       I = { "<cmd>Trouble lsp_implementations<cr>", "Toruble implementations" },
-      l = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Hover diagnostic" },
-      r = { "<cmd>lua vim.lsp.buf.reference()<cr>", "References" },
+      l = {
+        function()
+          vim.diagnostic.open_float()
+        end,
+        "Hover diagnostic",
+      },
+      r = {
+        function()
+          vim.lsp.buf.reference()
+        end,
+        "References",
+      },
       R = { "<cmd>Trouble lsp_references<cr>", "Trouble references" },
-      s = { "<cmd>lua require('telescope.builtin')lsp_document_symbols()<cr>", "Symbols (document)" },
-      S = { "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>", "Symbols (workspace)" },
+      s = {
+        function()
+          require("telescope.builtin").lsp_document_symbols()
+        end,
+        "Symbols (document)",
+      },
+      S = {
+        function()
+          require("telescope.builtin").lsp_dynamic_workspace_symbols()
+        end,
+        "Symbols (workspace)",
+      },
     },
-    K = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Lsp hover" },
-    ["<a-cr>"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code actions" },
+    K = {
+      function()
+        vim.lsp.buf.hover()
+      end,
+      "Lsp hover",
+    },
+    ["<a-cr>"] = {
+      function()
+        vim.lsp.buf.code_action()
+      end,
+      "Code actions",
+    },
   }, { silent = true, noremap = true, buffer = bufnr })
 
-  wk.register({
+  wk.register({ -- Normal mode leader keymaps
     c = {
-      f = { "<cmd>lua vim.lsp.buf.formatting_sync()<cr>", "Format file" },
+      f = {
+        function()
+          vim.lsp.buf.formatting_sync()
+        end,
+        "Format file",
+      },
     },
     r = {
       name = "+refactor",
-      a = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Code actions" },
-      r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+      a = {
+        function()
+          require("telescope.builtin").lsp_references()
+        end,
+        "Code actions",
+      },
+      r = {
+        function()
+          vim.lsp.buf.rename()
+        end,
+        "Rename",
+      },
     },
   }, {
     prefix = "<leader>",
@@ -284,8 +431,13 @@ M.register_lsp_keymaps = function(bufnr)
     buffer = bufnr,
   })
 
-  wk.register({
-    ["<c-s>"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
+  wk.register({ -- Insert mode keymaps
+    ["<c-s>"] = {
+      function()
+        vim.lsp.buf.signature_help()
+      end,
+      "Show signature help",
+    },
   }, {
     mode = "i",
     silent = true,
@@ -293,9 +445,14 @@ M.register_lsp_keymaps = function(bufnr)
     buffer = bufnr,
   })
 
-  wk.register({
+  wk.register({ -- Visual mode keymaps
     c = {
-      f = { "<cmd>lua vim.lsp.buf.range_formatting()<cr>", "Format file" },
+      f = {
+        function()
+          vim.lsp.buf.range_formatting()
+        end,
+        "Format file",
+      },
     },
   }, {
     mode = "v",

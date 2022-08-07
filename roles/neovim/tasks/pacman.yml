@@ -16,8 +16,6 @@
 - name: Install neovim utilities (AUR)
   kewlfft.aur.aur:
     name:
-      - omnisharp-roslyn-bin
-      - clojure-lsp-bin
       - glow
     state: present
   become: true
