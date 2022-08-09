@@ -16,6 +16,7 @@ telescope.setup({
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+        ["<C-w>"] = actions.close,
       },
       n = {
         ["?"] = actions.which_key,
@@ -26,7 +27,7 @@ telescope.setup({
     buffers = {
       mappings = {
         i = {
-          ["<C-x>"] = actions.delete_buffer,
+          ["<C-w>"] = actions.delete_buffer,
         },
       },
     },

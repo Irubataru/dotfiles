@@ -14,9 +14,6 @@ function! s:goyo_enter()
 
   " Also enable Limelight
   Limelight
-
-  " For some reason I have to disable lightline manually
-  call lightline#disable()
 endfunction
 
 function! s:goyo_leave()

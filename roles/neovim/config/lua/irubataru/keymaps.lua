@@ -46,12 +46,6 @@ keymap("n", "<C-j>", "<cmd>WinShift down<cr>", opts)
 keymap("n", "<C-k>", "<cmd>WinShift up<cr>", opts)
 keymap("n", "<C-l>", "<cmd>WinShift right<cr>", opts)
 
-wk.register({
-  ["<C-W>"] = {
-    m = { "<cmd>WinShift<cr>", "Enter Win-Move mode" },
-  },
-}, opts)
-
 -- Buffer movement
 wk.register({
   ["["] = {
@@ -110,6 +104,14 @@ wk.register({
 keymap("n", "<C-b>", function()
   require("telescope.builtin").buffers()
 end, opts)
+
+-- Window actions
+wk.register({
+  ["<C-W>"] = {
+    m = { "<cmd>WinShift<cr>", "Enter Win-Move mode" },
+    z = { "<cmd>NeoZoomToggle<cr>", "Toggle zoom" },
+  },
+}, opts)
 
 -- Disable EX mode
 keymap("n", "Q", "<NOP>", opts)
@@ -313,7 +315,12 @@ wk.register({ -- Normal mode leader keymaps
   },
   w = {
     name = "+windows",
+    G = { "<cmd>lua require('shade').toggle()<cr>", "Toggle shade" },
+    o = { "<cmd>only<cr>", "Only this window" },
     w = { "<cmd>WinShift<cr>", "Enter Win-Move mode" },
+    z = { "<cmd>NeoZoomToggle<cr>", "Toggle zoom" },
+    ["+"] = { "<cmd>lua require('shade').brightness_up()<cr>", "Brightness up (shade)" },
+    ["-"] = { "<cmd>lua require('shade').brightness_down()<cr>", "Brightness down (shade)" },
   },
   x = {
     name = "+diagnostics",
@@ -368,7 +375,7 @@ M.register_lsp_keymaps = function(bufnr)
       },
       r = {
         function()
-          vim.lsp.buf.reference()
+          vim.lsp.buf.references()
         end,
         "References",
       },

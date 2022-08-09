@@ -8,6 +8,7 @@ focus.setup({
     "TelescopePrompt",
     "toggleterm",
     "DiffviewFiles",
+    "fzf",
   },
   excluded_buftypes = {
     "help",

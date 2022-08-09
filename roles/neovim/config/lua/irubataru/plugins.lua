@@ -45,7 +45,7 @@ return packer.startup(function(use)
   use("antoinemadec/FixCursorHold.nvim")
 
   -- Keymaps
-  use({
+  use({ -- folke/which-key.nvim
     "folke/which-key.nvim",
     config = function()
       require("irubataru.plugins.which-key")
@@ -56,78 +56,87 @@ return packer.startup(function(use)
   use("junegunn/seoul256.vim")
 
   -- UI and look
-  use({
+  use({ -- noib3/cokeline.nvim
     "noib3/cokeline.nvim", -- 👃 A neovim bufferline for people with addictive personalities
     config = function()
       require("irubataru.plugins.cokeline")
     end,
     requires = "kyazdani42/nvim-web-devicons",
   })
-
-  use({
+  use({ -- nvim-lualine/lualine.nvim
     "nvim-lualine/lualine.nvim", -- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
     config = function()
       require("irubataru.plugins.lualine")
     end,
     requires = "arkav/lualine-lsp-progress",
   })
-
-  use({
+  use({ -- haya14busa/vim-operator-flashy
     "haya14busa/vim-operator-flashy", -- Highlight yanked area
     config = function()
       require("irubataru.plugins.operator-flashy")
     end,
     requires = "kana/vim-operator-user",
   })
-
-  use({
+  use({ -- Yggdroot/indentLine
     "Yggdroot/indentLine", -- A vim plugin to display the indention levels with thin vertical lines
     config = function()
       require("irubataru.plugins.indentline")
     end,
     ft = { "python" },
   })
-  use({
+  use({ -- haya14busa/incsearch.vim
     "haya14busa/incsearch.vim", -- Improved incremental searching for Vim
     config = function()
       require("irubataru.plugins.incsearch")
     end,
   })
   use({ "junegunn/limelight.vim" }) -- Hyperfocus-writing in Vim
-  use({
+  use({ -- junegunn/goyo.vim
     "junegunn/goyo.vim", -- Distraction-free writing in Vim
     config = function()
       require("irubataru.plugins.goyo")
     end,
   })
-  use({
+  use({ -- alpha-nvim
     "goolord/alpha-nvim",
     config = function()
       require("irubataru.plugins.alpha")
     end,
   })
-  use({
-    "lewis6991/gitsigns.nvim", -- Git integration for buffers
-    config = function()
-      require("irubataru.plugins.gitsigns")
-    end,
-  })
-
-  use({
+  use({ -- luukvbaal/stabilize.nvim
     "luukvbaal/stabilize.nvim", -- Neovim plugin to stabilize window open/close events.
     config = function()
       require("stabilize").setup()
     end,
   })
-
-  use({
+  use({ -- sindrets/winshift.nvim
     "sindrets/winshift.nvim", -- Rearrange your windows with ease.
     config = function()
       require("winshift").setup()
     end,
   })
-
-  -- use({
+  use({ -- nyngwang/NeoZoom.lua
+    "nyngwang/NeoZoom.lua", -- Zoom-in Like a Boss, How? Layout-Preserving Zoomer weighing in 🪶
+    config = function()
+      require("neo-zoom").setup({
+        left_ratio = 0.0,
+        top_ratio = 0.0,
+        width_ratio = 1.0,
+        height_ratio = 1.0,
+        border = "none",
+      })
+    end,
+  })
+  use({ -- sunjon/shade.nvim
+    "sunjon/shade.nvim",
+    config = function()
+      require("shade").setup({
+        overlay_opacity = 70,
+        opacity_step = 5,
+      })
+    end,
+  })
+  -- use({ -- beauwilliams/focus.nvim
   --   "beauwilliams/focus.nvim",
   --   config = function()
   --     require("irubataru.plugins.focus")
@@ -135,7 +144,7 @@ return packer.startup(function(use)
   -- })
 
   -- Autocomplete
-  use({
+  use({ -- hrsh7th/nvim-cmp
     "hrsh7th/nvim-cmp", -- A completion plugin for neovim coded in Lua.tr
     config = function()
       require("irubataru.plugins.cmp")
@@ -174,8 +183,7 @@ return packer.startup(function(use)
   use("williamboman/nvim-lsp-installer") -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
   use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use({ "SmiteshP/nvim-navic" }) -- Simple winbar/statusline plugin that shows your current code context
-
-  use({
+  use({ -- RRethy/vim-illuminate
     "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.
     event = "CursorHold",
     module = "illuminate",
@@ -183,28 +191,25 @@ return packer.startup(function(use)
       require("irubataru.plugins.illuminate")
     end,
   })
-
-  use({
+  use({ -- folke/trouble.nvim
     "folke/trouble.nvim", -- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require("irubataru.plugins.trouble")
     end,
   })
-
-  use({
+  use({ -- rmagatti/goto-preview
     "rmagatti/goto-preview", -- A small Neovim plugin for previewing definitions using floating windows.
     config = function()
       require("irubataru.plugins.goto-preview")
     end,
   })
-
-  use({
+  use({ -- ray-x/lsp_signature.nvim
     "ray-x/lsp_signature.nvim", -- LSP signature hint as you type
   })
 
   -- Snippets
-  use({
+  use({ -- L3MON4D3/LuaSnip
     "L3MON4D3/LuaSnip", -- Snippet Engine for Neovim written in Lua.
     requires = "rafamadriz/friendly-snippets",
     config = function()
@@ -213,7 +218,7 @@ return packer.startup(function(use)
   })
 
   -- Tree sitter
-  use({
+  use({ -- nvim-treesitter/nvim-treesitter
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = function()
@@ -222,7 +227,7 @@ return packer.startup(function(use)
   })
 
   -- Fuzzy finding
-  use({
+  use({ -- nvim-telescope/telescope.nvim
     "nvim-telescope/telescope.nvim",
     config = function()
       require("irubataru.plugins.telescope")
@@ -232,8 +237,30 @@ return packer.startup(function(use)
   use("nvim-telescope/telescope-ui-select.nvim")
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
+  -- Git
+  use({ -- tpope/vim-fugitive
+    "tpope/vim-fugitive", -- The best git plugin
+    config = function()
+      require("irubataru.plugins.fugitive")
+    end,
+  })
+  use("rhysd/git-messenger.vim") -- Vim and Neovim plugin to reveal the commit messages under the cursor
+  use({ -- sindrets/diffview.nvim
+    "sindrets/diffview.nvim",  -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("irubataru.plugins.diffview")
+    end,
+  })
+  use({ -- gitsigns.nvim
+    "lewis6991/gitsigns.nvim", -- Git integration for buffers
+    config = function()
+      require("irubataru.plugins.gitsigns")
+    end,
+  })
+
   -- Unit testing
-  use({
+  use({ -- nvim-neotest/neotest
     "nvim-neotest/neotest", -- An extensible framework for interacting with tests within NeoVim.
     requires = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter", "antoinemadec/FixCursorHold.nvim" },
     config = function()
@@ -254,86 +281,70 @@ return packer.startup(function(use)
   use("tpope/vim-unimpaired") -- Pairs of handy bracket mappings
   use("tpope/vim-dispatch") -- Asynchronous build and test dispatcher
   use("wikitopian/hardmode") -- Disable arrow movement, update to takac/vim-hardtime eventually
-  use({
+  use({ -- numToStr/Comment.nvim
     "numToStr/Comment.nvim", -- 🧠 💪 // Smart and powerful comment plugin for neovim. Supports commentstring, dot repeat, left-right/up-down motions, hooks, and more
     config = function()
       require("irubataru.plugins.commenter")
     end,
   })
-  use({
+  use({ -- embear/vim-localvimrc
     "embear/vim-localvimrc", -- Search local vimrc files ('.lvimrc') in the tree (root dir up to current dir) and load them.
     config = function()
       require("irubataru.plugins.localvimrc")
     end,
   })
-  use({ "junegunn/vim-easy-align" }) -- A Vim alignment plugin
-  use({
+  use("junegunn/vim-easy-align") -- A Vim alignment plugin
+  use({ -- unblevable/quick-scope
     "unblevable/quick-scope", -- Highlighting for f,F,t,T
     config = function()
       require("irubataru.plugins.quickscope")
     end,
   })
-  use({
+  use({ -- akinsho/toggleterm.nvim
     "akinsho/toggleterm.nvim", -- A neovim lua plugin to help easily manage multiple terminal windows
     config = function()
       require("irubataru.plugins.toggleterm")
     end,
   })
-  use({ "AndrewRadev/linediff.vim" }) -- A vim plugin to perform diffs on blocks of code
-  use({ "skywind3000/asyncrun.vim" }) -- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
-  use({
+  use("AndrewRadev/linediff.vim") -- A vim plugin to perform diffs on blocks of code
+  use("skywind3000/asyncrun.vim") -- Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window
+  use({ -- kyazdani42/nvim-tree.lua
     "kyazdani42/nvim-tree.lua", -- A file explorer tree for neovim written in lua
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require("irubataru.plugins.nvim_tree")
     end,
   })
-  use({
-    "windwp/nvim-autopairs",
+  use({ -- windwp/nvim-autopairs
+    "windwp/nvim-autopairs",  -- autopairs for neovim written by lua
     config = function()
       require("nvim-autopairs").setup({})
     end,
-  }) -- autopairs for neovim written by lua
-  use({
+  })
+  use({ -- inkarkat/vim-ReplaceWithRegister
     "inkarkat/vim-ReplaceWithRegister", -- Replace text with the contents of a register.
     setup = function()
       require("irubataru.plugins.replace-with-register").setup()
     end,
   })
-  use({
+  use({ -- ahmedkhalf/project.nvim
     "ahmedkhalf/project.nvim", -- The superior project management solution for neovim.
     config = function()
       require("irubataru.plugins.project")
     end,
   })
-  use({
+  use({ -- rafcamlet/nvim-luapad
     "rafcamlet/nvim-luapad",
     requires = "antoinemadec/FixCursorHold.nvim",
     cmd = { "Luapad", "LuaRun" },
   })
   -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
 
-  -- Git
-  use({
-    "tpope/vim-fugitive", -- The best git plugin
-    config = function()
-      require("irubataru.plugins.fugitive")
-    end,
-  })
-  use("rhysd/git-messenger.vim") -- Vim and Neovim plugin to reveal the commit messages under the cursor
-  use({ -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
-    "sindrets/diffview.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("irubataru.plugins.diffview")
-    end,
-  })
-
   -- Language specific plugins
   -- {{{
 
   -- C/C++
-  use({
+  use({ -- octol/vim-cpp-enhanced-highlight
     "octol/vim-cpp-enhanced-highlight", -- Additional Vim syntax highlighting for C++ (including C++11/14/17)
     config = function()
       require("irubataru.plugins.cpp_enhanced_highlight")
@@ -341,7 +352,7 @@ return packer.startup(function(use)
     ft = { "cpp" }
   })
   use({ "preservim/tagbar", ft = { "cpp" } }) -- Vim plugin that displays tags in a window, ordered by scope
-  use({
+  use({ -- rhysd/vim-clang-format
     "rhysd/vim-clang-format", -- Vim plugin for clang-format
     config = function()
       require("irubataru.plugins.clang-format")
@@ -351,7 +362,7 @@ return packer.startup(function(use)
   })
 
   -- Python
-  use({
+  use({ -- Chiel92/vim-autoformat
     "Chiel92/vim-autoformat", -- Provide easy code formatting in Vim by integrating existing code formatters
     ft = { "python", "tex", "html", "css", "javascript" },
   })
@@ -359,8 +370,7 @@ return packer.startup(function(use)
 
   -- Clojure
   use({ "Olical/conjure", ft = { "clojure" } }) -- Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
-
-  use({
+  use({ -- tpope/vim-sexp-mappings-for-regular-people
     "tpope/vim-sexp-mappings-for-regular-people", -- vim-sexp mappings for regular people
     ft = { "clojure" },
     requires = { "guns/vim-sexp", ft = { "clojure" } }, -- Precision Editing for S-expressions
@@ -373,7 +383,7 @@ return packer.startup(function(use)
   -- use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
 
   -- LaTeX
-  use({
+  use({ -- lervag/vimtex
     "lervag/vimtex", -- A modern Vim and neovim filetype plugin for LaTeX files.
     ft = { "tex" },
     config = function()
