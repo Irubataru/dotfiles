@@ -50,6 +50,6 @@ return {
     -- Start bluetooth manager
     "blueman-applet",
     -- Start network manager
-    "nm-applet"
+    "nm-applet",
   },
 }
