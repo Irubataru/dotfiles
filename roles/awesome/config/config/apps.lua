@@ -40,7 +40,7 @@ return {
   -- List of apps to start once on start-up
   run_on_start_up = {
     -- Compositor
-    "picom -b --experimental-backends --dbus",
+    "picom -b --dbus",
     -- Load X colors
     "xrdb $HOME/.Xresources",
     -- Lockscreen timer
