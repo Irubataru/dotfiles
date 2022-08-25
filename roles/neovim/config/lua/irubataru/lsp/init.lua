@@ -1,5 +1,3 @@
-require("nvim-lsp-installer").setup({})
-
 local status_ok, lspconfig = pcall(require, "lspconfig")
 if not status_ok then
   return
@@ -13,7 +11,7 @@ local servers = {
   dockerls = {},
   eslint = {},
   jsonls = require("irubataru.lsp.servers.jsonls").config,
-  ltex = require("irubataru.lsp.servers.ltex").config,
+  -- ltex = require("irubataru.lsp.servers.ltex").config,
   marksman = {},
   omnisharp = require("irubataru.lsp.servers.omnisharp").config,
   pyright = {},

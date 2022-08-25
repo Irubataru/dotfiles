@@ -2,10 +2,10 @@ local treesitter_config = require("nvim-treesitter.configs")
 
 treesitter_config.setup({
   ensure_installed = "all",
-  ignore_install = { "" }, -- list of parsers to ignore installing
+  ignore_install = { "tex", "latex" }, -- list of parsers to ignore installing
   highlight = {
     enable = true,
-    disable = { "" }, -- list of languages that will be disabled
+    disable = {  "tex", "latex"  }, -- list of languages that will be disabled
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -15,7 +15,7 @@ treesitter_config.setup({
 
     indent = {
       enable = true,
-      disable = { "" }, -- list of languages not to indent for
+      disable = { }, -- list of languages not to indent for
     },
   },
 })

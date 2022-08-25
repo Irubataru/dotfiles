@@ -166,6 +166,10 @@ wk_operators["gx"] = "Replace with register"
 -- {{{
 
 wk.register({ -- Normal mode leader keymaps
+  c = {
+    name = "+toggle",
+    b = {function() require('nvim-biscuits').toggle_biscuits() end, "Toggle biscuits"},
+  },
   d = {
     name = "+diff",
     r = { ":LinediffReset<cr>", "Linediff reset" },
@@ -411,7 +415,7 @@ M.register_lsp_keymaps = function(bufnr)
     c = {
       f = {
         function()
-          vim.lsp.buf.formatting_sync()
+          vim.lsp.buf.format()
         end,
         "Format file",
       },

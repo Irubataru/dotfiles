@@ -16,12 +16,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -84,12 +84,6 @@ return packer.startup(function(use)
     end,
     ft = { "python" },
   })
-  use({ -- haya14busa/incsearch.vim
-    "haya14busa/incsearch.vim", -- Improved incremental searching for Vim
-    config = function()
-      require("irubataru.plugins.incsearch")
-    end,
-  })
   use({ "junegunn/limelight.vim" }) -- Hyperfocus-writing in Vim
   use({ -- junegunn/goyo.vim
     "junegunn/goyo.vim", -- Distraction-free writing in Vim
@@ -136,6 +130,25 @@ return packer.startup(function(use)
       })
     end,
   })
+  use({ -- code-biscuits/nvim-biscuits
+    "code-biscuits/nvim-biscuits",
+    config = function()
+      require("nvim-biscuits").setup({
+        cursor_line_only = false,
+        show_on_start = true,
+      })
+    end
+  })
+  -- use({ -- mvllow/modes.nvim
+  --   "mvllow/modes.nvim",
+  --   config = function()
+  --     require('modes').setup({
+  --       set_cursor = true,
+  --       set_cursorline = true,
+  --       set_number = true,
+  --     })
+  --   end
+  -- })
   -- use({ -- beauwilliams/focus.nvim
   --   "beauwilliams/focus.nvim",
   --   config = function()
@@ -180,7 +193,12 @@ return packer.startup(function(use)
 
   -- LSP
   use({ "neovim/nvim-lspconfig" }) -- Quickstart configurations for the Nvim LSP client
-  use("williamboman/nvim-lsp-installer") -- Companion plugin for nvim-lspconfig that allows you to seamlessly manage LSP servers locally with :LspInstall. With full Windows support!
+  use({ -- williamboman/mason.nvim
+    "williamboman/mason.nvim", -- Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters.
+    config = function()
+      require("irubataru.plugins.mason")
+    end
+  })
   use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use({ "SmiteshP/nvim-navic" }) -- Simple winbar/statusline plugin that shows your current code context
   use({ -- RRethy/vim-illuminate
