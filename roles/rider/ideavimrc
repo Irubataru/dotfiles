@@ -18,8 +18,8 @@ set clipboard+=unnamed
 " Use the IDE to do joins
 set ideajoin
 
-" Use space as leader
-let mapleader=" "
+" Use comma as leader
+let mapleader=","
 
 "" -- Keymaps --
 nmap <leader>cf <Action>(ReformatCode)
