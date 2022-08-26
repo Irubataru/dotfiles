@@ -273,6 +273,16 @@ wk.register({ -- Normal mode leader keymaps
     h = { ":DiffviewFileHistory<CR>", "git file history" },
     l = { ":DiffviewOpen<CR>", "git diff log" },
   },
+  i = {
+    name = "+insert",
+    s = { "<cmd>IconPickerNormal symbols nerd_font<cr>", "Insert symbol" },
+    e = { "<cmd>IconPickerNormal emoji<cr>", "Insert emoji" },
+    y = {
+      name = "+yank",
+      s = { "<cmd>IconPickerYank symbols nerd_font<cr>", "Yank symbol" },
+      e = { "<cmd>IconPickerYank emoji<cr>", "Yank emoji" },
+    }
+  },
   p = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },

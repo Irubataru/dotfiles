@@ -4,7 +4,7 @@ wk.setup({
   show_help = false,
   triggers = "auto",
   plugins = {
-    spelling = false,
+    spelling = true,
     presets = {
       operators = true,
     },

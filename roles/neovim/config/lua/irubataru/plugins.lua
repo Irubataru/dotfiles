@@ -137,7 +137,7 @@ return packer.startup(function(use)
         cursor_line_only = false,
         show_on_start = true,
       })
-    end
+    end,
   })
   -- use({ -- mvllow/modes.nvim
   --   "mvllow/modes.nvim",
@@ -186,8 +186,8 @@ return packer.startup(function(use)
     use({
       "github/copilot.vim", -- Neovim plugin for GitHub Copilot
       config = function()
-      require("irubataru.plugins.copilot")
-    end,
+        require("irubataru.plugins.copilot")
+      end,
     })
   end
 
@@ -197,10 +197,20 @@ return packer.startup(function(use)
     "williamboman/mason.nvim", -- Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters.
     config = function()
       require("irubataru.plugins.mason")
-    end
+    end,
   })
   use({ "jose-elias-alvarez/null-ls.nvim" }) -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use({ "SmiteshP/nvim-navic" }) -- Simple winbar/statusline plugin that shows your current code context
+  use({ -- utilyre/barbecue.nvim
+    "utilyre/barbecue.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("barbecue").setup({
+        separator = "  ",
+      })
+      vim.api.nvim_set_hl(0, "NavicSeparator", { default = false, link = "Normal" })
+    end,
+  })
   use({ -- RRethy/vim-illuminate
     "RRethy/vim-illuminate", -- Vim plugin for automatically highlighting other uses of the word under the cursor. Integrates with Neovim's LSP client for intelligent highlighting.
     event = "CursorHold",
@@ -264,7 +274,7 @@ return packer.startup(function(use)
   })
   use("rhysd/git-messenger.vim") -- Vim and Neovim plugin to reveal the commit messages under the cursor
   use({ -- sindrets/diffview.nvim
-    "sindrets/diffview.nvim",  -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
+    "sindrets/diffview.nvim", -- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
     requires = "nvim-lua/plenary.nvim",
     config = function()
       require("irubataru.plugins.diffview")
@@ -334,7 +344,7 @@ return packer.startup(function(use)
     end,
   })
   use({ -- windwp/nvim-autopairs
-    "windwp/nvim-autopairs",  -- autopairs for neovim written by lua
+    "windwp/nvim-autopairs", -- autopairs for neovim written by lua
     config = function()
       require("nvim-autopairs").setup({})
     end,
@@ -356,6 +366,16 @@ return packer.startup(function(use)
     requires = "antoinemadec/FixCursorHold.nvim",
     cmd = { "Luapad", "LuaRun" },
   })
+  use({ -- ziontee113/icon-picker.nvim
+    "ziontee113/icon-picker.nvim", -- This is a Neovim plugin that helps you pick Nerd Font Icons, Symbols & Emojis
+    requires = "stevearc/dressing.nvim",
+    cmd = { "IconPickerNormal", "IconPickerInsert", "IconPickerYank" },
+    config = function()
+      require("icon-picker").setup({
+        disable_legacy_commands = true,
+      })
+    end,
+  })
   -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
 
   -- Language specific plugins
@@ -367,7 +387,7 @@ return packer.startup(function(use)
     config = function()
       require("irubataru.plugins.cpp_enhanced_highlight")
     end,
-    ft = { "cpp" }
+    ft = { "cpp" },
   })
   use({ "preservim/tagbar", ft = { "cpp" } }) -- Vim plugin that displays tags in a window, ordered by scope
   use({ -- rhysd/vim-clang-format
