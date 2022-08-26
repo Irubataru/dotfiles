@@ -3,6 +3,9 @@ dircolor_theme: dircolors.256dark
 zsh:
   theme: "powerlevel10k/powerlevel10k"
 
+atuin:
+  use: false
+
 # Using zplug to manage packages
 zplug:
   use: true

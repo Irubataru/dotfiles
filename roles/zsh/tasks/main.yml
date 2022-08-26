@@ -33,6 +33,9 @@
 - include_tasks: oh-my-zsh.yml
   when: oh_my_zsh.use
 
+- include_tasks: atuin.yml
+  when: atuin.use
+
 - name: Change user default shell
   user:
     name: "{{ user_name }}"

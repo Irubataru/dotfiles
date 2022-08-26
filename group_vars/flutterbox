@@ -13,8 +13,15 @@ git_signing_key: 77DF2021FD23B02D
 # latex
 latex_use_xelatex: true
 
+# neovim
+neovim_git: true
+
 # ruby
 ruby_version: "2.6.0"
 
 # rxvt
 urxvt_font: "xft:Hack Nerd Font Mono:style=Regular:antialias=true:hinting=true:size=12"
+
+# zsh
+atuin:
+  use: true

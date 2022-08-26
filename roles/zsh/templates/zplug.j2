@@ -5,20 +5,21 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "junegunn/fzf", use:"shell/*.zsh"
 
 zplug "lib/directories", from:oh-my-zsh
-zplug "lib/key-bindings", from:oh-my-zsh
+zplug "plugins/history-substring-search", from:oh-my-zsh
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
 
-# zplug "marlonrichert/zsh-autocomplete"
-# zstyle ':autocomplete:*' recent-dirs zoxide
-# zstyle ':autocomplete:*' widget-style menu-complete
-# zstyle ':autocomplete:*' fzf-completion yes
+{% if atuin.use %}
+export ATUIN_NOBIND="true"
+zplug "ellie/atuin"
 
+{% endif %}
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=()
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=( forward-char forward-word end-of-line )
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'(*\n*|?(#c80,)|*\\#:hist:push-line:)'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#888888,underline"
 zplug "zsh-users/zsh-autosuggestions"
-bindkey "^ " end-of-line
 
 zplug "romkatv/powerlevel10k", as:theme, depth:1
 zplug "zsh-users/zsh-syntax-highlighting", defer:2

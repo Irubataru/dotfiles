@@ -11,3 +11,7 @@ git_difftool: difft
 
 # latex
 latex_use_xelatex: true
+
+# zsh
+atuin:
+  use: true
