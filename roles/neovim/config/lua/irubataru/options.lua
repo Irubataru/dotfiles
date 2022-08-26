@@ -22,6 +22,9 @@ opt.hidden = true
 -- Highlight the current cursorline
 opt.cursorline = true
 
+-- Disable mouse integration
+opt.mouse = nil
+
 -- Timeoutlen is used for e.g. the which-key plugin (default value 1000 ms)
 opt.timeoutlen = 500
 
