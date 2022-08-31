@@ -162,9 +162,6 @@ wk_operators["gx"] = "Replace with register"
 
 -- }}}
 
--- Plugin keymaps
--- {{{
-
 wk.register({ -- Normal mode leader keymaps
   c = {
     name = "+toggle",
@@ -346,7 +343,9 @@ wk.register({ -- Normal mode leader keymaps
   },
   z = {
     name = "+folds",
-    z = { ":let &scrolloff=810-&scrolloff<CR>", "toogle-scroll-distance" },
+    c = { "<cmd>set foldlevel=0<cr>", "Close all folds" },
+    o = { "<cmd>set foldlevel=99<cr>", "Open all folds" },
+    z = { ":let &scrolloff=810-&scrolloff<CR>", "Toggle scroll distance" },
   },
 }, leader_opts)
 
