@@ -37,12 +37,15 @@ awful.keyboard.append_global_keybindings({
     })
   end, { description = "lua execute prompt", group = "awesome" }),
 
-  awful.key({ modkey}, ".", function()
+  awful.key({ modkey }, ".", function()
     awful.spawn("rofi -show emoji")
-  end, { description = "show emoji menu", group = "rofi"}),
-  
-  awful.key({ }, "XF86Calculator", function()
-    awful.spawn("rofi -show calc")
-  end, { description = "show calculator", group = "rofi"}),
+  end, { description = "show emoji menu", group = "rofi" }),
 
+  awful.key({}, "XF86Calculator", function()
+    awful.spawn("rofi -show calc")
+  end, { description = "show calculator", group = "rofi" }),
+
+  awful.key({ modkey }, "b", function()
+    awful.spawn("rofi -show window")
+  end, { description = "window switcher", group = "rofi" }),
 })

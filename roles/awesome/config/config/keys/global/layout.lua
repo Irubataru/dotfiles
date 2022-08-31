@@ -23,13 +23,6 @@ awful.keyboard.append_global_keybindings({
     end
   end, { description = "go back", group = "client" }),
 
-  -- Show/Hide Wibox
-  awful.key({ modkey }, "b", function()
-    for s in screen do
-      s.top_panel.visible = not s.top_panel.visible
-    end
-  end, { description = "toggle wibox", group = "awesome" }),
-
   -- Layout window size modification
   awful.key({ modkey }, "l", function()
     awful.tag.incmwfact(0.05)
