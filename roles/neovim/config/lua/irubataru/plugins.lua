@@ -121,15 +121,6 @@ return packer.startup(function(use)
       })
     end,
   })
-  use({ -- sunjon/shade.nvim
-    "sunjon/shade.nvim",
-    config = function()
-      require("shade").setup({
-        overlay_opacity = 70,
-        opacity_step = 5,
-      })
-    end,
-  })
   use({ -- code-biscuits/nvim-biscuits
     "code-biscuits/nvim-biscuits",
     config = function()
@@ -139,22 +130,6 @@ return packer.startup(function(use)
       })
     end,
   })
-  -- use({ -- mvllow/modes.nvim
-  --   "mvllow/modes.nvim",
-  --   config = function()
-  --     require('modes').setup({
-  --       set_cursor = true,
-  --       set_cursorline = true,
-  --       set_number = true,
-  --     })
-  --   end
-  -- })
-  -- use({ -- beauwilliams/focus.nvim
-  --   "beauwilliams/focus.nvim",
-  --   config = function()
-  --     require("irubataru.plugins.focus")
-  --   end,
-  -- })
 
   -- Autocomplete
   use({ -- hrsh7th/nvim-cmp
@@ -298,11 +273,6 @@ return packer.startup(function(use)
   use("nvim-neotest/neotest-python")
   use({ "nvim-neotest/neotest-vim-test", requires = "vim-test/vim-test" })
 
-  -- DAP
-  -- use { "mfussenegger/nvim-dap" }
-  -- use { "theHamsta/nvim-dap-virtual-text" }
-  -- use { "rcarriga/nvim-dap-ui" }
-
   -- Other plugins
   use("tpope/vim-repeat") -- Enable repeating supported plugin maps with .
   use("tpope/vim-surround") -- quoting/parenthesizing made simple
@@ -376,7 +346,13 @@ return packer.startup(function(use)
       })
     end,
   })
-  -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
+
+  use({ -- stevearc/overseer.nvim
+    "stevearc/overseer.nvim", -- A task runner and job management plugin for Neovim
+    config = function()
+      require("overseer").setup({})
+    end,
+  })
 
   -- Language specific plugins
   -- {{{
@@ -414,12 +390,6 @@ return packer.startup(function(use)
     requires = { "guns/vim-sexp", ft = { "clojure" } }, -- Precision Editing for S-expressions
   })
 
-  -- use { 'tpope/vim-fireplace', ft = { 'clojure' } } -- Clojure REPL support
-  -- use { 'guns/vim-clojure-static', ft = { 'clojure' } } -- Meikel Brandmeyer's excellent Clojure runtime files
-  -- use { 'guns/vim-clojure-highlight', ft = { 'clojure' } } -- Extend builtin syntax highlighting to referred and aliased vars in Clojure buffers
-  -- use { 'vim-scripts/paredit.vim', ft = { 'clojure' } } -- Paredit Mode: Structured Editing of Lisp S-expressions
-  -- use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
-
   -- LaTeX
   use({ -- lervag/vimtex
     "lervag/vimtex", -- A modern Vim and neovim filetype plugin for LaTeX files.
@@ -447,6 +417,64 @@ return packer.startup(function(use)
   use("Glench/Vim-Jinja2-Syntax") -- An up-to-date jinja2 syntax file.
   use("jalvesaq/Nvim-R") -- Vim plugin to work with R
   use({ "tmux-plugins/vim-tmux", ft = { "tmux" } }) -- vim plugin for tmux.conf
+
+  -- }}}
+
+  -- Plugin graveyard
+  -- {{{
+
+  -- Nothing seems to happen when I use it
+  -- use({ -- mvllow/modes.nvim
+  --   "mvllow/modes.nvim",
+  --   config = function()
+  --     require('modes').setup({
+  --       set_cursor = true,
+  --       set_cursorline = true,
+  --       set_number = true,
+  --     })
+  --   end
+  -- })
+
+  -- Doesn't work as well as I wont, need to revisit
+  -- use({ -- beauwilliams/focus.nvim
+  --   "beauwilliams/focus.nvim",
+  --   config = function()
+  --     require("irubataru.plugins.focus")
+  --   end,
+  -- })
+
+  -- Breaks other pop-ups like Mason
+  -- use({ -- sunjon/shade.nvim
+  --   "sunjon/shade.nvim",
+  --   config = function()
+  --     require("shade").setup({
+  --       overlay_opacity = 70,
+  --       opacity_step = 5,
+  --     })
+  --   end,
+  -- })
+
+  -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
+
+  -- DAP
+  -- {{{
+
+  -- use { "mfussenegger/nvim-dap" }
+  -- use { "theHamsta/nvim-dap-virtual-text" }
+  -- use { "rcarriga/nvim-dap-ui" }
+
+  -- }}}
+
+  -- Clojure support
+  -- {{{
+
+  -- use { 'tpope/vim-fireplace', ft = { 'clojure' } } -- Clojure REPL support
+  -- use { 'guns/vim-clojure-static', ft = { 'clojure' } } -- Meikel Brandmeyer's excellent Clojure runtime files
+  -- use { 'guns/vim-clojure-highlight', ft = { 'clojure' } } -- Extend builtin syntax highlighting to referred and aliased vars in Clojure buffers
+  -- use { 'vim-scripts/paredit.vim', ft = { 'clojure' } } -- Paredit Mode: Structured Editing of Lisp S-expressions
+  -- use { 'venantius/vim-cljfmt', ft = { 'clojure' } } -- A Vim plugin for cljfmt, the Clojure formatting tool.
+
+  -- }}}
 
   -- }}}
 

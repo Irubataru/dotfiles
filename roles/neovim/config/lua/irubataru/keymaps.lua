@@ -280,6 +280,11 @@ wk.register({ -- Normal mode leader keymaps
       e = { "<cmd>IconPickerYank emoji<cr>", "Yank emoji" },
     }
   },
+  l = {
+    name = "+build-run",
+    l = { "<cmd>OverseerRun<cr>", "Run a task" },
+    v = { "<cmd>OverseerToggle<cr>", "Toggle task status view" },
+  },
   p = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
