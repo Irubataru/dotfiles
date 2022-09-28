@@ -5,9 +5,14 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "junegunn/fzf", use:"shell/*.zsh"
 
 zplug "lib/directories", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
 zplug "plugins/history-substring-search", from:oh-my-zsh
+
 autoload -U up-line-or-beginning-search
 zle -N up-line-or-beginning-search
+
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
 {% if atuin.use %}
 export ATUIN_NOBIND="true"

@@ -94,9 +94,17 @@ zplug load
 
 {% endif %}
 # Keybinds
-bindkey "^ " end-of-line
-bindkey "^[[A" up-line-or-beginning-search
-bindkey "^[OA" up-line-or-beginning-search
+bindkey "^ " end-of-line # [ctrl-space] - autocomplete suggestion
+bindkey "^[[A" up-line-or-beginning-search   # [up arrow]   - history backwards
+bindkey "^[OA" up-line-or-beginning-search   # [up arrow]   - history backwards
+bindkey "^[[B" down-line-or-beginning-search # [down arrow] - history forwards
+bindkey "^[OB" down-line-or-beginning-search # [down arrow] - history forwards
+bindkey "^[[1;5C" forward-word  # [ctrl-left arrow]  - move full word
+bindkey "^[[1;5D" backward-word # [ctrl-right arrow] - move full word
+bindkey "${terminfo[khome]}" beginning-of-line # [home] - beginning of line
+bindkey "${terminfo[kend]}"  end-of-line # [end] - end of line
+bindkey "^[OA${terminfo[kcbt]}" reverse-menu-complete # [shift-tab] - move completion backwards
+
 {% if atuin.use %}
 bindkey "^r" _atuin_search_widget
 {% endif %}
