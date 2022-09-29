@@ -8,6 +8,8 @@ package_manager: pacman
 neovim_git: true
 
 # git
+git_full_name: Aleksandra Glesaaen
+git_email: Aleksandra.Glesaaen@sintef.no
 git_signing_key_has_key: true
 git_signing_key: 6DCBDB83BD45D785689C151D77DF2021FD23B02D
 git_difftool: difft

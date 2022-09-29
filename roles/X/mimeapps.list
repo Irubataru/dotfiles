@@ -10,3 +10,4 @@ image/png=nsxiv.desktop;
 x-scheme-handler/http=vivaldi-stable.desktop;
 x-scheme-handler/https=vivaldi-stable.desktop;
 x-scheme-handler/terminal=Alacritty.desktop;
+application/pdf=org.pwmt.zathura.desktop;

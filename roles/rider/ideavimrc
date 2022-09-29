@@ -67,7 +67,8 @@ nmap <leader>nc :NERDTreeClose<CR>
 "" -- Plugin-like keymaps --
 
 " fugitive
-nmap <Space>gd <Action>(Compare.SameVersion)
+nmap <leader>gd <Action>(Compare.SameVersion)
+nmap <leader>gb <Action>(Annotate)
 
 " vim-unimpaired
 
@@ -90,7 +91,7 @@ nmap gl <Action>(ShowErrorDescription)
 " Telescope
 
 nmap <C-B> <Action>(SearchEverywhere)
-nmap <space>ff <Action>(FindInPath)
+nmap <leader>ff <Action>(FindInPath)
 
 " goyo.vim
 
