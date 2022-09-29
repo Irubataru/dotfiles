@@ -54,6 +54,7 @@ return packer.startup(function(use)
 
   -- Colour schemes
   use("junegunn/seoul256.vim")
+  use("folke/tokyonight.nvim")
 
   -- UI and look
   use({ -- noib3/cokeline.nvim

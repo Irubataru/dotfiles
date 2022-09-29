@@ -1,6 +1,7 @@
 vim.g.seoul256_srgb = 1
 
-local colourscheme = "seoul256"
+-- local colourscheme = "seoul256"
+local colourscheme = "tokyonight-storm"
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colourscheme)
 
 if not status_ok then
