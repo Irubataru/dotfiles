@@ -6,6 +6,7 @@
       - xorg-xset
       - light-locker
       - pinentry
+      - unclutter
     state: present
   become: true
 
@@ -13,7 +14,7 @@
   kewlfft.aur.aur:
     name:
       - xidlehook-git
-      - handlr-bin
+      - handlr
       - xdg-utils-handlr
       - picom-git
     state: present

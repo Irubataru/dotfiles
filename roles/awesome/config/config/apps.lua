@@ -12,7 +12,7 @@ return {
     -- What program to run when opening a new terminal
     open_terminal = terminal_cmd .. " -e tmux",
     -- Default web browser
-    web_browser = "vivaldi-stable",
+    web_browser = "brave",
     -- Default text editor
     text_editor = "nvim",
     -- Default file manager
@@ -51,5 +51,7 @@ return {
     "blueman-applet",
     -- Start network manager
     "nm-applet",
+    -- Unclutter to hide mouse
+    "unclutter",
   },
 }
