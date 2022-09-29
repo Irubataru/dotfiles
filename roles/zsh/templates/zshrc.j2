@@ -103,7 +103,7 @@ bindkey "^[[1;5C" forward-word  # [ctrl-left arrow]  - move full word
 bindkey "^[[1;5D" backward-word # [ctrl-right arrow] - move full word
 bindkey "${terminfo[khome]}" beginning-of-line # [home] - beginning of line
 bindkey "${terminfo[kend]}"  end-of-line # [end] - end of line
-bindkey "^[OA${terminfo[kcbt]}" reverse-menu-complete # [shift-tab] - move completion backwards
+bindkey "${terminfo[kcbt]}" reverse-menu-complete # [shift-tab] - move completion backwards
 
 {% if atuin.use %}
 bindkey "^r" _atuin_search_widget
