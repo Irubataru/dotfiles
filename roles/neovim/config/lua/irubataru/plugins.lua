@@ -131,6 +131,12 @@ return packer.startup(function(use)
       })
     end,
   })
+  use({ -- rcarriga/nvim-notify
+    "rcarriga/nvim-notify", -- A fancy, configurable, notification manager for NeoVim,
+    config = function()
+      vim.notify = require("notify")
+    end,
+  })
 
   -- Autocomplete
   use({ -- hrsh7th/nvim-cmp
@@ -347,11 +353,27 @@ return packer.startup(function(use)
       })
     end,
   })
-
   use({ -- stevearc/overseer.nvim
     "stevearc/overseer.nvim", -- A task runner and job management plugin for Neovim
     config = function()
       require("overseer").setup({})
+    end,
+  })
+  use({ -- max397574/colortils.nvim
+    "max397574/colortils.nvim", -- Some color utils for neovim
+    cmd = "Colortils",
+    config = function()
+      require("colortils").setup({})
+    end,
+  })
+  use({ -- aarondiel/spread.nvim
+    "aarondiel/spread.nvim", -- a neovim plugin to spread out inline objects, arrays, parameter lists, etc.
+    after = "nvim-treesitter",
+  })
+  use({ -- simrat39/symbols-outline.nvim
+    "simrat39/symbols-outline.nvim", -- A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages.
+    config = function()
+      require("symbols-outline").setup({})
     end,
   })
 
@@ -401,7 +423,7 @@ return packer.startup(function(use)
   })
   use({ "KeitaNakamura/tex-conceal.vim", ft = { "tex" } }) -- This plugin extends the Conceal feature of Vim for LaTeX.
 
-  -- JavaScript / JSON
+  -- Web
   use({ "pangloss/vim-javascript", ft = { "javascript" } }) -- Vastly improved Javascript indentation and syntax support in Vim.
   use({ "Olical/vim-syntax-expand", ft = { "javascript" } }) -- Expand characters to code if not in a comment or string
   use({ "elzr/vim-json", ft = { "json" } }) -- A better JSON for Vim: distinct highlighting of keywords vs values, JSON-specific (non-JS) warnings, quote concealing.

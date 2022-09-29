@@ -81,11 +81,6 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- Center the window
-wk.register({
-  ["<Leader><Leader>"] = { "zz", "Center view" },
-}, opts)
-
 wk.register({
   ["["] = {
     o = {
@@ -102,7 +97,7 @@ wk.register({
 }, opts)
 
 keymap("n", "<C-b>", function()
-  require("telescope.builtin").buffers()
+  require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false }))
 end, opts)
 
 -- Window actions
@@ -166,6 +161,8 @@ wk.register({ -- Normal mode leader keymaps
   c = {
     name = "+toggle",
     b = {function() require('nvim-biscuits').toggle_biscuits() end, "Toggle biscuits"},
+    c = {function() require("spread").combine() end, "Combine content"},
+    s = {function() require("spread").out() end, "Spread content"},
   },
   d = {
     name = "+diff",
@@ -344,7 +341,7 @@ wk.register({ -- Normal mode leader keymaps
     l = { "<cmd>Trouble loclist<cr>", "Location list" },
     q = { "<cmd>Trouble quickfix<cr>", "To quickfix list" },
     w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace diagnostics" },
-    x = { "<cmd>Trouble<cr>", "Open diagnostics" },
+    x = { "<cmd>TroubleToggle<cr>", "Open diagnostics" },
   },
   z = {
     name = "+folds",
