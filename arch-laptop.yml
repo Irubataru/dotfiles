@@ -9,12 +9,14 @@
       - basic
       - keyboard
       - zsh
+      - zoxide
       - fonts
       - laptop
 
       # Programming
       - clang
       - ruby
+      - lua
       - go
       - npm
       - rust
@@ -31,12 +33,17 @@
       - gpg
       - gtk
       - latex
+      - navi
       - neovim
+      - obsidian
       - rider
       - qutebrowser
+      - rofi
+      - tldr
       - tmux
       - utilities
       - vifm
+      - zathura
   tasks:
     - include_role:
         name: "{{ item }}"
