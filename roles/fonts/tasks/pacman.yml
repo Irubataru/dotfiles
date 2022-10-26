@@ -1,7 +1,7 @@
 - name: Install fonts (AUR)
   kewlfft.aur.aur:
     name:
-      - nerd-fonts-hack
+      - ttf-hack-nerd
       - nerd-fonts-fira-code
       - nerd-fonts-jetbrains-mono
     state: present
