@@ -1,0 +1,14 @@
+[
+  {
+    "command": "vscode-neovim.send",
+    "key": "[",
+    "when": "editorTextFocus && neovim.mode != insert",
+    "args": "["
+  },
+  {
+    "command": "vscode-neovim.send",
+    "key": "]",
+    "when": "editorTextFocus && neovim.mode != insert",
+    "args": "]"
+  }
+]

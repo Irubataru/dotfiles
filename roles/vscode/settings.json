@@ -1,0 +1,8 @@
+{
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/glesaaen/.dotfiles/roles/vscode/nvim-config/init.lua",
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'DankMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontSize": 18,
+    "liveshare.presence": true
+}
