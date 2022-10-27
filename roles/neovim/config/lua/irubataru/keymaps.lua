@@ -533,7 +533,7 @@ wk.register({
 -- Goyo
 -- {{{
 
-keymap("n", "<C-g>", ":Goyo<CR>", opts)
+keymap("n", "<C-g>", "<cmd>TZAtaraxis<cr>", opts)
 
 -- }}}
 

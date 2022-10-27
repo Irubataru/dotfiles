@@ -86,12 +86,18 @@ return packer.startup(function(use)
     ft = { "python" },
   })
   use({ "junegunn/limelight.vim" }) -- Hyperfocus-writing in Vim
-  use({ -- junegunn/goyo.vim
-    "junegunn/goyo.vim", -- Distraction-free writing in Vim
+  use({ -- 🦝 Clean and elegant distraction-free writing for NeoVim
+    "Pocco81/true-zen.nvim",
     config = function()
-      require("irubataru.plugins.goyo")
-    end,
+      require("irubataru.plugins.true-zen")
+    end
   })
+  -- use({ -- junegunn/goyo.vim
+  --   "junegunn/goyo.vim", -- Distraction-free writing in Vim
+  --   config = function()
+  --     require("irubataru.plugins.goyo")
+  --   end,
+  -- })
   use({ -- alpha-nvim
     "goolord/alpha-nvim",
     config = function()
