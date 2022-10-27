@@ -1,4 +1,6 @@
-require("Comment").setup({
+local comment = require("Comment")
+
+comment.setup({
   toggler = {
     line = "gcc",
     block = "gcb",
@@ -13,7 +15,9 @@ require("Comment").setup({
   },
 })
 
-local api = require('Comment.api')
+-- Extended mode mapping
+-- https://github.com/numToStr/Comment.nvim/wiki/Extended-Keybindings
+local api = require("Comment.api")
 local map = vim.keymap.set
 
 map('n', 'g>', api.call('comment.linewise', 'g@'), { expr = true, desc = 'Comment region linewise' })
