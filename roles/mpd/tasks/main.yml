@@ -1,0 +1,61 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install mpd, ncmpcpp (pacman)
+  pacman:
+    name:
+      - mpd
+      - ncmpcpp
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Install mpd-mpris (aur)
+  kewlfft.aur.aur:
+    name: mpd-mpris
+    state: present
+  become: true
+  become_user: aur_builder
+
+- name: Create mpd config directory
+  file:
+    path: "{{ home_directory }}/.config/mpd"
+    state: directory
+
+- name: Link mpd config
+  file:
+    src: "{{ role_path}}/mpd.conf"
+    dest: "{{ home_directory }}/.config/mpd/mpd.conf"
+    state: link
+
+- name: Create ncmpcpp config directory
+  file:
+    path: "{{ home_directory }}/.config/ncmpcpp"
+    state: directory
+
+- name: Link ncmpcpp config
+  file:
+    src: "{{ role_path}}/ncmpcpp.config"
+    dest: "{{ home_directory }}/.config/ncmpcpp/config"
+    state: link
+
+- name: Create mpd directory
+  file:
+    path: "{{ home_directory }}/.mpd"
+    state: directory
+
+- name: Create mpd/playlists directory
+  file:
+    path: "{{ home_directory }}/.mpd/playlists"
+    state: directory
+
+- name: Enable mpd service
+  ansible.builtin.systemd:
+    name: "mpd.service"
+    enabled: true
+    scope: user
+
+- name: Enable mpd-mpris service
+  ansible.builtin.systemd:
+    name: "mpd-mpris.service"
+    enabled: true
+    scope: user
