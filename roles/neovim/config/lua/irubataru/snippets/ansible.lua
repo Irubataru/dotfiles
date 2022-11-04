@@ -10,57 +10,100 @@ local f = luasnip.function_node
 local c = luasnip.choice_node
 local d = luasnip.dynamic_node
 local r = luasnip.restore_node
-
-local function copy(args)
-  return args[1]
-end
+local fmt = require("luasnip.extras.fmt").fmt
 
 return {
-  snippet("pacman", {
-    t("- name: Install "),
-    i(1, "name"),
-    t({" (pacman)", "\t"}),
-    t({"pacman:", "\t\t"}),
-    t("name: "),
-    i(2, "package"),
-    t({"", "\t\t"}),
-    t({"state: present", "\t"}),
-    t("become: true")
-  }),
-  snippet("link", {
-    t("- name: Link "),
-    i(1, "name"),
-    t({"", "\t"}),
-    t({"file:", "\t\t"}),
-    t("src: \"{{ role_path}}/"),
-    i(2, "file"),
-    t({"\"", "\t\t"}),
-    t("dest: "),
-    i(3, "dest"),
-    t({"", "\t\t"}),
-    t("state: link")
-  }),
-  snippet("directory", {
-    t("- name: Create "),
-    i(1, "name"),
-    t({" directory", "\t"}),
-    t({"file:", "\t\t"}),
-    t("path: "),
-    i(2, "dir"),
-    t({"", "\t\t"}),
-    t("state: directory")
-  }),
-  snippet("git-clone", {
-    t("- name: Clone "),
-    i(1, "name"),
-    t({"", "\t"}),
-    t({"git:", "\t\t"}),
-    t("repo: \""),
-    i(2, "repo"),
-    t({"\"", "\t\t"}),
-    t("dest: "),
-    i(3, "dest"),
-    t({"", "\t\t"}),
-    t("update: no"),
-  }),
+  snippet({trig="pacman", descr="Install a package with pacman"},
+    fmt(
+      [[
+        - name: Install {} (pacman)
+          pacman:
+            name: {}
+            state: present
+          become: true
+      ]],
+      {
+        i(1, "package"),
+        i(2, "package"),
+      }
+    )
+  ),
+  snippet({trig="aur", descr="Install a package with paru"},
+    fmt(
+      [[
+        - name: Install {} (aur)
+          kewlfft.aur.aur:
+            name: {}
+            state: present
+          become: true
+          become_user: aur_builder
+      ]],
+      {
+        i(1, "package"),
+        i(2, "package"),
+      }
+    )
+  ),
+  snippet({trig="link", descr="Create a symbolic link"},
+    fmt(
+      [[
+        - name: Link {}
+          file:
+            src: "{{ role_path}}/{}"
+            dest: "{}"
+            state: link
+      ]],
+      {
+        i(1, "name"),
+        i(2, "file"),
+        i(3, "dest"),
+      }
+    )
+  ),
+  snippet({trig="directory", descr="Create a directory"},
+    fmt(
+      [[
+        - name: Create {} directory
+          file:
+            path: "{}"
+            state: directory
+      ]],
+      {
+        i(1, "name"),
+        i(2, "dir"),
+      }
+    )
+  ),
+  snippet({trig="git-clone", descr="Clone a git repo"},
+    fmt(
+      [[
+        - name: Clone {}
+          git:
+            repo: "{}"
+            dest: "{}"
+            update: no
+      ]],
+      {
+        i(1, "name"),
+        i(2, "repo"),
+        i(3, "dest"),
+      }
+    )
+  ),
+  snippet({trig="systemd", descr="Enable a systemd service"},
+    fmt(
+      [[
+        - name: Enable {} service
+          ansible.builtin.systemd:
+            name: "{}.service"
+            enabled: true
+            scope: {}
+      ]],
+      {
+        i(1, "name"),
+        i(2, "name"),
+        i(3, "[user/system]")
+      }
+    )
+  ),
 }
