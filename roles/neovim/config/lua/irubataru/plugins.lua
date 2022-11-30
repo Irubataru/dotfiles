@@ -220,9 +220,6 @@ return packer.startup(function(use)
       require("irubataru.plugins.goto-preview")
     end,
   })
-  use({ -- ray-x/lsp_signature.nvim
-    "ray-x/lsp_signature.nvim", -- LSP signature hint as you type
-  })
 
   -- Snippets
   use({ -- L3MON4D3/LuaSnip
@@ -451,6 +448,11 @@ return packer.startup(function(use)
 
   -- Plugin graveyard
   -- {{{
+
+  -- Just annoying, at least how it works now, window gets stuck
+  -- use({ -- ray-x/lsp_signature.nvim
+  --   "ray-x/lsp_signature.nvim", -- LSP signature hint as you type
+  -- })
 
   -- Nothing seems to happen when I use it
   -- use({ -- mvllow/modes.nvim
