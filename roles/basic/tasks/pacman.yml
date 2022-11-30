@@ -35,11 +35,3 @@
     state: present
   become: yes
   become_user: aur_builder
-
-- name: Install other basic dependencies (AUR)
-  kewlfft.aur.aur:
-    name:
-      - dtrx
-    state: present
-  become: yes
-  become_user: aur_builder

@@ -16,11 +16,12 @@
   become: true
   when: package_manager == "apt"
 
-- name: Install thefuck, bpytop (pip)
+- name: Install thefuck, bpytop, dtrx (pip)
   pip:
     name:
       - thefuck
       - bpytop
+      - dtrx
     extra_args: --user
     state: latest
 
