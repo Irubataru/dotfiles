@@ -90,7 +90,7 @@ return packer.startup(function(use)
     "Pocco81/true-zen.nvim",
     config = function()
       require("irubataru.plugins.true-zen")
-    end
+    end,
   })
   -- use({ -- junegunn/goyo.vim
   --   "junegunn/goyo.vim", -- Distraction-free writing in Vim
@@ -142,6 +142,12 @@ return packer.startup(function(use)
     config = function()
       vim.notify = require("notify")
     end,
+  })
+  use({ -- j-hui/fidget.nvim
+    "j-hui/fidget.nvim",  -- Standalone UI for nvim-lsp progress
+    config = function()
+      require("fidget").setup({})
+    end
   })
 
   -- Autocomplete
