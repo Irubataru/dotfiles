@@ -18,6 +18,7 @@ local servers = {
   omnisharp = require("irubataru.lsp.servers.omnisharp").config,
   pyright = {},
   r_language_server = {},
+  rust_analyzer = {},
   sumneko_lua = require("irubataru.lsp.servers.sumneko_lua").config,
   tailwindcss = require("irubataru.lsp.servers.tailwindcss").config,
   texlab = {},
@@ -28,13 +29,6 @@ local servers = {
 local on_attach = function(client, bufnr)
   require("irubataru.lsp.highlighting").setup(client)
   require("irubataru.keymaps").register_lsp_keymaps(bufnr)
-  require("lsp_signature").on_attach({
-    bind = true,
-    handler_opts = {
-      border = "rounded"
-    },
-    hint_enabled = true
-  })
 
   if client.server_capabilities.documentSymbolProvider and client.name ~= "volar" then
     require("nvim-navic").attach(client, bufnr)
@@ -70,10 +64,6 @@ require("irubataru.lsp.diagnostics")
 require("irubataru.lsp.null-ls").setup(options)
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = "rounded",
 })
 
