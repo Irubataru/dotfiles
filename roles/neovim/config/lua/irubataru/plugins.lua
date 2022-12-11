@@ -53,8 +53,11 @@ return packer.startup(function(use)
   })
 
   -- Colour schemes
+  use("rktjmp/lush.nvim") -- Create Neovim themes with real-time feedback, export anywhere.
   use("junegunn/seoul256.vim")
   use("folke/tokyonight.nvim")
+  use("scysta/pink-panic.nvim")
+  use("nyoom-engineering/oxocarbon.nvim")
 
   -- UI and look
   use({ -- noib3/cokeline.nvim
