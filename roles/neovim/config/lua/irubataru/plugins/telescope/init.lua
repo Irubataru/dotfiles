@@ -31,6 +31,10 @@ telescope.setup({
         },
       },
     },
+    colorscheme = {
+      enable_preview = true,
+      theme = "ivy",
+    },
   },
   extensions = {
     ["ui-select"] = {

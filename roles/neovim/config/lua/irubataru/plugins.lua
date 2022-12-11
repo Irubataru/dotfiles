@@ -54,10 +54,17 @@ return packer.startup(function(use)
 
   -- Colour schemes
   use("rktjmp/lush.nvim") -- Create Neovim themes with real-time feedback, export anywhere.
-  use("junegunn/seoul256.vim")
-  use("folke/tokyonight.nvim")
-  use("scysta/pink-panic.nvim")
-  use("nyoom-engineering/oxocarbon.nvim")
+  use("folke/lsp-colors.nvim") -- 🌈 Plugin that creates missing LSP diagnostics highlight groups for color schemes that don't yet support the Neovim 0.5 builtin LSP client.
+  use("junegunn/seoul256.vim") -- 🌳 Low-contrast Vim color scheme based on Seoul Colors
+  use("folke/tokyonight.nvim") -- 🏙️ A clean, dark Neovim theme written in Lua, with support for lsp, treesitter and lots of plugins.
+  use("scysta/pink-panic.nvim") -- A simple and pretty pink colorscheme for Neovim made with Lush.
+  use("nyoom-engineering/oxocarbon.nvim") -- A dark and light Neovim theme written in fennel, inspired by IBM Carbon.
+  use("rebelot/kanagawa.nvim") -- NeoVim dark colorscheme inspired by the colors of the famous painting by Katsushika Hokusai.
+  use("rhysd/vim-color-spring-night") -- Low-contrast calm color scheme for Vim
+  use("jacoborus/tender.vim") -- A 24bit colorscheme for Vim, Airline and Lightline
+  use("savq/melange") -- 🗡️ Warm colorscheme for Neovim and beyond
+  use("mcchrish/zenbones.nvim") -- 🪨 A collection of contrast-based Vim/Neovim colorschemes
+  use("EdenEast/nightfox.nvim") -- 🦊 A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins.
 
   -- UI and look
   use({ -- noib3/cokeline.nvim
