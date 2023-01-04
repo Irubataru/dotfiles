@@ -175,18 +175,9 @@ wk.register({ -- Normal mode leader keymaps
       end,
       "Toggle biscuits",
     },
-    c = {
-      function()
-        require("spread").combine()
-      end,
-      "Combine content",
-    },
-    s = {
-      function()
-        require("spread").out()
-      end,
-      "Spread content",
-    },
+    c = { "<cmd>TSJToggle<cr>", "Toggle split/join", },
+    j = { "<cmd>TSJJoin<cr>", "Join content", },
+    s = { "<cmd>TSJSplit<cr>", "Split content", },
   },
   d = {
     name = "+diff",

@@ -389,9 +389,12 @@ return packer.startup(function(use)
       require("colortils").setup({})
     end,
   })
-  use({ -- aarondiel/spread.nvim
-    "aarondiel/spread.nvim", -- a neovim plugin to spread out inline objects, arrays, parameter lists, etc.
-    after = "nvim-treesitter",
+  use({ -- Wansmer/treesj
+    "Wansmer/treesj", -- Neovim plugin for splitting/joining blocks of code
+    requires = "nvim-treesitter",
+    config = function()
+      require("treesj").setup({})
+    end,
   })
   use({ -- stevearc/aerial.nvim
     "stevearc/aerial.nvim", -- Neovim plugin for a code outline window
