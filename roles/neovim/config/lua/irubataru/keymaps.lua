@@ -1,6 +1,8 @@
 local M = {}
 
 local keymap = vim.keymap.set
+require("legendary").setup({ which_key = { auto_register = true } })
+
 local wk = require("which-key")
 local wk_operators = require("which-key.plugins.presets").operators
 
@@ -18,6 +20,9 @@ keymap("n", "<Down>", "<NOP>", opts)
 keymap("n", "<Left>", "<NOP>", opts)
 keymap("n", "<Right>", "<NOP>", opts)
 
+-- Disable EX mode
+keymap("n", "Q", "<NOP>", opts)
+
 -- Fold movement
 -- Replace the zj zk calls to move to next closed fold
 wk.register({
@@ -28,9 +33,6 @@ wk.register({
 }, opts)
 
 -- Tab movement
-keymap("n", "<C-Left>", ":tabp<CR>", opts)
-keymap("n", "<C-Right>", ":tabn<CR>", opts)
-
 wk.register({
   t = {
     name = "+tab",
@@ -41,10 +43,12 @@ wk.register({
 }, leader_opts)
 
 -- Split movement
-keymap("n", "<C-h>", "<cmd>WinShift left<cr>", opts)
-keymap("n", "<C-j>", "<cmd>WinShift down<cr>", opts)
-keymap("n", "<C-k>", "<cmd>WinShift up<cr>", opts)
-keymap("n", "<C-l>", "<cmd>WinShift right<cr>", opts)
+wk.register({
+  ["<C-h>"] = { "<cmd>WinShift left<cr>", "Move window left" },
+  ["<C-j>"] = { "<cmd>WinShift down<cr>", "Move window down" },
+  ["<C-k>"] = { "<cmd>WinShift up<cr>", "Move window up" },
+  ["<C-l>"] = { "<cmd>WinShift right<cr>", "Move window right" },
+}, opts)
 
 -- Buffer movement
 wk.register({
@@ -66,7 +70,6 @@ keymap("n", ",e", ":e <C-R>=Get_Relative_Cwd()<CR>", opts)
 -- keymap("n", ",e", ":e <C-R>=lua require('irubataru.functions').get_file_directory()<CR>", opts)
 
 -- File tree
-keymap("n", "<C-N>", ":NvimTreeFindFileToggle<CR>", opts)
 
 -- }}}
 
@@ -74,12 +77,6 @@ keymap("n", "<C-N>", ":NvimTreeFindFileToggle<CR>", opts)
 
 -- UI Related
 -- {{{
-
--- Resize splits with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 wk.register({
   ["["] = {
@@ -94,11 +91,18 @@ wk.register({
       q = { ":cclose<cr>", "close-quickfix" },
     },
   },
+  ["<C-N>"] = { ":NvimTreeFindFileToggle<CR>", "Open file tree" },
+  ["<C-Up>"] = { ":resize -2<CR>", "Resize window (shrink vertical)" },
+  ["<C-Down>"] = { ":resize +2<CR>", "Resize window (expand vertical)" },
+  ["<C-Left>"] = { ":vertical resize -2<CR>", "Resize window (shrink horizontal)" },
+  ["<C-Right>"] = { ":vertical resize +2<CR>", "Resize window (expand horizontal)" },
+  ["<C-b>"] = {
+    function()
+      require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false }))
+    end,
+    "Find buffer",
+  },
 }, opts)
-
-keymap("n", "<C-b>", function()
-  require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false }))
-end, opts)
 
 -- Window actions
 wk.register({
@@ -107,9 +111,6 @@ wk.register({
     z = { "<cmd>NeoZoomToggle<cr>", "Toggle zoom" },
   },
 }, opts)
-
--- Disable EX mode
-keymap("n", "Q", "<NOP>", opts)
 
 -- }}}
 
@@ -157,12 +158,35 @@ wk_operators["gx"] = "Replace with register"
 
 -- }}}
 
+wk.register({ -- Normal mode keymaps
+  g = {
+    s = { "<cmd>AerialToggle<cr>", "Symbols (aerial)" },
+  },
+  ["<C-g>"] = { "<cmd>TZAtaraxis<cr>", "Toggle zen mode (Toggle Zen Atraxis)" },
+  ["<C-y>"] = { ":Limelight!!<CR>", "Toggle limelight mode" },
+}, opts)
+
 wk.register({ -- Normal mode leader keymaps
   c = {
     name = "+toggle",
-    b = {function() require('nvim-biscuits').toggle_biscuits() end, "Toggle biscuits"},
-    c = {function() require("spread").combine() end, "Combine content"},
-    s = {function() require("spread").out() end, "Spread content"},
+    b = {
+      function()
+        require("nvim-biscuits").toggle_biscuits()
+      end,
+      "Toggle biscuits",
+    },
+    c = {
+      function()
+        require("spread").combine()
+      end,
+      "Combine content",
+    },
+    s = {
+      function()
+        require("spread").out()
+      end,
+      "Spread content",
+    },
   },
   d = {
     name = "+diff",
@@ -176,7 +200,7 @@ wk.register({ -- Normal mode leader keymaps
       end,
       "Find buffers",
     },
-    C = { "<cmd>Telescope commands<cr>", "Find commands" },
+    C = { "<cmd>Legendary commands<cr>", "Find commands" },
     d = {
       function()
         require("telescope.builtin").lsp_definitions()
@@ -219,7 +243,7 @@ wk.register({ -- Normal mode leader keymaps
       end,
       "Find implementations",
     },
-    k = { "<cmd>Telescope keymaps<cr>", "Find keymaps" },
+    k = { "<cmd>Legendary keymaps<cr>", "Find keymaps (legendary)" },
     p = { "<cmd>Telescope projects<cr>", "Find projects" },
     r = { "<cmd>Telescope oldfiles<cr>", "Open recent file" },
     R = {
@@ -275,7 +299,7 @@ wk.register({ -- Normal mode leader keymaps
       name = "+yank",
       s = { "<cmd>IconPickerYank symbols nerd_font<cr>", "Yank symbol" },
       e = { "<cmd>IconPickerYank emoji<cr>", "Yank emoji" },
-    }
+    },
   },
   l = {
     name = "+build-run",
@@ -395,12 +419,12 @@ M.register_lsp_keymaps = function(bufnr)
         "References",
       },
       R = { "<cmd>Trouble lsp_references<cr>", "Trouble references" },
-      s = {
-        function()
-          require("telescope.builtin").lsp_document_symbols()
-        end,
-        "Symbols (document)",
-      },
+      -- s = {
+      --   function()
+      --     require("telescope.builtin").lsp_document_symbols()
+      --   end,
+      --   "Symbols (document)",
+      -- },
       S = {
         function()
           require("telescope.builtin").lsp_dynamic_workspace_symbols()
@@ -527,22 +551,6 @@ wk.register({
 }, {
   mode = "x",
 })
-
--- }}}
-
--- Goyo
--- {{{
-
-keymap("n", "<C-g>", "<cmd>TZAtaraxis<cr>", opts)
-
--- }}}
-
--- Limelight
--- {{{
-
-keymap("n", "<C-y>", ":Limelight!!<CR>", opts)
-
--- }}}
 
 -- }}}
 

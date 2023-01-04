@@ -6,7 +6,25 @@ function M.setup(options)
   null_ls.setup({
     sources = {
       null_ls.builtins.formatting.eslint_d,
-      null_ls.builtins.formatting.prettierd,
+      null_ls.builtins.formatting.prettierd.with({
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "vue",
+          "css",
+          "scss",
+          "less",
+          "html",
+          "json",
+          "jsonc",
+          "yaml",
+          "markdown.mdx",
+          "graphql",
+          "handlebars",
+        },
+      }),
       null_ls.builtins.formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua/stylua.toml") },
       }),

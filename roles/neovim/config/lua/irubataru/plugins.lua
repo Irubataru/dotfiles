@@ -51,6 +51,10 @@ return packer.startup(function(use)
       require("irubataru.plugins.which-key")
     end,
   })
+  use({ -- mrjones2014/legendary.nvim
+    "mrjones2014/legendary.nvim", -- 🗺️ A legend for your keymaps, commands, and autoc
+    requires = "kkharji/sqlite.lua"
+  })
 
   -- Colour schemes
   use("rktjmp/lush.nvim") -- Create Neovim themes with real-time feedback, export anywhere.
@@ -142,8 +146,8 @@ return packer.startup(function(use)
     "code-biscuits/nvim-biscuits",
     config = function()
       require("nvim-biscuits").setup({
-        cursor_line_only = false,
-        show_on_start = true,
+        cursor_line_only = true,
+        show_on_start = false,
       })
     end,
   })
@@ -154,10 +158,10 @@ return packer.startup(function(use)
     end,
   })
   use({ -- j-hui/fidget.nvim
-    "j-hui/fidget.nvim",  -- Standalone UI for nvim-lsp progress
+    "j-hui/fidget.nvim", -- Standalone UI for nvim-lsp progress
     config = function()
       require("fidget").setup({})
-    end
+    end,
   })
 
   -- Autocomplete
@@ -389,10 +393,12 @@ return packer.startup(function(use)
     "aarondiel/spread.nvim", -- a neovim plugin to spread out inline objects, arrays, parameter lists, etc.
     after = "nvim-treesitter",
   })
-  use({ -- simrat39/symbols-outline.nvim
-    "simrat39/symbols-outline.nvim", -- A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages.
+  use({ -- stevearc/aerial.nvim
+    "stevearc/aerial.nvim", -- Neovim plugin for a code outline window
     config = function()
-      require("symbols-outline").setup({})
+      require("aerial").setup({
+        filter_kind = false,
+      })
     end,
   })
 
@@ -451,6 +457,15 @@ return packer.startup(function(use)
   -- Markdown
   use({ "SidOfc/mkdx", ft = { "markdown" } }) -- A vim plugin that adds some nice extra's for working with markdown documents
   use({ "npxbr/glow.nvim", cmd = "Glow" }) -- A markdown preview directly in your neovim.
+  use({ -- iamcco/markdown-preview.nvim
+    "iamcco/markdown-preview.nvim", -- markdown preview plugin for (neo)vim
+    run = "cd app && npm install",
+    setup = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_auto_close = 0
+    end,
+    ft = { "markdown" },
+  })
 
   -- Other syntax highlighting
   use("lazywei/vim-matlab") -- A matlab plugin for vim, includes syntax highlighting, correct indention and so on.
@@ -502,6 +517,18 @@ return packer.startup(function(use)
   -- })
 
   -- use { "glepnir/template.nvim", config = configs.template } -- Quickly insert templates into file
+
+  -- Doesn't work in its current state, trying aerial.nvim instead
+  -- use({ -- simrat39/symbols-outline.nvim
+  --   "simrat39/symbols-outline.nvim", -- A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages.
+  --   config = function()
+  --     require("symbols-outline").setup({
+  --       highlight_hovered_item = true,
+  --       show_guides = true
+  --
+  --     })
+  --   end,
+  -- })
 
   -- DAP
   -- {{{
