@@ -2,7 +2,7 @@
 
 local M = {
   "utilyre/barbecue.nvim",
-  lazy = false,
+  event = "VeryLazy",
 }
 
 M.dependencies = {

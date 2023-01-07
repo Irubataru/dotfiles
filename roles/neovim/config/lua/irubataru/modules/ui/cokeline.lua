@@ -2,7 +2,7 @@
 
 local M = {
   "noib3/cokeline.nvim",
-  lazy = false,
+  event = "VeryLazy",
 }
 
 M.config = function()
