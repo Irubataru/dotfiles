@@ -5,6 +5,7 @@ local wk = require("which-key")
 local wk_operators = require("which-key.plugins.presets").operators
 
 local opts = { noremap = true, silent = true }
+local vopts = { mode = "v", noremap = true, silent = true }
 local leader_opts = { noremap = true, silent = true, prefix = "<Leader>" }
 local leader_vopts = { mode = "v", noremap = true, silent = true, prefix = "<Leader>" }
 local term_opts = { silent = true }
@@ -382,6 +383,13 @@ wk.register({ -- Normal mode leader keymaps
     z = { ":let &scrolloff=810-&scrolloff<CR>", "Toggle scroll distance" },
   },
 }, leader_opts)
+
+wk.register({ -- Visual mode keymaps
+  S = { function()
+      require("nvim-surround").visual_surround()
+    end, "Visdual surround"
+  }
+}, vopts)
 
 wk.register({ -- Visual mode leader keymaps
   d = {

@@ -1,5 +1,8 @@
 return {
-  { "stevearc/dressing.nvim" },
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+  },
   require("irubataru.modules.ui.alpha"),
   require("irubataru.modules.ui.cokeline"),
   require("irubataru.modules.ui.lualine"),

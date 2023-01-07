@@ -2,6 +2,7 @@
 
 local M = {
   "williamboman/mason.nvim",
+  cmd = {"Mason"}
 }
 
 M.config = function()

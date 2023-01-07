@@ -2,22 +2,22 @@ return {
   -- plenary: full; complete; entire; absolute; unqualified. All the lua functions I don't want to write twice.
   { "nvim-lua/plenary.nvim" },
 
-  { "antoinemadec/FixCursorHold.nvim" },
-
-  -- Enable repeating supported plugin maps with .
-  { "tpope/vim-repeat" },
-
-  -- quoting/parenthesizing made simple
-  { "tpope/vim-surround" },
+  {
+    "antoinemadec/FixCursorHold.nvim",
+    event = "VeryLazy",
+  },
 
   -- Pairs of handy bracket mappings
-  { "tpope/vim-unimpaired" },
-
-  -- Asynchronous build and test dispatcher
-  { "tpope/vim-dispatch" },
+  {
+    "tpope/vim-unimpaired",
+    event = "VeryLazy",
+  },
 
   -- Disable arrow movement, update to takac/vim-hardtime eventually
-  { "wikitopian/hardmode" },
+  {
+    "wikitopian/hardmode",
+    event = "VeryLazy",
+  },
 }
 
 -- Plugin graveyard
