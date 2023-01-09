@@ -3,10 +3,10 @@
 local M = {
   "nvim-lualine/lualine.nvim",
   lazy = false,
+  priority = 100,
 }
 
 M.dependencies = {
-
   { "arkav/lualine-lsp-progress" },
 }
 

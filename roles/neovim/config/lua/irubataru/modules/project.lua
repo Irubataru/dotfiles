@@ -2,6 +2,8 @@
 
 local M = {
   "ahmedkhalf/project.nvim",
+  cmd = { "Telescope" },
+  event = "VeryLazy",
 }
 
 M.config = function()
@@ -42,6 +44,9 @@ M.config = function()
     ---@usage path to store the project history for use in telescope
     datapath = vim.fn.stdpath("data"),
   })
+
+  -- Change directory to propject root
+  require("project_nvim.project").on_buf_enter()
 end
 
 return M

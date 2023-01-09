@@ -1,6 +1,6 @@
 local M = {
   "goolord/alpha-nvim",
-  lazy = false,
+  event = "VimEnter",
 }
 
 M.config = function()
@@ -27,6 +27,16 @@ M.config = function()
 
   dashboard.opts.opts.noautocmd = true
   require("alpha").setup(dashboard.opts)
+
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyVimStarted",
+    callback = function()
+      local stats = require("lazy").stats()
+      local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+      dashboard.section.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+      pcall(vim.cmd.AlphaRedraw)
+    end,
+  })
 end
 
 return M
