@@ -19,6 +19,7 @@
       - lua
       - go
       - npm
+      - python
       - rust
 
       # Applications

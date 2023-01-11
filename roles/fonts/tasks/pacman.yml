@@ -2,7 +2,7 @@
   kewlfft.aur.aur:
     name:
       - ttf-hack-nerd
-      - nerd-fonts-fira-code
+      - otf-nerd-fonts-fira-code
       - nerd-fonts-jetbrains-mono
     state: present
   become: yes

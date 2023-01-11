@@ -16,6 +16,7 @@
       - clojure
       - go
       - npm
+      - python
       - ruby
       - rust
 

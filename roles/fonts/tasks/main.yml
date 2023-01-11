@@ -9,15 +9,15 @@
 - import_tasks: fira_code.yml
   when: package_manager != "pacman"
 
-- name: Create fontconfig directory
-  file:
-    path: "{{ home_directory }}/.config/fontconfig"
-    state: directory
-
-- name: Link fongconfig
-  file:
-    src: "{ role_path}/fonts.conf"
-    dest: "{{ home_directory }}/.config/fontconfig/fonts.conf"
-    state: link
+# - name: Create fontconfig directory
+#   file:
+#     path: "{{ home_directory }}/.config/fontconfig"
+#     state: directory
+#
+# - name: Link fontconfig
+#   file:
+#     src: "{ role_path}/fonts.conf"
+#     dest: "{{ home_directory }}/.config/fontconfig/fonts.conf"
+#     state: link
 
 - import_tasks: private.yml

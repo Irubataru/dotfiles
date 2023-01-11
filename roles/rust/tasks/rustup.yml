@@ -6,8 +6,6 @@
 - name: Web rustup-init version
   shell: |
     {{ web_rustup_cmd }} -V | sed -e "s,.*(\(.*\)),\1,"
-  args:
-    warn: false
   register: web_version
 
 - name: Run rustup-init

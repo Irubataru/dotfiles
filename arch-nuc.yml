@@ -17,6 +17,7 @@
       - dotnet
       - lua
       - go
+      - python
       - ruby
       - rust
 

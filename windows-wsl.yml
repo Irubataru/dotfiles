@@ -15,6 +15,7 @@
       - go
       - lua
       - npm
+      - python
       - ruby
       - rust
 
