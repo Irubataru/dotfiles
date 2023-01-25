@@ -10,6 +10,10 @@ vim.opt.textwidth=80
 vim.opt.conceallevel=2
 vim.g.SuperTabDefaultCompletionType = '<C-x><C-o>'
 
+-- Use vimtex for folding
+vim.opt.foldexpr = "vimtex#fold#level(v:lnum)"
+
+-- Set spelling by default
 vim.bo.spelllang="en_gb"
 
 -- Keymaps

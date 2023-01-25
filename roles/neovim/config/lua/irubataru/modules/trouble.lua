@@ -17,7 +17,9 @@ M.dependencies = {
 }
 
 M.config = function()
-  require("trouble").setup()
+  require("trouble").setup({
+    mode = "document_diagnostics",
+  })
 end
 
 return M

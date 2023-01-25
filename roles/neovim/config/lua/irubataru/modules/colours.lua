@@ -43,4 +43,7 @@ return {
 
   -- 🦊 A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins.
   { "EdenEast/nightfox.nvim" },
+
+  -- 🌑 Neovim theme inspired by material palenight.
+  { "JoosepAlviste/palenightfall.nvim" },
 }

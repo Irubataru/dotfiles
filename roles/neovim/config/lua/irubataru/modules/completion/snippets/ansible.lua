@@ -17,7 +17,7 @@ return {
     fmt(
       [[
         - name: Install {} (pacman)
-          pacman:
+          community.general.pacman:
             name: {}
             state: present
           become: true
@@ -48,7 +48,7 @@ return {
     fmt(
       [[
         - name: Link {}
-          file:
+          ansible.builtin.file:
             src: "{{ role_path}}/{}"
             dest: "{}"
             state: link
@@ -64,7 +64,7 @@ return {
     fmt(
       [[
         - name: Create {} directory
-          file:
+          ansible.builtin.file:
             path: "{}"
             state: directory
       ]],
@@ -78,7 +78,7 @@ return {
     fmt(
       [[
         - name: Clone {}
-          git:
+          ansible.builtin.git:
             repo: "{}"
             dest: "{}"
             update: no

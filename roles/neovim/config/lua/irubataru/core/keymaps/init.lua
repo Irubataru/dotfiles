@@ -370,10 +370,10 @@ wk.register({ -- Normal mode leader keymaps
   },
   x = {
     name = "+diagnostics",
-    d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Document diagnostics" },
+    d = { "<cmd>Trouble document_diagnostics<cr>", "Document diagnostics" },
     l = { "<cmd>Trouble loclist<cr>", "Location list" },
     q = { "<cmd>Trouble quickfix<cr>", "To quickfix list" },
-    w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Workspace diagnostics" },
+    w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace diagnostics" },
     x = { "<cmd>TroubleToggle<cr>", "Open diagnostics" },
   },
   z = {
