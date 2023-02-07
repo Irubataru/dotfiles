@@ -20,6 +20,15 @@ else
 endif
 ]])
 
+--- Tabs are defined as 2 spaces
+---{{{
+
+opt.tabstop = 2
+opt.expandtab = true
+opt.shiftwidth = 2
+
+---}}}
+
 -- Colors and styling
 --{{{
 
@@ -74,14 +83,6 @@ vim.defer_fn(function()
   opt.formatoptions:append("l")
 
   --}}}
-  --- Tabs are defined as 2 spaces
-  ---{{{
-
-  opt.tabstop = 2
-  opt.expandtab = true
-  opt.shiftwidth = 2
-
-  ---}}}
 
   --- Other settings
   ---{{{
