@@ -53,6 +53,15 @@ autocmd("BufEnter", {
   end,
 })
 
+-- Load latex specific keymaps, this doesn't currently fully work because the
+-- main keymaps are lazyloaded
+autocmd("BufEnter", {
+  pattern = { "*.tex" },
+  callback = function()
+    require("irubataru.core.keymaps.latex")
+  end,
+})
+
 -- Filetype detection
 -- {{{
 

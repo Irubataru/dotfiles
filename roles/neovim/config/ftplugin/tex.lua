@@ -15,15 +15,3 @@ vim.opt.foldexpr = "vimtex#fold#level(v:lnum)"
 
 -- Set spelling by default
 vim.bo.spelllang="en_gb"
-
--- Keymaps
--- {{{
-
--- nnoremap <Leader>ll :Latexmk<CR>
--- nnoremap <Leader>lv :LatexView<CR>
--- nnoremap <Leader>lf :LatexFold<CR>
--- nnoremap <Leader>lt :LatexTOC<CR>
-
-keymap('n', '<leader>cf', ':Autoformat<CR>', { noremap=true })
-
--- }}}
