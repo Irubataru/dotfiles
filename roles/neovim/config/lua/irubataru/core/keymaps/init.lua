@@ -294,6 +294,7 @@ wk.register({ -- Normal mode leader keymaps
   l = {
     name = "+build-run",
     l = { "<cmd>OverseerRun<cr>", "Run a task" },
+    r = { "<cmd>LspRestart<cr>", "Restart the LSP" },
     v = { "<cmd>OverseerToggle<cr>", "Toggle task status view" },
   },
   p = {

@@ -28,7 +28,8 @@ function M.setup(options)
       null_ls.builtins.formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua/stylua.toml") },
       }),
-      null_ls.builtins.formatting.autopep8,
+      null_ls.builtins.formatting.black,
+      -- null_ls.builtins.formatting.yapf,
     },
     on_attach = options.on_attach,
   })
