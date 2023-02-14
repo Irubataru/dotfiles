@@ -9,6 +9,7 @@ M.config = function()
   vim.g["mkdx#settings"] = {
     highlight = { enable = 1 },
     enter = { shift = 1 },
+    tab = { enable = 0 },
     map = { enable = 0 },
     links = { external = { enable = 1 } },
     toc = {
