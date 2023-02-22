@@ -29,6 +29,7 @@ function M.setup(options)
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua/stylua.toml") },
       }),
       null_ls.builtins.formatting.black,
+      null_ls.builtins.formatting.isort,
       -- null_ls.builtins.formatting.yapf,
     },
     on_attach = options.on_attach,
