@@ -1,2 +1,5 @@
 alias venv-create="python -m venv .venv"
 alias venv-activate="source .venv/bin/activate"
+alias venv-create-global="source _venv_global_create.bash"
+alias venv-activatge-global="source _venv_global_activate.bash"
+alias venv="source _venv.bash"
