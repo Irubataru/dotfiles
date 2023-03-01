@@ -86,6 +86,8 @@ nmap gi <Action>(GotoImplementation)
 nmap gr <Action>(SolutionExplorerPopupMenuForReference)
 nmap gu <Action>(ShowUsages)
 nmap gU <Action>(FindUsages)
+nmap gr <Action>(ShowUsages)
+nmap gR <Action>(FindUsages)
 nmap gl <Action>(ShowErrorDescription)
 
 " Telescope
