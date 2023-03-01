@@ -16,6 +16,14 @@ global venvs. For more info see `venv-activate-global`.
 EOF
 }
 
+# If we are already in a venv, deactivate it
+if [[ -n "$VIRTUAL_ENV" ]]; then
+  if type "deactivate" > /dev/null; then
+    deactivate
+    return 0
+  fi
+fi
+
 git -C . rev-parse &> /dev/null
 
 if [[ $? == 0 ]]; then

@@ -24,6 +24,7 @@ venv_path="${VENV_GLOBAL_PATH:-$HOME/.local/share/venv}"
 
 if [[ -d "${venv_path}/$1" ]]; then
   printf "Environment already exists\n";
+  unset venv_path
   return 1
 fi
 
@@ -33,3 +34,4 @@ fi
 
 python -m venv "${venv_path}/$1"
 source "${venv_path}/$1/bin/activate"
+unset venv_path

@@ -9,7 +9,9 @@ venv=$( \
 
 # No venv selected
 if [[ -z "${venv}" ]]; then
+  unset venv_path venv
   return 1
 fi
 
 source "${venv_path}/${venv}/bin/activate"
+unset venv_path venv
