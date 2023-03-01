@@ -157,7 +157,8 @@ wk_operators["gx"] = "Replace with register"
 
 -- }}}
 
-wk.register({ -- Normal mode keymaps
+wk.register({
+  -- Normal mode keymaps
   g = {
     s = { "<cmd>AerialToggle<cr>", "Symbols (aerial)" },
   },
@@ -165,7 +166,8 @@ wk.register({ -- Normal mode keymaps
   ["<C-y>"] = { ":Limelight!!<CR>", "Toggle limelight mode" },
 }, opts)
 
-wk.register({ -- Normal mode leader keymaps
+wk.register({
+  -- Normal mode leader keymaps
   c = {
     name = "+toggle",
     b = {
@@ -242,6 +244,7 @@ wk.register({ -- Normal mode leader keymaps
       end,
       "Find references",
     },
+    t = { "<cmd>TodoTelescope<cr>", "Find TODO items" },
     v = {
       function()
         require("irubataru.modules.telescope.search_dotfiles").search_dotfiles()
@@ -374,6 +377,7 @@ wk.register({ -- Normal mode leader keymaps
     d = { "<cmd>Trouble document_diagnostics<cr>", "Document diagnostics" },
     l = { "<cmd>Trouble loclist<cr>", "Location list" },
     q = { "<cmd>Trouble quickfix<cr>", "To quickfix list" },
+    t = { "<cmd>Trouble todo<cr>", "TODO items" },
     w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace diagnostics" },
     x = { "<cmd>TroubleToggle<cr>", "Open diagnostics" },
   },
@@ -385,14 +389,18 @@ wk.register({ -- Normal mode leader keymaps
   },
 }, leader_opts)
 
-wk.register({ -- Visual mode keymaps
-  S = { function()
+wk.register({
+  -- Visual mode keymaps
+  S = {
+    function()
       require("nvim-surround").visual_surround()
-    end, "Visdual surround"
-  }
+    end,
+    "Visdual surround",
+  },
 }, vopts)
 
-wk.register({ -- Visual mode leader keymaps
+wk.register({
+  -- Visual mode leader keymaps
   d = {
     name = "+diff",
     a = { ":Linediff<CR>", "Linediff add" },

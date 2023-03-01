@@ -20,6 +20,8 @@ else
 endif
 ]])
 
+opt.textwidth = 80
+
 --- Tabs are defined as 2 spaces
 ---{{{
 
@@ -77,7 +79,6 @@ vim.defer_fn(function()
   opt.linebreak = true -- break lines when wrapping text
   opt.list = false
   opt.cinoptions = "N-s" -- namespaces doesn't count towards indentation
-  opt.textwidth = 80
   opt.wrapmargin = 0
 
   opt.formatoptions:append("l")

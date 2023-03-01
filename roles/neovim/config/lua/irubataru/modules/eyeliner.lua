@@ -7,7 +7,7 @@ local M = {
 
 M.config = function()
   require("eyeliner").setup({
-    highlight_on_key = true,
+    -- highlight_on_key = true, -- Currently broken
     dim = true,
   })
 end

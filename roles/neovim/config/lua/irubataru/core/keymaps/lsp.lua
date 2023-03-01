@@ -5,7 +5,8 @@ local M = {}
 M.setup = function(bufnr)
   local wk = require("which-key")
 
-  wk.register({ -- Normal mode keymaps
+  wk.register({
+    -- Normal mode keymaps
     g = {
       name = "+goto",
       d = {
@@ -14,7 +15,13 @@ M.setup = function(bufnr)
         end,
         "Definitions",
       },
-      D = { "<cmd>Trouble lsp_definitions<cr>", "Trouble definition" },
+      -- D = { "<cmd>Trouble lsp_definitions<cr>", "Trouble definition" },
+      D = {
+        function()
+          require("goto-preview").goto_preview_definition({})
+        end,
+        "Preview definition",
+      },
       i = {
         function()
           vim.lsp.buf.implementation()
@@ -62,7 +69,8 @@ M.setup = function(bufnr)
     },
   }, { silent = true, noremap = true, buffer = bufnr })
 
-  wk.register({ -- Normal mode leader keymaps
+  wk.register({
+    -- Normal mode leader keymaps
     c = {
       f = {
         function()
@@ -93,7 +101,8 @@ M.setup = function(bufnr)
     buffer = bufnr,
   })
 
-  wk.register({ -- Insert mode keymaps
+  wk.register({
+    -- Insert mode keymaps
     ["<c-s>"] = {
       function()
         vim.lsp.buf.signature_help()
@@ -107,7 +116,8 @@ M.setup = function(bufnr)
     buffer = bufnr,
   })
 
-  wk.register({ -- Visual mode keymaps
+  wk.register({
+    -- Visual mode keymaps
     c = {
       f = {
         function()
