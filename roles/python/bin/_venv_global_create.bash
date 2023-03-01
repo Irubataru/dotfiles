@@ -27,5 +27,9 @@ if [[ -d "${venv_path}/$1" ]]; then
   return 1
 fi
 
+if [[ -d "${venv_path}" ]]; then
+  mkdir -p "${venv_path}"
+fi
+
 python -m venv "${venv_path}/$1"
 source "${venv_path}/$1/bin/activate"
