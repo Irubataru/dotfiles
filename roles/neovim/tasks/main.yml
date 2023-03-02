@@ -29,10 +29,3 @@
     extra_args: --user
     state: latest
   ignore_errors: true
-
-- name: Install neovim ruby dependencies
-  gem:
-    name: neovim
-    user_install: true
-    state: latest
-  ignore_errors: true

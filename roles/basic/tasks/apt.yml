@@ -4,8 +4,6 @@
       - clang
       - python3
       - python3-pip
-      - ruby
-      - ruby-dev
     state: present
   become: true
   when: package_manager == "apt"

@@ -4,8 +4,6 @@
       - clang
       - python
       - python-pip
-      - ruby
-      - rubygems
       - unzip
       - fontconfig
       - fakeroot

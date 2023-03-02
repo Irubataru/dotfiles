@@ -19,7 +19,6 @@
       - go
       - npm
       - python
-      - ruby
       - rust
 
       # Applications

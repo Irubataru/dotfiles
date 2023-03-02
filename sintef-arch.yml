@@ -19,7 +19,6 @@
       - lua
       - go
       - python
-      - ruby
       - rust
 
       # Applications
