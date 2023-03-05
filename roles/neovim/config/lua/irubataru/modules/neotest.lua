@@ -7,7 +7,6 @@ local M = {
 M.dependencies = {
   { "nvim-lua/plenary.nvim" },
   { "nvim-treesitter/nvim-treesitter" },
-  { "antoinemadec/FixCursorHold.nvim" },
 
   -- Adapters
   { "nvim-neotest/neotest-python" },
@@ -24,6 +23,9 @@ M.config = function()
         ignored_filetypes = { "python" },
       }),
       require("neotest-python"),
+    },
+    quickfix = {
+      open = false,
     },
     icons = {
       child_indent = "│",

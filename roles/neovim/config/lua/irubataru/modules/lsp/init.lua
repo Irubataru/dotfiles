@@ -33,6 +33,7 @@ M.config = function()
 
   local servers = {
     -- ansiblels = {},
+    bashls = {},
     ccls = {},
     -- clangd = {},
     clojure_lsp = {},

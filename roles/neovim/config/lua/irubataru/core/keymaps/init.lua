@@ -294,10 +294,10 @@ wk.register({
       e = { "<cmd>IconPickerYank emoji<cr>", "Yank emoji" },
     },
   },
-  l = {
-    name = "+build-run",
-    l = { "<cmd>OverseerRun<cr>", "Run a task" },
-    r = { "<cmd>LspRestart<cr>", "Restart the LSP" },
+  r = {
+    name = "+run",
+    r = { "<cmd>OverseerRun<cr>", "Run a task" },
+    R = { "<cmd>LspRestart<cr>", "Restart the LSP" },
     v = { "<cmd>OverseerToggle<cr>", "Toggle task status view" },
   },
   p = {
@@ -340,6 +340,27 @@ wk.register({
     },
   },
   t = {
+    name = "+test",
+    h = {
+      function()
+        require("neotest").output.open()
+      end,
+      "Open test output under cursor",
+    },
+    t = {
+      function()
+        require("neotest").run.run()
+      end,
+      "Run test under cursor",
+    },
+    s = {
+      function()
+        require("neotest").summary.toggle()
+      end,
+      "Toggle test summary",
+    },
+  },
+  T = {
     name = "Terminal",
     n = {
       function()

@@ -79,7 +79,7 @@ M.setup = function(bufnr)
         "Format file",
       },
     },
-    r = {
+    R = {
       name = "+refactor",
       a = {
         function()
