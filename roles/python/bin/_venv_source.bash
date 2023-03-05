@@ -23,4 +23,6 @@ if [[ "${activate}" == "deactivate" ]]; then
   return 0
 fi
 
-source "${activate}"
+if [[ "${activate}" != "" ]]; then
+  source "${activate}"
+fi
