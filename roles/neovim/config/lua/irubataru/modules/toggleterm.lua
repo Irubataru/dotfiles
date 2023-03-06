@@ -44,28 +44,55 @@ M.config = function()
   })
 end
 
+local files = {
+  python = "python",
+  javascript = "node",
+}
+
+-- Toggle a terminal with the correct REPL for the current filetype
+M.toggle_filetype = function()
+  vim.cmd.w()
+  local command = files[vim.bo.filetype]
+
+  if command ~= nil then
+    require("toggleterm.terminal").Terminal
+      :new({
+        cmd = command,
+        close_on_exit = false,
+        direction = "float",
+      })
+      :toggle()
+  end
+end
+
 M.lazy_git_toggle = function()
-  require("toggleterm.terminal").Terminal:new({
-    cmd = "lazygit",
-    close_on_exit = true,
-    direction = "float",
-  })
+  require("toggleterm.terminal").Terminal
+    :new({
+      cmd = "lazygit",
+      close_on_exit = true,
+      direction = "float",
+    })
+    :toggle()
 end
 
 M.node_toggle = function()
-  require("toggleterm.terminal").Terminal:new({
-    cmd = "node",
-    close_on_exit = false,
-    direction = "float",
-  })
+  require("toggleterm.terminal").Terminal
+    :new({
+      cmd = "node",
+      close_on_exit = false,
+      direction = "float",
+    })
+    :toggle()
 end
 
 M.python_toggle = function()
-  require("toggleterm.terminal").Terminal:new({
-    cmd = "python",
-    close_on_exit = false,
-    direction = "float",
-  })
+  require("toggleterm.terminal").Terminal
+    :new({
+      cmd = "python",
+      close_on_exit = false,
+      direction = "float",
+    })
+    :toggle()
 end
 
 return M

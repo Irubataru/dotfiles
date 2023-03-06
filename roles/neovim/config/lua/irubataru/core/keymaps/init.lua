@@ -164,6 +164,22 @@ wk.register({
   },
   ["<C-g>"] = { "<cmd>TZAtaraxis<cr>", "Toggle zen mode (Toggle Zen Atraxis)" },
   ["<C-y>"] = { ":Limelight!!<CR>", "Toggle limelight mode" },
+  ["<F7>"] = {
+    function() require('dap').step_into() end,
+    "Debug step into"
+  },
+  ["<F8>"] = {
+    function() require('dap').step_over() end,
+    "Debug step over"
+  },
+  ["<S-F8>"] = {
+    function() require('dap').step_out() end,
+    "Debug step out"
+  },
+  ["<F9>"] = {
+    function() require('dap').continue() end,
+    "Debug continue"
+  },
 }, opts)
 
 wk.register({
@@ -181,8 +197,35 @@ wk.register({
     s = { "<cmd>TSJSplit<cr>", "Split content" },
   },
   d = {
-    name = "+diff",
-    r = { ":LinediffReset<cr>", "Linediff reset" },
+    name = "+debug",
+    c = {
+      function() require('dap').continue() end,
+      "Continue"
+    },
+    d = {
+      function() require('dap').toggle_breakpoint() end,
+      "Toggle breakpoint"
+    },
+    D = {
+      function() require('dap').set_breakpoint() end,
+      "Toggle breakpoint"
+    },
+    i = {
+      function() require('dap').step_into() end,
+      "Step into"
+    },
+    o = {
+      function() require('dap').step_over() end,
+      "Step over"
+    },
+    O = {
+      function() require('dap').step_out() end,
+      "Step out"
+    },
+    u = {
+      function() require('dapui').toggle() end,
+      "Toggle UI"
+    },
   },
   f = {
     name = "+find",
@@ -341,6 +384,12 @@ wk.register({
   },
   t = {
     name = "+test",
+    d = {
+      function()
+        require("neotest").run.run({strategy = "dap"})
+      end,
+      "Debug test under cursor",
+    },
     h = {
       function()
         require("neotest").output.open()
@@ -379,6 +428,12 @@ wk.register({
         require("irubataru.modules.toggleterm").python_toggle()
       end,
       "Python",
+    },
+    t = {
+      function()
+        require("irubataru.modules.toggleterm").toggle_filetype()
+      end,
+      "Filetype",
     },
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },

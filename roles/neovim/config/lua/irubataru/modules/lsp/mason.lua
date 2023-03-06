@@ -5,6 +5,7 @@ local M = {
   cmd = {"Mason"}
 }
 
+-- TODO: Automatically install the providers I use
 M.config = function()
   require("mason").setup({
     ui = {

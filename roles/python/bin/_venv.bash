@@ -61,7 +61,6 @@ function _delete_local_venv() {
   return 0
 }
 
-
 # Handle the case where the --local flag has been set, i.e. specifically work
 # with local venvs only
 function _handle_local_venv() {
