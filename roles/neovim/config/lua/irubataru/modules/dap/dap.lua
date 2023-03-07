@@ -2,79 +2,40 @@
 
 local M = {
   "mfussenegger/nvim-dap",
+  dependencies = {
+    "mfussenegger/nvim-dap-python",
+  },
 }
 
 M.config = function()
+  require("dap.ext.vscode").load_launchjs()
+
+  -- TODO: Loop over languages in languages directory
+  require("irubataru.modules.languages.cpp.dap").setup()
+  require("irubataru.modules.languages.python.dap").setup()
+  require("irubataru.modules.languages.rust.dap").setup()
+
+  -- Load any .vscode/launch.json file with extra configs
+
+  -- table.insert(require("dap").configurations.python, {
+  --   type = "python",
+  --   request = "launch",
+  --   name = "Kongsberg use-case",
+  --   module = "kongsberg",
+  -- })
+
   local dap = require("dap")
+  dap.listeners.after.event_initialized["dap_keybinds"] = function()
+    require("irubataru.core.keymaps.dap").bind()
+  end
+  dap.listeners.before.event_terminated["dap_keybinds"] = function()
+    require("irubataru.core.keymaps.dap").unbind()
+  end
+  dap.listeners.before.event_exited["dap_keybinds"] = function()
+    require("irubataru.core.keymaps.dap").unbind()
+  end
 
-  local mason_path = vim.fn.stdpath("data") .. "/mason"
-
-  dap.adapters.cppdbg = {
-    id = "cppdbg",
-    type = "executable",
-    command = mason_path .. "/bin/OpenDebugAD7",
-    options = {
-      detached = false,
-    },
-  }
-
-  dap.adapters.python = {
-    type = "executable",
-    command = os.getenv("HOME") .. "/.local/share/venv/debugpy/bin/python",
-    args = { "-m", "debugpy.adapter" },
-  }
-
-  dap.configurations.cpp = {
-    {
-      name = "Launch file",
-      type = "cppdbg",
-      request = "launch",
-      program = function()
-        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-      end,
-      cwd = "${workspaceFolder}",
-      stopAtEntry = true,
-    },
-    {
-      name = "Attach to gdbserver :1234",
-      type = "cppdbg",
-      request = "launch",
-      MIMode = "gdb",
-      miDebuggerServerAddress = "localhost:1234",
-      miDebuggerPath = "/usr/bin/gdb",
-      cwd = "${workspaceFolder}",
-      program = function()
-        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-      end,
-    },
-  }
-
-  dap.configurations.c = dap.configurations.cpp
-  dap.configurations.rust = dap.configurations.cpp
-  dap.configurations.python = {
-    {
-      -- The first three options are required by nvim-dap
-      type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
-      request = "launch",
-      name = "Launch file",
-      -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-      program = "${file}", -- This configuration will launch the current file if used.
-      pythonPath = function()
-        -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-        -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-        -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-        local cwd = vim.fn.getcwd()
-        if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-          return cwd .. "/venv/bin/python"
-        elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-          return cwd .. "/.venv/bin/python"
-        else
-          return "/usr/bin/python"
-        end
-      end,
-    },
-  }
+  require("dapui")
 end
 
 return M

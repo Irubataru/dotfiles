@@ -206,6 +206,10 @@ wk.register({
       function() require('dap').toggle_breakpoint() end,
       "Toggle breakpoint"
     },
+    e = {
+      function() require("dapui").eval() end,
+      "Evaluate under cursor"
+    },
     D = {
       function() require('dap').set_breakpoint() end,
       "Toggle breakpoint"
