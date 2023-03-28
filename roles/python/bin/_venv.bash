@@ -17,8 +17,15 @@ function _already_venv() {
 # Find a local venv if any. Returns 0 if there is no local venv, 1 otherwise.
 # It also echos the location of the venv, or where a venv could be created.
 function _find_local_venv() {
+
+  if [[ -d "${PWD}/.venv" ]]; then
+    echo "${PWD}"
+    return 1
+  fi
+
   git -C . rev-parse &> /dev/null
 
+  # TODO: Check every parent dir until git root before git root
   if [[ $? == 0 ]]; then
     root_dir=$(git rev-parse --show-toplevel)
 
@@ -26,14 +33,6 @@ function _find_local_venv() {
       echo "${root_dir}"
       return 1
     fi
-
-    echo "${root_dir}"
-    return 0
-  fi
-
-  if [[ -d "${PWD}/.venv" ]]; then
-    echo "${PWD}"
-    return 1
   fi
 
   echo "${PWD}"
@@ -360,7 +359,7 @@ if [[ ${delete_venv} == 1 ]]; then
 
 fi
 
-# Activare or create a venv
+# Activate or create a venv
 if [[ ${venv_local} == 1 ]]; then
   return_string=$(_handle_local_venv $new_venv "${venv_name[@]}${new_venv_name[0]}")
   return_value=$?
