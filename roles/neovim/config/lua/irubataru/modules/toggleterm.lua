@@ -30,6 +30,20 @@ M.config = function()
     },
   })
 
+  -- Setup some predefined terminals
+  M.terminals = {
+    python = require("toggleterm.terminal").Terminal:new({
+      cmd = "python",
+      close_on_exit = false,
+      direction = "float",
+    }),
+    node = require("toggleterm.terminal").Terminal:new({
+      cmd = "node",
+      close_on_exit = false,
+      direction = "float",
+    }),
+  }
+
   vim.api.nvim_create_autocmd({ "TermOpen" }, {
     pattern = "term://*",
     callback = function()
@@ -76,23 +90,13 @@ M.lazy_git_toggle = function()
 end
 
 M.node_toggle = function()
-  require("toggleterm.terminal").Terminal
-    :new({
-      cmd = "node",
-      close_on_exit = false,
-      direction = "float",
-    })
-    :toggle()
+  require("lazy").load({ plugins = { "toggleterm.nvim" } })
+  M.terminals.node:toggle()
 end
 
 M.python_toggle = function()
-  require("toggleterm.terminal").Terminal
-    :new({
-      cmd = "python",
-      close_on_exit = false,
-      direction = "float",
-    })
-    :toggle()
+  require("lazy").load({ plugins = { "toggleterm.nvim" } })
+  M.terminals.python:toggle()
 end
 
 return M

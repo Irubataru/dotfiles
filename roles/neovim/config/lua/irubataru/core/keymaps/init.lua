@@ -180,6 +180,9 @@ wk.register({
     function() require('dap').continue() end,
     "Debug continue"
   },
+  ["<F-11>"] = {
+    "<cmd>NeoZoomToggle<cr>", "Toggle zoom" ,
+  }
 }, opts)
 
 wk.register({
@@ -229,6 +232,10 @@ wk.register({
     u = {
       function() require('dapui').toggle() end,
       "Toggle UI"
+    },
+    x = {
+      function() require('dap').terminate() end,
+      "Terminate"
     },
   },
   f = {

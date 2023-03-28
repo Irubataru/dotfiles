@@ -28,9 +28,9 @@ M.config = function()
           height = 0.65,
         },
         callbacks = {
-          function()
-            vim.wo.wrap = true
-          end,
+          -- function()
+          --   vim.wo.wrap = true
+          -- end,
         },
       },
     },

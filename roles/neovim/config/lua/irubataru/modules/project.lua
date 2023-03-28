@@ -28,7 +28,9 @@ M.config = function()
     detection_methods = { "pattern" },
 
     ---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
-    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+    -- In cases where I have nested projects I want the "package" to be the root and not the git
+    -- directory, that is why I have package-manager files first.
+    patterns = { "setup.py", "package.json", "Makefile", ".git", "_darcs", ".hg", ".bzr", ".svn" },
 
     ---@ Show hidden files in telescope when searching for files in a project
     show_hidden = false,
