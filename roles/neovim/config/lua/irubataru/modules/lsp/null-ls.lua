@@ -28,7 +28,9 @@ function M.setup(options)
       null_ls.builtins.formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua/stylua.toml") },
       }),
-      null_ls.builtins.formatting.black,
+      null_ls.builtins.formatting.black.with({
+        command = vim.fn.expand("~/.local/bin/black")
+      }),
       null_ls.builtins.formatting.isort,
       -- null_ls.builtins.formatting.yapf,
     },

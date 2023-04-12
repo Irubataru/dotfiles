@@ -376,15 +376,15 @@ wk.register({
     },
     s = {
       function()
-        require("lazy").sync()
-      end,
-      "Sync",
-    },
-    S = {
-      function()
         require("lazy").home()
       end,
       "Status",
+    },
+    S = {
+      function()
+        require("lazy").sync()
+      end,
+      "Sync",
     },
     u = {
       function()
