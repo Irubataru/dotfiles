@@ -13,13 +13,6 @@
     src: "Xresources.j2"
     dest: "~/.Xresources"
 
-- name: Link mimeapps list
-  file:
-    src: "{{ role_path }}/mimeapps.list"
-    dest: ~/.config/mimeapps.list
-    state: link
-  ignore_errors: true
-
 - name: Make handlr config directory
   file:
     path: "{{ home_directory }}/.config/handlr"

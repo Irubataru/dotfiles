@@ -1,2 +1,11 @@
+# vi: set ft=yaml.ansible :
+
 - import_tasks: pacman.yml
   when: package_manager == "pacman"
+
+- name: Link mimeapps list
+  ansible.builtin.file:
+    src: "{{ role_path }}/mimeapps.list"
+    dest: ~/.config/mimeapps.list
+    state: link
+  ignore_errors: true
