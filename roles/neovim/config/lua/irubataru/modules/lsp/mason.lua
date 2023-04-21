@@ -2,15 +2,28 @@
 
 local M = {
   "williamboman/mason.nvim",
-  cmd = {"Mason"}
+  dependencies = {
+    "williamboman/mason-lspconfig.nvim",
+  },
+  cmd = { "Mason" },
 }
 
--- TODO: Automatically install the providers I use
 M.config = function()
   require("mason").setup({
     ui = {
       border = "rounded",
     },
+  })
+
+  local server_configs = require("irubataru.modules.lsp.servers")
+
+  local servers = {}
+  for server, _ in pairs(server_configs) do
+    table.insert(servers, server)
+  end
+
+  require("mason-lspconfig").setup({
+    ensure_installed = servers,
   })
 end
 
