@@ -16,10 +16,13 @@ M.config = function()
   })
 
   local server_configs = require("irubataru.modules.lsp.servers")
+  local available_configs = require("mason-lspconfig.mappings.server").lspconfig_to_package
 
   local servers = {}
   for server, _ in pairs(server_configs) do
-    table.insert(servers, server)
+    if available_configs[server] ~= nil then
+      table.insert(servers, server)
+    end
   end
 
   require("mason-lspconfig").setup({
