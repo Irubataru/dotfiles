@@ -22,6 +22,7 @@ M.config = function()
 
   require("luasnip.loaders.from_vscode").lazy_load()
 
+  luasnip.add_snippets("lua", require("irubataru.modules.completion.snippets.lua"))
   luasnip.add_snippets("ansible", require("irubataru.modules.completion.snippets.ansible"))
   luasnip.add_snippets("yaml", require("irubataru.modules.completion.snippets.rust"))
   luasnip.add_snippets("rust", require("irubataru.modules.completion.snippets.yaml"))

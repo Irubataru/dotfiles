@@ -97,4 +97,10 @@ return {
     event = "VeryLazy",
     priority = 10,
   },
+  --- 🌌  Aylin a modern and minimal VIM dark theme with bright colors.
+  {
+    "AhmedAbdulrahman/aylin.vim",
+    event = "VeryLazy",
+    priority = 10,
+  }
 }

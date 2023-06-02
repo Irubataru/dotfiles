@@ -16,15 +16,18 @@ M.config = function()
         callbacks = {
           open_pre = function()
             vim.cmd("Barbecue hide")
+            require("lualine").hide({})
           end,
           close_pos = function()
             vim.cmd("Barbecue show")
+            require("lualine").hide({unhide = true})
           end,
         },
       },
     },
     integrations = {
       lualine = true,
+      tmux = true,
     },
   })
 end
