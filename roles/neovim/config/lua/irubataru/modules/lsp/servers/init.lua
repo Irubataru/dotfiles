@@ -15,7 +15,6 @@ local M = {
   omnisharp = require("irubataru.modules.lsp.servers.omnisharp").config,
   pyright = {},
   -- r_language_server = {},
-  rust_analyzer = {},
   tailwindcss = require("irubataru.modules.lsp.servers.tailwindcss").config,
   texlab = {},
   tsserver = {},

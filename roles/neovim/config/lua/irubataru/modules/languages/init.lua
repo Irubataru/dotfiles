@@ -1,5 +1,6 @@
 return {
   require("irubataru.modules.languages.cpp"),
+  require("irubataru.modules.languages.rust"),
   require("irubataru.modules.languages.python"),
   require("irubataru.modules.languages.clojure"),
   require("irubataru.modules.languages.latex"),

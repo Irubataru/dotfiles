@@ -10,6 +10,7 @@ M.dependencies = {
 
   -- Adapters
   { "nvim-neotest/neotest-python" },
+  { "rouge8/neotest-rust" },
   {
     "nvim-neotest/neotest-vim-test",
     dependencies = { "vim-test/vim-test" },
@@ -20,9 +21,13 @@ M.config = function()
   require("neotest").setup({
     adapters = {
       require("neotest-vim-test")({
-        ignored_filetypes = { "python" },
+        ignored_filetypes = { "python", "rust" },
       }),
       require("neotest-python"),
+      require("neotest-rust"){
+        dap_adapter = "codelldb"
+
+      },
     },
     quickfix = {
       open = false,

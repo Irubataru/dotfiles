@@ -407,13 +407,19 @@ wk.register({
       end,
       "Open test output under cursor",
     },
+    H = {
+      function()
+        require("neotest").output_panel.toggle()
+      end,
+      "Open test output",
+    },
     t = {
       function()
         require("neotest").run.run()
       end,
       "Run test under cursor",
     },
-    s = {
+    T = {
       function()
         require("neotest").summary.toggle()
       end,

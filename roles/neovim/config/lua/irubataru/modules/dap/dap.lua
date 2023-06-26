@@ -10,19 +10,13 @@ local M = {
 M.config = function()
   require("dap.ext.vscode").load_launchjs()
 
+  -- Set up adapters
+  require("irubataru.modules.dap.adapters").setup()
+
   -- TODO: Loop over languages in languages directory
   require("irubataru.modules.languages.cpp.dap").setup()
   require("irubataru.modules.languages.python.dap").setup()
   require("irubataru.modules.languages.rust.dap").setup()
-
-  -- Load any .vscode/launch.json file with extra configs
-
-  -- table.insert(require("dap").configurations.python, {
-  --   type = "python",
-  --   request = "launch",
-  --   name = "Kongsberg use-case",
-  --   module = "kongsberg",
-  -- })
 
   local dap = require("dap")
   dap.listeners.after.event_initialized["dap_keybinds"] = function()

@@ -9,20 +9,13 @@ M.dependencies = {
   { "jose-elias-alvarez/null-ls.nvim" },
 
   require("irubataru.modules.lsp.mason"),
-
   {
     "folke/neodev.nvim",
     config = function()
       require("neodev").setup()
-      -- require("omega.modules.langs.lua")
     end,
   },
-  {
-    "simrat39/rust-tools.nvim",
-    config = function()
-      -- require("omega.modules.langs.rust")
-    end,
-  },
+  require("irubataru.modules.languages.rust.rust-tools"),
 }
 
 M.config = function()

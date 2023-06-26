@@ -2,19 +2,6 @@
 
 local M = {}
 
-local mason_path = vim.fn.stdpath("data") .. "/mason"
-
-M.adapters = {
-  cppdbg = {
-    id = "cppdbg",
-    type = "executable",
-    command = mason_path .. "/bin/OpenDebugAD7",
-    options = {
-      detached = false,
-    },
-  },
-}
-
 M.configurations = {
   {
     name = "Launch file",
@@ -42,7 +29,6 @@ M.configurations = {
 
 M.setup = function()
   local dap = require("dap")
-  dap.adapters.cppdbg = M.adapters.cppdbg
   dap.configurations.cpp = M.configurations
   dap.configurations.c = M.configurations
 end
