@@ -1,6 +1,6 @@
 local M = {
   "kylechui/nvim-surround",
-  keys = { "ys", "ds", "cs" },
+  event = "VeryLazy"
 }
 
 M.config = function()

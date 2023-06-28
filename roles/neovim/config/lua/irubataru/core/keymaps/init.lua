@@ -519,15 +519,15 @@ wk.register({
   },
 }, leader_opts)
 
-wk.register({
-  -- Visual mode keymaps
-  S = {
-    function()
-      require("nvim-surround").visual_surround()
-    end,
-    "Visdual surround",
-  },
-}, vopts)
+-- wk.register({
+--   -- Visual mode keymaps
+--   S = {
+--     function()
+--       require("nvim-surround").visual_surround({})
+--     end,
+--     "Visual surround",
+--   },
+-- }, vopts)
 
 wk.register({
   -- Visual mode leader keymaps
