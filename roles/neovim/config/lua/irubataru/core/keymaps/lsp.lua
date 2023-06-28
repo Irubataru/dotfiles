@@ -2,10 +2,8 @@
 
 local M = {}
 
-M.setup = function(bufnr)
-  local wk = require("which-key")
-
-  wk.register({
+M.keys = {
+  normal_mode = {
     -- Normal mode keymaps
     g = {
       name = "+goto",
@@ -67,9 +65,8 @@ M.setup = function(bufnr)
       end,
       "Code actions",
     },
-  }, { silent = true, noremap = true, buffer = bufnr })
-
-  wk.register({
+  },
+  normal_mode_leader = {
     -- Normal mode leader keymaps
     c = {
       f = {
@@ -94,14 +91,8 @@ M.setup = function(bufnr)
         "Rename",
       },
     },
-  }, {
-    prefix = "<leader>",
-    silent = true,
-    noremap = true,
-    buffer = bufnr,
-  })
-
-  wk.register({
+  },
+  insert_mode = {
     -- Insert mode keymaps
     ["<c-s>"] = {
       function()
@@ -109,14 +100,8 @@ M.setup = function(bufnr)
       end,
       "Show signature help",
     },
-  }, {
-    mode = "i",
-    silent = true,
-    noremap = true,
-    buffer = bufnr,
-  })
-
-  wk.register({
+  },
+  visual_mode = {
     -- Visual mode keymaps
     c = {
       f = {
@@ -126,13 +111,11 @@ M.setup = function(bufnr)
         "Format file",
       },
     },
-  }, {
-    mode = "v",
-    prefix = "<leader>",
-    silent = true,
-    noremap = true,
-    buffer = bufnr,
-  })
+  },
+}
+
+M.setup = function(bufnr)
+  require("irubataru.core.keymaps").register_buffer_keys(M.keys, bufnr)
 end
 
 return M

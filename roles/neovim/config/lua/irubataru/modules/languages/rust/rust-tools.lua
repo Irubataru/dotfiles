@@ -9,18 +9,22 @@ local M = {
   },
 }
 
-
 M.config = function()
   local rt = require("rust-tools")
   rt.setup({
     server = {
       on_attach = function(_, bufnr)
-        require("irubataru.core.keymaps.lsp").setup(bufnr)
+        require("irubataru.core.keymaps.rust-tools").setup(bufnr)
       end,
     },
     dap = {
-      adapter = require("irubataru.modules.dap.adapters").adapters.codelldb
-    }
+      adapter = require("irubataru.modules.dap.adapters").adapters.codelldb,
+    },
+    tools = {
+      hover_actions = {
+        auto_focus = true,
+      },
+    },
   })
 end
 

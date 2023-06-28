@@ -10,6 +10,16 @@ local leader_opts = { noremap = true, silent = true, prefix = "<Leader>" }
 local leader_vopts = { mode = "v", noremap = true, silent = true, prefix = "<Leader>" }
 local term_opts = { silent = true }
 
+local M = {}
+
+-- TODO: Cleanup this concept and standardize between modules
+M.register_buffer_keys = function(keys, bufnr)
+  wk.register(keys.normal_mode, { silent = true, noremap = true, buffer = bufnr })
+  wk.register(keys.normal_mode_leader, { prefix = "<leader>", silent = true, noremap = true, buffer = bufnr })
+  wk.register(keys.insert_mode, { mode = "i", silent = true, noremap = true, buffer = bufnr })
+  wk.register(keys.visual_mode, { mode = "v", prefix = "<leader>", silent = true, noremap = true, buffer = bufnr })
+end
+
 -- Navigation
 -- {{{
 
@@ -165,24 +175,33 @@ wk.register({
   ["<C-g>"] = { "<cmd>TZAtaraxis<cr>", "Toggle zen mode (Toggle Zen Atraxis)" },
   ["<C-y>"] = { ":Limelight!!<CR>", "Toggle limelight mode" },
   ["<F7>"] = {
-    function() require('dap').step_into() end,
-    "Debug step into"
+    function()
+      require("dap").step_into()
+    end,
+    "Debug step into",
   },
   ["<F8>"] = {
-    function() require('dap').step_over() end,
-    "Debug step over"
+    function()
+      require("dap").step_over()
+    end,
+    "Debug step over",
   },
   ["<S-F8>"] = {
-    function() require('dap').step_out() end,
-    "Debug step out"
+    function()
+      require("dap").step_out()
+    end,
+    "Debug step out",
   },
   ["<F9>"] = {
-    function() require('dap').continue() end,
-    "Debug continue"
+    function()
+      require("dap").continue()
+    end,
+    "Debug continue",
   },
   ["<F-11>"] = {
-    "<cmd>NeoZoomToggle<cr>", "Toggle zoom" ,
-  }
+    "<cmd>NeoZoomToggle<cr>",
+    "Toggle zoom",
+  },
 }, opts)
 
 wk.register({
@@ -202,40 +221,58 @@ wk.register({
   d = {
     name = "+debug",
     c = {
-      function() require('dap').continue() end,
-      "Continue"
+      function()
+        require("dap").continue()
+      end,
+      "Continue",
     },
     d = {
-      function() require('dap').toggle_breakpoint() end,
-      "Toggle breakpoint"
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      "Toggle breakpoint",
     },
     e = {
-      function() require("dapui").eval() end,
-      "Evaluate under cursor"
+      function()
+        require("dapui").eval()
+      end,
+      "Evaluate under cursor",
     },
     D = {
-      function() require('dap').set_breakpoint() end,
-      "Toggle breakpoint"
+      function()
+        require("dap").set_breakpoint()
+      end,
+      "Toggle breakpoint",
     },
     i = {
-      function() require('dap').step_into() end,
-      "Step into"
+      function()
+        require("dap").step_into()
+      end,
+      "Step into",
     },
     o = {
-      function() require('dap').step_over() end,
-      "Step over"
+      function()
+        require("dap").step_over()
+      end,
+      "Step over",
     },
     O = {
-      function() require('dap').step_out() end,
-      "Step out"
+      function()
+        require("dap").step_out()
+      end,
+      "Step out",
     },
     u = {
-      function() require('dapui').toggle() end,
-      "Toggle UI"
+      function()
+        require("dapui").toggle()
+      end,
+      "Toggle UI",
     },
     x = {
-      function() require('dap').terminate() end,
-      "Terminate"
+      function()
+        require("dap").terminate()
+      end,
+      "Terminate",
     },
   },
   f = {
@@ -397,7 +434,7 @@ wk.register({
     name = "+test",
     d = {
       function()
-        require("neotest").run.run({strategy = "dap"})
+        require("neotest").run.run({ strategy = "dap" })
       end,
       "Debug test under cursor",
     },
@@ -549,3 +586,5 @@ wk.register({
 keymap("t", "<Esc>", "<C-\\><C-n>", term_opts)
 
 -- }}}
+
+return M
