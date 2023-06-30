@@ -28,7 +28,13 @@ M.dependencies = {
     "petertriho/cmp-git",
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      require("cmp_git").setup()
+      require("cmp_git").setup({
+        gitlab = {
+          hosts = {
+            "gitlab.sintef.no",
+          },
+        },
+      })
     end,
   },
   -- vscode-like pictograms for neovim lsp completion items
@@ -53,6 +59,7 @@ M.config = function()
     { name = "nvim_lua" },
     { name = "path" },
     { name = "cmp_tabnine" },
+    { name = "git" },
   }
 
   local source_mapping = {
@@ -62,6 +69,7 @@ M.config = function()
     nvim_lua = "[Lua]",
     cmp_tabnine = "[TN]",
     path = "[Path]",
+    git = "[ ]",
   }
 
   cmp.setup({
