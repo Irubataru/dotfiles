@@ -4,7 +4,7 @@ _G.irubataru = {}
 
 require("irubataru.core.autocommands")
 require("irubataru.core.modules")
-require("irubataru.core.colours")
+require("irubataru.core.colours").setup()
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
