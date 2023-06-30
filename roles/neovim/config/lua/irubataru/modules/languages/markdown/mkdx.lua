@@ -2,6 +2,7 @@
 
 local M = {
   "SidOfc/mkdx",
+  enabled = false,
   ft = { "markdown" },
 }
 
@@ -13,6 +14,7 @@ M.config = function()
     map = { enable = 0 },
     links = { external = { enable = 1 } },
     toc = {
+      enable = 0,
       text = "Table of Contents",
       update_on_write = 0,
       details = { enable = 0 },
