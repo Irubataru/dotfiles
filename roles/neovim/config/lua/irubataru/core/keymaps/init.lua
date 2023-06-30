@@ -170,7 +170,14 @@ wk_operators["gx"] = "Replace with register"
 wk.register({
   -- Normal mode keymaps
   g = {
+    name = "+goto",
     s = { "<cmd>AerialToggle<cr>", "Symbols (aerial)" },
+    t = {
+      function()
+        require("neotest").summary.toggle()
+      end,
+      "Toggle test summary",
+    },
   },
   ["<C-g>"] = { "<cmd>TZAtaraxis<cr>", "Toggle zen mode (Toggle Zen Atraxis)" },
   ["<C-y>"] = { ":Limelight!!<CR>", "Toggle limelight mode" },
@@ -455,12 +462,6 @@ wk.register({
         require("neotest").run.run()
       end,
       "Run test under cursor",
-    },
-    T = {
-      function()
-        require("neotest").summary.toggle()
-      end,
-      "Toggle test summary",
     },
   },
   T = {
