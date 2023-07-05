@@ -16,6 +16,7 @@ M.config = function()
       on_attach = function(_, bufnr)
         require("irubataru.core.keymaps.rust-tools").setup(bufnr)
       end,
+      standalone = true,
     },
     dap = {
       adapter = require("irubataru.modules.dap.adapters").adapters.codelldb,

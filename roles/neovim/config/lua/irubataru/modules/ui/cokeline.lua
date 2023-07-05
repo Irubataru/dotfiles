@@ -1,7 +1,7 @@
 -- 👃 A neovim bufferline for people with addictive personalities
 
 local M = {
-  "noib3/cokeline.nvim",
+  "willothy/cokeline.nvim",
   event = "VeryLazy",
 }
 
@@ -122,7 +122,7 @@ M.config = function()
           and buffer.filetype ~= "alpha"
       end,
       -- filter_visible = function(buffer) return buffer.type ~= 'terminal' end,
-      new_buffers_position = "next",
+      new_buffers_position = "last",
     },
 
     mappings = {

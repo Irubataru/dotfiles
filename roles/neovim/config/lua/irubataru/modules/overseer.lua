@@ -2,11 +2,17 @@
 
 local M = {
   "stevearc/overseer.nvim",
-  cmd = { "OverseerRun", "OverseerToggle" }
+  cmd = { "OverseerRun", "OverseerToggle" },
 }
 
 M.config = function()
-  require("overseer").setup({})
+  require("overseer").setup({
+    templates = {
+      "builtin",
+      "user.rust.rust_build",
+      "user.rust.rust_run",
+    },
+  })
 end
 
 return M
