@@ -9,9 +9,9 @@ all:
       hosts:
         flutter.box:
           ansible_connection: local
-    arch_nuc:
+    nuc_arch:
       hosts:
-        arch.nuc:
+        nuc.arch:
           ansible_connection: local
     windows_wsl:
       hosts:

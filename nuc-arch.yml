@@ -1,48 +1,37 @@
 # vi: set ft=yaml.ansible :
 ---
 
-- hosts: arch_nuc
+- hosts: nuc_arch
   vars:
     modules:
       # Basics
       - system
       - basic
-      - keyboard
       - zsh
       - zoxide
       - fonts
 
       # Programming languages
       - clang
-      - dotnet
       - lua
-      - go
       - python
-      - ruby
       - rust
 
       # Applications
-      - X
       - alacritty
       - applications
-      - awesome
       - bitwarden
       - common
       - git
       - gpg
-      - latex
       - navi
       - neovim
       - npm
       - obsidian
-      - qutebrowser
-      - rider
-      - rofi
+      - ssh
       - tldr
       - tmux
       - utilities
-      - vifm
-      - zathura
   tasks:
     - include_role:
         name: "{{ item }}"
