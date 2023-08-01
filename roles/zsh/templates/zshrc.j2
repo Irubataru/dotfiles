@@ -24,10 +24,11 @@ unsetopt BEEP
 # Tab through options
 zstyle ':completion:*' menu select
 
-{% if zplug.use %}
-{% include "zplug.j2" %}
+# Initialize autocomplete
+autoload -Uz compinit colors
+compinit
+colors
 
-{% endif %}
 # Add paths in case the ones from /etc/profile.d weren't sourced
 source ~/.bash_userpaths.sh
 
@@ -60,11 +61,6 @@ for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/final.zsh}; do
   source $file
 done
 
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit colors
-compinit
-colors
-
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}; do
   source $file
@@ -89,6 +85,8 @@ if [[ -a ~/.localrc ]]; then
 fi
 
 {% if zplug.use %}
+{% include "zplug.j2" %}
+
 # Source plugins and add commands to $PATH
 zplug load
 

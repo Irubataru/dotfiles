@@ -3,6 +3,7 @@
 local M = {
   "RRethy/vim-illuminate",
   event = "CursorHold",
+  enabled = false,
 }
 
 M.config = function()

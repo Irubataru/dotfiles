@@ -14,7 +14,7 @@
 
       # Programming languages
       - clang
-      - dotnet
+      # - dotnet
       - lua
       - go
       - npm

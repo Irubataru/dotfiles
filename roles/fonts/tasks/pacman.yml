@@ -2,8 +2,8 @@
   kewlfft.aur.aur:
     name:
       - ttf-hack-nerd
-      - otf-nerd-fonts-fira-code
-      - nerd-fonts-jetbrains-mono
+      - ttf-fira-code
+      - ttf-jetbrains-mono
     state: present
   become: yes
   become_user: aur_builder

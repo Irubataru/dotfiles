@@ -13,7 +13,7 @@
 - name: Install X utilities (AUR)
   kewlfft.aur.aur:
     name:
-      - xidlehook-git
+      - xidlehook
       - handlr
       - xdg-utils-handlr
       - picom-git
