@@ -129,7 +129,10 @@ function _handle_global_venv() {
       venv_name=$( \
         find "${venv_path}" -mindepth 1 -maxdepth 1 -type d | \
         sed -e "s,${venv_path}/,," | \
-        fzf --preview="${venv_path}/{}/bin/pip list")
+        fzf \
+          --preview="${venv_path}/{}/bin/pip list" \
+          --bind "ctrl-u:execute-silent(python -m venv --upgrade ${venv_path}/{})" \
+        )
     fi
 
     if [[ "${venv_name}" == "" ]]; then
