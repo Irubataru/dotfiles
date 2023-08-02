@@ -14,6 +14,12 @@
 
 - name: Link alacritty config
   file:
+    src: "{{ role_path }}/alacritty.toml"
+    dest: "{{ alacritty_config_path }}/alacritty.toml"
+    state: link
+
+- name: Link alacritty config (legacy)
+  file:
     src: "{{ role_path }}/alacritty.yml"
     dest: "{{ alacritty_config_path }}/alacritty.yml"
     state: link
