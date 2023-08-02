@@ -1,4 +1,18 @@
+# vi: set ft=yaml.ansible :
+
 - name: Initialise the path template
   template: 
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+
+- name: Create pip config directory
+  ansible.builtin.file:
+    path: "{{ home_directory }}/.config/pip"
+    state: directory
+  when: pip_break_system_packages
+
+- name: Copy pip config
+  ansible.builtin.copy:
+    src: "{{ role_path}}/break_system_packages.conf"
+    dest: "{{ home_directory }}/.config/pip/pip.conf"
+  when: pip_break_system_packages
