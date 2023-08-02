@@ -44,6 +44,21 @@ return {
       }
     )
   ),
+  snippet({trig="copy", descr="Copy file"},
+    fmt(
+      [[
+        - name: Copy {}
+          ansible.builtin.copy:
+            src: "{{ role_path}}/{}"
+            dest: "{}"
+      ]],
+      {
+        i(1, "name"),
+        i(2, "file"),
+        i(3, "dest"),
+      }
+    )
+  ),
   snippet({trig="link", descr="Create a symbolic link"},
     fmt(
       [[

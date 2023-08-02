@@ -1,7 +1,7 @@
 -- 👃 A neovim bufferline for people with addictive personalities
 
 local M = {
-  "willothy/cokeline.nvim",
+  "willothy/nvim-cokeline",
   event = "VeryLazy",
 }
 

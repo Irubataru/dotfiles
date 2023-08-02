@@ -7,6 +7,8 @@
       - unzip
       - fontconfig
       - fakeroot
+      - make
+      - cmake
     state: present
   become: true
   when: package_manager == "pacman"
