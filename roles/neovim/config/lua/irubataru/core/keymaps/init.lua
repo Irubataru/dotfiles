@@ -153,6 +153,9 @@ keymap("i", "?", "?<c-g>u", opts)
 -- Unknown next greatest remap
 keymap("x", "<leader>p", '"_dP', opts)
 
+-- TODO: Figure out how to use unimpaired keymaps for myself
+-- keymap("n", "yoq", "<cmd>QFToggle!<cr>", opts)
+
 -- Register replace
 wk.register({
   gx = { "<Plug>ReplaceWithRegisterOperator", "Replace with register" },
@@ -223,6 +226,7 @@ wk.register({
     },
     c = { "<cmd>TSJToggle<cr>", "Toggle split/join" },
     j = { "<cmd>TSJJoin<cr>", "Join content" },
+    q = { "<cmd>QFToggle!<cr>", "Toggle quickfix list" },
     s = { "<cmd>TSJSplit<cr>", "Split content" },
   },
   d = {

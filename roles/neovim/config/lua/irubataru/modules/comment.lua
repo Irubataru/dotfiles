@@ -7,8 +7,8 @@ local M = {
     "gcc",
     "gcb",
     { "gc", mode = "v" },
-    { "gb", mode = "v" }
-  }
+    { "gb", mode = "v" },
+  },
 }
 
 M.config = function()
@@ -54,7 +54,7 @@ M.config = function()
     api.locked("uncomment.linewise")(vim.fn.visualmode())
   end, { desc = "Uncomment region linewise (visual)" })
 
-  -- TODO Add gcy
+  -- TODO: Add gcy
 end
 
 return M
