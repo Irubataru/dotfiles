@@ -10,7 +10,16 @@ return {
         {
           "dependencies",
           task_names = {
-            { cmd = "rustc", args = { file, "-o", outfile } },
+            {
+              cmd = "rustc",
+              args = { file, "-o", outfile },
+              components = {
+                { "on_output_quickfix", open_on_match = true },
+                "on_output_summarize",
+                "on_exit_set_status",
+                "on_complete_dispose",
+              },
+            },
           },
         },
         { "on_output_quickfix", open = true },
