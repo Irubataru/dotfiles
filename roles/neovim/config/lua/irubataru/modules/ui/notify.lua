@@ -2,6 +2,7 @@
 
 local M = {
   "rcarriga/nvim-notify",
+  enable = false
 }
 
 M.config = function()

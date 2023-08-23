@@ -14,11 +14,14 @@ return {
           },
         },
         { "on_output_quickfix", open = true },
-        "default",
+        "on_output_summarize",
+        "on_exit_set_status",
+        "on_complete_dispose",
       },
     }
   end,
   condition = {
     filetype = { "rust" },
+    callback = require("irubataru.modules.overseer.templates.rust.utilites").not_cargo_project,
   },
 }
