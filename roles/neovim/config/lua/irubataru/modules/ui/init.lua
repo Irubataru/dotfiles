@@ -13,7 +13,6 @@ return {
   require("irubataru.modules.ui.neozoom"),
   require("irubataru.modules.ui.notify"),
   require("irubataru.modules.ui.operator-flashy"),
-  require("irubataru.modules.ui.shade"),
   require("irubataru.modules.ui.stabilize"),
   require("irubataru.modules.ui.true-zen"),
   require("irubataru.modules.ui.winshift"),
