@@ -8,6 +8,8 @@ local M = {
 M.dependencies = {
   -- nvim-cmp source for neovim builtin LSP client
   { "hrsh7th/cmp-nvim-lsp" },
+  -- nvim-cmp source to display function signatures
+  { "hrsh7th/cmp-nvim-lsp-signature-help" },
   -- nvim-cmp source for nvim lua
   { "hrsh7th/cmp-nvim-lua" },
   -- nvim-cmp source for buffer words
@@ -18,6 +20,8 @@ M.dependencies = {
   { "hrsh7th/cmp-cmdline" },
   -- luasnip completion source for nvim-cmp
   { "saadparwaiz1/cmp_luasnip" },
+  -- nvim-cmp source for omnifunc
+  { "hrsh7th/cmp-omni" },
   -- TabNine plugin for hrsh7th/nvim-cmp
   {
     "tzachar/cmp-tabnine",
@@ -53,15 +57,6 @@ M.config = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
 
-  local sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "nvim_lua" },
-    { name = "path" },
-    { name = "cmp_tabnine" },
-    { name = "git" },
-  }
-
   local source_mapping = {
     luasnip = "[Snip]",
     buffer = "[Buffer]",
@@ -79,6 +74,17 @@ M.config = function()
         luasnip.lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
+
+    sources = cmp.config.sources({
+      { name = "nvim_lsp" },
+      { name = "nvim_lsp_signature_help" },
+      { name = "luasnip" },
+      { name = "path" },
+      { name = "cmp_tabnine" },
+      { name = "git" },
+    }, {
+      { name = "buffer", keyword_length = 4 },
+    }),
 
     mapping = {
       ["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -142,8 +148,6 @@ M.config = function()
       }),
     },
 
-    sources = cmp.config.sources(sources, { { name = "buffer", keyword_length = 4 } }),
-
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
@@ -151,6 +155,10 @@ M.config = function()
         vim_item.kind = lspkind.presets.default[vim_item.kind]
 
         local menu = source_mapping[entry.source.name]
+
+        if not menu then
+          menu = string.format("[%s]", entry.source.name)
+        end
 
         if entry.source.name == "cmp_tabnine" then
           if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
@@ -179,6 +187,32 @@ M.config = function()
     sources = {
       { name = "buffer" },
     },
+  })
+
+  -- Setup cmp for lua files
+  cmp.setup.filetype("lua", {
+    sources = cmp.config.sources({
+      { name = "nvim_lua" },
+      { name = "luasnip" },
+      { name = "nvim_lsp" },
+      { name = "nvim_lsp_signature_help" },
+      { name = "path" },
+    }, {
+      { name = "buffer", keyword_length = 4 },
+    }),
+  })
+
+  -- Setup cmp for latex files
+  cmp.setup.filetype("tex", {
+    sources = cmp.config.sources({
+      { name = "omni" },
+      { name = "luasnip" },
+      { name = "nvim_lsp" },
+      { name = "nvim_lsp_signature_help" },
+      { name = "path" },
+    }, {
+      { name = "buffer", keyword_length = 4 },
+    }),
   })
 
   -- Setup cmp_get for gitconfig files

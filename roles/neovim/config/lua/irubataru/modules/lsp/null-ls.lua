@@ -32,6 +32,7 @@ function M.setup(options)
         command = vim.fn.expand("~/.local/bin/black")
       }),
       null_ls.builtins.formatting.isort,
+      null_ls.builtins.formatting.latexindent
       -- null_ls.builtins.formatting.yapf,
     },
     on_attach = options.on_attach,
