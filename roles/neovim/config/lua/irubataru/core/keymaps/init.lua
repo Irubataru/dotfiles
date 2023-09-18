@@ -368,7 +368,7 @@ wk.register({
       end,
       "Blame",
     },
-    c = { ":Gcommit<CR>", "git commit" },
+    c = { "<cmd>Gcommit<CR>", "git commit" },
     j = {
       function()
         require("gitsigns").next_hunk()
@@ -381,10 +381,11 @@ wk.register({
       end,
       "Prev hunk",
     },
-    d = { ":Gdiffsplit<CR>", "git diff" },
-    g = { ":aboveleft 16split|0Git<CR>", "git status" },
-    h = { ":DiffviewFileHistory<CR>", "git file history" },
-    l = { ":DiffviewOpen<CR>", "git diff log" },
+    d = { "<cmd>Gdiffsplit<CR>", "git diff" },
+    g = { "<cmd>aboveleft 16split|0Git<CR>", "git status" },
+    h = { "<cmd>DiffviewFileHistory<CR>", "git file history" },
+    l = { "<cmd>DiffviewOpen<CR>", "git diff log" },
+    r = { "<cmd>0Gllog<cr>", "git show file revisions in quickfix list"},
   },
   i = {
     name = "+insert",

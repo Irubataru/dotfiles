@@ -5,6 +5,8 @@ local M = {
   cmd = {
     "G",
     "Git",
+    "Gllog",
+    "Gclog",
     "Gedit",
     "Gsplit",
     "Gdiffsplit",
@@ -12,9 +14,11 @@ local M = {
     "Gread",
     "Gwrite",
     "Ggrep",
+    "Glgrep",
     "GMove",
     "GDelete",
     "GBrowse",
+    "GRename",
   },
 }
 
