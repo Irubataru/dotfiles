@@ -13,7 +13,7 @@ set incsearch
 sethandler n:vim i:ide
 
 " Use the system clipboard by default
-set clipboard+=unnamed
+set clipboard^=unnamedplus
 
 " Use the IDE to do joins
 set ideajoin
