@@ -5,7 +5,7 @@ local M = {
   event = { "BufRead Cargo.toml" },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
   },
 }
 

@@ -68,14 +68,6 @@ M.keys = {
   },
   normal_mode_leader = {
     -- Normal mode leader keymaps
-    c = {
-      f = {
-        function()
-          vim.lsp.buf.format()
-        end,
-        "Format file",
-      },
-    },
     R = {
       name = "+refactor",
       a = {

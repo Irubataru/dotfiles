@@ -4,10 +4,6 @@ local M = {
 }
 
 M.dependencies = {
-  -- Use Neovim as a language server to inject LSP diagnostics, code actions,
-  -- and more via Lua.
-  { "jose-elias-alvarez/null-ls.nvim" },
-
   require("irubataru.modules.lsp.mason"),
   {
     "folke/neodev.nvim",
@@ -62,7 +58,6 @@ M.config = function()
   end
 
   require("irubataru.modules.lsp.diagnostics")
-  require("irubataru.modules.lsp.null-ls").setup(options)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",

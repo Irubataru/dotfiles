@@ -225,6 +225,10 @@ wk.register({
       "Toggle biscuits",
     },
     c = { "<cmd>TSJToggle<cr>", "Toggle split/join" },
+    f = {
+      function() require("conform").format({ async = true, lsp_fallback = true }) end,
+      "Format buffer",
+    },
     j = { "<cmd>TSJJoin<cr>", "Join content" },
     q = { "<cmd>QFToggle!<cr>", "Toggle quickfix list" },
     s = { "<cmd>TSJSplit<cr>", "Split content" },
@@ -385,7 +389,7 @@ wk.register({
     g = { "<cmd>aboveleft 16split|0Git<CR>", "git status" },
     h = { "<cmd>DiffviewFileHistory<CR>", "git file history" },
     l = { "<cmd>DiffviewOpen<CR>", "git diff log" },
-    r = { "<cmd>0Gllog<cr>", "git show file revisions in quickfix list"},
+    r = { "<cmd>0Gllog<cr>", "git show file revisions in quickfix list" },
   },
   i = {
     name = "+insert",
