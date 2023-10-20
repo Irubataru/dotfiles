@@ -10,6 +10,7 @@ M.dependencies = {
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
   },
+  {"danielfalk/smart-open.nvim"}
 }
 
 M.config = function()
@@ -52,6 +53,7 @@ M.config = function()
       ["ui-select"] = {
         themes.get_dropdown({}),
       },
+      smart_open = require("irubataru.modules.telescope.smart-open").fzf_options
     },
   })
 
