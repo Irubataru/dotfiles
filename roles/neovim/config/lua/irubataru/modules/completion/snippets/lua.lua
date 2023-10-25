@@ -15,8 +15,8 @@ return {
 
         local M = {
           "<>",
+          cmd = {},
           ft = {},
-          keys = {},
         }
 
         M.config = function()

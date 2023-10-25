@@ -9,11 +9,6 @@ local keymap = vim.keymap.set
 vim.wo.foldmethod = "syntax"
 -- }}}
 
--- Keymaps
--- {{{
-keymap('n', '<leader>cf', ':Autoformat<CR>', { noremap=true })
--- }}}
-
 -- Various javascript conceals
 -- {{{
 vim.g.javascript_conceal_function   = "ƒ"

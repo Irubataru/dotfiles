@@ -95,14 +95,6 @@ M.keys = {
   },
   visual_mode = {
     -- Visual mode keymaps
-    c = {
-      f = {
-        function()
-          vim.lsp.buf.range_formatting()
-        end,
-        "Format file",
-      },
-    },
   },
 }
 

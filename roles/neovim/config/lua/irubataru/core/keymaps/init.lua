@@ -226,7 +226,9 @@ wk.register({
     },
     c = { "<cmd>TSJToggle<cr>", "Toggle split/join" },
     f = {
-      function() require("conform").format({ async = true, lsp_fallback = true }) end,
+      function()
+        require("conform").format({ async = true, lsp_fallback = true })
+      end,
       "Format buffer",
     },
     j = { "<cmd>TSJJoin<cr>", "Join content" },

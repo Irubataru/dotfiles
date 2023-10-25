@@ -3,7 +3,6 @@
 local M = {
   "stevearc/conform.nvim",
   cmd = { "ConformInfo" },
-  keys = { "<leader>cf" },
 }
 
 M.config = function()
