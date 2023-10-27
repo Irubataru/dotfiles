@@ -2,7 +2,7 @@
 
 local M = {
   "stevearc/aerial.nvim",
-  cmd = { "AerialOpen", "AerialToggle" }
+  cmd = { "AerialOpen", "AerialToggle" },
 }
 
 M.config = function()
