@@ -1,0 +1,8 @@
+- import_tasks: pacman.yml
+  when: package_manager == "pacman"
+
+# - name: Link wezterm config
+#   file:
+#     src: "{{ role_path }}/alacritty.toml"
+#     dest: "{{ alacritty_config_path }}/alacritty.toml"
+#     state: link

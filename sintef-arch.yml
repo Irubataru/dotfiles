@@ -23,7 +23,6 @@
 
       # Applications
       - X
-      - alacritty
       - applications
       - awesome
       - bitwarden
@@ -47,6 +46,7 @@
       - tmux
       - utilities
       - vifm
+      - wezterm
       - zathura
   tasks:
     - include_role:

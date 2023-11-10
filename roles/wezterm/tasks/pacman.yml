@@ -1,0 +1,6 @@
+- name: Install wezterm (pacman)
+  kewlfft.aur.aur:
+    name: wezterm-git
+    state: present
+  become: yes
+  become_user: aur_builder
