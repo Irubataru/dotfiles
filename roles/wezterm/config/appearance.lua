@@ -15,6 +15,8 @@ M.apply = function(config)
     top = 6,
     bottom = 2,
   }
+
+  config.hide_tab_bar_if_only_one_tab = true
 end
 
 return M
