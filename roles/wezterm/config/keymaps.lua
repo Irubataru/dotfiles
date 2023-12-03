@@ -87,6 +87,12 @@ M.apply = function(config)
     })
   end
 
+  table.insert(config.keys, {
+    key = "0",
+    mods = "LEADER",
+    action = wezterm.action.ActivateTab(0),
+  })
+
   -- Mouse bindings
   config.mouse_bindings = {
     -- Clicking the scroll wheel while holding CTRL resets the font size
