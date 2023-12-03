@@ -1,9 +1,6 @@
 return {
-  -- Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
-  {
-    "Olical/conjure",
-    ft = { "clojure" },
-  },
+  require("irubataru.modules.languages.clojure.conjure"),
+  require("irubataru.modules.languages.clojure.vim-jack-in"),
 
   -- vim-sexp mappings for regular people
   {

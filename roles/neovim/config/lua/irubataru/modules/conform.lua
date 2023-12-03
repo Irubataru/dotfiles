@@ -8,6 +8,7 @@ local M = {
 M.config = function()
   require("conform").setup({
     formatters_by_ft = {
+      clojure = { "zprint", "cljstyle" },
       html = { "eslint_d", "prettierd" },
       javascript = { "eslint_d", "prettierd" },
       lua = { "stylua" },

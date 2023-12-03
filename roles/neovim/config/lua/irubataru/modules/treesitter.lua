@@ -44,6 +44,9 @@ M.dependencies = {
 M.config = function()
   local treesitter_config = require("nvim-treesitter.configs")
 
+
+  -- NOTE: I don't know why some of the languages do not exist even though they
+  -- are listed on the nvim-treesitter repo homepage
   treesitter_config.setup({
     ensure_installed = {
       "bash",
@@ -55,7 +58,7 @@ M.config = function()
       "commonlisp",
       "cpp",
       "css",
-      "csv",
+      -- "csv",
       "diff",
       "dockerfile",
       "fortran",
@@ -70,6 +73,7 @@ M.config = function()
       "javascript",
       "jq",
       "json",
+      "jsonc",
       "json5",
       "latex",
       "lua",
@@ -85,13 +89,13 @@ M.config = function()
       "rust",
       "scss",
       "sql",
-      "ssh_config",
+      -- "ssh_config",
       "toml",
       "typescript",
       "vim",
       "vimdoc",
       "vue",
-      "xml",
+      -- "xml",
       "yaml",
     },
     ignore_install = { "tex", "latex" }, -- list of parsers to ignore installing
