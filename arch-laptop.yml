@@ -15,6 +15,7 @@
 
       # Programming
       - clang
+      - clojure
       - ruby
       - lua
       - go

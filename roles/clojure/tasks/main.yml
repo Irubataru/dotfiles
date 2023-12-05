@@ -1,3 +1,5 @@
+# vi: set ft=yaml.ansible :
+
 - name: Installing clojure (apt)
   apt:
     name:
@@ -7,13 +9,31 @@
   become: true
   when: package_manager == "apt"
 
-- name: Create leiningen config directrory
-  file: 
-    path: "{{ clojure_lein_config_path }}"
+- name: Install clojure (pacman)
+  community.general.pacman:
+    name: clojure
+    state: present
+  become: true
+  when: package_manager == "pacman"
+
+- name: Create clojure config directory
+  ansible.builtin.file:
+    path: "{{ home_directory }}/.config/clojure"
     state: directory
 
-- name: Link leiningen config
-  file:
-    src: "{{ role_path }}/lein_profiles.clj"
-    dest: "{{ clojure_lein_config_path }}/profiles.clj"
+- name: Link clojure deps config
+  ansible.builtin.file:
+    src: "{ role_path}/deps.edn"
+    dest: "{{ home_directory }}/.config/clojure/deps.edn"
     state: link
+
+# - name: Create leiningen config directrory
+#   file: 
+#     path: "{{ clojure_lein_config_path }}"
+#     state: directory
+#
+# - name: Link leiningen config
+#   file:
+#     src: "{{ role_path }}/lein_profiles.clj"
+#     dest: "{{ clojure_lein_config_path }}/profiles.clj"
+#     state: link

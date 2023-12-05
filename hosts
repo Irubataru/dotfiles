@@ -5,6 +5,7 @@ all:
     arch_laptop:
       hosts:
         archlinux.laptop:
+          ansible_connection: local
     flutterbox:
       hosts:
         flutter.box:
