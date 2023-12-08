@@ -31,7 +31,7 @@ return awful.menu({
             return false, hotkeys_popup.show_help
           end,
         },
-        { "manual", apps.default.terminal .. " -e man awesome" },
+        { "manual", apps.default.run_terminal("man awesome") },
         { "edit config", apps.default.run_terminal(apps.default.text_editor .. " " .. awesome.conffile) },
         { "restart", awesome.restart },
         { "quit", awesome.quit },

@@ -1,4 +1,8 @@
-local terminal_cmd = "alacritty"
+local terminal_cmd = "wezterm"
+
+local run_terminal_cmd = function(command)
+  return "wezterm start -- " .. command
+end
 
 return {
   -- The default applications that we will use in keybindings and widgets
@@ -6,17 +10,15 @@ return {
     -- Default terminal emulator
     terminal = terminal_cmd,
     -- What program to run when opening a new terminal
-    run_terminal = function(command)
-      return terminal_cmd .. " -e " .. command
-    end,
+    run_terminal = run_terminal_cmd,
     -- What program to run when opening a new terminal
-    open_terminal = terminal_cmd .. " -e tmux",
+    open_terminal = terminal_cmd,
     -- Default web browser
     web_browser = "brave",
     -- Default text editor
     text_editor = "nvim",
     -- Default file manager
-    file_manager = terminal_cmd .. " -e vifmrun",
+    file_manager = run_terminal_cmd("vifmrun"),
     -- Default media player
     multimedia = "mpv",
     -- Default game, can be a launcher like steam
@@ -28,7 +30,7 @@ return {
     -- Default IDE
     development = "rider",
     -- Default network manager
-    network_manager = terminal_cmd .. " -e nmtui",
+    network_manager = run_terminal_cmd("nmtui"),
     -- Default bluetooth manager
     bluetooth_manager = "blueman-manager",
     -- Default power manager
