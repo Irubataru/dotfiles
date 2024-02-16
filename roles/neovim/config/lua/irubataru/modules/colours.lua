@@ -100,4 +100,7 @@ return {
 
   --- 🌌  Aylin a modern and minimal VIM dark theme with bright colors.
   scheme("aylin", { "AhmedAbdulrahman/aylin.vim" }),
+
+  -- Neovim theme inspired in Palenight, support a lot of plugins out-of-the-box.
+  scheme("pastelnight", { "pauchiner/pastelnight.nvim" }),
 }
