@@ -7,6 +7,7 @@ return {
   require("irubataru.modules.ui.barbecue"),
   require("irubataru.modules.ui.biscuits"),
   require("irubataru.modules.ui.cokeline"),
+  require("irubataru.modules.ui.fidget"),
   require("irubataru.modules.ui.illuminate"),
   require("irubataru.modules.ui.limelight"),
   require("irubataru.modules.ui.lualine"),

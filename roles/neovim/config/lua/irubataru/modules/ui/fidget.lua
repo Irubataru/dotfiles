@@ -1,13 +1,9 @@
--- Standalone UI for nvim-lsp progress
+-- 💫 Extensible UI for Neovim notifications and LSP progress messages.
 
 local M = {
   "j-hui/fidget.nvim",
-  tag = "legacy",
   event = "LspAttach",
+  config = true,
 }
-
-M.config = function()
-    require("fidget").setup({})
-end
 
 return M
