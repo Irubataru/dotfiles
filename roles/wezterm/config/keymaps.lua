@@ -53,13 +53,13 @@ M.apply = function(config)
     },
     {
       mods = "LEADER|SHIFT",
+      action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
       key = "v",
-      action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
     },
     {
       mods = "LEADER|SHIFT",
       key = "s",
-      action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+      action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
     },
     {
       mods = "LEADER",
