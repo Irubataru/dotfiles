@@ -5,12 +5,7 @@ local M = {
 
 M.dependencies = {
   require("irubataru.modules.lsp.mason"),
-  {
-    "folke/neodev.nvim",
-    config = function()
-      require("neodev").setup()
-    end,
-  },
+  require("irubataru.modules.languages.lua.neodev"),
   require("irubataru.modules.languages.rust.rust-tools"),
 }
 

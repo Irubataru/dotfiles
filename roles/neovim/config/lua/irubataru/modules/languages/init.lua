@@ -1,11 +1,12 @@
 return {
-  require("irubataru.modules.languages.cpp"),
-  require("irubataru.modules.languages.rust"),
-  require("irubataru.modules.languages.python"),
   require("irubataru.modules.languages.clojure"),
+  require("irubataru.modules.languages.cpp"),
   require("irubataru.modules.languages.latex"),
-  require("irubataru.modules.languages.web"),
+  require("irubataru.modules.languages.lua"),
   require("irubataru.modules.languages.markdown"),
+  require("irubataru.modules.languages.python"),
+  require("irubataru.modules.languages.rust"),
+  require("irubataru.modules.languages.web"),
 
   -- A matlab plugin for vim, includes syntax highlighting, correct indention and so on.
   {
