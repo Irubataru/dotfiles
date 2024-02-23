@@ -25,6 +25,12 @@ M.config = function()
         height = 16,
       },
     },
+    file_history_panel = {
+      win_config = {
+        position = "top",
+        height = 10,
+      },
+    },
   })
 end
 
