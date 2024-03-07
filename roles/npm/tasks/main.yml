@@ -3,14 +3,3 @@
 
 - import_tasks: apt.yml
   when: package_manager == "apt"
-
-- name: Init npm config
-  template:
-    src: "npmrc.j2"
-    dest: "{{ role_path }}/npmrc"
-
-- name: Link npm config
-  file:
-    src: "{{ role_path }}/npmrc"
-    dest: "{{ home_directory }}/.npmrc"
-    state: link

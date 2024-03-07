@@ -1,5 +1,8 @@
-- name: Install npm (pacman)
-  pacman:
-    name: npm
+# vi: set ft=yaml.ansible :
+
+- name: Install nvm (aur)
+  kewlfft.aur.aur:
+    name: nvm
     state: present
   become: true
+  become_user: aur_builder

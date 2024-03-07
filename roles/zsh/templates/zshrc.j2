@@ -102,17 +102,24 @@ bindkey "^[[1;5D" backward-word # [ctrl-right arrow] - move full word
 bindkey "${terminfo[khome]}" beginning-of-line # [home] - beginning of line
 bindkey "${terminfo[kend]}"  end-of-line # [end] - end of line
 bindkey "${terminfo[kcbt]}" reverse-menu-complete # [shift-tab] - move completion backwards
-
 {% if atuin.use %}
 bindkey "^r" _atuin_search_widget
 {% endif %}
-
 {% if zsh.theme == "powerlevel10k/powerlevel10k" %}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 {% endif %}
 {% if hw_cmd_only %}
+
 # Run tmux whenever zsh is launched if it isn't already running
 if [ "$TMUX" = "" ]; then tmux; fi
+{% endif %}
+
+# Source Cargo environment variables
+source "$HOME/.cargo/env"
+{% if "npm" in modules %}
+
+# Source NVM (Node Version Manager)
+source /usr/share/nvm/init-nvm.sh
 {% endif %}
