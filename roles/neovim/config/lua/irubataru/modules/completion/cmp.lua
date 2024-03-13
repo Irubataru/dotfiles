@@ -23,10 +23,10 @@ M.dependencies = {
   -- nvim-cmp source for omnifunc
   { "hrsh7th/cmp-omni" },
   -- TabNine plugin for hrsh7th/nvim-cmp
-  {
-    "tzachar/cmp-tabnine",
-    build = "./install.sh",
-  },
+  -- {
+    --   "tzachar/cmp-tabnine",
+  --   build = "./install.sh",
+  -- },
   -- Git source for nvim-cmp
   {
     "petertriho/cmp-git",
@@ -62,7 +62,7 @@ M.config = function()
     buffer = "[Buffer]",
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
-    cmp_tabnine = "[TN]",
+    -- cmp_tabnine = "[TN]",
     path = "[Path]",
     git = "[ ]",
   }
@@ -80,7 +80,7 @@ M.config = function()
       { name = "nvim_lsp_signature_help" },
       { name = "luasnip" },
       { name = "path" },
-      { name = "cmp_tabnine" },
+      -- { name = "cmp_tabnine" },
       { name = "git" },
     }, {
       { name = "buffer", keyword_length = 4 },
