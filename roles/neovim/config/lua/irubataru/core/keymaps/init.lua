@@ -325,6 +325,12 @@ wk.register({
       end,
       "Find files",
     },
+    F = {
+      function()
+        require("triptych").toggle_triptych()
+      end,
+      "Open file navigator"
+    },
     g = {
       function()
         require("telescope.builtin").live_grep(require("telescope.themes").get_ivy())
@@ -402,6 +408,41 @@ wk.register({
       s = { "<cmd>IconPickerYank symbols nerd_font<cr>", "Yank symbol" },
       e = { "<cmd>IconPickerYank emoji<cr>", "Yank emoji" },
     },
+  },
+  m = {
+    name = "+marks",
+    d = {
+      function()
+        require("recall").clear()
+      end,
+      "Delete mark"
+    },
+    l = {
+      function()
+        require("telescope").extensions.recall.recall()
+      end,
+      "List marks (telescope)"
+    },
+    m = {
+      function()
+        require("recall").toggle()
+      end,
+      "Toggle global mark"
+    },
+    n = {
+      function()
+        require("recall").goto_next()
+      end,
+      "Go to next mark"
+    },
+    p = {
+      function()
+        require("recall").goto_prev()
+      end,
+      "Go to previous mark"
+    },
+
+
   },
   r = {
     name = "+run",
