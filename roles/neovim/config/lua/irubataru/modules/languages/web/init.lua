@@ -10,4 +10,7 @@ return {
 
   -- A Neovim Lua plugin providing access to the SchemaStore catalog.
   { "b0o/schemastore.nvim" },
+
+  -- Turn messy and confusing TypeScript errors into plain English.
+  { "dmmulroy/ts-error-translator.nvim", config = true, ft = { "typescript", "vue" } },
 }
