@@ -1,6 +1,6 @@
 dircolor_theme: dircolors.256dark
 
-zinit:
+zsh:
   directory: "{{ home_directory }}/.zinit"
   plugins:
     atuin: true

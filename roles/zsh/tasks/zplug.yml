@@ -1,4 +1,0 @@
-- name: "Install zplug"
-  git:
-    repo: "https://github.com/zplug/zplug.git"
-    dest: "{{ zplug.directory }}"

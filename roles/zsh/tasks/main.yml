@@ -36,7 +36,7 @@
     state: link
 
 - include_tasks: atuin.yml
-  when: zinit.plugins.atuin
+  when: zsh.plugins.atuin
 
 - name: Change user default shell
   user:

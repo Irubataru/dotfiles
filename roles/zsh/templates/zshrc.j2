@@ -140,7 +140,7 @@ bindkey "${terminfo[kend]}"  end-of-line # [end] - end of line
 bindkey "${terminfo[kcbt]}" reverse-menu-complete # [shift-tab] - move completion backwards
 {% if zsh.plugins.atuin %}
 bindkey "^r" _atuin_search_widget
-{% end %}
+{% endif %}
 
 # Source Cargo environment variables
 source "$HOME/.cargo/env"
