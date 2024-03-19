@@ -10,15 +10,15 @@ local f = luasnip.function_node
 local c = luasnip.choice_node
 local d = luasnip.dynamic_node
 local r = luasnip.restore_node
-local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 
 return {
   snippet({trig="pacman", descr="Install a package with pacman"},
-    fmt(
+    fmta(
       [[
-        - name: Install {} (pacman)
+        - name: Install <> (pacman)
           community.general.pacman:
-            name: {}
+            name: <>
             state: present
           become: true
       ]],
@@ -29,11 +29,11 @@ return {
     )
   ),
   snippet({trig="aur", descr="Install a package with paru"},
-    fmt(
+    fmta(
       [[
-        - name: Install {} (aur)
+        - name: Install <> (aur)
           kewlfft.aur.aur:
-            name: {}
+            name: <>
             state: present
           become: true
           become_user: aur_builder
@@ -45,12 +45,12 @@ return {
     )
   ),
   snippet({trig="copy", descr="Copy file"},
-    fmt(
+    fmta(
       [[
-        - name: Copy {}
+        - name: Copy <>
           ansible.builtin.copy:
-            src: "{{ role_path}}/{}"
-            dest: "{}"
+            src: "{{ role_path }}/<>"
+            dest: "<>"
       ]],
       {
         i(1, "name"),
@@ -60,12 +60,12 @@ return {
     )
   ),
   snippet({trig="link", descr="Create a symbolic link"},
-    fmt(
+    fmta(
       [[
-        - name: Link {}
+        - name: Link <>
           ansible.builtin.file:
-            src: "{{ role_path}}/{}"
-            dest: "{}"
+            src: "{{ role_path }}/<>"
+            dest: "<>"
             state: link
       ]],
       {
@@ -76,11 +76,11 @@ return {
     )
   ),
   snippet({trig="directory", descr="Create a directory"},
-    fmt(
+    fmta(
       [[
-        - name: Create {} directory
+        - name: Create <> directory
           ansible.builtin.file:
-            path: "{}"
+            path: "<>"
             state: directory
       ]],
       {
@@ -89,13 +89,28 @@ return {
       }
     )
   ),
-  snippet({trig="git-clone", descr="Clone a git repo"},
-    fmt(
+  snippet({trig="template", descr="Create file from template"},
+    fmta(
       [[
-        - name: Clone {}
+        - name: Initialise <>
+          ansible.builtin.template:
+            src: "<>"
+            dest: "<>"
+      ]],
+      {
+        i(1, "name"),
+        i(2, "template"),
+        i(3, "{{ role_path }}/file")
+      }
+    )
+  ),
+  snippet({trig="git-clone", descr="Clone a git repo"},
+    fmta(
+      [[
+        - name: Clone <>
           ansible.builtin.git:
-            repo: "{}"
-            dest: "{}"
+            repo: "<>"
+            dest: "<>"
             update: no
       ]],
       {
@@ -106,13 +121,13 @@ return {
     )
   ),
   snippet({trig="systemd", descr="Enable a systemd service"},
-    fmt(
+    fmta(
       [[
-        - name: Enable {} service
+        - name: Enable <> service
           ansible.builtin.systemd:
-            name: "{}.service"
+            name: "<>.service"
             enabled: true
-            scope: {}
+            scope: <>
       ]],
       {
         i(1, "name"),

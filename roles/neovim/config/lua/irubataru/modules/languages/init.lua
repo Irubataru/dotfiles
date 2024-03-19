@@ -26,10 +26,10 @@ return {
     ft = { "gnuplot" },
   },
 
-  -- An up-to-date jinja2 syntax file.
+  -- Filetype detection an syntax support for Jinja templates.
   {
-    "Glench/Vim-Jinja2-Syntax",
-    ft = { "jinja2" },
+    "HiPhish/jinja.vim",
+    ft = { "jinja", "jinja2", "*.jinja", "*.jinja2" },
   },
 
   -- Vim plugin to work with R
