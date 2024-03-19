@@ -1,3 +1,5 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install zsh (pacman)
   pacman:
     name: zsh
@@ -13,28 +15,28 @@
   when: package_manager == "apt"
 
 - name: Copy zsh config file
-  template:
+  ansible.builtin.template:
     src: "zshrc.j2"
     dest: "~/.zshrc"
 
 - name: Copy zsh fpath config file
-  template: 
+  ansible.builtin.template: 
     src: "fpath.zsh.j2"
     dest: "{{ role_path }}/fpath.zsh"
 
 - name: Copy dircolor zsh file
-  template: 
+  ansible.builtin.template: 
     src: "dircolor.zsh.j2"
     dest: "{{ role_path }}/dircolor.zsh"
 
-- include_tasks: zplug.yml
-  when: zplug.use
-
-- include_tasks: oh-my-zsh.yml
-  when: oh_my_zsh.use
+- name: Link spaceship config
+  ansible.builtin.file:
+    src: "{{role_path}}/starship.toml"
+    dest: "~/.config/starship.toml"
+    state: link
 
 - include_tasks: atuin.yml
-  when: atuin.use
+  when: zinit.plugins.atuin
 
 - name: Change user default shell
   user:

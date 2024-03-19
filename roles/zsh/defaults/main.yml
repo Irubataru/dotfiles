@@ -1,18 +1,6 @@
 dircolor_theme: dircolors.256dark
 
-zsh:
-  theme: "powerlevel10k/powerlevel10k"
-
-atuin:
-  use: false
-
-# Using zplug to manage packages
-zplug:
-  use: true
-  directory: "{{ home_directory }}/.zplug"
-
-# Use oh-my-zsh configuration, this should not be used while zplug is also in
-# user, this is what I used to do, but I prefer zplug now
-oh_my_zsh:
-  use: false
-  directory: "{{ home_directory }}/.oh-my-zsh"
+zinit:
+  directory: "{{ home_directory }}/.zinit"
+  plugins:
+    atuin: true

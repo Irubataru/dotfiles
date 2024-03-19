@@ -1,0 +1,5 @@
+[python]
+detect_extensions = []
+
+[nodejs]
+detect_extensions = []
