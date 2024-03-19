@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link pacman config
+  ansible.builtin.file:
+    src: "{{ role_path }}/config"
+    dest: "~/.config/pacman"
+    state: link
