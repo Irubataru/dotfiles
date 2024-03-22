@@ -26,6 +26,9 @@ M.config = function()
   luasnip.add_snippets("ansible", require("irubataru.modules.completion.snippets.ansible"))
   luasnip.add_snippets("yaml", require("irubataru.modules.completion.snippets.yaml"))
   luasnip.add_snippets("rust", require("irubataru.modules.completion.snippets.rust"))
+  luasnip.add_snippets("html", require("irubataru.modules.completion.snippets.html"))
+  luasnip.add_snippets("sh", require("irubataru.modules.completion.snippets.bash"))
+  luasnip.add_snippets("tex", require("irubataru.modules.completion.snippets.tex"))
 end
 
 return M
