@@ -7,6 +7,10 @@ M.dependencies = {
   require("irubataru.modules.lsp.mason"),
   require("irubataru.modules.languages.lua.neodev"),
   require("irubataru.modules.languages.rust.rust-tools"),
+  {
+    "zeioth/garbage-day.nvim",
+    opts = {}
+  }
 }
 
 M.config = function()
