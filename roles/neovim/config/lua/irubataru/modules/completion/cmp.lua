@@ -24,7 +24,7 @@ M.dependencies = {
   { "hrsh7th/cmp-omni" },
   -- TabNine plugin for hrsh7th/nvim-cmp
   -- {
-    --   "tzachar/cmp-tabnine",
+  --   "tzachar/cmp-tabnine",
   --   build = "./install.sh",
   -- },
   -- Git source for nvim-cmp
@@ -112,7 +112,11 @@ M.config = function()
       -- With automatic tab completion
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          if #cmp.get_entries() == 1 then
+            cmp.confirm({ select = true })
+          else
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          end
         elseif luasnip.expandable() then
           luasnip.expand()
         elseif luasnip.expand_or_jumpable() then
