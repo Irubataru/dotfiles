@@ -1,5 +1,6 @@
 local M = {
   -- ansiblels = {},
+  basedpyright = {},
   bashls = {},
   ccls = {},
   -- clangd = {},
@@ -13,7 +14,6 @@ local M = {
   lua_ls = require("irubataru.modules.lsp.servers.lua_ls").config,
   marksman = {},
   omnisharp = require("irubataru.modules.lsp.servers.omnisharp").config,
-  pyright = {},
   -- r_language_server = {},
   tailwindcss = require("irubataru.modules.lsp.servers.tailwindcss").config,
   texlab = {},
