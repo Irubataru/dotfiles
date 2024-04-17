@@ -365,6 +365,12 @@ wk.register({
       end,
       "Vim dotfiles",
     },
+    V = {
+      function()
+        require("irubataru.modules.telescope.search_dotfiles").search_dotfiles_grep()
+      end,
+      "Vim dotfiles text search",
+    },
   },
   F = {
     function()

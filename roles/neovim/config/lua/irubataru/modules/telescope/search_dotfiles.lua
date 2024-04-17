@@ -8,4 +8,11 @@ M.search_dotfiles = function()
   })
 end
 
+M.search_dotfiles_grep = function()
+  require("telescope.builtin").live_grep({
+    require("telescope.themes").get_ivy(),
+    cwd = "~/.config/nvim/",
+  })
+end
+
 return M

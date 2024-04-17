@@ -8,7 +8,7 @@ local M = {
 M.dependencies = {
   -- Simple winbar/statusline plugin that shows your current code context
   { "SmiteshP/nvim-navic" },
-  { "kyazdani42/nvim-web-devicons" },
+  { "nvim-tree/nvim-web-devicons" },
 }
 
 M.config = function()

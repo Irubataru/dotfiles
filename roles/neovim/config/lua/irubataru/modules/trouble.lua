@@ -13,7 +13,7 @@ local M = {
 }
 
 M.dependencies = {
-  { "kyazdani42/nvim-web-devicons" },
+  { "nvim-tree/nvim-web-devicons" },
 }
 
 M.config = function()
