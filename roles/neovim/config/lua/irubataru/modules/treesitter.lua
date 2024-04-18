@@ -59,6 +59,7 @@ M.config = function()
       "cpp",
       "css",
       -- "csv",
+      "dap_repl",
       "diff",
       "dockerfile",
       "fortran",

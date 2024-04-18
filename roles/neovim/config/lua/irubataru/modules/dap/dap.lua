@@ -4,11 +4,15 @@ local M = {
   "mfussenegger/nvim-dap",
   dependencies = {
     "mfussenegger/nvim-dap-python",
+    "LiadOz/nvim-dap-repl-highlights"
   },
 }
 
 M.config = function()
   require("dap.ext.vscode").load_launchjs()
+
+  -- Syntax highlighting in DAP REPL
+  require('nvim-dap-repl-highlights').setup()
 
   -- Set up adapters
   require("irubataru.modules.dap.adapters").setup()
