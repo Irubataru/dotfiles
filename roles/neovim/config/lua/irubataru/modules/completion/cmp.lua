@@ -35,7 +35,7 @@ M.dependencies = {
       require("cmp_git").setup({
         gitlab = {
           hosts = {
-            "gitlab.sintef.no",
+            "https://gitlab.sintef.no",
           },
         },
       })

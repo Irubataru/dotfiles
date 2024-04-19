@@ -401,7 +401,7 @@ wk.register({
     },
     d = { "<cmd>Gdiffsplit<CR>", "git diff" },
     g = { "<cmd>aboveleft 16split|0Git<CR>", "git status" },
-    h = { "<cmd>DiffviewFileHistory<CR>", "git file history" },
+    h = { "<cmd>DiffviewFileHistory %<CR>", "git file history" },
     l = { "<cmd>DiffviewOpen<CR>", "git diff log" },
     r = { "<cmd>0Gllog<cr>", "git show file revisions in quickfix list" },
   },
