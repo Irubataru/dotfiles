@@ -21,6 +21,16 @@ M.config = function()
       stylua = {
         prepend_args = { "--config-path", vim.fn.expand("~/.config/stylua/stylua.toml") },
       },
+      eslint_d = {
+        cwd = require("conform.util").root_file({
+          ".eslint.js",
+          ".eslint.cjs",
+          ".eslint.yaml",
+          ".eslint.yml",
+          ".eslint.json",
+        }),
+        require_cwd = true,
+      },
     },
   })
 end
