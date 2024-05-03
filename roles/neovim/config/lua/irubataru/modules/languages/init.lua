@@ -1,6 +1,7 @@
 return {
   require("irubataru.modules.languages.clojure"),
   require("irubataru.modules.languages.cpp"),
+  require("irubataru.modules.languages.json"),
   require("irubataru.modules.languages.latex"),
   require("irubataru.modules.languages.lua"),
   require("irubataru.modules.languages.markdown"),
