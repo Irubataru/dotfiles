@@ -8,6 +8,14 @@ M.apply = function(config)
   -- TODO: Something more similar to which-key here
   config.keys = {
 
+
+    -- Remove default keybindings
+    {
+      mods = "ALT",
+      key = "Enter",
+      action = wezterm.action.DisableDefaultAssignment
+    },
+
     -- TMUX compatibility commands
     {
       mods = "LEADER",
