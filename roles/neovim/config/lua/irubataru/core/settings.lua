@@ -90,7 +90,7 @@ vim.defer_fn(function()
   opt.showmode = false
   opt.laststatus = 2
 
-  opt.inccommand = "nosplit"
+  opt.inccommand = "split"
 
   vim.g.tex_flavor = "--latex"
 
