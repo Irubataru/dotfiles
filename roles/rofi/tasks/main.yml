@@ -11,3 +11,9 @@
     src: "{{ role_path}}/config"
     dest: "{{ home_directory }}/.config/rofi"
     state: link
+
+- name: Link rofimoji configuratin
+  ansible.builtin.file:
+    src: "{{ role_path }}/rofimoji.rc"
+    dest: "{{ home_directory }}/.config/rofimoji.rc"
+    state: link

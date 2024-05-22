@@ -38,7 +38,7 @@ awful.keyboard.append_global_keybindings({
   end, { description = "lua execute prompt", group = "awesome" }),
 
   awful.key({ modkey }, ".", function()
-    awful.spawn("rofi -show emoji")
+    awful.spawn("rofimoji")
   end, { description = "show emoji menu", group = "rofi" }),
 
   awful.key({}, "XF86Calculator", function()

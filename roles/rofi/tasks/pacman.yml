@@ -5,6 +5,6 @@
     name:
       - rofi
       - rofi-calc
-      - rofi-emoji
+      - rofimoji
     state: present
   become: true
