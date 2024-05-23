@@ -1,3 +1,5 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install fzf, ripgrep (pacman)
   pacman:
     name:
@@ -32,22 +34,14 @@
     PIP_BREAK_SYSTEM_PACKAGES: 1
   when: install
 
-- name: Install lsd (cargo)
-  shell: 
-    cmd: cargo install lsd
-  ignore_errors: true
-  when: install
-
-- name: Install fd (cargo)
-  shell: 
-    cmd: cargo install fd-find
-  ignore_errors: true
-  when: install
-
-- name: Install cargo-update (cargo)
-  shell: 
-    cmd: cargo install cargo-update
-  ignore_errors: true
+- name: Install lsd, fd, bat, cargo-update (cargo)
+  community.general.cargo:
+    name:
+      - lsd
+      - fd-find
+      - bat
+      - cargo-update
+    state: present
   when: install
 
 - import_tasks: bat.yml

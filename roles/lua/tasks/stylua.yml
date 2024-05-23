@@ -1,7 +1,9 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install stylua (cargo)
-  shell: 
-    cmd: cargo install stylua
-  ignore_errors: true
+  community.general.cargo:
+    name: stylua
+    state: present
   when: install
 
 - name: Create stylua config directory

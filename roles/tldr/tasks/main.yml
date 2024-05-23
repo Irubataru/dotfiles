@@ -1,7 +1,9 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install tldr (cargo)
-  shell: 
-    cmd: cargo install tealdeer
-  ignore_errors: true
+  community.general.cargo:
+    name: tealdeer
+    state: present
   when: install
 
 - name: Create tldr config directory

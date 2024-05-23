@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install zoxide (cargo)
-  shell:
-    cmd: cargo install zoxide
-  register: local_version
+  community.general.cargo:
+    name: zoxide
+    state: present
   when: install
