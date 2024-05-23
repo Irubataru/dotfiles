@@ -63,11 +63,49 @@ wk.register({
 wk.register({
   ["["] = {
     b = { "<Plug>(cokeline-focus-prev)", "Goto previous buffer" },
-    B = { "<Plug>(cokeline-switch-prev)", "Switch with previous buffer" },
   },
   ["]"] = {
     b = { "<Plug>(cokeline-focus-next)", "Goto next buffer" },
-    B = { "<Plug>(cokeline-switch-next)", "Switch with next buffer" },
+  },
+}, opts)
+
+-- Harpoon
+wk.register({
+  ["<C-p>"] = {
+    function()
+      require("harpoon"):list():prev({ ui_nav_wrap = true })
+    end,
+    "Next harpoon",
+  },
+  ["<C-n>"] = {
+    function()
+      require("harpoon"):list():next({ ui_nav_wrap = true })
+    end,
+    "Next harpoon",
+  },
+  ["<A-1>"] = {
+    function()
+      require("harpoon"):list():select(1)
+    end,
+    "Harpoon 1",
+  },
+  ["<A-2>"] = {
+    function()
+      require("harpoon"):list():select(2)
+    end,
+    "Harpoon 2",
+  },
+  ["<A-3>"] = {
+    function()
+      require("harpoon"):list():select(3)
+    end,
+    "Harpoon 3",
+  },
+  ["<A-4>"] = {
+    function()
+      require("harpoon"):list():select(4)
+    end,
+    "Harpoon 4",
   },
 }, opts)
 
@@ -100,7 +138,7 @@ wk.register({
       q = { ":cclose<cr>", "close-quickfix" },
     },
   },
-  ["<C-N>"] = { ":NvimTreeFindFileToggle<CR>", "Open file tree" },
+  ["<C-f>"] = { ":NvimTreeFindFileToggle<CR>", "Open file tree" },
   ["<C-Up>"] = { ":resize -2<CR>", "Resize window (shrink vertical)" },
   ["<C-Down>"] = { ":resize +2<CR>", "Resize window (expand vertical)" },
   ["<C-Left>"] = { ":vertical resize -2<CR>", "Resize window (shrink horizontal)" },
@@ -329,7 +367,7 @@ wk.register({
       function()
         require("triptych").toggle_triptych()
       end,
-      "Open file navigator"
+      "Open file navigator",
     },
     g = {
       function()
@@ -405,6 +443,22 @@ wk.register({
     l = { "<cmd>DiffviewOpen<CR>", "git diff log" },
     r = { "<cmd>0Gllog<cr>", "git show file revisions in quickfix list" },
   },
+  h = {
+    name = "+harpoon",
+    a = {
+      function()
+        require("harpoon"):list():add()
+      end,
+      "Add harpoon mark",
+    },
+    v = {
+      function()
+        require("harpoon")
+        require("telescope").extensions.harpoon.marks()
+      end,
+      "List harpoon marks",
+    },
+  },
   i = {
     name = "+insert",
     s = { "<cmd>IconPickerNormal symbols nerd_font<cr>", "Insert symbol" },
@@ -421,34 +475,32 @@ wk.register({
       function()
         require("recall").clear()
       end,
-      "Delete mark"
+      "Delete mark",
     },
     l = {
       function()
         require("telescope").extensions.recall.recall()
       end,
-      "List marks (telescope)"
+      "List marks (telescope)",
     },
     m = {
       function()
         require("recall").toggle()
       end,
-      "Toggle global mark"
+      "Toggle global mark",
     },
     n = {
       function()
         require("recall").goto_next()
       end,
-      "Go to next mark"
+      "Go to next mark",
     },
     p = {
       function()
         require("recall").goto_prev()
       end,
-      "Go to previous mark"
+      "Go to previous mark",
     },
-
-
   },
   r = {
     name = "+run",
