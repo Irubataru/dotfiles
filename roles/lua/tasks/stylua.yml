@@ -2,6 +2,7 @@
   shell: 
     cmd: cargo install stylua
   ignore_errors: true
+  when: install
 
 - name: Create stylua config directory
   file: 

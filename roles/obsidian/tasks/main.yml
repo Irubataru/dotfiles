@@ -1,5 +1,7 @@
 - import_tasks: pacman.yml
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 # - import_tasks: apt.yml
 #   when: package_manager == "apt"
@@ -8,4 +10,5 @@
   git:
     repo: "git@github.com:Irubataru/obsidian-notes.git"
     dest: "{{ obsidian.directory }}"
+    update: false
   ignore_errors: true

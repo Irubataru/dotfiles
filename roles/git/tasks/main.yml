@@ -6,7 +6,9 @@
       - lazygit
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Install git programs (apt)
   apt:
@@ -15,7 +17,9 @@
       - tig
     state: present
   become: true
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - name: Link default gitignore
   file:

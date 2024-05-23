@@ -2,6 +2,7 @@
   shell: 
     cmd: cargo install tealdeer
   ignore_errors: true
+  when: install
 
 - name: Create tldr config directory
   file: 

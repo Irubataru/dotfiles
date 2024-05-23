@@ -6,21 +6,27 @@
     state: present
   become: true
   become_user: aur_builder
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Install awesomeWM (apt)
   apt:
     name: awesome
     state: present
   become: true
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - name: Instrall awesmeWM dependencies (pacman)
   pacman:
     name: maim
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Link awesomeWM config
   file:

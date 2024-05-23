@@ -1,5 +1,9 @@
 - import_tasks: pacman.yml
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - import_tasks: apt.yml
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"

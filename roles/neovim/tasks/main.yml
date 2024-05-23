@@ -1,8 +1,12 @@
 - import_tasks: pacman.yml
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - import_tasks: apt.yml
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - name: Create vim temp storage directory
   file: 
@@ -31,3 +35,4 @@
   ignore_errors: true
   environment:
     PIP_BREAK_SYSTEM_PACKAGES: 1
+  when: install

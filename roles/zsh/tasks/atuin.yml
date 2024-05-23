@@ -5,7 +5,9 @@
     name: atuin
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Create atuin config directory
   file:

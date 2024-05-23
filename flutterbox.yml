@@ -15,7 +15,6 @@
 
       # Programming languages
       - clang
-      # - dotnet
       - lua
       - go
       - npm
@@ -24,13 +23,12 @@
 
       # Applications
       - X
-      - alacritty
+      - wezterm
       - applications
       - awesome
       - bitwarden
       - clang
       - common
-      - conky
       - git
       - gpg
       - gtk
@@ -38,7 +36,6 @@
       - navi
       - neovim
       - obsidian
-      - qutebrowser
       - rider
       - rofi
       - tldr

@@ -1,13 +1,19 @@
 # vi: set ft=yaml.ansible :
 
 - import_tasks: pacman.yml
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - import_tasks: hack.yml
-  when: package_manager != "pacman"
+  when:
+    - install
+    - package_manager != "pacman"
 
 - import_tasks: fira_code.yml
-  when: package_manager != "pacman"
+  when:
+    - install
+    - package_manager != "pacman"
 
 # - name: Create fontconfig directory
 #   file:
@@ -21,3 +27,4 @@
 #     state: link
 
 - import_tasks: private.yml
+  when: install

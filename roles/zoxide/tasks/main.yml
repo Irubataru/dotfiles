@@ -2,3 +2,4 @@
   shell:
     cmd: cargo install zoxide
   register: local_version
+  when: install

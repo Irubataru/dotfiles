@@ -11,6 +11,14 @@ Run the appropriate ansible playbook to install (ansible must be installed)
 ansible-playbook --ask-become-pass -i hosts [CONFIG.yml]
 ```
 
+The playbooks do not by default install any applications, to do so you need to
+pass the `install = true` variable. This should be passed to the command, but
+can also be set in the [group_vars](./group_vars/)
+
+```bash
+ansible-playbook --ask-become-pass -i hosts --extra-vars "install=true" [CONFIG.yml]
+```
+
 ### Dependencies
 
 Although the config should install most things, the first time setup is often a
@@ -34,15 +42,13 @@ ansible-galaxy collection install kewlfft.aur
 
 ## First time setup
 
-When setting it up for the first time you nee to install the zplug-plugins (if
-using) as well as the tmux plugins. Alternatively also logging into atuin.
+### atuin
+
+If using atuin, you need to login the firs time
 
 ```
-zplug install
-<C-A>I
 atuin login
 ```
-
 
 ## Secrets
 

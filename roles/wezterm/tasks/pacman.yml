@@ -1,6 +1,16 @@
-- name: Install wezterm (pacman)
+# vi: set ft=yaml.ansible :
+
+- name: Install wezterm (AUR)
   kewlfft.aur.aur:
     name: wezterm-git
     state: present
   become: yes
   become_user: aur_builder
+  when: wezterm_git
+
+- name: Install wezterm (pacman)
+  community.general.pacman:
+    name: wezterm
+    state: present
+  become: true
+  when: not wezterm_git

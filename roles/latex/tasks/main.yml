@@ -1,5 +1,7 @@
 - import_tasks: apt.yml
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - include_tasks: xelatex.yml
   when: latex_use_xelatex

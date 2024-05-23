@@ -3,14 +3,18 @@
     name: rxvt-unicode
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Install urxvt (apt)
   apt:
     name: rxvt-unicode
     state: present
   become: true
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - name: Initialise Xresources 
   template: 

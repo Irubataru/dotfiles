@@ -21,6 +21,7 @@ return {
             name: <>
             state: present
           become: true
+          when: install
       ]],
       {
         i(1, "package"),
@@ -37,6 +38,22 @@ return {
             state: present
           become: true
           become_user: aur_builder
+          when: install
+      ]],
+      {
+        i(1, "package"),
+        i(2, "package"),
+      }
+    )
+  ),
+  snippet({trig="cargo", descr="Install a package with cargo"},
+    fmta(
+      [[
+        - name: Install <> (cargo)
+          community.general.cargo:
+            name: <>
+            state: present
+          when: install
       ]],
       {
         i(1, "package"),

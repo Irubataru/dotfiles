@@ -2,6 +2,7 @@
   shell: 
     cmd: cargo install bat
   ignore_errors: true
+  when: install
 
 - name: Create bat config directory
   file: 

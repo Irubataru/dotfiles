@@ -5,14 +5,18 @@
     name: zsh
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Install zsh (apt)
   apt:
     name: zsh
     state: present
   become: true
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - name: Copy zsh config file
   ansible.builtin.template:

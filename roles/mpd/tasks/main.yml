@@ -7,7 +7,9 @@
       - ncmpcpp
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Install mpd-mpris (aur)
   kewlfft.aur.aur:
@@ -15,6 +17,9 @@
     state: present
   become: true
   become_user: aur_builder
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Create mpd config directory
   file:

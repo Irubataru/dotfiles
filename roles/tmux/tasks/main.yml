@@ -3,14 +3,18 @@
     name: tmux
     state: present
   become: true
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
 
 - name: Install tmux (apt)
   apt:
     name: tmux
     state: present
   become: true
-  when: package_manager == "apt"
+  when:
+    - install
+    - package_manager == "apt"
 
 - name: Link tmux config file
   file:

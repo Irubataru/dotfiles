@@ -1,4 +1,6 @@
 # vi: set ft=yaml.ansible :
 
 - import_tasks: pacman.yml
-  when: package_manager == "pacman"
+  when:
+    - install
+    - package_manager == "pacman"
