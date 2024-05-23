@@ -4,6 +4,7 @@
       - ttf-hack-nerd
       - ttf-fira-code
       - ttf-jetbrains-mono
+      - ttf-maple
     state: present
   become: yes
   become_user: aur_builder
