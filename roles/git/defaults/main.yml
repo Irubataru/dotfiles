@@ -1,3 +1,2 @@
 git_signing_key_has_key: false
-github_api_token: "{{ lookup('bitwarden', 'GitHub API Key', field='notes') }}"
 git_difftool: diff

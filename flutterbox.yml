@@ -26,7 +26,6 @@
       - wezterm
       - applications
       - awesome
-      - bitwarden
       - clang
       - common
       - git
@@ -47,5 +46,3 @@
     - include_role:
         name: "{{ item }}"
       loop: "{{ modules }}"
-  roles:
-    - ansible-modules-bitwarden

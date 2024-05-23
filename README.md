@@ -26,9 +26,6 @@ bit wonky. One of the reasons is that npm is often not installed on my systems.
 It also expects basic build tools, if these are missing from the
 [basic](roles/basic) role, then these must either be installed or added.
 
-Node/npm can for instance be installed using nvm, or by downloading the
-[npm binaries](https://nodejs.org/en/download) directly and putting them in the
-path.
 
 ### Addons
 
@@ -36,7 +33,6 @@ The current addons must be installed before using some of the configurations,
 see the configurations themselves for which modules they expect.
 
 ```
-ansible-galaxy install git+https://github.com/c0sco/ansible-modules-bitwarden
 ansible-galaxy collection install kewlfft.aur
 ```
 
@@ -52,11 +48,5 @@ atuin login
 
 ## Secrets
 
-I currently use bitwarden for secrets, on top of installing the bitwarden
-ansible module this means that one also must install the bitwarden CLI. This is
-handled by NPM
-
-```
-npm install -g @bitwarden/cli
-```
-
+Secrets have to be manually added. See e.g. the [git](./roles/git/) for adding a
+git application key.

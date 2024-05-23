@@ -29,7 +29,6 @@
       - alacritty
       - applications
       - awesome
-      - bitwarden
       - common
       - conky
       - git
@@ -51,5 +50,3 @@
     - include_role:
         name: "{{ item }}"
       loop: "{{ modules }}"
-  roles:
-    - ansible-modules-bitwarden

@@ -20,7 +20,6 @@
       - rust
 
       # Applications
-      - bitwarden
       - common
       - git
       - gpg
@@ -36,5 +35,3 @@
     - include_role:
         name: "{{ item }}"
       loop: "{{ modules }}"
-  roles:
-    - ansible-modules-bitwarden
