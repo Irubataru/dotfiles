@@ -61,6 +61,21 @@ return {
       }
     )
   ),
+  snippet({trig="pipx", descr="Install a package with pipx"},
+    fmta(
+      [[
+        - name: Install <> (pipx)
+          community.general.pipx:
+            name: <>
+            state: latest
+          when: install
+      ]],
+      {
+        i(1, "package"),
+        i(2, "package"),
+      }
+    )
+  ),
   snippet({trig="copy", descr="Copy file"},
     fmta(
       [[

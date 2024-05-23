@@ -1,3 +1,5 @@
+# vi: set ft=yaml.ansible :
+
 - import_tasks: pacman.yml
   when:
     - install
@@ -24,15 +26,3 @@
     dest: "{{ home_directory }}/.config/nvim"
     state: link
 
-- name: Install neovim python dependencies
-  pip:
-    name:
-      - pynvim
-      - pyright
-      - autopep8
-    extra_args: --user
-    state: latest
-  ignore_errors: true
-  environment:
-    PIP_BREAK_SYSTEM_PACKAGES: 1
-  when: install

@@ -4,6 +4,7 @@
       - clang
       - python
       - python-pip
+      - python-pipx
       - unzip
       - fontconfig
       - fakeroot

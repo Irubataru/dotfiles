@@ -1,9 +1,11 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install neovim
   pacman:
     name: neovim
     state: present
   become: true
-  when: neovim_git == false
+  when: not neovim_git
 
 - name: Install neovim-git
   kewlfft.aur.aur:
@@ -11,7 +13,7 @@
     state: present
   become: true
   become_user: aur_builder
-  when: neovim_git == true
+  when: neovim_git
 
 - name: Install neovim utilities (AUR)
   kewlfft.aur.aur:
@@ -20,3 +22,13 @@
     state: present
   become: true
   become_user: aur_builder
+
+- name: Install neovim python dependencies (pacman)
+  community.general.pacman:
+    name:
+      - python-pynvim
+      - pyright
+      - autopep8
+    state: latest
+  become: true
+  when: install
