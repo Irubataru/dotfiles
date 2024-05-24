@@ -4,6 +4,7 @@
       - git
       - tig
       - lazygit
+      - github-cli
     state: present
   become: true
   when:

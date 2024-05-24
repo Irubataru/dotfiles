@@ -1,7 +1,18 @@
-git
-===
+# git
 
 Configures and installs git and other usefull git related tools.
+
+## API tokens
+
+Github and gitlab API tokens are set through the environment variables
+
+```zsh
+export GITHUB_API_TOKEN=""
+export GITLAB_TOKEN=""
+```
+
+These needs to be set for e.g. github integration in neovim if not using the
+github cli.
 
 ## Variables
 
@@ -14,10 +25,3 @@ Configures and installs git and other usefull git related tools.
    Whether or not to use a key to sign commits.
  * `git_signing_key` (default `undefined`)<br/>
    The key to sign commits with.
-
-## Installs
-
- * `git`
- * `tig`
-
-TODO: Add `git-bug` install, config, and completion.
