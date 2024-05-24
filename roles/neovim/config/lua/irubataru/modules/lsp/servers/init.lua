@@ -16,6 +16,7 @@ local M = {
   omnisharp = require("irubataru.modules.lsp.servers.omnisharp").config,
   -- r_language_server = {},
   tailwindcss = require("irubataru.modules.lsp.servers.tailwindcss").config,
+  taplo = {},
   texlab = {},
   tsserver = {},
   volar = {},
