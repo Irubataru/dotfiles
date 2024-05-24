@@ -27,6 +27,7 @@ nmap <leader>cF <Action>(ShowReformatFileDialog)
 nmap za <Action>(ExpandRegion)
 nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
+nmap <leader>wo <Action>(CloseAllEditorsButActive)
 
 " Refactoring
 nmap rr <Action>(Refactorings.QuickListPopupAction)
