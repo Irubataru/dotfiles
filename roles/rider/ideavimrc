@@ -23,6 +23,7 @@ let mapleader=","
 
 "" -- Keymaps --
 nmap <leader>cf <Action>(ReformatCode)
+vmap <leader>cf <Action>(ReformatCode)
 nmap <leader>cF <Action>(ShowReformatFileDialog)
 nmap za <Action>(ExpandRegion)
 nmap <C-o> <Action>(Back)
