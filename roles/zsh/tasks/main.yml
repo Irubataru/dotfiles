@@ -42,3 +42,10 @@
     name: "{{ user_name }}"
     shell: /bin/zsh
   become: true
+
+- name: Initialise argcomplete if it doesn't exist
+  ansible.builtin.shell:
+    cmd: |
+      activate-global-python-argcomplete --dest {{role_path}}
+      mv {{role_path}}/_python-argcomplete {{role_path}}/argcomplete.zsh
+    creates: "{{ role_path }}/argcomplete.zsh"
