@@ -44,7 +44,6 @@ M.dependencies = {
 M.config = function()
   local treesitter_config = require("nvim-treesitter.configs")
 
-
   -- NOTE: I don't know why some of the languages do not exist even though they
   -- are listed on the nvim-treesitter repo homepage
   treesitter_config.setup({
@@ -104,16 +103,18 @@ M.config = function()
     highlight = {
       enable = true,
       disable = function(lang, bufnr)
-        if (lang == "tex" or lang == "latex") then
+        if lang == "tex" or lang == "latex" then
           return true
         end
 
         -- Disable for large json files
-        -- TODO: This doesn't seem to work?
-        if (lang == "json") then
-          return vim.api.nvim_buf_line_count(bufnr) > 10000
+        if lang == "json" then
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
         end
-
       end, -- list of languages that will be disabled
 
       -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
