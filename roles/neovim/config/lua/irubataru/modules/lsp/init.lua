@@ -9,8 +9,12 @@ M.dependencies = {
   require("irubataru.modules.languages.rust.rust-tools"),
   {
     "zeioth/garbage-day.nvim",
-    opts = {}
-  }
+    config = true
+  },
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    config = true
+  },
 }
 
 M.config = function()
@@ -18,6 +22,8 @@ M.config = function()
   if not status_ok then
     return
   end
+
+  require("irubataru.modules.lsp.diagnostics")
 
   local servers = require("irubataru.modules.lsp.servers")
 
@@ -55,8 +61,6 @@ M.config = function()
     local opts = vim.tbl_deep_extend("force", options, server_options or {})
     lspconfig[server].setup(opts)
   end
-
-  require("irubataru.modules.lsp.diagnostics")
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",

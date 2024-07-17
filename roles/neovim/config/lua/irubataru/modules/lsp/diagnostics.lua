@@ -2,7 +2,6 @@
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   underline = true,
   update_in_insert = false,
-  virtual_text = { spacing = 4, prefix = "●" },
   severity_sort = true,
   float = {
     focusable = false,
@@ -12,6 +11,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     header = "",
     prefix = "",
   },
+  virtual_text = false, -- NOTE: Setting this will give duplicate entries because of tiny-inline-diagnistic.nvim
+  -- virtual_text = { spacing = 4, prefix = "●" },
 })
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -30,6 +31,7 @@ local config = {
     header = "",
     prefix = "",
   },
+  virtual_text = false,
 }
 
 vim.diagnostic.config(config)
