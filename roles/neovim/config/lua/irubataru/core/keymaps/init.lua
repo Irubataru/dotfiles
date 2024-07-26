@@ -1,8 +1,5 @@
 local keymap = vim.keymap.set
 
--- TODO: Legendary seems to have stopped working
-require("legendary").setup({ which_key = { auto_register = true } })
-
 local wk = require("which-key")
 -- local wk_operators = require("which-key.plugins.presets").operators
 
