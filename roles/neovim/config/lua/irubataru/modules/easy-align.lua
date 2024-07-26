@@ -2,7 +2,10 @@
 
 local M = {
   "junegunn/vim-easy-align",
-  keys = { "ga", { "ga", mode = "x" } },
+  keys = {
+    { "ga", "<Plug>(EasyAlign)", desc = "easy align" },
+    { "ga", "<Plug>(EasyAlign)", mode = "x", desc = "easy align" },
+  },
 }
 
 return M

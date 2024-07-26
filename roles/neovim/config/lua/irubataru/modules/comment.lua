@@ -4,10 +4,10 @@
 local M = {
   "numToStr/Comment.nvim",
   keys = {
-    "gcc",
-    "gcb",
-    { "gc", mode = "v" },
-    { "gb", mode = "v" },
+    { "gcc", desc = "Toggle comment line" },
+    { "gcb", desc = "Toggle comment line (block style)" },
+    { "gc", mode = "v", desc = "Toggle comment" },
+    { "gb", mode = "v", desc = "Toggle comment (block style)" },
   },
 }
 

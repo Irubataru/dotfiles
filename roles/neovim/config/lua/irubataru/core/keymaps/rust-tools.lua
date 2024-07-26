@@ -2,32 +2,29 @@
 
 local M = {}
 
-M.keys = {
-  normal_mode = {
-    ["<c-k>"] = {
+M.setup = function(bufnr)
+  require("irubataru.core.keymaps.lsp").setup(bufnr)
+
+  local wk = require("which-key")
+
+  wk.add({
+    buffer = bufnr,
+    {
+      "<c-k>",
       function()
         require("rust-tools").hover_actions.hover_actions()
       end,
-      "Rust hover actions",
+      desc = "Rust hover actions",
     },
-    g = {
-      p = {
-        function()
-          require("rust-tools").parent_module.parent_module()
-        end,
-        "Goto parent module"
-      }
-    }
-  },
-  normal_mode_leader = {},
-  insert_mode = {},
-  visual_mode = {},
-}
+    {
+      "gp",
+      function()
+        require("rust-tools").parent_module.parent_module()
+      end,
+      desc = "Goto parent module",
+    },
+  })
 
-M.keys = vim.tbl_deep_extend("force", require("irubataru.core.keymaps.lsp").keys, M.keys)
-
-M.setup = function(bufnr)
-  require("irubataru.core.keymaps").register_buffer_keys(M.keys, bufnr)
 end
 
 return M

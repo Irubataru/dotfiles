@@ -1,20 +1,19 @@
 local M = {
   "folke/which-key.nvim",
   event = "VeryLazy",
-}
-
-M.config = function()
-  require("which-key").setup({
-    show_help = false,
-    triggers = "auto",
-    plugins = {
-      spelling = true,
-      presets = {
-        operators = true,
-      },
+  dependencies = {
+    "echasnovski/mini.icons",
+  },
+  opts = { },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = true })
+      end,
+      desc = "Show keymaps (which-key)",
     },
-    key_labels = { ["<leader>"] = "," },
-  })
-end
+  },
+}
 
 return M
