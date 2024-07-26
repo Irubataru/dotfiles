@@ -101,12 +101,12 @@ keymap("n", "N", "Nzzzv", opts)
 keymap("n", "J", "miJ`i", opts)
 
 -- Moving text
-keymap("v", "<C-j>", ":m '>+1<cr>gv=gv", opts)
-keymap("v", "<C-k>", ":m '<-2<cr>gv=gv", opts)
-keymap("i", "<C-j>", "<esc>:m .+1<cr>==", opts)
-keymap("i", "<C-k>", "<esc>:m .-2<cr>==", opts)
-keymap("n", "<leader>j", ":m .+1<cr>==", opts)
-keymap("n", "<leader>k", ":m .-2<cr>==", opts)
+-- keymap("v", "<C-j>", ":m '>+1<cr>gv=gv", opts)
+-- keymap("v", "<C-k>", ":m '<-2<cr>gv=gv", opts)
+-- keymap("i", "<C-j>", "<esc>:m .+1<cr>==", opts)
+-- keymap("i", "<C-k>", "<esc>:m .-2<cr>==", opts)
+-- keymap("n", "<leader>j", ":m .+1<cr>==", opts)
+-- keymap("n", "<leader>k", ":m .-2<cr>==", opts)
 
 -- Undo break points
 keymap("i", ",", ",<c-g>u", opts)

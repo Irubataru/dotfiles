@@ -3,10 +3,12 @@ if not status_ok then
   return {}
 end
 
+require("luasnip.session.snippet_collection").clear_snippets("rust")
+
 local snippet = luasnip.snippet
 local t = luasnip.text_node
 
-return {
+luasnip.add_snippets("rust", {
   snippet({ trig = "aoc", descr = "Advent of code" }, {
     t({
       "use std::env;",
@@ -22,4 +24,4 @@ return {
       "}",
     }),
   }),
-}
+})

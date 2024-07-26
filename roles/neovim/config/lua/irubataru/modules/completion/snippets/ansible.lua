@@ -3,6 +3,8 @@ if not status_ok then
   return {}
 end
 
+require("luasnip.session.snippet_collection").clear_snippets("ansible")
+
 local snippet = luasnip.snippet
 local t = luasnip.text_node
 local i = luasnip.insert_node
@@ -12,8 +14,9 @@ local d = luasnip.dynamic_node
 local r = luasnip.restore_node
 local fmta = require("luasnip.extras.fmt").fmta
 
-return {
-  snippet({trig="pacman", descr="Install a package with pacman"},
+luasnip.add_snippets("ansible", {
+  snippet(
+    { trig = "pacman", descr = "Install a package with pacman" },
     fmta(
       [[
         - name: Install <> (pacman)
@@ -29,7 +32,8 @@ return {
       }
     )
   ),
-  snippet({trig="aur", descr="Install a package with paru"},
+  snippet(
+    { trig = "aur", descr = "Install a package with paru" },
     fmta(
       [[
         - name: Install <> (aur)
@@ -46,7 +50,8 @@ return {
       }
     )
   ),
-  snippet({trig="cargo", descr="Install a package with cargo"},
+  snippet(
+    { trig = "cargo", descr = "Install a package with cargo" },
     fmta(
       [[
         - name: Install <> (cargo)
@@ -61,7 +66,8 @@ return {
       }
     )
   ),
-  snippet({trig="pipx", descr="Install a package with pipx"},
+  snippet(
+    { trig = "pipx", descr = "Install a package with pipx" },
     fmta(
       [[
         - name: Install <> (pipx)
@@ -76,7 +82,8 @@ return {
       }
     )
   ),
-  snippet({trig="copy", descr="Copy file"},
+  snippet(
+    { trig = "copy", descr = "Copy file" },
     fmta(
       [[
         - name: Copy <>
@@ -91,7 +98,8 @@ return {
       }
     )
   ),
-  snippet({trig="link", descr="Create a symbolic link"},
+  snippet(
+    { trig = "link", descr = "Create a symbolic link" },
     fmta(
       [[
         - name: Link <>
@@ -107,7 +115,8 @@ return {
       }
     )
   ),
-  snippet({trig="directory", descr="Create a directory"},
+  snippet(
+    { trig = "directory", descr = "Create a directory" },
     fmta(
       [[
         - name: Create <> directory
@@ -121,7 +130,8 @@ return {
       }
     )
   ),
-  snippet({trig="template", descr="Create file from template"},
+  snippet(
+    { trig = "template", descr = "Create file from template" },
     fmta(
       [[
         - name: Initialise <>
@@ -132,11 +142,12 @@ return {
       {
         i(1, "name"),
         i(2, "template"),
-        i(3, "{{ role_path }}/file")
+        i(3, "{{ role_path }}/file"),
       }
     )
   ),
-  snippet({trig="git-clone", descr="Clone a git repo"},
+  snippet(
+    { trig = "git-clone", descr = "Clone a git repo" },
     fmta(
       [[
         - name: Clone <>
@@ -152,7 +163,8 @@ return {
       }
     )
   ),
-  snippet({trig="systemd", descr="Enable a systemd service"},
+  snippet(
+    { trig = "systemd", descr = "Enable a systemd service" },
     fmta(
       [[
         - name: Enable <> service
@@ -164,8 +176,8 @@ return {
       {
         i(1, "name"),
         i(2, "name"),
-        i(3, "[user/system]")
+        i(3, "[user/system]"),
       }
     )
   ),
-}
+})

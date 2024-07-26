@@ -3,11 +3,13 @@ if not status_ok then
   return {}
 end
 
+require("luasnip.session.snippet_collection").clear_snippets("tex")
+
 local snippet = luasnip.snippet
 local i = luasnip.insert_node
 local fmta = require("luasnip.extras.fmt").fmta
 
-return {
+luasnip.add_snippets("tex", {
   snippet(
     { trig = "template", descr = "Basic document template" },
     fmta(
@@ -74,4 +76,4 @@ return {
       i(1, "content")
     )
   ),
-}
+})

@@ -3,11 +3,13 @@ if not status_ok then
   return {}
 end
 
+require("luasnip.session.snippet_collection").clear_snippets("sh")
+
 local snippet = luasnip.snippet
 local i = luasnip.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
-return {
+luasnip.add_snippets("sh", {
   snippet(
     { trig = "template-args", descr = "Argument parsing in bash" },
     fmt(
@@ -78,4 +80,4 @@ done
       i(1, ">")
     )
   ),
-}
+})
