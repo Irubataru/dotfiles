@@ -3,12 +3,13 @@
 local M = {
   "stevearc/aerial.nvim",
   cmd = { "AerialOpen", "AerialToggle" },
-}
+  keys = {
 
-M.config = function()
-  require("aerial").setup({
+    { "gs", "<cmd>AerialToggle<cr>", desc = "Symbols (aerial)" },
+  },
+  opts = {
     filter_kind = false,
-  })
-end
+  },
+}
 
 return M

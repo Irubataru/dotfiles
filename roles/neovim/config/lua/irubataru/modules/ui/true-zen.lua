@@ -3,10 +3,10 @@
 local M = {
   "Pocco81/true-zen.nvim",
   cmd = { "TZNarrow", "TZFocus", "TZMinimalist", "TZAtaraxis" },
-}
-
-M.config = function()
-  require("true-zen").setup({
+  keys = {
+    { "<C-g>", "<cmd>TZAtaraxis<cr>", desc = "Toggle zen mode (Toggle Zen Atraxis)" },
+  },
+  opts = {
     modes = {
       ataraxis = {
         padding = {
@@ -20,7 +20,7 @@ M.config = function()
           end,
           close_pos = function()
             vim.cmd("Barbecue show")
-            require("lualine").hide({unhide = true})
+            require("lualine").hide({ unhide = true })
           end,
         },
       },
@@ -29,7 +29,7 @@ M.config = function()
       lualine = true,
       tmux = true,
     },
-  })
-end
+  },
+}
 
 return M

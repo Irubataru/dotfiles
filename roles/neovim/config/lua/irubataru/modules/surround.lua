@@ -1,10 +1,17 @@
 local M = {
   "kylechui/nvim-surround",
-  event = "VeryLazy"
+  event = "VeryLazy",
+  keys = {
+    group = "v",
+    {
+      "S",
+      function()
+        require("nvim-surround").visual_surround({})
+      end,
+      desc = "Visual surround",
+    },
+  },
+  opts = {},
 }
-
-M.config = function()
-  require("nvim-surround").setup({})
-end
 
 return M

@@ -4,6 +4,44 @@ local M = {
   "nvim-neotest/neotest",
 }
 
+M.keys = {
+  {
+    "gt",
+    function()
+      require("neotest").summary.toggle()
+    end,
+    desc = "Toggle test summary",
+  },
+  {
+    "<leader>td",
+    function()
+      require("neotest").run.run({ strategy = "dap" })
+    end,
+    desc = "Debug test under cursor",
+  },
+  {
+    "<leader>th",
+    function()
+      require("neotest").output.open()
+    end,
+    desc = "Open test output under cursor",
+  },
+  {
+    "<leader>tH",
+    function()
+      require("neotest").output_panel.toggle()
+    end,
+    desc = "Open test output",
+  },
+  {
+    "<leader>tt",
+    function()
+      require("neotest").run.run()
+    end,
+    desc = "Run test under cursor",
+  },
+}
+
 M.dependencies = {
   { "nvim-lua/plenary.nvim" },
   { "nvim-treesitter/nvim-treesitter" },
@@ -24,10 +62,9 @@ M.config = function()
         ignored_filetypes = { "python", "rust" },
       }),
       require("neotest-python"),
-      require("neotest-rust"){
-        dap_adapter = "codelldb"
-
-      },
+      require("neotest-rust")({
+        dap_adapter = "codelldb",
+      }),
     },
     quickfix = {
       open = false,

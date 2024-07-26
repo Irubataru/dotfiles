@@ -2,7 +2,15 @@
 
 local M = {
   "inkarkat/vim-ReplaceWithRegister",
-  keys = { "gx", "gxx" }
+  keys = {
+    { "gx", "<Plug>ReplaceWithRegisterOperator", desc = "Replace with register" },
+    { "gxx", "<Plug>ReplaceWithRegisterLine", desc = "Replace line with register" },
+    -- NOTE: Not sure why this doesn't work
+    -- {
+    --   mode = "x",
+    --   { "gx", "<Plug>ReplaceWithRegisterVisual", desc = "Replace with register" },
+    -- },
+  },
 }
 
 M.config = function()
@@ -12,6 +20,12 @@ M.config = function()
   keymap("n", "<Plug>DisableReplaceWithRegisterOperator", "<Plug>ReplaceWithRegisterOperator", {})
   keymap("n", "<Plug>DisableReplaceWithRegisterLine", "<Plug>ReplaceWithRegisterLine", {})
   keymap("x", "<Plug>DisableReplaceWithRegisterVisual", "<Plug>ReplaceWithRegisterVisual", {})
+
+  local wk = require("which-key")
+  wk.add({
+    mode = "x",
+    { "gx", "<Plug>ReplaceWithRegisterVisual", desc = "Replace with register" },
+  })
 end
 
 return M

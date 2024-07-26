@@ -3,6 +3,15 @@
 local M = {
   "stevearc/conform.nvim",
   cmd = { "ConformInfo" },
+  keys = {
+    {
+      "<leader>cf",
+      function()
+        require("conform").format({ async = true, lsp_fallback = true })
+      end,
+      desc = "Format buffer",
+    },
+  },
 }
 
 M.config = function()

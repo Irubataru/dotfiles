@@ -5,6 +5,11 @@ local M = {
   event = "VeryLazy",
 }
 
+M.keys = {
+  { "[b", "<Plug>(cokeline-focus-prev)", desc = "Goto previous buffer" },
+  { "]b", "<Plug>(cokeline-focus-next)", desc = "Goto next buffer" },
+}
+
 M.config = function()
   local get_hex = require("cokeline.hlgroups").get_hl_attr
   local mappings = require("cokeline/mappings")

@@ -4,6 +4,30 @@ local M = {
   "lewis6991/gitsigns.nvim",
 }
 
+M.keys = {
+  {
+    "<leader>gb",
+    function()
+      require("gitsigns").blame_line()
+    end,
+    desc = "Blame",
+  },
+  {
+    "<leader>gj",
+    function()
+      require("gitsigns").next_hunk()
+    end,
+    desc = "Next hunk",
+  },
+  {
+    "<leader>gk",
+    function()
+      require("gitsigns").prev_hunk()
+    end,
+    desc = "Prev hunk",
+  },
+}
+
 -- from max397574/omega-nvim
 M.init = function()
   vim.api.nvim_create_autocmd({ "BufRead" }, {

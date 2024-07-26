@@ -3,7 +3,16 @@
 local M = {
   "simonmclean/triptych.nvim",
   cmd = { "Triptych" },
-  config = true,
+  keys = {
+    {
+      "<leader>fF",
+      function()
+        require("triptych").toggle_triptych()
+      end,
+      desc = "Open file navigator",
+    },
+  },
+  opts = {},
   dependencies = {
     "nvim-lua/plenary.nvim", -- required
     "nvim-tree/nvim-web-devicons", -- optional

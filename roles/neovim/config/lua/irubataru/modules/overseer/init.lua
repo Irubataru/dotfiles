@@ -3,6 +3,10 @@
 local M = {
   "stevearc/overseer.nvim",
   cmd = { "OverseerRun", "OverseerToggle" },
+  keys = {
+    { "<leader>rr", "<cmd>OverseerRun<cr>", desc = "Run a task" },
+    { "<leader>rv", "<cmd>OverseerToggle<cr>", desc = "Toggle task status view" },
+  },
 }
 
 M.config = function()

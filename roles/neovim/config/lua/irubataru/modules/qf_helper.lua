@@ -4,10 +4,10 @@ local M = {
   "stevearc/qf_helper.nvim",
   ft = { "qf" },
   cmd = { "QFToggle", "LLToggle" },
-}
-
-M.config = function()
-  require("qf_helper").setup({
+  keys = {
+    { "<leader>cq", "<cmd>QFToggle!<cr>", desc = "Toggle quickfix list" },
+  },
+  opts = {
     prefer_loclist = true, -- Used for QNext/QPrev (see Commands below)
     sort_lsp_diagnostics = false, -- Sort LSP diagnostic results
     quickfix = {
@@ -26,7 +26,7 @@ M.config = function()
       min_height = 1,
       track_location = true,
     },
-  })
-end
+  },
+}
 
 return M

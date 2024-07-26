@@ -1,13 +1,15 @@
 -- A simple usecase of floating window to help you focus.
 
+-- TODO: Make 'q' quit neozoom
 local M = {
   "nyngwang/NeoZoom.lua",
   cmd = { "NeoZoomToggle" },
-}
-
--- TODO: Make 'q' quit neozoom
-M.config = function()
-  require("neo-zoom").setup({
+  keys = {
+    { "<F-11>", "<cmd>NeoZoomToggle<cr>", desc = "Toggle zoom" },
+    { "<leader>wz", "<cmd>NeoZoomToggle<cr>", desc = "Toggle zoom" },
+    { "<C-W>z", "<cmd>NeoZoomToggle<cr>", desc = "Toggle zoom" },
+  },
+  opts = {
     winopts = {
       offset = {
         width = 0.9,
@@ -34,7 +36,7 @@ M.config = function()
         },
       },
     },
-  })
-end
+  },
+}
 
 return M

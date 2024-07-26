@@ -5,33 +5,36 @@ local M = {
   cmd = {
     "DiffviewOpen",
     "DiffviewFileHistory",
-  }
+  },
 }
 
 M.dependencies = {
   { "nvim-lua/plenary.nvim" },
 }
 
-M.config = function()
-  require("diffview").setup({
-    file_panel = {
-      listing_style = "tree",
-      tree_options = {
-        flatten_dirs = true,
-        folder_statuses = "only_folded",
-      },
-      win_config = {
-        position = "top",
-        height = 16,
-      },
+M.keys = {
+  { "<leader>gh", "<cmd>DiffviewFileHistory %<CR>", desc = "git file history" },
+  { "<leader>gl", "<cmd>DiffviewOpen<CR>", desc = "git diff log" },
+}
+
+M.opts = {
+  file_panel = {
+    listing_style = "tree",
+    tree_options = {
+      flatten_dirs = true,
+      folder_statuses = "only_folded",
     },
-    file_history_panel = {
-      win_config = {
-        position = "top",
-        height = 10,
-      },
+    win_config = {
+      position = "top",
+      height = 16,
     },
-  })
-end
+  },
+  file_history_panel = {
+    win_config = {
+      position = "top",
+      height = 10,
+    },
+  },
+}
 
 return M

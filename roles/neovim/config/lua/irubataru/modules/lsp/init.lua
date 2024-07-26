@@ -3,6 +3,10 @@ local M = {
   event = "BufReadPre",
 }
 
+M.keys = {
+  { "<leader>rR", "<cmd>LspRestart<cr>", desc = "Restart the LSP" },
+}
+
 M.dependencies = {
   require("irubataru.modules.lsp.mason"),
   require("irubataru.modules.languages.lua.neodev"),

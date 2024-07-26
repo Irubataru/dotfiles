@@ -3,7 +3,11 @@
 local M = {
   "folke/todo-comments.nvim",
   event = "BufReadPost",
+  keys = {
+    { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find TODO items" },
+  },
   cmd = { "TodoQuickFix", "TodoLocList", "TodoTrouble", "TodoTelescope" },
+  opts = {},
 }
 
 M.config = function()

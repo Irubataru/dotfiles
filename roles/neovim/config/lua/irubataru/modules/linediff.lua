@@ -2,7 +2,10 @@
 
 local M = {
   "AndrewRadev/linediff.vim",
-  cmd = { "Linediff", "LinediffReset" }
+  cmd = { "Linediff", "LinediffReset" },
+  keys = {
+    { "<leader>da", "<cmd>Linediff<cr>", desc = "Linediff add" },
+  },
 }
 
 return M

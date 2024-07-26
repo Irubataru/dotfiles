@@ -3,7 +3,40 @@
 local M = {
   "akinsho/toggleterm.nvim",
   cmd = { "ToggleTerm" },
-  keys = { "<c-\\>" },
+  keys = {
+    { "<c-\\>" },
+    {
+      "<leader>Tn",
+      function()
+        require("irubataru.modules.toggleterm").node_toggle()
+      end,
+      desc = "Node",
+    },
+    {
+      "<leader>Tg",
+      function()
+        require("irubataru.modules.toggleterm").lazy_git_toggle()
+      end,
+      desc = "Lazygit",
+    },
+    {
+      "<leader>Tp",
+      function()
+        require("irubataru.modules.toggleterm").python_toggle()
+      end,
+      desc = "Python",
+    },
+    {
+      "<leader>Tt",
+      function()
+        require("irubataru.modules.toggleterm").toggle_filetype()
+      end,
+      desc = "Filetype",
+    },
+    { "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
+    { "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal" },
+    { "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "Vertical" },
+  },
 }
 
 M.config = function()
