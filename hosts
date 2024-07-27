@@ -34,5 +34,9 @@ all:
       hosts:
         ubuntu.virtualbox:
           ansible_connection: local
+    laptop_hyprland:
+      hosts:
+        laptop.hyprland:
+          ansible_connection: local
     #servers:
 

@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link hyprland condif
+  ansible.builtin.file:
+    src: "{{ role_path }}/config/"
+    dest: "{{ home_directory}}/.config/hypr"
+    state: link
