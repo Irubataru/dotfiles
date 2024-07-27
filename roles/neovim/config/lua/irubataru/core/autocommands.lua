@@ -90,4 +90,12 @@ ftdetect("*.doccls", "vb")
 ftdetect("*.frm", "vb")
 ftdetect("*.xaml", "xml")
 
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
+
+vim.filetype.add({
+  pattern = { [".*/roles/hyprland/config/.*%.conf"] = "hyprlang" },
+})
+
 -- }}}

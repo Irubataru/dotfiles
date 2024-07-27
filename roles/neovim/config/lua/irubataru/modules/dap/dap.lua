@@ -4,7 +4,12 @@ local M = {
   "mfussenegger/nvim-dap",
   dependencies = {
     "mfussenegger/nvim-dap-python",
-    "LiadOz/nvim-dap-repl-highlights",
+    {
+      "LiadOz/nvim-dap-repl-highlights",
+      build = function ()
+        require('nvim-dap-repl-highlights').setup()
+      end
+    }
   },
 }
 

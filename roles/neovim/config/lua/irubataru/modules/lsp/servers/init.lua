@@ -9,6 +9,7 @@ local M = {
   dockerls = {},
   eslint = {},
   html = {},
+  hyprls = {},
   jsonls = require("irubataru.modules.lsp.servers.jsonls").config,
   -- ltex = require("irubataru.lsp.servers.ltex").config,
   lua_ls = require("irubataru.modules.lsp.servers.lua_ls").config,

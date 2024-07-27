@@ -69,6 +69,7 @@ M.config = function()
       "gitignore",
       "html",
       "http",
+      "hyprlang",
       "ini",
       "javascript",
       "jq",
