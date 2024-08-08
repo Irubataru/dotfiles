@@ -47,6 +47,7 @@
       - fd-find
       - bat
       - cargo-update
+      - clock-tui
     state: present
   when: install
 
