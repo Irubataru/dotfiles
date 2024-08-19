@@ -18,6 +18,12 @@ M.keys = {
 }
 
 M.opts = {
+  view = {
+    merge_tool = {
+      layout = "diff4_mixed"
+    }
+
+  },
   file_panel = {
     listing_style = "tree",
     tree_options = {
@@ -25,8 +31,8 @@ M.opts = {
       folder_statuses = "only_folded",
     },
     win_config = {
-      position = "top",
-      height = 16,
+      position = "left",
+      width = 35,
     },
   },
   file_history_panel = {
