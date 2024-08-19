@@ -19,4 +19,13 @@ M.apply = function(config)
   config.hide_tab_bar_if_only_one_tab = true
 end
 
+-- Some font options:
+--   Maple Mono NF
+--   DankMono Nerd Font
+--   ComicCodeLigatures Nerd Font
+--   JetBrains Mono
+--   Cascadia Code NF
+--   Victor Mono
+--   Monocraft Nerd Font
+
 return M

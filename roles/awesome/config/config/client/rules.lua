@@ -25,4 +25,17 @@ ruled.client.connect_signal("request::rules", function()
     rule_any = { type = { "normal", "dialog" } },
     properties = { titlebars_enabled = false },
   })
+
+  -- Apps that are maximized by default
+  ruled.client.append_rule({
+    id = "maximized",
+    rule_any = { class = {
+      "jetbrains-rider",
+      "vivaldi-stable",
+      "obsidian",
+    } },
+    properties = {
+      maximized = true,
+    },
+  })
 end)

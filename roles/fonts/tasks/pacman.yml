@@ -1,10 +1,13 @@
 - name: Install fonts (AUR)
   kewlfft.aur.aur:
     name:
-      - ttf-hack-nerd
+      - ttf-hack
       - ttf-fira-code
       - ttf-jetbrains-mono
       - ttf-maple
+      - ttf-victor-mono
+      - ttf-cascadia-code
+      - ttf-nerd-fonts-symbols-mono
     state: present
   become: yes
   become_user: aur_builder

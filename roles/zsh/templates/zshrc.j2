@@ -94,7 +94,7 @@ zi ice; zi light Aloxaf/fzf-tab
 zi ice from"gh-r" as"program"
 zi light junegunn/fzf
 
-zi ice lucid wait"2"; zi load zsh-users/zsh-syntax-highlighting
+zi ice lucid wait"1"; zi load zsh-users/zsh-syntax-highlighting
 
 {% if zsh.plugins.atuin %}
 export ATUIN_NOBIND="true"
@@ -108,6 +108,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
 ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'(*\n*|?(#c80,)|*\\#:hist:push-line:)'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#888888,underline"
 
+zi ice lucid wait"2"; zi light zsh-users/zsh-history-substring-search
+export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="underline"
+
 zi ice; zi load zsh-users/zsh-autosuggestions
 
 # Load snippets
@@ -119,12 +122,12 @@ zinit cdreplay -q
 
 # Keybinds
 bindkey "^ " end-of-line # [ctrl-space] - autocomplete suggestion
-bindkey "^[[A" history-search-backward   # [up arrow]   - history backwards
-bindkey "^[OA" history-search-backward   # [up arrow]   - history backwards
-bindkey "^p" history-search-backward
-bindkey "^[[B" history-search-forward # [down arrow] - history forwards
-bindkey "^[OB" history-search-forward # [down arrow] - history forwards
-bindkey "^n" history-search-forward
+bindkey "^[[A" history-substring-search-up   # [up arrow]   - history backwards
+bindkey "^[OA" history-substring-search-up   # [up arrow]   - history backwards
+bindkey "^p" history-substring-search-up
+bindkey "^[[B" history-substring-search-down # [down arrow] - history forwards
+bindkey "^[OB" history-substring-search-down # [down arrow] - history forwards
+bindkey "^n" history-substring-search-down
 bindkey "^[[1;5C" forward-word  # [ctrl-left arrow]  - move full word
 bindkey "^[[1;5D" backward-word # [ctrl-right arrow] - move full word
 bindkey "${terminfo[khome]}" beginning-of-line # [home] - beginning of line

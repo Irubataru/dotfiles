@@ -1,5 +1,6 @@
 local dpi = require("beautiful.xresources").apply_dpi
 local configdir = require("config.config").dirs.awesome_config
+local homedir = require("config.config").dirs.home
 local icons = require("theme.icons")
 
 -- -- Seoul256 colours
@@ -53,8 +54,9 @@ local colors = {
 }
 
 return {
-  font = "Roboto Mono 9",
-  wallpaper = configdir .. "/wallpaper.png",
+  font = "Maple Mono NF 9",
+  -- wallpaper = configdir .. "/wallpaper.png",
+  wallpaper = homedir .. "/Pictures/Wallpapers/purple_mountain_1080.jpg",
 
   -- Colours
   colors = colors,
@@ -96,4 +98,8 @@ return {
   layout_uselesstiletop = icons.layouts.tiletop,
   layout_uselessfairv = icons.layouts.fairv,
   layout_uselessfairh = icons.layouts.fairh,
+
+  -- Notifications
+  notification_font = "JetBrains Mono 12",
+  notification_icon_size = 100,
 }
