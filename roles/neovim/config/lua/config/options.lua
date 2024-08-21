@@ -14,3 +14,4 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
 end
 
 vim.o.list = false
+vim.o.startofline = true
