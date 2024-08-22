@@ -14,6 +14,9 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = { "gS", mode = { "n", "v" }, desc = "Toggle split" },
     config = function()
+      -- Combine treesj with mini.splitjoin
+      -- https://github.com/echasnovski/mini.nvim/discussions/36#discussioncomment-8382869
+
       local tsj = require("treesj")
 
       tsj.setup({
