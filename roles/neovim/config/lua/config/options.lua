@@ -15,3 +15,6 @@ end
 
 vim.o.list = false
 vim.o.startofline = true
+
+-- Do not autoformat on save
+vim.g.autoformat = false
