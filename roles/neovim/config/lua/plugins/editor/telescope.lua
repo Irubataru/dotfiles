@@ -1,14 +1,46 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    opts = function(_, old_opts)
+      local actions = require("telescope.actions")
+
+      local opts = {
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-w>"] = actions.close,
+            },
+          },
+        },
+        pickers = {
+          buffers = {
+            mappings = {
+              i = {
+                ["<C-w>"] = actions.delete_buffer,
+              },
+            },
+          },
+        },
+      }
+
+      return vim.tbl_deep_extend("force", old_opts, opts)
+    end,
     keys = function()
       return {
         {
           "<C-b>",
-          "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
+          function()
+            require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({ previewer = false }))
+          end,
           desc = "Switch Buffer",
         },
-        { "<leader>F", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
+        {
+          "<leader>F",
+          function()
+            require("telescope.builtin").live_grep(require("telescope.themes").get_ivy())
+          end,
+          desc = "Grep (Root Dir)",
+        },
         { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
         { "<leader><space>", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
         -- find
