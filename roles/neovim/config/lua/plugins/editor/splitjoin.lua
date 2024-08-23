@@ -12,7 +12,9 @@ return {
   {
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    keys = { "gS", mode = { "n", "v" }, desc = "Toggle split" },
+    keys = {
+      { "gS", nil, mode = { "n", "v" }, desc = "Toggle split" },
+    },
     config = function()
       -- Combine treesj with mini.splitjoin
       -- https://github.com/echasnovski/mini.nvim/discussions/36#discussioncomment-8382869
