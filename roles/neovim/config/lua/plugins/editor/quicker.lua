@@ -1,5 +1,6 @@
 return {
   {
+    -- Improved UI and workflow for the Neovim quickfix
     "stevearc/quicker.nvim",
     event = "FileType qf",
     ---@module "quicker"

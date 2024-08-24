@@ -1,5 +1,6 @@
 return {
   {
+    -- A Neovim plugin that helps you pick Nerd Font Icons, Symbols & Emojis
     "ziontee113/icon-picker.nvim",
     cmd = { "IconPickerNormal", "IconPickerInsert", "IconPickerYank" },
     keys = {

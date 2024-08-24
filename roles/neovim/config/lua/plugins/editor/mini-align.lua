@@ -1,5 +1,6 @@
 return {
   {
+    -- A plugin to align text interactively
     "echasnovski/mini.align",
     event = "VeryLazy",
     opts = {

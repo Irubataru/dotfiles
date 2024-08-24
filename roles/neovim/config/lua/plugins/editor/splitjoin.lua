@@ -1,5 +1,6 @@
 return {
   {
+    -- A plugin to split and join arguments
     "echasnovski/mini.splitjoin",
     opts = {
       mappings = {
@@ -10,6 +11,7 @@ return {
     },
   },
   {
+    -- A plugin for splitting/joining blocks of code
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
