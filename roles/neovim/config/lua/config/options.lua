@@ -18,3 +18,6 @@ vim.o.startofline = true
 
 -- Do not autoformat on save
 vim.g.autoformat = false
+
+-- Python
+vim.g.lazyvim_python_lsp = "basedpyright"
