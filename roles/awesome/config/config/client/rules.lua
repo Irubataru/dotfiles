@@ -27,10 +27,11 @@ ruled.client.connect_signal("request::rules", function()
   })
 
   -- Apps that are maximized by default
+  -- TODO: Setting Rider to maximized also sets all settings and popup windows
   ruled.client.append_rule({
     id = "maximized",
     rule_any = { class = {
-      "jetbrains-rider",
+      -- "jetbrains-rider",
       "vivaldi-stable",
       "obsidian",
     } },
