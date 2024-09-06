@@ -15,6 +15,7 @@ require("layout")
 require("config.client")
 require("config.tags")
 require("config.keys.global")
+require("config.notifications")
 
 -- Modules
 require("modules.auto-start")
