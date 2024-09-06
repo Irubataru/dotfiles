@@ -2,6 +2,7 @@ local awful = require("awful")
 local launcher = require("modules.launcher")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local apps = require("config.apps")
+local config = require("config.config")
 
 local modkey = require("config.keys.mod").mod_key
 
@@ -21,7 +22,7 @@ awful.keyboard.append_global_keybindings({
 
   -- Prompt
   awful.key({ modkey }, "r", function()
-    awful.spawn("rofi -show drun")
+    awful.spawn(config.dirs.xdg_config .. "/rofi/launcher.sh")
   end, { description = "run prompt", group = "rofi" }),
 
   awful.key({ modkey, "Shift" }, "r", function()
@@ -38,11 +39,11 @@ awful.keyboard.append_global_keybindings({
   end, { description = "lua execute prompt", group = "awesome" }),
 
   awful.key({ modkey }, ".", function()
-    awful.spawn("rofimoji")
+    awful.spawn(config.dirs.xdg_config .. "/rofi/emoji.sh")
   end, { description = "show emoji menu", group = "rofi" }),
 
   awful.key({}, "XF86Calculator", function()
-    awful.spawn("rofi -show calc")
+    awful.spawn(config.dirs.xdg_config .. "/rofi/calc/calc.sh")
   end, { description = "show calculator", group = "rofi" }),
 
   awful.key({ modkey }, "b", function()
