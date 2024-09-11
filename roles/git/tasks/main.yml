@@ -1,10 +1,11 @@
 - name: Install git programs (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - git
       - tig
       - lazygit
       - github-cli
+      - git-delta
     state: present
   become: true
   when:
@@ -29,12 +30,12 @@
     state: link
 
 - name: Initialise gitconfig
-  template: 
+  template:
     src: "gitconfig.j2"
     dest: "~/.gitconfig"
 
 - name: Initialise the path template
-  template: 
+  template:
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
 
