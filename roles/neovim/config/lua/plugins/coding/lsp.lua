@@ -13,8 +13,7 @@ return {
         { "<a-cr>", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" }
 
       -- Disable inlay hints
-      -- FIX: This doesn't seem to work
-      vim.tbl_deep_extend("force", opts, { inlay_hints = { enabled = false } })
+      opts = vim.tbl_deep_extend("force", opts, { inlay_hints = { enabled = false } })
 
       return opts
     end,
