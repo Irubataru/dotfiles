@@ -8,12 +8,18 @@ M.apply = function(config)
   -- TODO: Something more similar to which-key here
   config.keys = {
 
-
     -- Remove default keybindings
     {
       mods = "ALT",
       key = "Enter",
-      action = wezterm.action.DisableDefaultAssignment
+      action = wezterm.action.DisableDefaultAssignment,
+    },
+
+    -- Ctrl+Backspace should be delete word
+    {
+      mods = "CTRL",
+      key = "Backspace",
+      action = wezterm.action.SendKey({ mods = "CTRL", key = "w" }),
     },
 
     -- TMUX compatibility commands
