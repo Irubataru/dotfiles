@@ -4,6 +4,6 @@ local modkey = require("config.keys.mod").mod_key
 awful.keyboard.append_global_keybindings({
   -- Redo screen layout
   awful.key({ modkey, "Control" }, "p", function()
-    awful.util.spawn("xlayoutdisplay")
+    awful.util.spawn("autorandr --change")
   end, { description = "focus next by index", group = "client" }),
 })
