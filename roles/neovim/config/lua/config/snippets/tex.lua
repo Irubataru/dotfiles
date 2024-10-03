@@ -3,13 +3,28 @@ if not status_ok then
   return {}
 end
 
-require("luasnip.session.snippet_collection").clear_snippets("tex")
+-- NOTE: Only for debugging
+-- require("luasnip.session.snippet_collection").clear_snippets("tex")
 
 local snippet = luasnip.snippet
 local i = luasnip.insert_node
 local fmta = require("luasnip.extras.fmt").fmta
 
 luasnip.add_snippets("tex", {
+  snippet(
+    { trig = "frame", descr = "Beamer frame" },
+    fmta(
+      [[
+\begin{frame}{<>}
+  <>
+\end{frame}
+      ]],
+      {
+        i(1, "Frame title"),
+        i(2, ""),
+      }
+    )
+  ),
   snippet(
     { trig = "template", descr = "Basic document template" },
     fmta(

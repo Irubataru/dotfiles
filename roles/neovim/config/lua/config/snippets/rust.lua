@@ -3,7 +3,8 @@ if not status_ok then
   return {}
 end
 
-require("luasnip.session.snippet_collection").clear_snippets("rust")
+-- NOTE: Only for debugging
+-- require("luasnip.session.snippet_collection").clear_snippets("rust")
 
 local snippet = luasnip.snippet
 local t = luasnip.text_node

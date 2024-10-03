@@ -3,7 +3,8 @@ if not status_ok then
   return {}
 end
 
-require("luasnip.session.snippet_collection").clear_snippets("html")
+-- NOTE: Only for debugging
+-- require("luasnip.session.snippet_collection").clear_snippets("html")
 
 local snippet = luasnip.snippet
 local i = luasnip.insert_node
