@@ -21,3 +21,18 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.b.autoformat = true
   end,
 })
+
+-- Set textwidth for certain filetypes
+vim.api.nvim_create_autocmd({ "FileType", "BufRead", "BufNewFile" }, {
+  pattern = { "markdown" },
+  callback = function()
+    vim.bo.textwidth = 80
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType", "BufRead", "BufNewFile" }, {
+  pattern = { "tex" },
+  callback = function()
+    vim.bo.textwidth = 120
+  end,
+})
