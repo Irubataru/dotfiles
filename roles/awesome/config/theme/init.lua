@@ -55,8 +55,7 @@ local colors = {
 
 return {
   font = "Maple Mono NF 9",
-  -- wallpaper = configdir .. "/wallpaper.png",
-  wallpaper = homedir .. "/Pictures/Wallpapers/purple_mountain_1080.jpg",
+  wallpaper = configdir .. "/wallpaper.png",
 
   -- Colours
   colors = colors,
