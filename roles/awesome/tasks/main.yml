@@ -11,7 +11,7 @@
     - package_manager == "pacman"
 
 - name: Install awesomeWM (apt)
-  apt:
+  ansible.builtin.apt:
     name: awesome
     state: present
   become: true
@@ -20,8 +20,10 @@
     - package_manager == "apt"
 
 - name: Instrall awesmeWM dependencies (pacman)
-  pacman:
-    name: maim
+  community.general.pacman:
+    name:
+      - brightnessctl
+      - maim
     state: present
   become: true
   when:
@@ -29,13 +31,13 @@
     - package_manager == "pacman"
 
 - name: Link awesomeWM config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/config"
     dest: "{{ home_directory }}/.config/awesome"
     state: link
 
 - name: Install lain
-  git: 
+  ansible.builtin.git:
     repo: "https://github.com/lcpz/lain.git"
     dest: "{{ role_path }}/config/lain"
-    update: no
+    update: false
