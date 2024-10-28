@@ -89,6 +89,7 @@ nmap gU <Action>(FindUsages)
 nmap gr <Action>(ShowUsages)
 nmap gR <Action>(FindUsages)
 nmap gl <Action>(ShowErrorDescription)
+nmap <C-K> <Action>(QuickImplementations)
 
 " Telescope
 
