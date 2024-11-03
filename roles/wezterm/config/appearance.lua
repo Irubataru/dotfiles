@@ -3,7 +3,6 @@ local wezterm = require("wezterm")
 local M = {}
 
 M.apply = function(config)
-
   config.color_scheme = "Kanagawa (Gogh)"
 
   config.font = wezterm.font("Maple Mono NF")

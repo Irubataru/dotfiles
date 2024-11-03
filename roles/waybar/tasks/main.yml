@@ -1,0 +1,16 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install waybar (pacman)
+  community.general.pacman:
+    name: waybar
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Link waybar config
+  ansible.builtin.file:
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.config/waybar"
+    state: link

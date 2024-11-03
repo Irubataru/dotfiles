@@ -25,7 +25,9 @@ luasnip.add_snippets("ansible", {
             name: <>
             state: present
           become: true
-          when: install
+          when:
+            - install
+            - package_manager == "pacman"
       ]],
       {
         i(1, "package"),
@@ -43,7 +45,9 @@ luasnip.add_snippets("ansible", {
             state: present
           become: true
           become_user: aur_builder
-          when: install
+          when:
+            - install
+            - package_manager == "pacman"
       ]],
       {
         i(1, "package"),

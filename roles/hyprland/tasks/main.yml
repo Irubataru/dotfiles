@@ -1,7 +1,20 @@
 # vi: set ft=yaml.ansible :
 
-- name: Link hyprland condif
+- name: Install hyprland packages (pacman)
+  community.general.pacman:
+    name:
+      - hypridle
+      - hyprlock
+      - hyprpaper
+      - wlogout
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Link hyprland condig
   ansible.builtin.file:
-    src: "{{ role_path }}/config/"
-    dest: "{{ home_directory}}/.config/hypr"
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.config/hypr"
     state: link

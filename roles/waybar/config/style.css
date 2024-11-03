@@ -1,0 +1,110 @@
+@import "mocha.css";
+
+* {
+  font-family: Maple Mono NF;
+  font-size: 10px;
+  min-height: 0;
+}
+
+#waybar {
+  background: transparent;
+  color: @text;
+}
+
+#workspaces {
+  border-radius: 1rem;
+  background-color: @surface0;
+  margin-left: 1rem;
+}
+
+#workspaces button {
+  color: @lavender;
+  padding: 0.2rem;
+}
+
+#workspaces button.active {
+  color: @sky;
+}
+
+#workspaces button:hover {
+  color: @sapphire;
+}
+
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#language,
+#custom-lock,
+#pulseaudio,
+#custom-power {
+  background-color: @surface0;
+  padding: 0.5rem 0.5rem;
+}
+
+#clock {
+  color: @blue;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @red;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#pulseaudio {
+  color: @maroon;
+}
+
+#backlight,
+#battery,
+#pulseaudio {
+  border-radius: 0;
+}
+
+#language {
+  color: @lavender;
+  border-radius: 1rem 0px 0px 1rem;
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
+#clock {
+  border-radius: 0px 1rem 1rem 0px;
+  margin-right: 1rem;
+  padding-right: 1rem;
+}
+
+#custom-music {
+  color: @mauve;
+  border-radius: 1rem;
+}
+
+#custom-lock {
+  border-radius: 1rem 0px 0px 1rem;
+  padding-left: 1rem;
+  color: @lavender;
+}
+
+#custom-power {
+  padding-right: 1rem;
+  margin-right: 1rem;
+  border-radius: 0px 1rem 1rem 0px;
+  color: @red;
+}
+
+#tray {
+  margin-right: 1rem;
+  border-radius: 1rem;
+}

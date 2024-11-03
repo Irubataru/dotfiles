@@ -1,0 +1,11 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install wayland packages (pacman)
+  community.general.pacman:
+    name:
+      - wl-clipboard
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
