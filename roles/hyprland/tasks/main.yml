@@ -6,9 +6,20 @@
       - hypridle
       - hyprlock
       - hyprpaper
+      - swaync
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Install hyprland packages (AUR)
+  kewlfft.aur.aur:
+    name:
       - wlogout
     state: present
   become: true
+  become_user: aur_builder
   when:
     - install
     - package_manager == "pacman"
@@ -17,4 +28,16 @@
   ansible.builtin.file:
     src: "{{ role_path }}/config"
     dest: "{{ home_directory }}/.config/hypr"
+    state: link
+
+- name: Link swaync config
+  ansible.builtin.file:
+    src: "{{ role_path }}/swaync"
+    dest: "{{ home_directory }}/.config/swaync"
+    state: link
+
+- name: Link wlogout config
+  ansible.builtin.file:
+    src: "{{ role_path }}/wlogout"
+    dest: "{{ home_directory }}/.config/wlogout"
     state: link

@@ -4,6 +4,7 @@
   community.general.pacman:
     name:
       - wl-clipboard
+      - wtype
     state: present
   become: true
   when:

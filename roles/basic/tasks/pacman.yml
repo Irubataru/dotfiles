@@ -1,5 +1,5 @@
 - name: Installing basic dependencies (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - clang
       - python

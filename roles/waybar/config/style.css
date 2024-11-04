@@ -38,7 +38,8 @@
 #language,
 #custom-lock,
 #pulseaudio,
-#custom-power {
+#custom-power,
+#custom-notification {
   background-color: @surface0;
   padding: 0.5rem 0.5rem;
 }
@@ -91,9 +92,13 @@
   border-radius: 1rem;
 }
 
-#custom-lock {
+#custom-notification {
   border-radius: 1rem 0px 0px 1rem;
   padding-left: 1rem;
+  color: @blue;
+}
+
+#custom-lock {
   color: @lavender;
 }
 
@@ -103,6 +108,7 @@
   border-radius: 0px 1rem 1rem 0px;
   color: @red;
 }
+
 
 #tray {
   margin-right: 1rem;
