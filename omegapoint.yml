@@ -1,0 +1,57 @@
+# vi: set ft=yaml.ansible :
+---
+
+- hosts: omegapoint
+  vars:
+    modules:
+      # Basics
+      - system
+      - basic
+      # - pacman
+      - keyboard
+      - bluetooth
+      - zsh
+      - zoxide
+      - fonts
+      - laptop
+
+      # Window manager
+      - wayland
+      - hyprland
+      - waybar
+
+      # Programming languages
+      - clang
+      - dotnet
+      - go
+      - lua
+      - npm
+      - python
+      - rust
+
+      # Visual
+      - gpg
+
+      # Applications
+      - applications
+      - common
+      - git
+      - gtk
+      - latex
+      - mpd
+      # - navi
+      - neovim
+      - obsidian
+      - playerctl
+      - rider
+      - rofi
+      - ssh
+      - tldr
+      - utilities
+      - vifm
+      - wezterm
+      - zathura
+  tasks:
+    - include_role:
+        name: "{{ item }}"
+      loop: "{{ modules }}"

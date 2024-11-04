@@ -38,5 +38,9 @@ all:
       hosts:
         laptop.hyprland:
           ansible_connection: local
+    omegapoint:
+      hosts:
+        omegapoint:
+          ansible_connection: local
     #servers:
 
