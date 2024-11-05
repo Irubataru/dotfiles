@@ -9,61 +9,72 @@
   "modules-center": [],
   "modules-right": [
     "hyprland/language",
-    "pulseaudio",
+    "wireplumber",
+    "network",
     "battery",
+    "group/brightness",
     "clock",
     "custom/notification",
     "tray",
     "custom/lock",
     "custom/power",
   ],
+
+  // Hyprland
+  // --------
+
   "hyprland/workspaces": {
     "format": "{icon}",
     "on-click": "activate",
     "sort-by-number": true,
     "sort-by-name": false,
     "all-outputs": true,
+    "persistent-workspaces": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+    },
     "format-icons": {
-      // "1": "",
-      // "2": "",
-      // "3": "",
-      // "4": "",
-      // "5": "",
-      // "8": "",
-      // "9": "",
-      // "10": "",
-      // "urgent": "",
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "urgent": "",
       // "focused": "",
       "default": ""
     }
   },
+
   "hyprland/window": {
     "separate-outputs": true
   },
+
   "hyprland/language": {
     "format": "{shortDescription}"
   },
+
   "tray": {
-    "icon-size": 21,
-    "spacing": 10
+    "icon-size": 10,
+    "spacing": 8
   },
-  "custom/music": {
-    "format": "  {}",
-    "escape": true,
-    "interval": 5,
-    "tooltip": false,
-    "exec": "playerctl metadata --format='{{ title }}'",
-    "on-click": "playerctl play-pause",
-    "max-length": 50
-  },
+
+  // Clock
+  // ------
+
   "clock": {
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<big>{:%Y %B}</big>\n{calendar}",
     "format-alt": "󰃭 {:%d/%m/%Y}",
     "format": "󰥔 {:%H:%M}"
   },
+
+  // Backlight
+  // ---------
+  
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon}",
+		"tooltip-format": "{icon}{percent}%",
     "format-icons": [
       "",
       "",
@@ -76,6 +87,17 @@
       ""
     ]
   },
+
+	"backlight/slider": {
+		"max": 100,
+		"min": 0,
+		"orientation": "horizontal",
+		"device": "intel_backlight"
+	},
+
+  // Battery
+  // -------
+
   "battery": {
     "states": {
       "warning": 30,
@@ -100,7 +122,40 @@
       "󰁹"
     ]
   },
-  "pulseaudio": {
+
+  // Bluetooth
+  // ---------
+  
+	// "bluetooth": {
+	// 	"format-disabled": "off",
+	// 	"format": " ",
+	// 	"on-click": "blueman-manager",
+	// 	"max-length": 10,
+	// 	"on-click-right": "rfkill toggle bluetooth",
+	// },
+	//
+	// "bluetooth#icon": {
+	// 	"format": "󰂯",
+	// 	"format-connected": "󰂱",
+	// 	"format-disabled": "󰂲",
+	// 	"format-off": "󰂲",
+	// 	"format-on": "󰂯",
+	// 	"on-click": "blueberry",
+	// 	"on-click-right": "rfkill toggle bluetooth",
+	// 	"max-length": 10,
+	// 	"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+	// 	"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+	// 	"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+	// 	"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t󰥉{device_battery_percentage}%"
+	// },
+
+  // Network
+  // -------
+
+  // Audio
+  // -----
+
+  "wireplumber": {
     // "scroll-step": 1, // %, can be a float
     "format": "{icon}",
     "format-muted": "",
@@ -111,18 +166,24 @@
         ""
       ]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pwvucontrol"
   },
+
+  // Custom
+  // ------
+
   "custom/lock": {
     "tooltip": false,
-    "on-click": "sh -c '(sleep 0.5s; hyprlock)' & disown",
+    "on-click": "sh -c '(sleep 0.5s; loginctl lock-session)' & disown",
     "format": "",
   },
+
   "custom/power": {
     "tooltip": false,
-    "on-click": "wlogout &",
+    "on-click": "$HOME/.config/rofi/powermenu.sh &",
     "format": "󰐥"
   },
+
   "custom/notification": {
     "tooltip": false,
     "format": "{icon}",
@@ -143,4 +204,46 @@
     "on-click-right": "swaync-client -d -sw",
     "escape": true
   },
+
+  "custom/music": {
+    "format": "  {}",
+    "escape": true,
+    "interval": 5,
+    "tooltip": false,
+    "exec": "playerctl metadata --format='{{ title }}'",
+    "on-click": "playerctl play-pause",
+    "max-length": 50
+  },
+
+  "custom/tray-icon": {
+    "format": ""
+  },
+
+  // Groups
+  // ------
+
+  "group/brightness": {
+		"drawer": {
+			"children-class": "brightness",
+			"transition-duration": 500,
+			"transition-left-to-right": true
+		},
+		"modules": [
+			"backlight",
+			"backlight/slider"
+		],
+		"orientation": "horizontal"
+  },
+
+  "group/tray": {
+    "drawer": {
+			"transition-duration": 500,
+			"transition-left-to-right": true
+    },
+    "modules": [
+      // "custom/tray-icon",
+      "tray"
+    ],
+		"orientation": "horizontal"
+  }
 }

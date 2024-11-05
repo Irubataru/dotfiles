@@ -2,12 +2,6 @@
 
 ## Author : Aditya Shakya (adi1090x)
 ## Github : @adi1090x
-#
-## Rofi   : Power Menu
-#
-## Available Styles
-#
-## style-1   style-2   style-3   style-4   style-5
 
 # Current Theme
 dir="$HOME/.config/rofi/powermenu/type-4"
@@ -15,7 +9,6 @@ theme='style-3'
 
 # CMDs
 uptime="`uptime -p | sed -e 's/up //g'`"
-host=`hostname`
 
 # Options
 shutdown='󰐥'
@@ -29,7 +22,7 @@ no='󰅖'
 # Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
-		-p "Goodbye ${USER}" \
+		-p "Goodbye Aleksandra" \
 		-mesg "Uptime: $uptime" \
 		-theme ${dir}/${theme}.rasi
 }
@@ -44,12 +37,12 @@ confirm_cmd() {
 
 # Ask for confirmation
 confirm_exit() {
-	echo -e "$yes\n$no" | confirm_cmd
+	echo -e "${yes}\n${no}" | confirm_cmd
 }
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
+	echo -e "${lock}\n${suspend}\n${logout}\n${reboot}\n${shutdown}" | rofi_cmd
 }
 
 # Execute Command
@@ -65,7 +58,9 @@ run_cmd() {
 			amixer set Master mute
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
-			if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
+			if [[ "$DESKTOP_SESSION" == 'hyprland' ]]; then
+        hyprctl dispatch exit
+			elif [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
 				openbox --exit
 			elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
 				bspc quit
@@ -90,11 +85,7 @@ case ${chosen} in
 		run_cmd --reboot
         ;;
     $lock)
-		if [[ -x '/usr/bin/betterlockscreen' ]]; then
-			betterlockscreen -l
-		elif [[ -x '/usr/bin/i3lock' ]]; then
-			i3lock
-		fi
+    loginctl lock-session
         ;;
     $suspend)
 		run_cmd --suspend
