@@ -10,7 +10,6 @@
   "modules-right": [
     "hyprland/language",
     "wireplumber",
-    "network",
     "battery",
     "group/brightness",
     "clock",
