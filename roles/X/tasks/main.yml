@@ -1,39 +1,42 @@
-- import_tasks: pacman.yml
+- name: Install X packages (pacman)
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 - name: Link xinitrc
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/xinitrc"
     dest: ~/.xinitrc
     state: link
   ignore_errors: true
 
-- name: Initialise Xresources 
-  template: 
+- name: Initialise Xresources
+  ansible.builtin.template:
     src: "Xresources.j2"
     dest: "~/.Xresources"
+    mode: u=rw,g=r,o=r
 
 - name: Make handlr config directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/handlr"
     state: directory
 
 - name: Link handlr config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/handlr.toml"
     dest: ~/.config/handlr/handlr.toml
     state: link
   ignore_errors: true
 
 - name: Create picom config directory directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/picom"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link picom config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/picom.conf"
     dest: "{{ home_directory }}/.config/picom/picom.conf"
     state: link

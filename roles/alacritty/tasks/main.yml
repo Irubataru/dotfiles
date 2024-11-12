@@ -1,37 +1,41 @@
-- import_tasks: apt.yml
+- name: Install alacritty packages (apt)
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
-    - package_manager == "apt" 
+    - package_manager == "apt"
 
-- import_tasks: pacman.yml
+- name: Install alacritty packages (pacman)
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
-- import_tasks: install_from_git.yml
+- name: Install alacritty from git
+  ansible.builtin.import_tasks: install_from_git.yml
   when:
     - install
     - package_manager == "apt"
 
 - name: Create alacritty config directory
-  file: 
+  ansible.builtin.file:
     path: "{{ alacritty_config_path }}"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link alacritty config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/alacritty.toml"
     dest: "{{ alacritty_config_path }}/alacritty.toml"
     state: link
 
 - name: Link alacritty config (legacy)
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/alacritty.yml"
     dest: "{{ alacritty_config_path }}/alacritty.yml"
     state: link
 
 - name: Add GL3 fix
-  template: 
+  ansible.builtin.template:
     src: "libgl_fix.zsh.j2"
     dest: "{{ home_directory }}/.local/bin/alacritty"
     mode: u=rx,g=rx,o=rx

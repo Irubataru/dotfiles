@@ -1,38 +1,41 @@
 - name: Install bitwarden
-  npm:
+  community.general.npm:
     name: "@bitwarden/cli"
     global: true
     state: present
 
-- import_tasks: apt.yml
+- name: Install bitwarden packages (apt)
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"
 
-- import_tasks: pacman.yml
+- name: Install bitwarden packages (pacman)
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 - name: Initialise the path template
-  template: 
+  ansible.builtin.template:
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+    mode: u=rw,g=r,o=r
 
 - name: Initialise pwdfzf template
-  template:
+  ansible.builtin.template:
     src: "pwdfzf.j2"
     dest: "{{ role_path }}/bin/_pwdfzf-bin-script"
     mode: u=rwx,g=rx,o=rx
 
 - name: Initialise pwdshow template
-  template:
+  ansible.builtin.template:
     src: "pwdshow.j2"
     dest: "{{ role_path }}/bin/_pwdshow-bin-script"
     mode: u=rwx,g=rx,o=rx
 
 - name: Initialise pwdssh template
-  template:
+  ansible.builtin.template:
     src: "pwdsingle.j2"
     dest: "{{ role_path }}/bin/_pwdssh-bin-script"
     mode: u=rwx,g=rx,o=rx
@@ -41,7 +44,7 @@
   when: bw_ssh_item_name is defined
 
 - name: Initialise pwdpgp template
-  template:
+  ansible.builtin.template:
     src: "pwdsingle.j2"
     dest: "{{ role_path }}/bin/_pwdpgp-bin-script"
     mode: u=rwx,g=rx,o=rx

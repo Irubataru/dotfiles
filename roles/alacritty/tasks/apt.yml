@@ -1,6 +1,6 @@
 - name: Install alacritty build dependencies (apt)
-  apt:
-    name: 
+  ansible.builtin.apt:
+    name:
       - cmake
       - pkg-config
       - libfreetype6-dev

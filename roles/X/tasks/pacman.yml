@@ -1,8 +1,8 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install X utilities (pacman)
-  pacman:
-    name: 
+  community.general.pacman:
+    name:
       - xorg-xset
       - light-locker
       - pinentry

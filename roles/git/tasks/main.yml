@@ -13,7 +13,7 @@
     - package_manager == "pacman"
 
 - name: Install git programs (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - git
       - tig
@@ -24,29 +24,31 @@
     - package_manager == "apt"
 
 - name: Link default gitignore
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/gitignore"
     dest: "~/.gitignore"
     state: link
 
 - name: Initialise gitconfig
-  template:
+  ansible.builtin.template:
     src: "gitconfig.j2"
     dest: "~/.gitconfig"
+    mode: u=rw,g=r,o=r
 
 - name: Initialise the path template
-  template:
+  ansible.builtin.template:
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+    mode: u=rw,g=r,o=r
 
 - name: Link tig config file
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/tigrc"
     dest: "~/.tigrc"
     state: link
 
 # - name: Initialise git api token
-#   template: 
+#   template:
 #     src: "github_api_token.zsh.j2"
 #     dest: "{{ role_path }}/github_api_token.zsh"
 #   ignore_errors: true

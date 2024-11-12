@@ -143,6 +143,7 @@ luasnip.add_snippets("ansible", {
           ansible.builtin.template:
             src: "<>"
             dest: "<>"
+            mode: u=rw,g=r,o=r
       ]],
       {
         i(1, "name"),
@@ -185,4 +186,6 @@ luasnip.add_snippets("ansible", {
       }
     )
   ),
+  snippet({ trig = "home", descr = "Home directory" }, t("{{ home_directory }}")),
+  snippet({ trig = "role", descr = "Role directory" }, t("{{ role_path }}")),
 })

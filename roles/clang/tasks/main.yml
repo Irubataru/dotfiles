@@ -1,10 +1,11 @@
-- import_tasks: apt.yml
+- name: Install clang packages (apt)
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"
 
 - name: Link clang-format
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/clang-format"
     dest: "~/.clang-format"
     state: link

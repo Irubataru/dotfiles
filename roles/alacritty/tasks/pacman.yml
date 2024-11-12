@@ -1,6 +1,6 @@
 - name: Install alacritty X dependencies (pacman)
-  pacman:
-    name: 
+  community.general.pacman:
+    name:
       - cmake
       - freetype2
       - fontconfig
@@ -16,5 +16,5 @@
   kewlfft.aur.aur:
     name: alacritty-git
     state: present
-  become: yes
+  become: true
   become_user: aur_builder

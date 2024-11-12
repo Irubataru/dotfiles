@@ -1,5 +1,5 @@
 - name: Install applications (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - pcmanfm-gtk3
       - vivaldi

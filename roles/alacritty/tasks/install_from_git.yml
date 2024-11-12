@@ -1,11 +1,11 @@
 - name: Get alacritty latest release SHA
-  uri:
+  ansible.builtin.uri:
     url: "https://api.github.com/repos/alacritty/alacritty/releases/latest"
     method: GET
   register: response
 
 - name: Clone alacritty repo
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/alacritty/alacritty.git"
     dest: "{{ role_path }}/alacritty"
     version: "{{ response.json.target_commitish }}"
@@ -15,7 +15,7 @@
     - response.json.target_commitish != ""
 
 - name: Ensure build dependencies for alacritty (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - cmake
       - pkg-config
@@ -29,7 +29,7 @@
   become: true
 
 - name: Ensure build dependencies for alacritty (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - cmake
       - freetype2
@@ -44,16 +44,16 @@
   become: true
 
 - name: Build alacritty
-  shell: cargo build --release
+  ansible.builtin.shell: cargo build --release
   args:
     chdir: "{{ role_path }}/alacritty"
   register: build_status
-  when: 
+  when:
     - not clone_status.failed
     - clone_status.changed
 
 - name: Install alacritty
-  shell: |
+  ansible.builtin.shell: |
     cp target/release/alacritty /usr/bin
   args:
     chdir: "{{ role_path }}/alacritty"

@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install bluetooth (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - bluez
       - blueman

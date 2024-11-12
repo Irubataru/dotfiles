@@ -1,6 +1,7 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Install bluetooth packages (pacman)
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
