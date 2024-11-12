@@ -5,10 +5,11 @@
 # Set the gpg tty so we are prompted for passwords and pins
 export GPG_TTY=$(tty)
 
+{% endif %}
+
 # Path to the dotfiles
 export DOTFILES={{ dotfiles_directory }}
 
-{% endif %}
 # Some options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 
@@ -147,10 +148,15 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color=always $realpath'
 # Source Cargo environment variables
 source "$HOME/.cargo/env"
 
+{% if 'npm' in modules %}
 # Source (lazily) node version manager (NVM)
 zi ice link lucid wait"2"
 zi snippet /usr/share/nvm/init-nvm.sh
 
+# Source fast node manager (fnm)
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+{% endif %}
 # Load starship theme
 # line 1: `starship` binary as command, from github release
 # line 2: starship setup at clone(create init.zsh, completion)

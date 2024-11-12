@@ -7,3 +7,14 @@
   when:
     - install
     - package_manager == "apt"
+
+- name: Install fnm (cargo)
+  community.general.cargo:
+    name: fnm
+    state: present
+  when: install
+
+- name: "Initialize fnm completions"
+  ansible.builtin.shell: fnm completions --shell zsh > completions.zsh
+  args:
+    chdir: {{ role_path }}
