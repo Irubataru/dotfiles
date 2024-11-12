@@ -4,8 +4,7 @@ local config = wezterm.config_builder()
 
 config.check_for_updates = false
 
-config.enable_wayland = false
-
+config.enable_wayland = true
 
 require("appearance").apply(config)
 require("keymaps").apply(config)

@@ -6,7 +6,7 @@ M.apply = function(config)
   config.color_scheme = "Kanagawa (Gogh)"
 
   config.font = wezterm.font("Maple Mono NF")
-  config.font_size = 14
+  config.font_size = 12
 
   config.window_padding = {
     left = 4,
