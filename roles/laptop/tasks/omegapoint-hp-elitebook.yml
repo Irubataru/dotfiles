@@ -1,0 +1,5 @@
+- name: Link kanshi config
+  ansible.builtin.file:
+    src: "{{ role_path }}/omegapoint-hp-elitebook/kanshi"
+    dest: "{{ home_directory }}/.config/kanshi"
+    state: link

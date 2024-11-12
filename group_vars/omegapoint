@@ -1,6 +1,7 @@
 # vi: set ft=yaml :
 
 system: arch
+hardware: omegapoint-hp-elitebook
 user_name: aleksandra
 package_manager: pacman
 

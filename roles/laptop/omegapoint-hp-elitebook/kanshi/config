@@ -1,0 +1,20 @@
+profile {
+  output eDP-1 enable scale 1.33333
+}
+
+profile {
+  output eDP-1 enable scale 1.33333 position 2560,0
+  output HDMI-A-1 mode 2560x1440 position 0,0
+}
+
+profile {
+  output eDP-1 disable
+  output DVI-I-1 mode 2560x1440 position 0,0
+  output DVI-I-2 mode 2560x1440 position 2560,0
+}
+
+profile {
+  output eDP-1 disable
+  output DP-4 mode 2560x1440 position 0,0
+  output HDMI-A-1 mode 2560x1440 position 2560,0
+}
