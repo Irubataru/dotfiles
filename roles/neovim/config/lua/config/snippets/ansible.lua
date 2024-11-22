@@ -128,6 +128,7 @@ luasnip.add_snippets("ansible", {
           ansible.builtin.file:
             path: "<>"
             state: directory
+            mode: u=rwx,g=rx,o=rx
       ]],
       {
         i(1, "name"),

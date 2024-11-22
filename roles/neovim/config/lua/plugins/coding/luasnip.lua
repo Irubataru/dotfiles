@@ -36,6 +36,13 @@ return {
         mode = { "i", "s" },
       },
       {
+        "<tab>",
+        function()
+          return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
+        end,
+        mode = { "i", "s" },
+      },
+      {
         "<c-k>",
         function()
           return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
