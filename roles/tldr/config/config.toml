@@ -1,0 +1,16 @@
+[style.example_text]
+foreground = { rgb = { r = 183, g = 189, b = 248 } }
+
+[style.command_name]
+foreground = { rgb = { r = 166, g = 218, b = 149 } }
+
+[style.example_code]
+foreground = { rgb = { r = 245, g = 169, b = 127 } }
+italic = true
+
+[style.example_variable]
+foreground = { rgb = { r = 238, g = 212, b = 159 } }
+underline = true
+
+[updates]
+auto_update = true

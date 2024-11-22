@@ -6,13 +6,20 @@
     state: present
   when: install
 
-- name: Create tldr config directory
-  file: 
+- name: Create tldr custom pages directory
+  ansible.builtin.file:
     path: "{{ home_directory }}/.local/share/tealdeer"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link tldr pages directory
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/pages"
     dest: "{{ home_directory }}/.local/share/tealdeer/pages"
+    state: link
+
+- name: Link tldr
+  ansible.builtin.file:
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.config/tealdeer"
     state: link
