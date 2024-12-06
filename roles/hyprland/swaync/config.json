@@ -23,7 +23,7 @@
   "transition-time": 200,
   "hide-on-clear": true,
   "hide-on-action": true,
-  "widgets": ["title","dnd","notifications","mpris"],
+  "widgets": ["title", "dnd","notifications","mpris"],
   "widget-config": {
     "title": {
       "text": "Notifications",
@@ -41,42 +41,6 @@
       "image-size": 72,
       "image-radius": 8,
       "blur": false
-    },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "󰐥",
-          "command": "systemctl poweroff"
-        },
-        {
-          "label": "󰜉",
-          "command": "systemctl reboot"
-        },
-        {
-          "label": "󰌾",
-          "command": "$HOME/.scripts/hyprlock"
-        },
-        {
-          "label": "󰍃",
-          "command": "swaymsg exit"
-        },
-        {
-          "label": "󰏥",
-          "command": "systemctl suspend"
-        },
-        {
-          "label": "󰛳",
-          "command": "nm-connection-editor"
-        },
-        {
-          "label": "󰂯",
-          "command": "blueman-manager"
-        },
-        {
-          "label": "",
-          "command": "kooha"
-        }
-      ]
     }
   }
 }
