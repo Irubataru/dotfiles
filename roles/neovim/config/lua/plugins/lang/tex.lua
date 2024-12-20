@@ -1,8 +1,9 @@
 return {
   {
     "lervag/vimtex",
-    keys = {
-      { "<leader>cp", "<cmd>VimtexCompile<cr>", desc = "Compile latex document" },
-    },
+    lazy = false,
+    init = function()
+      vim.keymap.set("n", "<leader>cp", "<cmd>VimtexCompile<cr>", { desc = "Compile latex document" })
+    end,
   },
 }

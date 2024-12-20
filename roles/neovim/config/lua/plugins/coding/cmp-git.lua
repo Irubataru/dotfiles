@@ -1,17 +1,7 @@
--- Disable this for now
-if true then
-  return {}
-end
-
 return {
   {
     "petertriho/cmp-git",
     opts = {
-      gitlab = {
-        hosts = {
-          "gitlab.sintef.no",
-        },
-      },
       trigger_actions = {
         -- NOTE: To disable the commits action, I need to specify the rest
         -- {
@@ -57,6 +47,18 @@ return {
           end,
         },
       },
+    },
+  },
+
+  -- blink.cmp integration
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    dependencies = {
+      { "saghen/blink.compat", opts = { impersonate_nvim_cmp = true } },
+    },
+    opts = {
+      sources = { compat = { "git" } },
     },
   },
 }

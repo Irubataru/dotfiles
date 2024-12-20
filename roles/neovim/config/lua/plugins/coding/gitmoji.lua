@@ -8,11 +8,17 @@ return {
     },
     ft = "gitcommit",
   },
+
+  -- blink.cmp integration
   {
-    "hrsh7th/nvim-cmp",
-    opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, { name = "gitmoji" })
-    end,
+    "saghen/blink.cmp",
+    optional = true,
+    dependencies = {
+      { "saghen/blink.compat", opts = { impersonate_nvim_cmp = true } },
+      { "Dynge/gitmoji.nvim" },
+    },
+    opts = {
+      sources = { compat = { "gitmoji" } },
+    },
   },
 }
