@@ -18,6 +18,10 @@ return {
         end,
       },
     },
+    config = function(opts)
+      require("config.snippets").setup()
+      require("luasnip").setup(opts)
+    end,
     opts = {
       history = true,
       delete_check_events = "TextChanged",
