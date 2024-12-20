@@ -169,7 +169,8 @@ vim.keymap.set("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-LazyVim.ui.maximize():map("<leader>wm")
+Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+Snacks.toggle.zen():map("<leader>uz")
 
 -- tabs
 vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })

@@ -1,3 +1,8 @@
+-- Disable this for now
+if true then
+  return {}
+end
+
 return {
   {
     "petertriho/cmp-git",
