@@ -52,7 +52,14 @@ return {
       { "saadparwaiz1/cmp_luasnip" },
     },
     opts = {
-      sources = { compat = { "luasnip" } },
+      sources = {
+        compat = { "luasnip" },
+        providers = {
+          luasnip = {
+            score_offset = 0,
+          },
+        },
+      },
       snippets = {
         expand = function(snippet)
           require("luasnip").lsp_expand(snippet)
