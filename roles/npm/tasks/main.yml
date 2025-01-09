@@ -17,4 +17,4 @@
 - name: "Initialize fnm completions"
   ansible.builtin.shell: fnm completions --shell zsh > completions.zsh
   args:
-    chdir: {{ role_path }}
+    chdir: "{{ role_path }}"

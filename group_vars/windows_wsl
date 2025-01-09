@@ -2,17 +2,11 @@
 
 system: windows-wsl
 package_manager: apt
+user_name: aleksandra
 
 # hardware
 hw_cmd_only: true
 
 # git
-git_full_name: Aleksandra Glesaaen
-git_email: Aleksandra.Glesaaen@sintef.no
-git_signing_key_has_key: false
-
-# ruby
-ruby_version: "2.6.0"
-
-# Clipboard
-copy_command: "win32yank.exe -i"
+git_sign_format: "ssh"
+git_sign_ssh_key: "signkey"

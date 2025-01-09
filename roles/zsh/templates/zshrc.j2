@@ -151,7 +151,11 @@ source "$HOME/.cargo/env"
 {% if 'npm' in modules %}
 # Source (lazily) node version manager (NVM)
 zi ice link lucid wait"2"
+{% if package_manager == "pacman" %}
 zi snippet /usr/share/nvm/init-nvm.sh
+{% else %}
+zi snippet {{ home_directory }}/.nvm/nvm.sh
+{% endif %}
 
 # Source fast node manager (fnm)
 eval "$(fnm env --use-on-cd --shell zsh)"

@@ -5,6 +5,8 @@
   email = {{ git_email }}
 {% if git_signing_key_has_key %}
   signingkey = {{ git_signing_key }}
+{% elif git_sign_ssh_key %}
+  signingkey = "{{ home_directory }}/.ssh/{{ git_sign_ssh_key }}.pub" 
 {% endif %}
 [alias]
   exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
@@ -31,9 +33,13 @@
   default = simple
 [init]
 	defaultBranch = main
-{% if git_signing_key_has_key %}
+{% if git_signing_key_has_key or git_sign_ssh_key is not none %}
 [commit]
   gpgsign = true
+{% endif %}
+{% if git_sign_format %}
+[gpg]
+  format = {{ git_sign_format }} 
 {% endif %}
 [credential]
 	helper = cache --timeout=27000

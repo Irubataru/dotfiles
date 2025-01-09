@@ -1,7 +1,7 @@
 # vi: set ft=yaml :
 
 # user
-full_name: Aleksandra Rylund Glesaaen
+full_name: Aleksandra Glesaaen Ødegård
 user_name: glesaaen
 
 home_directory: "{{ '~' | expanduser }}"
@@ -14,7 +14,7 @@ install: false
 hw_cmd_only: false
 
 # git
-git_full_name: Aleksandra Rylund Glesaaen
+git_full_name: "{{ full_name }}"
 git_user: irubataru
 git_email: aleksandra@glesaaen.com
 

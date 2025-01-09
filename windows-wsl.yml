@@ -6,31 +6,22 @@
     modules:
       # Basics
       - system
-      - basic
       - zsh
       - windows_wsl
 
       # Programming languages
-      - clang
-      - go
       - lua
       - npm
       - python
-      - ruby
       - rust
 
       # Applications
-      - common
       - git
       - gpg
-      - navi
       - neovim
-      - rider
-      - svn
       - tldr
-      - tmux
       - utilities
-      - vifm
+      - zoxide
   tasks:
     - include_role:
         name: "{{ item }}"
