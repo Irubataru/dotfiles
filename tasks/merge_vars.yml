@@ -1,0 +1,24 @@
+# vi: set ft=yaml.ansible :
+
+- name: Read common vars
+  ansible.builtin.include_vars:
+    file: ../vars/common.yml
+    name: common
+
+- name: Merge data vars
+  ansible.builtin.set_fact:
+    data: "{{ common.data | combine(data, recursive=True) }}"
+  when: data is defined
+
+- name: Set data vars
+  ansible.builtin.set_fact:
+    data: "{{ common.data }}"
+  when: data is not defined
+
+- name: Set install var
+  ansible.builtin.set_fact:
+    install: false
+
+- name: Set home_directory var
+  ansible.builtin.set_fact:
+    home_directory: "{{ data.user.home_dir }}"

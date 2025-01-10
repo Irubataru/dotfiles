@@ -1,0 +1,20 @@
+- name: Print data variables
+  ansible.builtin.debug:
+    var: data
+    # msg: "{{ data | to_nice_yaml }}"
+
+# - name: Print system variables
+#   ansible.builtin.debug:
+#     msg: "{{ system | to_nice_yaml }}"
+#
+# - name: Print software variables
+#   ansible.builtin.debug:
+#     msg: "{{ software | to_nice_yaml }}"
+#
+# - name: Print software variables
+#   ansible.builtin.debug:
+#     msg: "{{ software | to_nice_yaml }}"
+#
+# - name: Print git variables
+#   ansible.builtin.debug:
+#     msg: "{{ git | to_nice_yaml }}"

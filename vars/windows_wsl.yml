@@ -1,0 +1,11 @@
+# vi: set ft=yaml :
+
+data:
+  system:
+    distro: ubuntu
+    package_manager: apt
+
+  git:
+    sign:
+      key_type: "ssh"
+      key_name: "signkey"

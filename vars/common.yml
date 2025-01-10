@@ -1,0 +1,19 @@
+data:
+  user:
+    full_name: Aleksandra Glesaaen Ødegård
+    email: aleksandra@glesaaen.com
+    username: aleksandra
+    home_dir: "{{ lookup('env', 'HOME') }}"
+    dotfiles: "{{ lookup('env', 'HOME') }}/.dotfiles"
+
+  system:
+    distro: archlinux
+    package_manager: pacman
+
+  software: null
+
+  git:
+    full_name: Aleksandra Glesaaen Ødegård
+    email: aleksandra@glesaaen.com
+    username: irubataru
+    sign: null

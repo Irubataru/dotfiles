@@ -1,5 +1,4 @@
-dotfiles
-========
+# dotfiles
 
 Collection of my personal dotfiles organised using ansible.
 
@@ -26,13 +25,12 @@ bit wonky. One of the reasons is that npm is often not installed on my systems.
 It also expects basic build tools, if these are missing from the
 [basic](roles/basic) role, then these must either be installed or added.
 
-
 ### Addons
 
 The current addons must be installed before using some of the configurations,
 see the configurations themselves for which modules they expect.
 
-```
+```text
 ansible-galaxy collection install kewlfft.aur
 ```
 
