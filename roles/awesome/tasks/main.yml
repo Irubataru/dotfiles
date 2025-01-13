@@ -1,5 +1,10 @@
 # vi: set ft=yaml.ansible :
 
+- name: Update default vars
+  ansible.builtin.set_fact:
+    awesome: "{{ awesome | combine(data.software.awesome, recursive=True) }}"
+  when: data.software.awesome is defined
+
 - name: Install awesomeWM (aur)
   kewlfft.aur.aur:
     name: awesome-git

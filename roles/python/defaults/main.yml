@@ -1,1 +1,3 @@
-pip_break_system_packages: false
+python:
+  pip:
+    break_system_packages: false

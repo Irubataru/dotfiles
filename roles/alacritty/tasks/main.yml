@@ -1,3 +1,8 @@
+- name: Update default vars
+  ansible.builtin.set_fact:
+    alacritty: "{{ alacritty | combine(data.software.alacritty, recursive=True) }}"
+  when: data.software.alacritty is defined
+
 - name: Install alacritty packages (apt)
   ansible.builtin.import_tasks: apt.yml
   when:
@@ -18,20 +23,20 @@
 
 - name: Create alacritty config directory
   ansible.builtin.file:
-    path: "{{ alacritty_config_path }}"
+    path: "{{ alacritty.config_dir }}"
     state: directory
     mode: u=rwx,g=rx,o=rx
 
 - name: Link alacritty config
   ansible.builtin.file:
     src: "{{ role_path }}/alacritty.toml"
-    dest: "{{ alacritty_config_path }}/alacritty.toml"
+    dest: "{{ alacritty.config_dir }}/alacritty.toml"
     state: link
 
 - name: Link alacritty config (legacy)
   ansible.builtin.file:
     src: "{{ role_path }}/alacritty.yml"
-    dest: "{{ alacritty_config_path }}/alacritty.yml"
+    dest: "{{ alacritty.config_dir }}/alacritty.yml"
     state: link
 
 - name: Add GL3 fix
@@ -39,4 +44,4 @@
     src: "libgl_fix.zsh.j2"
     dest: "{{ home_directory }}/.local/bin/alacritty"
     mode: u=rx,g=rx,o=rx
-  when: alacritty_gl3_fix
+  when: alacritty.gl3_fix

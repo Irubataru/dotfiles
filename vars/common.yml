@@ -9,11 +9,18 @@ data:
   system:
     distro: archlinux
     package_manager: pacman
+    window_manager: hyprland
 
-  software: null
+  software:
+
+  zsh:
+    atuin:
+      use: true
 
   git:
     full_name: Aleksandra Glesaaen Ødegård
     email: aleksandra@glesaaen.com
-    username: irubataru
-    sign: null
+    github:
+      username: irubataru
+    gitlab:
+      username: irubataru

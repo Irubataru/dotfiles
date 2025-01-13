@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install mpd, ncmpcpp (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - mpd
       - ncmpcpp
@@ -22,36 +22,40 @@
     - package_manager == "pacman"
 
 - name: Create mpd config directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/mpd"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link mpd config
-  file:
-    src: "{{ role_path}}/mpd.conf"
+  ansible.builtin.file:
+    src: "{{ role_path }}/mpd.conf"
     dest: "{{ home_directory }}/.config/mpd/mpd.conf"
     state: link
 
 - name: Create ncmpcpp config directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/ncmpcpp"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link ncmpcpp config
-  file:
-    src: "{{ role_path}}/ncmpcpp.config"
+  ansible.builtin.file:
+    src: "{{ role_path }}/ncmpcpp.config"
     dest: "{{ home_directory }}/.config/ncmpcpp/config"
     state: link
 
 - name: Create mpd directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.mpd"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Create mpd/playlists directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.mpd/playlists"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Enable mpd service
   ansible.builtin.systemd:

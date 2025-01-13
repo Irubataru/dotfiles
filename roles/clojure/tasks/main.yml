@@ -1,7 +1,12 @@
 # vi: set ft=yaml.ansible :
 
+- name: Update default vars
+  ansible.builtin.set_fact:
+    clojure: "{{ clojure | combine(data.software.clojure, recursive=True) }}"
+  when: data.software.clojure is defined
+
 - name: Installing clojure (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - clojure
       - leiningen
@@ -24,6 +29,7 @@
   ansible.builtin.file:
     path: "{{ home_directory }}/.config/clojure"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link clojure deps config
   ansible.builtin.file:
@@ -32,12 +38,12 @@
     state: link
 
 # - name: Create leiningen config directrory
-#   file: 
-#     path: "{{ clojure_lein_config_path }}"
+#   file:
+#     path: "{{ clojure.lein.config_dir }}"
 #     state: directory
 #
 # - name: Link leiningen config
 #   file:
 #     src: "{{ role_path }}/lein_profiles.clj"
-#     dest: "{{ clojure_lein_config_path }}/profiles.clj"
+#     dest: "{{ clojure.lein.config_dir }}/profiles.clj"
 #     state: link

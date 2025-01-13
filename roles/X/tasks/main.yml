@@ -1,3 +1,8 @@
+- name: Update default vars
+  ansible.builtin.set_fact:
+    X: "{{ X | combine(data.software.X, recursive=True) }}"
+  when: data.software.X is defined
+
 - name: Install X packages (pacman)
   ansible.builtin.import_tasks: pacman.yml
   when:

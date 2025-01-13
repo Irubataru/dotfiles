@@ -1,1 +1,3 @@
-clojure_lein_config_path: "{{ home_directory }}/.lein"
+clojure:
+  lein:
+    config_dir: "{{ home_directory }}/.lein"

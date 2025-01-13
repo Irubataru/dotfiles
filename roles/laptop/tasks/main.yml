@@ -1,3 +1,5 @@
+# vi: set ft=yaml.ansible :
+
 - name: Add scripts to path
   ansible.builtin.template:
     src: "path.zsh.j2"
@@ -7,4 +9,5 @@
 - name: Tasks for Omegapoint HP Elitebook
   ansible.builtin.import_tasks: omegapoint-hp-elitebook.yml
   when:
-    - hardware == omegapoint-hp-elitebook
+    - data.system.hardware is defined
+    - data.system.hardware == "omegapoint-hp-elitebook"

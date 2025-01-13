@@ -1,12 +1,13 @@
 # vi: set ft=yaml.ansible :
 
 - name: Create systemd directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/systemd/user"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link ssh-agent service
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/ssh-agent.service"
     dest: "{{ home_directory }}/.config/systemd/user/ssh-agent.service"
     state: link

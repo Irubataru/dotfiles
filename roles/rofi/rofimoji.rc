@@ -1,2 +1,3 @@
 files = [emojis_smileys_emotion, emojis, math, arrows, geometric_shapes]
 max-recent = 0
+action = copy

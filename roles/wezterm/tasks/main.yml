@@ -1,6 +1,12 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Update default vars
+  ansible.builtin.set_fact:
+    wezterm: "{{ wezterm | combine(data.software.wezterm, recursive=True) }}"
+  when: data.software.wezterm is defined
+
+- name: Import tasks for pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"

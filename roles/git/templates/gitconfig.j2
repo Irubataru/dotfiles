@@ -1,12 +1,12 @@
 [hub]
   protocol = https
 [user]
-  name = {{ git_full_name }}
-  email = {{ git_email }}
-{% if git_signing_key_has_key %}
-  signingkey = {{ git_signing_key }}
-{% elif git_sign_ssh_key %}
-  signingkey = "{{ home_directory }}/.ssh/{{ git_sign_ssh_key }}.pub" 
+  name = {{ git.full_name }}
+  email = {{ git.email }}
+{% if git.sign.key_type == "openpgp" %}
+  signingkey = {{ git.sign.key }}
+{% elif git.sign.key_type == "ssh" %}
+  signingkey = "{{ home_directory }}/.ssh/{{ git.sign.key_name }}.pub" 
 {% endif %}
 [alias]
   exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
@@ -20,7 +20,9 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
+{% if git.difftool == "delta" %}
   pager = delta
+{% endif %}
 [apply]
   whitespace = nowarn
 [mergetool]
@@ -33,13 +35,11 @@
   default = simple
 [init]
 	defaultBranch = main
-{% if git_signing_key_has_key or git_sign_ssh_key is not none %}
+{% if git.sign.key_type | default(false) %}
 [commit]
   gpgsign = true
-{% endif %}
-{% if git_sign_format %}
 [gpg]
-  format = {{ git_sign_format }} 
+  format = {{ git.sign.key_type }} 
 {% endif %}
 [credential]
 	helper = cache --timeout=27000
@@ -47,6 +47,12 @@
 	enabled = true
 [pull]
 	ff = only
+{% if git.difftool == "delta" %}
 [delta]
   side-by-side = true
   features = gruvbox-dark
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictstyle = zdiff3
+{% endif %}

@@ -15,6 +15,12 @@ local d = luasnip.dynamic_node
 local r = luasnip.restore_node
 local fmta = require("luasnip.extras.fmt").fmta
 
+-- args is a table, where 1 is the text in Placeholder 1, 2 the text in
+-- placeholder 2,...
+local function copy(args)
+  return args[1]
+end
+
 luasnip.add_snippets("ansible", {
   snippet(
     { trig = "pacman", descr = "Install a package with pacman" },
@@ -184,6 +190,24 @@ luasnip.add_snippets("ansible", {
         i(1, "name"),
         i(2, "name"),
         i(3, "[user/system]"),
+      }
+    )
+  ),
+  snippet(
+    { trig = "vars", descr = "Merge default variables" },
+    fmta(
+      [[
+        - name: Update default vars
+          ansible.builtin.set_fact:
+            <>: "{{ <> | combine(data.software.<>, recursive=True) }}"
+          when: data.software.<> is defined and data.software.<> | default(false)
+      ]],
+      {
+        i(1, "varname"),
+        f(copy, 1),
+        f(copy, 1),
+        f(copy, 1),
+        f(copy, 1),
       }
     )
   ),

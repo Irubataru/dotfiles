@@ -1,0 +1,48 @@
+# vi: set ft=yaml.ansible :
+
+- name: Configure Archlinux laptop
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../vars/arch-laptop-hyprland.yml
+  vars:
+    modules:
+      # Basics
+      - system
+      - basic
+      - common
+      - pacman
+      - zsh
+      - zoxide
+      - fonts
+
+      # Programming
+      - clang
+      - lua
+      - go
+      - npm
+      - python
+      - rust
+
+      # Applications
+      - git
+      - gpg
+      - neovim
+      - tldr
+      - utilities
+      - vifm
+      - zathura
+  pre_tasks:
+    - name: Merge variables
+      ansible.builtin.include_tasks: ../tasks/merge_vars.yml
+  tasks:
+    # - name: "Print modules"
+    #   ansible.builtin.debug:
+    #     var: modules
+    # - name: "Print data"
+    #   ansible.builtin.debug:
+    #     var: data
+    - name: Run all modules
+      ansible.builtin.include_role:
+        name: "{{ item }}"
+      loop: "{{ modules }}"

@@ -1,22 +1,29 @@
+# vi: set ft=yaml.ansible :
+
+- name: Set web rustup cmd
+  ansible.builtin.set_fact:
+    rustup:
+      web_cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+
 - name: Local rustup version
-  shell: |
-    {{ local_rustup }} -V | sed -e "s,.*(\(.*\)),\1,"
+  ansible.builtin.shell: |
+    {{ rust.rustup_bin }} -V | sed -e "s,.*(\(.*\)),\1,"
   register: local_version
 
 - name: Web rustup-init version
-  shell: |
-    {{ web_rustup_cmd }} -V | sed -e "s,.*(\(.*\)),\1,"
+  ansible.builtin.shell: |
+    {{ rustup.web_cmd }} -V | sed -e "s,.*(\(.*\)),\1,"
   register: web_version
 
 - name: Run rustup-init
-  shell: |
-    {{ web_rustup_cmd }}
+  ansible.builtin.shell: |
+    {{ rustup.web_cmd }}
   when:
     - local_version.rc == 0
     - web_version.rc == 0
     - local_version.stdout != web_version.stdout
 
 - name: Update rust
-  shell: |
+  ansible.builtin.shell: |
     rustup update
   ignore_errors: true

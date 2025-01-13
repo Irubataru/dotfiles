@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install zathura (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - zathura
       - zathura-pdf-mupdf

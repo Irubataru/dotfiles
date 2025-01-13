@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: "Install rofi (pacman)"
-  pacman:
+  community.general.pacman:
     name:
       - rofi
       - rofi-calc

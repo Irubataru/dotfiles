@@ -1,4 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Add scripts to path
-  template: 
+  ansible.builtin.template: 
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+    mode: u=rw,g=r,o=r

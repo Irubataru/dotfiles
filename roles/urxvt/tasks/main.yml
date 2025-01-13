@@ -1,5 +1,12 @@
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    urxvt: "{{ urxvt | combine(data.software.urxvt, recursive=True) }}"
+  when: data.software.urxvt is defined
+
 - name: Install urxvt (pacman)
-  pacman:
+  community.general.pacman:
     name: rxvt-unicode
     state: present
   become: true
@@ -8,7 +15,7 @@
     - package_manager == "pacman"
 
 - name: Install urxvt (apt)
-  apt:
+  ansible.builtin.apt:
     name: rxvt-unicode
     state: present
   become: true
@@ -16,12 +23,13 @@
     - install
     - package_manager == "apt"
 
-- name: Initialise Xresources 
-  template: 
+- name: Initialise Xresources
+  ansible.builtin.template:
     src: "Xresources.j2"
     dest: "~/.Xresources"
+    mode: u=rwx,g=rx,o=rx
   register: xresource_init
 
 - name: Reload Xresources if it has changed
-  shell: xrdb ~/.Xresources
+  ansible.builtin.shell: xrdb ~/.Xresources
   when: xresource_init.changed

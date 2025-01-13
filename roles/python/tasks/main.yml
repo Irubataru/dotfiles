@@ -1,18 +1,26 @@
 # vi: set ft=yaml.ansible :
 
+- name: Update default vars
+  ansible.builtin.set_fact:
+    python: "{{ python | combine(data.software.python, recursive=True) }}"
+  when: data.software.python is defined
+
 - name: Initialise the path template
-  template: 
+  ansible.builtin.template:
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+    mode: u=rw,g=r,o=r
 
 - name: Create pip config directory
   ansible.builtin.file:
     path: "{{ home_directory }}/.config/pip"
     state: directory
-  when: pip_break_system_packages
+    mode: u=rwx,g=rx,o=rx
+  when: python.pip.break_system_packages
 
 - name: Copy pip config
   ansible.builtin.copy:
-    src: "{{ role_path}}/break_system_packages.conf"
+    src: "{{ role_path }}/break_system_packages.conf"
     dest: "{{ home_directory }}/.config/pip/pip.conf"
-  when: pip_break_system_packages
+    mode: u=rw,g=r,o=r
+  when: python.pip.break_system_packages

@@ -1,12 +1,13 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Install rider from pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 - name: "Link ideavim config"
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/ideavimrc"
     dest: "{{ home_directory }}/.ideavimrc"
     state: link

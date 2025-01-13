@@ -1,1 +1,4 @@
-- import_tasks: stylua.yml
+# vi: set ft=yaml.ansible :
+
+- name: Run stylua tasks
+  ansible.builtin.import_tasks: stylua.yml

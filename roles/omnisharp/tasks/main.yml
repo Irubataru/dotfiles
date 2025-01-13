@@ -1,10 +1,13 @@
+# vi: set ft=yaml.ansible :
+
 - name: Create omnisharp config directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.omnisharp"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link omnisharp config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/omnisharp.json"
     dest: "{{ home_directory }}/.omnisharp/omnisharp.json"
     state: link

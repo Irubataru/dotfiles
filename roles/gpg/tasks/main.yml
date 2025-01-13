@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install gpg (pacman)
-  pacman:
+  community.general.pacman:
     name: gnupg
     state: present
   become: true
@@ -8,7 +10,7 @@
     - package_manager == "pacman"
 
 - name: Install gpg (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - gnupg
       - scdaemon
@@ -19,10 +21,11 @@
     - package_manager == "apt"
 
 - name: Import keys
-  shell: "gpg --import {{ role_path }}/pubkey"
+  ansible.builtin.shell: "gpg --import {{ role_path }}/pubkey"
 
 - name: Set GPG TTY
-  template: 
+  ansible.builtin.template:
     src: "tty.zsh.j2"
     dest: "{{ role_path }}/tty.zsh"
-  when: hw_cmd_only
+    mode: u=rw,g=r,o=r
+  when: data.system.has_display | default(false)

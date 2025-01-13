@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install fzf, ripgrep (pacman)
-  pacman:
+  community.general.pacman:
     name:
       - fzf
       - ripgrep
@@ -12,8 +12,8 @@
     - package_manager == "pacman"
 
 - name: Install fzf, ripgrep (apt)
-  apt:
-    name: 
+  ansible.builtin.apt:
+    name:
       - fzf
       # - ripgrep
     state: present
@@ -51,4 +51,5 @@
     state: present
   when: install
 
-- import_tasks: bat.yml
+- name: Import tasks for installing bat
+  import_tasks: bat.yml

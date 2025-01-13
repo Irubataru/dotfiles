@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install playerctl (pacman)
-  pacman:
+  community.general.pacman:
     name: playerctl
     state: present
   become: true

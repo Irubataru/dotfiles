@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Link spacemacs config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/spacemacs"
     dest: "~/.spacemacs"
     state: link

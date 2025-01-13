@@ -1,37 +1,38 @@
 - name: Check if Hack has been downloaded
-  stat:
+  ansible.builtin.stat:
     path: "{{ role_path }}/Hack.zip"
   register: hack_file
 
 - name: Download Hack nerd font
-  get_url:
-    url: "{{ fonts_hack_path }}"
+  ansible.builtin.get_url:
+    url: "{{ fonts.hack_path }}"
     dest: "{{ role_path }}"
   when: hack_file.stat.exists == false
 
 - name: Creating Hack font unpack dir
-  file: 
-    path: "{{ role_path}}/Hack"
+  ansible.builtin.file: 
+    path: "{{ role_path }}/Hack"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Unzipping Hack font files
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ role_path }}/Hack.zip"
-    dest: "{{ role_path}}/Hack"
-    copy: no
+    dest: "{{ role_path }}/Hack"
+    copy: false
 
 - name: Creating global Hack font directory
-  file:
+  ansible.builtin.file:
     path: /usr/share/fonts/truetype/Hack
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
     state: directory
   become: true
-  when: fonts_global_install == true
+  when: fonts.install_global
 
 - name: Installing Hack font globally
-  copy:
+  ansible.builtin.copy:
     src: "{{ font_file }}"
     dest: /usr/share/fonts/truetype/Hack
     owner: root
@@ -41,9 +42,9 @@
   loop_control:
     loop_var: font_file
   become: true
-  when: fonts_global_install == true
+  when: fonts.install_global
   register: hack_install
 
 - name: Update font cache
-  shell: fc-cache -f -v
+  ansible.builtin.shell: fc-cache -f -v
   when: hack_install.changed

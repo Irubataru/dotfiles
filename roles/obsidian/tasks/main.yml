@@ -1,4 +1,12 @@
-- import_tasks: pacman.yml
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    obsidian: "{{ obsidian | combine(data.software.obsidian, recursive=True) }}"
+  when: data.software.obsidian is defined
+
+- name: Install obsidian from pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
@@ -7,7 +15,7 @@
 #   when: package_manager == "apt"
 
 - name: "Clone the note repo"
-  git:
+  ansible.builtin.git:
     repo: "git@github.com:Irubataru/obsidian-notes.git"
     dest: "{{ obsidian.directory }}"
     update: false

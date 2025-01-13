@@ -1,1 +1,2 @@
-wezterm_git: false
+wezterm:
+  install_from_git: false

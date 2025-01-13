@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install tmux (pacman)
-  pacman:
+  community.general.pacman:
     name: tmux
     state: present
   become: true
@@ -8,7 +10,7 @@
     - package_manager == "pacman"
 
 - name: Install tmux (apt)
-  apt:
+  ansible.builtin.apt:
     name: tmux
     state: present
   become: true
@@ -17,17 +19,18 @@
     - package_manager == "apt"
 
 - name: Link tmux config file
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/tmux.conf"
     dest: "~/.tmux.conf"
     state: link
 
 - name: Create tmux plugins directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.tmux/plugins"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Get Tmux Plugin Manager
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "{{ home_directory }}/.tmux/plugins/tpm"

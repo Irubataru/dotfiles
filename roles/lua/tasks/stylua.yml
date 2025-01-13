@@ -7,12 +7,13 @@
   when: install
 
 - name: Create stylua config directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/stylua"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link stylua config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/stylua.toml"
     dest: "{{ home_directory }}/.config/stylua/stylua.toml"
     state: link

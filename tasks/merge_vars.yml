@@ -15,10 +15,9 @@
     data: "{{ common.data }}"
   when: data is not defined
 
-- name: Set install var
+- name: Set global variables
   ansible.builtin.set_fact:
-    install: false
-
-- name: Set home_directory var
-  ansible.builtin.set_fact:
+    install: "{{ install | default(false) }}"
     home_directory: "{{ data.user.home_dir }}"
+    dotfiles_directory: "{{ data.user.dotfiles_dir | default(data.user.home_dir + '/.dotfiles') }}"
+    package_manager: "{{ data.system.package_manager }}"

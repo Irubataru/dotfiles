@@ -4,13 +4,13 @@
   kewlfft.aur.aur:
     name: wezterm-git
     state: present
-  become: yes
+  become: true
   become_user: aur_builder
-  when: wezterm_git
+  when: wezterm.install_from_git
 
 - name: Install wezterm (pacman)
   community.general.pacman:
     name: wezterm
     state: present
   become: true
-  when: not wezterm_git
+  when: not wezterm.install_from_git

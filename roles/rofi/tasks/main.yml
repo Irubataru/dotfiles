@@ -1,6 +1,7 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Install rofi from pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
@@ -9,8 +10,8 @@
 #   when: package_manager == "apt"
 
 - name: Link rofi configuration director
-  file:
-    src: "{{ role_path}}/config"
+  ansible.builtin.file:
+    src: "{{ role_path }}/config"
     dest: "{{ home_directory }}/.config/rofi"
     state: link
 

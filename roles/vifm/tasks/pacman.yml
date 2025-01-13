@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install vifm (pacman)
-  pacman:
+  community.general.pacman:
     name: vifm
     state: present
   become: true

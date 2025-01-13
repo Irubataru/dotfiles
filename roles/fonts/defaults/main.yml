@@ -1,3 +1,4 @@
-fonts_global_install: true
-fonts_hack_path: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
-fonts_fira_path: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+fonts:
+  install_global: true
+  hack_path: https://github.com/ryanoasis/nerd-fonts/releases/download/latest/Hack.zip
+  fira_path: https://github.com/ryanoasis/nerd-fonts/releases/download/latest/FiraCode.zip

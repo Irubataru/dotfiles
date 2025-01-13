@@ -1,0 +1,5 @@
+data:
+  git:
+    sign:
+      key_type: openpgp
+      key: 6DCBDB83BD45D785689C151D77DF2021FD23B02D

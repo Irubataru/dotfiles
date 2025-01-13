@@ -1,2 +1,12 @@
-git_signing_key_has_key: false
-git_difftool: diff
+git:
+  difftool: delta
+  github:
+    username: null
+    api_token: null
+  gitlab:
+    username: null
+    api_token: null
+  sign:
+    key_type: null
+    key: null
+    key_name: null

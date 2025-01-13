@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Installing zathura (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - zathura
       - zathura-pdf-poppler

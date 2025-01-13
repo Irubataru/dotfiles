@@ -1,0 +1,27 @@
+# vi: set ft=yaml.ansible :
+
+- name: Update vars
+  ansible.builtin.set_fact:
+    debug: "{{ debug | combine(data.software.debug, recursive=True) }}"
+  when: data.software.debug is defined
+
+- name: Update vars
+  ansible.builtin.set_fact:
+    debug: "{{ debug2 | combine(data.software.debug2, recursive=True) }}"
+  when: data.software.debug2 is defined
+
+- name: Print debug
+  ansible.builtin.debug:
+    var: debug
+
+- name: Print debug2
+  ansible.builtin.debug:
+    var: debug2
+
+- name: Print install var
+  ansible.builtin.debug:
+    var: install
+
+- name: Print dotfiles_directory var
+  ansible.builtin.debug:
+    var: dotfiles_directory

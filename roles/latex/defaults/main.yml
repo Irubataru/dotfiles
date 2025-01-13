@@ -1,1 +1,2 @@
-latex_use_xelatex: false
+latex:
+  use_xelatex: false

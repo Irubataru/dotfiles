@@ -1,10 +1,18 @@
-- import_tasks: pacman.yml
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    vifm: "{{ vifm | combine(data.software.vifm, recursive=True) }}"
+  when: data.software.vifm is defined
+
+- name: Import pacman install tasks
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 - name: Install vifm (apt)
-  apt:
+  ansible.builtin.apt:
     name: vifm
     state: present
   become: true
@@ -13,29 +21,30 @@
     - package_manager == "apt"
 
 - name: Create vifm config directory
-  file: 
-    path: "{{ vifm.config_path }}"
+  ansible.builtin.file:
+    path: "{{ vifm.config_dir }}"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link vifm config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/vifmrc"
-    dest: "{{ vifm.config_path }}/vifmrc"
+    dest: "{{ vifm.config_dir }}/vifmrc"
     state: link
 
-#- name: Clone colours repo
-  #git:
-    #repo: "https://github.com/vifm/vifm-colors.git"
-    #dest: "{{ vifm.config_path }}/colors"
+# - name: Clone colours repo
+#   ansible.builtin.git:
+#     repo: "https://github.com/vifm/vifm-colors.git"
+#     dest: "{{ vifm.config_dir }}/colors"
 
 - name: Create colours directory
-  file: 
-    path: "{{ vifm.config_path }}/colors"
+  ansible.builtin.file:
+    path: "{{ vifm.config_dir }}/colors"
     state: directory
     recurse: true
 
 - name: Add my own colour modifications
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/Basically-Default.vifm"
-    dest: "{{ vifm.config_path }}/colors/Basically-Default.vifm"
+    dest: "{{ vifm.config_dir }}/colors/Basically-Default.vifm"
     state: link

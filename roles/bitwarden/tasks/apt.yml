@@ -1,6 +1,6 @@
 - name: Install bw dependencies (apt)
-  apt:
-    name: 
+  ansible.builtin.apt:
+    name:
       - jq
     state: present
   become: true

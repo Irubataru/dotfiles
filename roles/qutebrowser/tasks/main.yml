@@ -1,26 +1,34 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: virtualenv.yml
+- name: Update default vars
+  ansible.builtin.set_fact:
+    qutebrowser: "{{ qutebrowser | combine(data.software.qutebrowser, recursive=True) }}"
+  when: data.software.qutebrowser is defined
+
+- name: Install qutebrowser from source (venv)
+  ansible.builtin.import_tasks: virtualenv.yml
   tags: qutebrowser
   when:
     - install
     - package_manager == "apt"
 
-- import_tasks: pacman.yml
+- name: Install qutebrowser from pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 - name: Create qutebrowser config directory
-  file:
-    path: "{{ qutebrowser_config_path }}"
+  ansible.builtin.file:
+    path: "{{ qutebrowser.config_dir }}"
     state: directory
+    mode: u=rwx,g=rx,o=rx
   tags: qutebrowser
 
 - name: Link qutebrowser config files
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/{{ link }}"
-    dest: "{{ qutebrowser_config_path }}/{{ link }}"
+    dest: "{{ qutebrowser.config_dir }}/{{ link }}"
     state: link
   loop_control:
     loop_var: link
@@ -30,24 +38,25 @@
   tags: qutebrowser
 
 - name: Check if password_fill exists
-  stat:
-    path: "{{ qutebrowser_files_path }}/userscripts/password_fill"
+  ansible.builtin.stat:
+    path: "{{ qutebrowser.global_path }}/userscripts/password_fill"
   register: password_fill_stat
   tags: qutebrowser
 
 - name: Create userscripts directory
-  file:
-    path: "{{ qutebrowser_script_path }}"
+  ansible.builtin.file:
+    path: "{{ qutebrowser.scripts_dir }}"
     state: directory
+    mode: u=rwx,g=rx,o=rx
     recurse: true
   when: not password_fill_stat.stat.exists
   tags: qutebrowser
 
 - name: Copy password_fill userscript
-  get_url:
+  ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/misc/userscripts/password_fill"
-    dest: "{{ qutebrowser_script_path }}/password_fill"
-    mode: 0755
+    dest: "{{ qutebrowser.scripts_dir }}/password_fill"
+    mode: "0755"
   when: not password_fill_stat.stat.exists
   tags: qutebrowser
 
@@ -58,7 +67,7 @@
   when: install
 
 - name: Install qute-bitwarden dependencies (apt)
-  apt:
+  ansible.builtin.apt:
     name: keyutils
     state: present
   become: true
@@ -67,9 +76,9 @@
     - package_manager == "apt"
 
 - name: Copy qute-bitwarden userscript
-  get_url:
+  ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/qutebrowser/qutebrowser/master/misc/userscripts/qute-bitwarden"
-    dest: "{{ qutebrowser_script_path }}/qute-bitwarden"
-    mode: 0755
+    dest: "{{ qutebrowser.scripts_dir }}/qute-bitwarden"
+    mode: "0755"
   when: not password_fill_stat.stat.exists
   tags: qutebrowser

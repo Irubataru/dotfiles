@@ -1,6 +1,0 @@
-# vi: set ft=yaml :
-
-system: swansea-desktop
-
-# git
-has_git_signing_key: false

@@ -1,38 +1,42 @@
+# vi: set ft=yaml.ansible :
+
 - name: Check if Fira Code has been downloaded
-  stat:
+  ansible.builtin.stat:
     path: "{{ role_path }}/FiraCode.zip"
   register: fira_code_file
 
 - name: Download Fira Code nerd font
-  get_url:
-    url: "{{ fonts_fira_path }}"
+  ansible.builtin.get_url:
+    url: "{{ fonts.fira_path }}"
     dest: "{{ role_path }}"
   when: fira_code_file.stat.exists == false
 
 - name: Creating Fira Code font unpack dir
-  file: 
-    path: "{{ role_path}}/FiraCode"
+  ansible.builtin.file:
+    path: "{{ role_path }}/FiraCode"
     state: directory
+    mode: u=rwx,g=rx,o=rx
+
 
 - name: Unzipping Fira Code font files
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ role_path }}/FiraCode.zip"
-    dest: "{{ role_path}}/FiraCode"
-    copy: no
+    dest: "{{ role_path }}/FiraCode"
+    copy: false
   when: fira_code_file.stat.exists == false
 
 - name: Creating global Fira Code font directory
-  file:
+  ansible.builtin.file:
     path: /usr/share/fonts/truetype/FiraCode
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
     state: directory
   become: true
-  when: fonts_global_install == true && fira_code_file.stat.exists == false
+  when: fonts.install_global and not fira_code_file.stat.exists
 
 - name: Installing Fira Code font globally
-  copy:
+  ansible.builtin.copy:
     src: "{{ font_file }}"
     dest: /usr/share/fonts/truetype/FiraCode
     owner: root
@@ -42,9 +46,9 @@
   loop_control:
     loop_var: font_file
   become: true
-  when: fonts_global_install == true && fira_code_file.stat.exists == false
+  when: fonts.install_global and not fira_code_file.stat.exists
   register: fira_code_install
 
 - name: Update font cache
-  shell: fc-cache -f -v
+  ansible.builtin.shell: fc-cache -f -v
   when: fira_code_install.changed

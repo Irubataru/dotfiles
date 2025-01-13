@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Copy personal keymap
-  copy:
+  ansible.builtin.copy:
     src: "{{ role_path }}/jp2.keymap"
     dest: /usr/share/X11/xkb/symbols/jp2
     owner: root

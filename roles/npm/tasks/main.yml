@@ -1,9 +1,13 @@
-- import_tasks: pacman.yml
+# vi: set ft=yaml.ansible :
+
+- name: Install npm from pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
-- import_tasks: apt.yml
+- name: Install npm from apt
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"

@@ -1,2 +1,2 @@
 vifm:
-  config_path: "{{ home_directory }}/.config/vifm"
+  config_dir: "{{ home_directory }}/.config/vifm"

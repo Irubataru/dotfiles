@@ -1,12 +1,13 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Install playerctl from pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 - name: Link playerctld service
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/playerctld.service"
     dest: "{{ home_directory }}/.config/systemd/user/playerctld.service"
     state: link

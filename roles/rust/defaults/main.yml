@@ -1,2 +1,3 @@
-local_rustup: "{{ home_directory }}/.cargo/bin/rustup"
-web_rustup_cmd: "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
+rust:
+  rustup_bin: "{{ home_directory }}/.cargo/bin/rustup"
+  cargo_dir: "{{ home_directory }}/.cargo/"

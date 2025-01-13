@@ -5,28 +5,37 @@
   connection: local
   vars_files:
     - ../vars/windows_wsl.yml
+  vars:
+    modules:
+      # Basics
+      - system
+      - zsh
+      - windows_wsl
+
+      # Programming languages
+      - lua
+      - npm
+      - python
+      - rust
+
+      # Applications
+      - git
+      - gpg
+      - neovim
+      - tldr
+      - utilities
+      - zoxide
   pre_tasks:
     - name: Merge variables
       ansible.builtin.include_tasks: ../tasks/merge_vars.yml
-  # tasks:
-  #   - name: Debug variables
-  #     ansible.builtin.include_tasks: ../tasks/debug_vars.yml
-  roles:
-    # Basics
-    - system
-    - zsh
-    - windows_wsl
-
-    # Programming languages
-    - lua
-    - npm
-    - python
-    - rust
-
-    # Applications
-    - git
-    - gpg
-    - neovim
-    - tldr
-    - utilities
-    - zoxide
+  tasks:
+    # - name: "Print modules"
+    #   ansible.builtin.debug:
+    #     var: modules
+    # - name: "Print data"
+    #   ansible.builtin.debug:
+    #     var: data
+    - name: Run all modules
+      ansible.builtin.include_role:
+        name: "{{ item }}"
+      loop: "{{ modules }}"

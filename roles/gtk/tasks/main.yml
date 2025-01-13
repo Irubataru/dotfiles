@@ -1,23 +1,25 @@
 # vi: set ft=yaml.ansible :
 
 - name: Create gtk config directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/gtk-3.0"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link gtk settings
-  file:
-    src: "{{ role_path}}/gtk-3.0-settings.ini"
+  ansible.builtin.file:
+    src: "{{ role_path }}/gtk-3.0-settings.ini"
     dest: "{{ home_directory }}/.config/gtk-3.0/settings.ini"
     state: link
 
 - name: Create theme directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.local/share/themes"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Download Nordic theme
-  unarchive:
+  ansible.builtin.unarchive:
     src: https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz
     dest: "{{ home_directory }}/.local/share/themes"
     remote_src: true

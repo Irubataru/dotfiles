@@ -1,1 +1,2 @@
-navi_data_dir: "{{ home_directory }}/.local/share/navi"
+navi:
+  data_dit: "{{ home_directory }}/.local/share/navi"

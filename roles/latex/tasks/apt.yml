@@ -1,5 +1,5 @@
 - name: Installing texlive (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - texlive
       - texlive-xetex

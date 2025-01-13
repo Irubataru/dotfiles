@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install atuin (pacman)
-  pacman:
+  community.general.pacman:
     name: atuin
     state: present
   become: true
@@ -10,13 +10,14 @@
     - package_manager == "pacman"
 
 - name: Create atuin config directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/atuin"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link atuin configuration
-  file:
-    src: "{{ role_path}}/atuin.config.toml"
+  ansible.builtin.file:
+    src: "{{ role_path }}/atuin.config.toml"
     dest: "{{ home_directory }}/.config/atuin/config.toml"
     state: link
     force: true

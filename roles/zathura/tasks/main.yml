@@ -1,21 +1,26 @@
-- import_tasks: apt.yml
+# vi: set ft=yaml.ansible :
+
+- name: Import tasks for apt
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"
 
-- import_tasks: pacman.yml
+- name: Import tasks for pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
 
 - name: Zathura config directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/zathura"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link zathura config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/zathurarc"
     dest: "{{ home_directory }}/.config/zathura/zathurarc"
     state: link

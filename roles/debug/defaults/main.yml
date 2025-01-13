@@ -1,0 +1,6 @@
+debug:
+  message: "Hello debug"
+  sub: null
+
+debug2:
+  message: "Hello debug2"

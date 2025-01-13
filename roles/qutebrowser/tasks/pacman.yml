@@ -1,7 +1,7 @@
 # vi: set ft=yaml.ansible :
 
 - name: Install qutebrowser (pacman)
-  pacman:
+  community.general.pacman:
     name: qutebrowser
     state: present
   become: true

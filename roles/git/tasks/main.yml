@@ -1,3 +1,10 @@
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    git: "{{ git | combine(data.git, recursive=True) }}"
+  when: data.git is defined
+
 - name: Install git programs (pacman)
   community.general.pacman:
     name:
@@ -5,12 +12,22 @@
       - tig
       - lazygit
       - github-cli
-      - git-delta
     state: present
   become: true
   when:
     - install
     - package_manager == "pacman"
+
+- name: Install git-delta programs (pacman)
+  community.general.pacman:
+    name: git-delta
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+    - git.difftool == "delta"
+
 
 - name: Install git programs (apt)
   ansible.builtin.apt:

@@ -1,10 +1,18 @@
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    conky: "{{ conky | combine(data.software.conky, recursive=True) }}"
+  when: data.software.conky is defined
+
 - name: Create conky config directory
-  file: 
-    path: "{{ conky_install_path }}"
+  ansible.builtin.file:
+    path: "{{ conky.config_dir }}"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link conky config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/conky.conf"
-    dest: "{{ conky_install_path }}/conky.conf"
+    dest: "{{ conky.config_dir }}/conky.conf"
     state: link

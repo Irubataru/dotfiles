@@ -1,7 +1,10 @@
 # vi: set ft=yaml.ansible :
----
 
-- hosts: sintef_arch
+- name: Configure Flutterbox
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../vars/flutterbox.yml
   vars:
     modules:
       # Basics
@@ -9,47 +12,44 @@
       - basic
       - pacman
       - keyboard
-      - bluetooth
       - zsh
       - zoxide
       - fonts
-      - laptop
 
       # Programming languages
       - clang
-      - dotnet
       - lua
       - go
+      - npm
       - python
       - rust
 
       # Applications
       - X
+      - wezterm
       - applications
       - awesome
+      - clang
       - common
       - git
       - gpg
       - gtk
       - latex
-      - mpd
       - navi
       - neovim
-      - npm
       - obsidian
-      - playerctl
-      - qutebrowser
       - rider
       - rofi
-      - sintef
-      - ssh
       - tldr
       - tmux
       - utilities
       - vifm
-      - wezterm
       - zathura
+  pre_tasks:
+    - name: Merge variables
+      ansible.builtin.include_tasks: ../tasks/merge_vars.yml
   tasks:
-    - include_role:
+    - name: Run all modules
+      ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ modules }}"

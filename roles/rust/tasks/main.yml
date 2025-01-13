@@ -1,2 +1,10 @@
-- import_tasks: rustup.yml
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    rust: "{{ rust | combine(data.software.rust, recursive=True) }}"
+  when: data.software.rust is defined and data.software.rust | default(false)
+
+- name: Install rustup from web
+  ansible.builtin.import_tasks: rustup.yml
   when: install

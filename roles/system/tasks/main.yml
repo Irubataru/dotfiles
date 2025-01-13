@@ -1,10 +1,14 @@
+# vi: set ft=yaml.ansible :
+
 - name: Init system path profile
-  template:
+  ansible.builtin.template:
     src: "paths.j2"
     dest: "/etc/profile.d/{{ ansible_user_id }}_userpaths.sh"
+    mode: u=rw,g=r,o=r
   become: true
 
 - name: Add paths to home
-  template:
+  ansible.builtin.template:
     src: "paths.j2"
     dest: "{{ home_directory }}/.bash_userpaths.sh"
+    mode: u=rw,g=r,o=r

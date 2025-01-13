@@ -1,14 +1,19 @@
 # vi: set ft=yaml.ansible :
----
 
-- hosts: flutterbox
+- name: Configure NUC with archlinux
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../vars/nuc-arch.yml
+  pre_tasks:
+    - name: Merge variables
+      ansible.builtin.include_tasks: ../tasks/merge_vars.yml
   vars:
     modules:
       # Basics
       - system
       - basic
       - pacman
-      - keyboard
       - zsh
       - zoxide
       - fonts
@@ -16,33 +21,25 @@
       # Programming languages
       - clang
       - lua
-      - go
-      - npm
       - python
       - rust
 
       # Applications
-      - X
-      - wezterm
+      - alacritty
       - applications
-      - awesome
-      - clang
       - common
       - git
       - gpg
-      - gtk
-      - latex
       - navi
       - neovim
+      - npm
       - obsidian
-      - rider
-      - rofi
+      - ssh
       - tldr
       - tmux
       - utilities
-      - vifm
-      - zathura
   tasks:
-    - include_role:
+    - name: Run all modules
+      ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ modules }}"

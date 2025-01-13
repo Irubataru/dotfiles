@@ -1,5 +1,13 @@
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    ruby: "{{ ruby | combine(data.software.ruby, recursive=True) }}"
+  when: data.software.ruby is defined
+
 - name: Initialise ruby path file
-  template: 
+  ansible.builtin.template:
     src: "path.zsh.j2"
     dest: "{{ role_path }}/path.zsh"
+    mode: u=rw,g=r,o=r
   when: ruby_version is defined

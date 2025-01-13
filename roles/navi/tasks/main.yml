@@ -1,10 +1,18 @@
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    navi: "{{ navi | combine(data.software.navi, recursive=True) }}"
+  when: data.software.navi is defined and data.software.navi | default(false)
+
 - name: Make navi config dir
-  file:
-    path: "{{ navi_data_dir }}/cheats"
+  ansible.builtin.file:
+    path: "{{ navi.data_dir }}/cheats"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link navi cheats
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/cheats"
-    dest: "{{ navi_data_dir }}/cheats/personal"
+    dest: "{{ navi.data_dir }}/cheats/personal"
     state: link

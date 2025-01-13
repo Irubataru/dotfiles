@@ -1,16 +1,24 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Update default vars
+  ansible.builtin.set_fact:
+    fonts: "{{ fonts | combine(data.software.fonts, recursive=True) }}"
+  when: data.software.fonts is defined
+
+- name: "Install fonts with pacman"
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
-- import_tasks: hack.yml
+- name: "Install hack font without pacman"
+  ansible.builtin.import_tasks: hack.yml
   when:
     - install
     - package_manager != "pacman"
 
-- import_tasks: fira_code.yml
+- name: "Install fira code font without pacman"
+  ansible.builtin.import_tasks: fira_code.yml
   when:
     - install
     - package_manager != "pacman"
@@ -26,5 +34,6 @@
 #     dest: "{{ home_directory }}/.config/fontconfig/fonts.conf"
 #     state: link
 
-- import_tasks: private.yml
+- name: "Install private fonts"
+  ansible.builtin.import_tasks: private.yml
   when: install

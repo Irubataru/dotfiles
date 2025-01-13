@@ -7,7 +7,7 @@ Collection of my personal dotfiles organised using ansible.
 Run the appropriate ansible playbook to install (ansible must be installed)
 
 ```bash
-ansible-playbook --ask-become-pass -i hosts [CONFIG.yml]
+ansible-playbook playbooks/[playbook.yml] --ask-become-pass
 ```
 
 The playbooks do not by default install any applications, to do so you need to
@@ -15,7 +15,7 @@ pass the `install = true` variable. This should be passed to the command, but
 can also be set in the [group_vars](./group_vars/)
 
 ```bash
-ansible-playbook --ask-become-pass -i hosts --extra-vars "install=true" [CONFIG.yml]
+ansible-playbook playbooks/[playbook.yml] --ask-become-pass --extra-vars "install=true"
 ```
 
 ### Dependencies
@@ -40,7 +40,7 @@ ansible-galaxy collection install kewlfft.aur
 
 If using atuin, you need to login the firs time
 
-```
+```text
 atuin login
 ```
 

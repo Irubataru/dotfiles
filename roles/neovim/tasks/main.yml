@@ -1,28 +1,36 @@
 # vi: set ft=yaml.ansible :
 
-- import_tasks: pacman.yml
+- name: Update default vars
+  ansible.builtin.set_fact:
+    neovim: "{{ neovim | combine(data.software.neovim, recursive=True) }}"
+  when: data.software.neovim is defined
+
+- name: Install neovim using pacman
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
-- import_tasks: apt.yml
+- name: Install neovim using apt
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"
 
 - name: Create vim temp storage directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.tmp"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Create neovim config directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link neovim config
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/config"
     dest: "{{ home_directory }}/.config/nvim"
     state: link
-

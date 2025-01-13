@@ -1,21 +1,25 @@
+# vi: set ft=yaml.ansible :
+
 - name: Create bat config directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/bat"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link bat config file
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/bat.config"
     dest: "{{ home_directory }}/.config/bat/config"
     state: link
 
 - name: Create bat theme directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.config/bat/themes"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Download gruvbox theme
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/subnut/gruvbox-tmTheme.git"
     dest: "{{ home_directory }}/.config/bat/themes/gruvbox"
     version: bat-source
@@ -23,7 +27,7 @@
   register: clone_status
 
 - name: Update bat cache
-  shell:
+  ansible.builtin.shell:
     cmd: bat cache --build
   ignore_errors: true
   when: clone_status.changed

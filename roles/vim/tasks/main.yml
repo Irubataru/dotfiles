@@ -1,10 +1,13 @@
+# vi: set ft=yaml.ansible :
+
 - name: Create vim temp storage directory
-  file: 
+  ansible.builtin.file:
     path: "{{ home_directory }}/.tmp"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Link vim dotfiles
-  file:
+  ansible.builtin.file:
     src: "{{ role_path }}/config"
     dest: "{{ home_directory }}/.vim"
     state: link

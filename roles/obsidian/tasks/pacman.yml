@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Install obsidian
-  pacman:
+  community.general.pacman:
     name: obsidian
     state: present
   become: true

@@ -1,6 +1,6 @@
 - name: Install bw dependencies (pacman)
-  pacman:
-    name: 
+  community.general.pacman:
+    name:
       - jq
       - xclip
     state: present

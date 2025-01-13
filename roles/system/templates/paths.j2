@@ -16,7 +16,7 @@ prepend_path () {
     esac
 }
 
-for role in ${roles[@]}; do
+for role in "${roles[@]}"; do
   pathfile_path="{{ playbook_dir }}/roles/$role/__paths"
   if [[ -f "$pathfile_path" ]]; then
     while IFS= read -r line; do

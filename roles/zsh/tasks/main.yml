@@ -1,7 +1,12 @@
 # vi: set ft=yaml.ansible :
 
+- name: Update default vars
+  ansible.builtin.set_fact:
+    zsh: "{{ zsh | combine(data.zsh, recursive=True) }}"
+  when: data.zsh is defined
+
 - name: Install zsh (pacman)
-  pacman:
+  community.general.pacman:
     name: zsh
     state: present
   become: true
@@ -10,7 +15,7 @@
     - package_manager == "pacman"
 
 - name: Install zsh (apt)
-  apt:
+  ansible.builtin.apt:
     name: zsh
     state: present
   become: true
@@ -18,34 +23,42 @@
     - install
     - package_manager == "apt"
 
+- name: Backup old zsh config file
+  ansible.builtin.copy:
+    src: "{{ home_directory }}/.zshrc"
+    dest: "{{ home_directory }}/.zshrc.bak"
+
 - name: Copy zsh config file
   ansible.builtin.template:
     src: "zshrc.j2"
     dest: "~/.zshrc"
+    mode: u=rw,g=r,o=r
 
 - name: Copy zsh fpath config file
-  ansible.builtin.template: 
+  ansible.builtin.template:
     src: "fpath.zsh.j2"
     dest: "{{ role_path }}/fpath.zsh"
+    mode: u=rw,g=r,o=r
 
 - name: Link spaceship config
   ansible.builtin.file:
-    src: "{{role_path}}/starship.toml"
+    src: "{{ role_path }}/starship.toml"
     dest: "~/.config/starship.toml"
     state: link
 
-- include_tasks: atuin.yml
+- name: Include tasks fro atuin
+  ansible.builtin.include_tasks: atuin.yml
   when: zsh.plugins.atuin
 
 - name: Change user default shell
-  user:
-    name: "{{ user_name }}"
+  ansible.builtin.user:
+    name: "{{ data.user.username }}"
     shell: /bin/zsh
   become: true
 
 - name: Initialise argcomplete if it doesn't exist
   ansible.builtin.shell:
     cmd: |
-      activate-global-python-argcomplete --dest {{role_path}}
-      mv {{role_path}}/_python-argcomplete {{role_path}}/argcomplete.zsh
+      activate-global-python-argcomplete --dest {{ role_path }}
+      mv {{ role_path }}/_python-argcomplete {{ role_path }}/argcomplete.zsh
     creates: "{{ role_path }}/argcomplete.zsh"

@@ -8,6 +8,7 @@
       - ttf-victor-mono
       - ttf-cascadia-code
       - ttf-nerd-fonts-symbols-mono
+      - ttf-iosevka-nerd
     state: present
-  become: yes
+  become: true
   become_user: aur_builder

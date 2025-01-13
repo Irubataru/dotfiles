@@ -1,17 +1,27 @@
-- import_tasks: apt.yml
+# vi: set ft=yaml.ansible :
+
+- name: Update default vars
+  ansible.builtin.set_fact:
+    latex: "{{ latex | combine(data.software.latex, recursive=True) }}"
+  when: data.software.latex is defined
+
+- name: Install latex with apt
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"
 
-- include_tasks: xelatex.yml
-  when: latex_use_xelatex
+- name: Run xelatex tasks`
+  ansible.builtin.include_tasks: xelatex.yml
+  when: latex.use_xelatex
 
 - name: Creating latex beamer theme directory
-  file:
+  ansible.builtin.file:
     path: "{{ home_directory }}/.texmf/tex/latex/beamer"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Cloning latex beamer themes
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/Irubataru/beamer-themes.git"
     dest: "{{ home_directory }}/.texmf/tex/latex/beamer/theme"

@@ -1,1 +1,2 @@
-conky_install_path: "{{ home_directory}}/.config/conky"
+conky:
+  config_dir: "{{ home_directory}}/.config/conky"

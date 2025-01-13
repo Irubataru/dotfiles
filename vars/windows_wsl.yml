@@ -7,5 +7,5 @@ data:
 
   git:
     sign:
-      key_type: "ssh"
-      key_name: "signkey"
+      key_type: ssh
+      key_name: signkey

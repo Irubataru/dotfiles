@@ -1,1 +1,2 @@
-neovim_git: false
+neovim:
+  install_from_git: false

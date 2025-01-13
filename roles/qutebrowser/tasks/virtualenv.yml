@@ -1,5 +1,7 @@
+# vi: set ft=yaml.ansible :
+
 - name: Qutebrowser virtualenv dependencies (apt)
-  apt:
+  ansible.builtin.apt:
     name:
       - python3-venv
       - asciidoc
@@ -8,38 +10,40 @@
   when: package_manager == "apt"
 
 - name: Create qutebrowser install directory
-  file: 
-    path: "{{ qutebrowser_virtualenv_install_root }}"
+  ansible.builtin.file:
+    path: "{{ qutebrowser.venv_install_dir }}"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Clone qutebrowser repo
-  git:
+  ansible.builtin.git:
     repo: "https://github.com/qutebrowser/qutebrowser.git"
-    dest: "{{ qutebrowser_virtualenv_install_root }}/qutebrowser"
+    dest: "{{ qutebrowser.venv_install_dir }}/qutebrowser"
   register: clone_status
   tags: qutebrowser
 
 - name: Build qutebrowser (virtualenv)
-  shell: python3 scripts/mkvenv.py
+  ansible.builtin.shell: python3 scripts/mkvenv.py
   args:
-    chdir: "{{ qutebrowser_virtualenv_install_root }}/qutebrowser"
+    chdir: "{{ qutebrowser.venv_install_dir }}/qutebrowser"
   tags: qutebrowser
   when: clone_status.changed
 
 - name: Create qutebrowser bin directory
-  file: 
-    path: "{{ qutebrowser_virtualenv_install_root }}/bin"
+  ansible.builtin.file:
+    path: "{{ qutebrowser.venv_install_dir }}/bin"
     state: directory
+    mode: u=rwx,g=rx,o=rx
 
 - name: Initialise qutebrowser run script
-  template: 
+  ansible.builtin.template:
     src: "qutebrowser.j2"
-    dest: "{{ qutebrowser_virtualenv_install_root }}/bin/qutebrowser"
-    mode: 0755
+    dest: "{{ qutebrowser.venv_install_dir }}/bin/qutebrowser"
+    mode: "0755"
   when: clone_status.changed
 
 - name: Install dictionaries
-  shell: |
-    {{ qutebrowser_virtualenv_install_root }}/qutebrowser/.venv/bin/python3 \
-      {{ qutebrowser_virtualenv_install_root }}/qutebrowser/scripts/dictcli.py install nb-NO en-GB
+  ansible.builtin.shell: |
+    {{ qutebrowser.venv_install_dir }}/qutebrowser/.venv/bin/python3 \
+    {{ qutebrowser.venv_install_dir }}/qutebrowser/scripts/dictcli.py install nb-NO en-GB
   when: clone_status.changed
