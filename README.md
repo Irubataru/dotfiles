@@ -17,6 +17,12 @@ pass the `install = true` variable.
 ansible-playbook playbooks/[playbook.yml] --ask-become-pass --extra-vars "install=true"
 ```
 
+One can also run a single role by passing the `--tags` (or `-t`) option
+
+```text
+ansible-playbook playbooks/[playbook.yml] --tags role1[,role2,...]
+```
+
 ### Dependencies
 
 Although the config should install most things, the first time setup is often a

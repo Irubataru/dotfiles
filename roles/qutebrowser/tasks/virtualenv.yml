@@ -20,13 +20,11 @@
     repo: "https://github.com/qutebrowser/qutebrowser.git"
     dest: "{{ qutebrowser.venv_install_dir }}/qutebrowser"
   register: clone_status
-  tags: qutebrowser
 
 - name: Build qutebrowser (virtualenv)
   ansible.builtin.shell: python3 scripts/mkvenv.py
   args:
     chdir: "{{ qutebrowser.venv_install_dir }}/qutebrowser"
-  tags: qutebrowser
   when: clone_status.changed
 
 - name: Create qutebrowser bin directory

@@ -7,7 +7,6 @@
 
 - name: Install qutebrowser from source (venv)
   ansible.builtin.import_tasks: virtualenv.yml
-  tags: qutebrowser
   when:
     - install
     - package_manager == "apt"
@@ -23,7 +22,6 @@
     path: "{{ qutebrowser.config_dir }}"
     state: directory
     mode: u=rwx,g=rx,o=rx
-  tags: qutebrowser
 
 - name: Link qutebrowser config files
   ansible.builtin.file:
@@ -35,13 +33,11 @@
   loop:
     - config.py
     - quickmarks
-  tags: qutebrowser
 
 - name: Check if password_fill exists
   ansible.builtin.stat:
     path: "{{ qutebrowser.global_path }}/userscripts/password_fill"
   register: password_fill_stat
-  tags: qutebrowser
 
 - name: Create userscripts directory
   ansible.builtin.file:
@@ -50,7 +46,6 @@
     mode: u=rwx,g=rx,o=rx
     recurse: true
   when: not password_fill_stat.stat.exists
-  tags: qutebrowser
 
 - name: Copy password_fill userscript
   ansible.builtin.get_url:
@@ -58,7 +53,6 @@
     dest: "{{ qutebrowser.scripts_dir }}/password_fill"
     mode: "0755"
   when: not password_fill_stat.stat.exists
-  tags: qutebrowser
 
 - name: Install qute-bitwarden dependencies (pipx)
   community.general.pipx:
@@ -81,4 +75,3 @@
     dest: "{{ qutebrowser.scripts_dir }}/qute-bitwarden"
     mode: "0755"
   when: not password_fill_stat.stat.exists
-  tags: qutebrowser

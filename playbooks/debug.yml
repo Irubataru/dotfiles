@@ -5,12 +5,14 @@
   connection: local
   vars_files:
     - ../vars/debug.yml
-  pre_tasks:
-    - name: Merge variables
-      ansible.builtin.include_tasks: ../tasks/merge_vars.yml
   vars:
     modules:
       - debug
+  pre_tasks:
+    - name: Merge variables
+      ansible.builtin.include_tasks: ../tasks/merge_vars.yml
+      tags:
+        - always
   tasks:
     - name: "Print modules"
       ansible.builtin.debug:
@@ -20,5 +22,10 @@
         var: data
     - name: Run all modules
       ansible.builtin.include_role:
+        apply:
+          tags:
+            - "{{ item }}"
         name: "{{ item }}"
       loop: "{{ modules }}"
+      tags:
+        - always
