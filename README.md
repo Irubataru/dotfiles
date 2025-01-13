@@ -11,8 +11,7 @@ ansible-playbook playbooks/[playbook.yml] --ask-become-pass
 ```
 
 The playbooks do not by default install any applications, to do so you need to
-pass the `install = true` variable. This should be passed to the command, but
-can also be set in the [group_vars](./group_vars/)
+pass the `install = true` variable.
 
 ```bash
 ansible-playbook playbooks/[playbook.yml] --ask-become-pass --extra-vars "install=true"
