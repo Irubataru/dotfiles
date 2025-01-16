@@ -20,7 +20,7 @@
       # Window manager
       - wayland
       - hyprland
-      - waybar
+      - hyprpanel
 
       # Programming languages
       - clang

@@ -1,9 +1,9 @@
 profile default {
-  output eDP-1 enable scale 1.33333
+  output eDP-1 enable scale 1
 }
 
 profile hdmi-connected {
-  output eDP-1 enable scale 1.33333 position 2560,0
+  output eDP-1 enable scale 1 position 2560,0
   output HDMI-A-1 mode 2560x1440 position 0,0
 }
 
@@ -14,7 +14,7 @@ profile home-docked-lid-closed {
 }
 
 profile home-docked-lid-open {
-  output eDP-1 enable scale 1.33333 position 5120,0
+  output eDP-1 enable scale 1 position 5120,0
   output "Samsung Electric Company S27H85x H4ZM100783" mode 2560x1440 position 0,0
   output "Acer Technologies XB271HU T4TEE0028502" mode 2560x1440 position 2560,0
 }

@@ -1,0 +1,27 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install hyprpanel (aur)
+  kewlfft.aur.aur:
+    name: ags-hyprpanel-git
+    state: present
+  become: true
+  become_user: aur_builder
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Install HyprPanel dependencies (pacman)
+  community.general.pacman:
+    name:
+      - swww
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Link HyprPanel config
+  ansible.builtin.file:
+    src: "{{ role_path }}/config"
+    dest: "{{ home_directory }}/.config/hyprpanel"
+    state: link
