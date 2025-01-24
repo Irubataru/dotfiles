@@ -14,11 +14,26 @@ return {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
-      { "saghen/blink.compat", opts = { impersonate_nvim_cmp = true } },
+      { "saghen/blink.compat", opts = {} },
       { "Dynge/gitmoji.nvim" },
     },
     opts = {
-      sources = { compat = { "gitmoji" } },
+      sources = {
+        default = { "gitmoji" },
+        providers = {
+          gitmoji = {
+            name = "gitmoji",
+            module = "blink.compat.source",
+            should_show_items = function(ctx, _)
+              if ctx.cursor[1] ~= 1 then
+                return false
+              end
+
+              return ctx.trigger.initial_character == ":"
+            end,
+          },
+        },
+      },
     },
   },
 }

@@ -55,10 +55,18 @@ return {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
-      { "saghen/blink.compat", opts = { impersonate_nvim_cmp = true } },
+      { "saghen/blink.compat", opts = {} },
     },
     opts = {
-      sources = { compat = { "git" } },
+      sources = {
+        default = { "git" },
+        providers = {
+          git = {
+            name = "git",
+            module = "blink.compat.source",
+          },
+        },
+      },
     },
   },
 }
