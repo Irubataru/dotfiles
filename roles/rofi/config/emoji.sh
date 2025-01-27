@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 typename="type-1"
-themename="style-5"
+themename="style-3"
 
 dir="$HOME/.config/rofi/launchers"
 
