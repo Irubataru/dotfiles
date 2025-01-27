@@ -481,5 +481,11 @@
   "theme.bar.buttons.modules.cava.icon_background": "#242438",
   "theme.bar.buttons.modules.cava.border": "#94e2d5",
   "theme.bar.buttons.background_opacity": 50,
-  "bar.workspaces.workspaces": 0
+  "bar.workspaces.workspaces": 0,
+  "bar.workspaces.ignored": "-\\d+",
+  "notifications.timeout": 5000,
+  "bar.volume.rightClick": "pwvucontrol",
+  "bar.battery.label": true,
+  "scalingPriority": "hyprland",
+  "wallpaper.image": "/home/aleksandra/Pictures/Wallpapers/firewatch.jpg"
 }
