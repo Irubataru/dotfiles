@@ -1,0 +1,10 @@
+[Unit]
+Description=Bluetooth Disconnect Watcher
+After=network.target
+
+[Service]
+ExecStart=%h/.local/bin/bluetooth-disconnect-watcher.py
+Restart=always
+
+[Install]
+WantedBy=default.target

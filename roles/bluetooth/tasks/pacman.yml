@@ -5,5 +5,6 @@
     name:
       - bluez
       - blueman
+      - python-udev
     state: present
   become: true

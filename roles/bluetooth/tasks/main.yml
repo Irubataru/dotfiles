@@ -5,3 +5,21 @@
   when:
     - install
     - package_manager == "pacman"
+
+- name: Link bluetooth disconnect watcher script
+  ansible.builtin.file:
+    src: "{{ role_path }}/bluetooth-disconnect-watcher.py"
+    dest: "{{ home_directory }}/.local/bin/bluetooth-disconnect-watcher.py"
+    state: link
+
+- name: Link bluetooth disconnect watcher service
+  ansible.builtin.file:
+    src: "{{ role_path }}/bluetooth-disconnect-watcher.service"
+    dest: "{{ home_directory }}/.config/systemd/user/bluetooth-disconnect-watcher.service"
+    state: link
+
+- name: Enable bluetooth disconnect watcher service
+  ansible.builtin.systemd:
+    name: "bluetooth-disconnect-watcher.service"
+    enabled: true
+    scope: user
