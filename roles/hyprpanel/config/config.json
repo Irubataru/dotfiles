@@ -32,7 +32,7 @@
   "bar.notifications.show_total": false,
   "theme.bar.buttons.modules.ram.enableBorder": false,
   "bar.layouts": {
-    "0": {
+    "*": {
       "left": [
         "workspaces",
         "windowtitle"
@@ -52,24 +52,8 @@
         "dashboard"
       ]
     },
-    "1": {
-      "left": [
-        "dashboard",
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "media"
-      ],
-      "right": [
-        "volume",
-        "clock",
-        "notifications"
-      ]
-    },
     "2": {
       "left": [
-        "dashboard",
         "workspaces",
         "windowtitle"
       ],
@@ -77,9 +61,11 @@
         "media"
       ],
       "right": [
-        "volume",
+        "kbinput",
+        "battery",
         "clock",
-        "notifications"
+        "notifications",
+        "dashboard"
       ]
     }
   },
