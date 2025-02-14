@@ -32,6 +32,22 @@
   "bar.notifications.show_total": false,
   "theme.bar.buttons.modules.ram.enableBorder": false,
   "bar.layouts": {
+    "2": {
+      "left": [
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "kbinput",
+        "battery",
+        "clock",
+        "notifications",
+        "dashboard"
+      ]
+    },
     "*": {
       "left": [
         "workspaces",
@@ -47,22 +63,6 @@
         "bluetooth",
         "battery",
         "systray",
-        "clock",
-        "notifications",
-        "dashboard"
-      ]
-    },
-    "2": {
-      "left": [
-        "workspaces",
-        "windowtitle"
-      ],
-      "middle": [
-        "media"
-      ],
-      "right": [
-        "kbinput",
-        "battery",
         "clock",
         "notifications",
         "dashboard"
@@ -473,5 +473,7 @@
   "bar.volume.rightClick": "pwvucontrol",
   "bar.battery.label": true,
   "scalingPriority": "hyprland",
-  "wallpaper.image": "/home/aleksandra/Pictures/Wallpapers/firewatch.jpg"
+  "wallpaper.image": "/home/aleksandra/Pictures/Wallpapers/firewatch.jpg",
+  "menus.media.displayTimeTooltip": false,
+  "menus.media.displayTime": false
 }
