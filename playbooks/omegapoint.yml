@@ -35,6 +35,7 @@
       - gpg
 
       # Applications
+      - ai
       - applications
       - common
       - git
