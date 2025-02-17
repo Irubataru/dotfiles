@@ -475,5 +475,6 @@
   "scalingPriority": "hyprland",
   "wallpaper.image": "/home/aleksandra/Pictures/Wallpapers/firewatch.jpg",
   "menus.media.displayTimeTooltip": false,
-  "menus.media.displayTime": false
+  "menus.media.displayTime": false,
+  "wallpaper.enable": true
 }
