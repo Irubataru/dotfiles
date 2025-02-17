@@ -1,0 +1,10 @@
+prepend_path () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            export PATH="$1:${PATH:+$PATH}"
+    esac
+}
+
+prepend_path "{{ role_path }}/bin"

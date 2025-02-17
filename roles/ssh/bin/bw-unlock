@@ -1,0 +1,15 @@
+#!/bin/env bash
+
+bw_status=$(bw status | jq -r '.status')
+
+if [ "$bw_status" = "locked" ]; then
+
+  session_key=$(bw unlock --raw)
+  if [ $? -ne 0 ]; then
+    echo "Failed to unlock the Bitwarden vault. Please check your password and try again."
+    return 1
+  fi
+
+  export BW_SESSION="$session_key"
+
+fi
