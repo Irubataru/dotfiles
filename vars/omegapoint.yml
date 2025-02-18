@@ -1,8 +1,17 @@
 data:
   system:
-    hardware: omegapoint-hp-elitebook 
+    hardware: omegapoint-hp-elitebook
 
   git:
     sign:
       key_type: openpgp
       key: 6DCBDB83BD45D785689C151D77DF2021FD23B02D
+
+  ssh:
+    key_config:
+      - name: id_ed25519
+        password_id: SSH private key Omegapoint
+      - name: github_omegapoint
+        password_id: SSH authentication key Omegapoint
+      - name: omegapoint_sign
+        password_id: SSH Signing key Omegapoint
