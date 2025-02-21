@@ -21,4 +21,4 @@ item="$(bw list items | \
   awk '{print $(NF -0)}')"
 
 bw get password "$item" | \
-  {{copy_command}}
+  {{data.system.copy_command}}

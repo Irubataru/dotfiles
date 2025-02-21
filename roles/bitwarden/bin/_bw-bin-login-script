@@ -1,7 +1,22 @@
 #!/bin/env bash
 
-session_key=$(bw login --raw)
+bw_status=$(bw status | jq -r '.status')
 
-if [[ "$?" == "0" ]]; then
+if [ "${bw_status}" = "unauthenticated" ]; then
+  session_key=$(bw login --raw)
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to unlock the Bitwarden vault. Please check your password and try again."
+    return 1
+  fi
+  
   export BW_SESSION="$session_key"
+
+elif [ "$bw_status" = "locked" ]; then
+  source _bw-bin-unlock-script
+elif [ "${bw_status}" = "unlocked" ]; then
+  echo "You are already logged in :)"
+else
+  echo "Unknown status code \"${bw_status}\""
+  return 1
 fi

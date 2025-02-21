@@ -15,6 +15,6 @@ if [[ $? -eq 1 ]]; then
 fi
 
 bw get password "{{ bw_item }}" | \
-{{copy_command}}
+  {{data.system.copy_command}}
 
 print "${fg[green]}✓ Copied!${reset_color}"

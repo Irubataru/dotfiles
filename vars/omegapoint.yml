@@ -1,6 +1,7 @@
 data:
   system:
     hardware: omegapoint-hp-elitebook
+    copy_command: wl-copy
 
   git:
     sign:

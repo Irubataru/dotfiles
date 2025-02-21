@@ -27,27 +27,12 @@
     src: "pwdfzf.j2"
     dest: "{{ role_path }}/bin/_pwdfzf-bin-script"
     mode: u=rwx,g=rx,o=rx
+  when:
+    - data.system.copy_command is defined
+    - data.system.copy_command != ""
 
 - name: Initialise pwdshow template
   ansible.builtin.template:
     src: "pwdshow.j2"
     dest: "{{ role_path }}/bin/_pwdshow-bin-script"
     mode: u=rwx,g=rx,o=rx
-
-- name: Initialise pwdssh template
-  ansible.builtin.template:
-    src: "pwdsingle.j2"
-    dest: "{{ role_path }}/bin/_pwdssh-bin-script"
-    mode: u=rwx,g=rx,o=rx
-  vars:
-    bw_item: "{{ bw_ssh_item_name }}"
-  when: bw_ssh_item_name is defined
-
-- name: Initialise pwdpgp template
-  ansible.builtin.template:
-    src: "pwdsingle.j2"
-    dest: "{{ role_path }}/bin/_pwdpgp-bin-script"
-    mode: u=rwx,g=rx,o=rx
-  vars:
-    bw_item: "{{ bw_pgp_item_name }}"
-  when: bw_pgp_item_name is defined

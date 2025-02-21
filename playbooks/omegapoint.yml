@@ -37,6 +37,7 @@
       # Applications
       - ai
       - applications
+      - bitwarden
       - common
       - git
       - gtk
