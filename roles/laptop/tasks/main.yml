@@ -11,3 +11,9 @@
   when:
     - data.system.hardware is defined
     - data.system.hardware == "omegapoint-hp-elitebook"
+
+- name: Tasks for the Lofree Keyboard
+  ansible.builtin.import_tasks: lofree-keyboard.yml
+  when:
+    - data.system.accessories is defined
+    - "'lofree_keyboard' in data.system.accessories"

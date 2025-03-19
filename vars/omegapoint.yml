@@ -2,6 +2,8 @@ data:
   system:
     hardware: omegapoint-hp-elitebook
     copy_command: wl-copy
+    accessories:
+      - lofree_keyboard
 
   git:
     sign:

@@ -1,0 +1,19 @@
+# vi: set ft=yaml.ansible :
+
+- name: Copy fn-lock script
+  ansible.builtin.copy:
+    src: "{{ role_path }}/lofree-keyboard/bin/fn-lock"
+    dest: "/usr/local/bin/fn-lock"
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  become: true
+
+- name: Allow user to use fn-lock without sudo password
+  community.general.sudoers:
+    name: allow-fn-lock
+    state: present
+    user: "{{ data.user.username }}"
+    commands: /usr/local/bin/fn-lock
+    nopassword: true
+  become: true
