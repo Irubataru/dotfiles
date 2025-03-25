@@ -19,5 +19,11 @@ vim.o.startofline = true
 -- Do not autoformat on save
 vim.g.autoformat = false
 
+-- LazyVim picker to use.
+-- Can be one of: telescope, fzf, snacks
+-- Leave it to "auto" to automatically use the picker
+-- enabled with `:LazyExtras`
+vim.g.lazyvim_picker = "snacks"
+
 -- Python
 vim.g.lazyvim_python_lsp = "basedpyright"
