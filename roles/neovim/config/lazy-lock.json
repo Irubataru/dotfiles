@@ -15,6 +15,7 @@
   "catppuccin": { "branch": "main", "commit": "5b5e3aef9ad7af84f463d17b5479f06b87d5c429" },
   "cmp-git": { "branch": "main", "commit": "483ffb9a7471409a841df099d7c13556234365a4" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
+  "codecompanion.nvim": { "branch": "main", "commit": "b78cdab2904cc8e86daa85aa13d6ed72ac2e8e4a" },
   "conform.nvim": { "branch": "master", "commit": "f8929b32acb8712381621b42ef3b0219c3c41efd" },
   "conjure": { "branch": "master", "commit": "8aed42faf4cb44663d06883d9733c89180260daa" },
   "crates.nvim": { "branch": "main", "commit": "fd2bbca7aa588f24ffc3517831934b4c4a9588e9" },
