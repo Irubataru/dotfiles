@@ -3,7 +3,13 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        cssls = {
+        volar = {
+          settings = {
+            css = { lint = { unknownAtRules = "ignore" } },
+            scss = { lint = { unknownAtRules = "ignore" } },
+          },
+        },
+        vtsls = {
           settings = {
             css = { lint = { unknownAtRules = "ignore" } },
             scss = { lint = { unknownAtRules = "ignore" } },
@@ -11,9 +17,5 @@ return {
         },
       },
     },
-  },
-  {
-    "williamboman/mason.nvim",
-    opts = { ensure_installed = { "css-lsp" } },
   },
 }
