@@ -25,6 +25,7 @@ require("lazy").setup({
     { import = "plugins.dap" },
     { import = "plugins.editor" },
     { import = "plugins.lang" },
+    { import = "plugins.test" },
     { import = "plugins.ui" },
     { import = "plugins.util" },
   },
