@@ -114,6 +114,21 @@ export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="underline"
 
 zi ice; zi load zsh-users/zsh-autosuggestions
 
+zi for \
+    as'completion' \
+    atclone'cp completions/_wt_completion _wt.zsh' \
+    from'gh' \
+    nocompile \
+    sbin='wt' \
+  mateusauler/git-worktree-switcher
+
+zi for \
+    as'completion' \
+    atclone'./dependabot completion zsh > _dependabot.zsh' \
+    from'gh-r' \
+    sbin='dependabot' \
+  dependabot/cli
+
 # Load snippets
 zinit snippet OMZL::directories.zsh
 zinit snippet OMZP::sudo

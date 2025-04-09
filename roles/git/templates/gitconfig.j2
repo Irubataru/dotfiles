@@ -12,6 +12,8 @@
   exclude = !sh -c 'echo "$1" >> .git/info/exclude' -
   clean-vba = checkout -- **/*.frm **/*.frx
   clone-worktree = !_git_clone_worktree
+  branch-worktree = !_git_branch_worktree
+  remote-worktree = !_git_remote_worktree
 [color]
   diff = auto
   status = auto
