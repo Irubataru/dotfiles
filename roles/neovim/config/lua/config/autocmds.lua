@@ -14,6 +14,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+-- Files named Tiltfile should have filetype Tiltfile
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "Tiltfile",
+  callback = function()
+    vim.bo.filetype = "tiltfile"
+    vim.treesitter.language.register("starlark", "tiltfile")
+  end,
+})
+
 -- Turn on autoformat for certain filetypes
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "lua" },
