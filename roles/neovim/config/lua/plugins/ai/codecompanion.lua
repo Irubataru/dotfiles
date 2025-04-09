@@ -30,65 +30,153 @@ local function add_file_to_chat(path, chat)
   })
 end
 
+---Save the CodeCompanion buffer to a file in .ai.chats/
+---@param bufnr number The buffer number to save
+---@return nil
+local function save_codecompanion_buffer(bufnr)
+  ---Get the directory where files should be saved
+  ---@return string # The path to the save directory
+  local function get_save_directory()
+    -- Try to find git root
+    local git_root = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null"):gsub("\n", "")
+
+    local save_dir
+    if git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
+      -- We're in a git repository, use .ai.chats at the root
+      save_dir = git_root .. "/.ai.chats/"
+    else
+      -- Not in a git repository, use ai.chats in current working directory
+      save_dir = vim.fn.getcwd() .. "/.ai.chats/"
+    end
+
+    -- Create directory if it doesn't exist
+    if vim.fn.isdirectory(save_dir) == 0 then
+      vim.fn.mkdir(save_dir, "p")
+    end
+    return save_dir
+  end
+
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return
+  end
+
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  local save_dir = get_save_directory()
+
+  -- Extract the unique ID from the buffer name
+  local id = bufname:match("%[CodeCompanion%] (%d+)")
+  local date = os.date("%Y-%m-%d")
+  local save_path
+
+  if id then
+    -- Use date plus ID to ensure uniqueness
+    save_path = save_dir .. date .. "_codecompanion_" .. id .. ".md"
+  else
+    -- Fallback with timestamp to ensure uniqueness if no ID
+    save_path = save_dir .. date .. "_codecompanion_" .. os.date("%H%M%S") .. ".md"
+  end
+
+  -- Write buffer content to file
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local file = io.open(save_path, "w")
+  if file then
+    file:write(table.concat(lines, "\n"))
+    file:close()
+  end
+end
+
 return {
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-    },
-    config = {
-      opts = {
-        log_level = "DEBUG",
+      {
+        "Davidyz/VectorCode",
+        enabled = false,
+        version = "*",
+        build = "uv tool upgrade vectorcode",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "VectorCode",
+        opts = true,
       },
-      adapters = {
-        anthropic = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            schema = {
-              extended_thinking = {
-                default = false,
+    },
+    opts = function()
+      -- Autocommand to save code companion chats
+      vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "BufLeave", "FocusLost" }, {
+        group = vim.api.nvim_create_augroup("CodeCompanionAutoSave", { clear = true }),
+        callback = function(args)
+          local bufnr = args.buf
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+          if bufname:match("%[CodeCompanion%]") then
+            save_codecompanion_buffer(bufnr)
+          end
+        end,
+      })
+
+      return {
+        opts = {
+          log_level = "DEBUG",
+        },
+        adapters = {
+          anthropic = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+              schema = {
+                extended_thinking = {
+                  default = false,
+                },
+              },
+            })
+          end,
+        },
+        display = {
+          chat = {
+            show_settings = false,
+          },
+          diff = {
+            provider = "mini_diff",
+          },
+        },
+        strategies = {
+          chat = {
+            adapter = "anthropic",
+            -- slash_commands = {
+            --   codebase = require("vectorcode.integrations").codecompanion.chat.make_slash_command(),
+            -- },
+            -- tools = {
+            --   vectorcode = {
+            --     description = "Run VectorCode to retrieve the project context.",
+            --     callback = require("vectorcode.integrations").codecompanion.chat.make_tool(),
+            --   },
+            -- },
+          },
+          inline = {
+            adapter = "anthropic",
+          },
+        },
+        prompt_library = {
+          ["Docstring"] = {
+            strategy = "inline",
+            description = "Generate docstrings for functions and variables",
+            opts = {
+              is_slash_cmd = true,
+              modes = { "n" },
+            },
+            prompts = {
+              {
+                role = "system",
+                content = [[]],
+              },
+              {
+                role = "user",
+                content = function(context) end,
               },
             },
-          })
-        end,
-      },
-      display = {
-        chat = {
-          show_settings = false,
-        },
-        diff = {
-          provider = "mini_diff",
-        },
-      },
-      strategies = {
-        chat = {
-          adapter = "anthropic",
-        },
-        inline = {
-          adapter = "anthropic",
-        },
-      },
-      prompt_library = {
-        ["Docstring"] = {
-          strategy = "inline",
-          description = "Generate docstrings for functions and variables",
-          opts = {
-            is_slash_cmd = true,
-            modes = { "n" },
-          },
-          prompts = {
-            {
-              role = "system",
-              content = [[]],
-            },
-            {
-              role = "user",
-              content = function(context) end,
-            },
           },
         },
-      },
-    },
+      }
+    end,
     cmd = { "CodeCompanion", "CodeCompanionChat" },
   },
   {
@@ -219,7 +307,7 @@ return {
         },
         window = {
           mappings = {
-            ["oa"] = "codecompanion_add_files",
+            ["ga"] = "codecompanion_add_files",
           },
         },
       },
