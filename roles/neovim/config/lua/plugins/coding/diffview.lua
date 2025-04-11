@@ -19,7 +19,7 @@ return {
             vim.cmd.DiffviewOpen()
           end
         end,
-        desc = "Git explorer",
+        desc = "Git explorer (diffview)",
       },
       { "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", desc = "File history" },
     },

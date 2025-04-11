@@ -49,5 +49,14 @@ return {
         },
       },
     },
+    keys = {
+      {
+        "<leader>gE",
+        function()
+          require("neo-tree.command").execute({ source = "git_status", toggle = true })
+        end,
+        desc = "Git Explorer (neo-tree)",
+      },
+    },
   },
 }
