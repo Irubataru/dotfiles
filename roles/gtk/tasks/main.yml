@@ -1,5 +1,19 @@
 # vi: set ft=yaml.ansible :
 
+- name: Install gtk themes (aur)
+  kewlfft.aur.aur:
+    name:
+      - rose-pine-gtk-theme-full
+      - nordic-theme
+      - rose-pine-cursor
+      - rose-pine-hyprcursor
+    state: present
+  become: true
+  become_user: aur_builder
+  when:
+    - install
+    - package_manager == "pacman"
+
 - name: Create gtk config directory
   ansible.builtin.file:
     path: "{{ home_directory }}/.config/gtk-3.0"
@@ -11,17 +25,3 @@
     src: "{{ role_path }}/gtk-3.0-settings.ini"
     dest: "{{ home_directory }}/.config/gtk-3.0/settings.ini"
     state: link
-
-- name: Create theme directory
-  ansible.builtin.file:
-    path: "{{ home_directory }}/.local/share/themes"
-    state: directory
-    mode: u=rwx,g=rx,o=rx
-
-- name: Download Nordic theme
-  ansible.builtin.unarchive:
-    src: https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz
-    dest: "{{ home_directory }}/.local/share/themes"
-    remote_src: true
-  ignore_errors: true
-  when: install

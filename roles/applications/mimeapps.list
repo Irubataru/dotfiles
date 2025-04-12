@@ -14,3 +14,4 @@ application/pdf=org.pwmt.zathura.desktop;
 x-scheme-handler/mailto=vivaldi-stable.desktop
 x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
 x-scheme-handler/figma=figma-linux.desktop
+x-scheme-handler/postman=Postman.desktop
