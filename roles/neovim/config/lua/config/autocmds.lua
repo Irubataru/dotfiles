@@ -23,9 +23,25 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+-- Files with an extension .mdx should have filetype mdx
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.mdx",
+  callback = function()
+    vim.bo.filetype = "mdx"
+  end,
+})
+
 -- Turn on autoformat for certain filetypes
+local autoformat_ft = {
+  "lua",
+  "javascript",
+  "javascriptreact",
+  "typescript",
+  "typescriptreact",
+}
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "lua" },
+  pattern = autoformat_ft,
   callback = function()
     vim.b.autoformat = true
   end,
