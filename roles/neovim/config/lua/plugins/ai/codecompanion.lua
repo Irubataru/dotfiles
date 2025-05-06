@@ -156,28 +156,91 @@ return {
           },
         },
         prompt_library = {
-          ["Docstring"] = {
+          ["Investigator"] = {
+            strategy = "workflow",
+            description = "Answer coding questions by investigating the repository",
+            prompts = {
+              {
+                {
+                  name = "Setup investigation",
+                  role = "user",
+                  opts = { auto_submit = false },
+                  content = function()
+                    vim.g.codecompanion_auto_tool_mode = true
+
+                    return [[### Instructions
+
+Your instructions here
+
+### Steps to Follow
+
+You are an expert code and an investigator. You can use tools to analyse the code repository, individual files and configuration, run tests and commands, but NOT change any of the code. You will analyse the code until you have answered the question asked.
+
+Things you can do:
+1. Look at the code in the #buffer as that is usually the starting point of the investigation.
+2. Use the @cmd_runner tool to look at the respository structure, run tests with `<test_cmd>`, and other useful commands. 
+3. Use the @files tool to read necessary files
+
+We'll repeat this cycle until you have found a reasonable answer to the question. Ensure that you under no circumstances edit any of the files.]]
+                  end,
+                },
+              },
+            },
+          },
+          ["Document"] = {
             strategy = "inline",
-            description = "Generate docstrings for functions and variables",
+            description = "Add documentation to the code",
             opts = {
-              is_slash_cmd = true,
-              modes = { "n" },
+              is_slash_cmd = false,
+              modes = { "v" },
+              short_name = "document",
+              auto_submit = true,
+              user_prompt = false,
+              stop_context_insertion = true,
             },
             prompts = {
               {
                 role = "system",
-                content = [[]],
+                content = [[When asked to add documentation to code, follow these steps
+
+1. Identify the programming language.
+2. Add documentation headers to functions, classes, ... where appropriate using the @editor tool
+
+Use the natural documenentation formatting for different languages. For example
+- Lua uses luals annotations
+- C# uses the standard XML documentation
+- Typescript uses TSDoc and optionally JSDoc where necessary]],
+                opts = {
+                  visible = false,
+                },
               },
               {
                 role = "user",
-                content = function(context) end,
+                content = function(context)
+                  local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+
+                  return string.format(
+                    [[Please add docstrings to this code from buffer %d:
+
+```%s
+%s
+```
+]],
+                    context.bufnr,
+                    context.filetype,
+                    code
+                  )
+                end,
+                opts = {
+                  contains_code = true,
+                },
               },
             },
           },
         },
       }
     end,
-    cmd = { "CodeCompanion", "CodeCompanionChat" },
+    cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
   },
   {
     optional = true,
@@ -206,11 +269,34 @@ return {
           icon = { icon = " ", color = "green" },
         },
         {
+          "<leader>aA",
+          function()
+            require("codecompanion").chat()
+          end,
+          mode = "n",
+          desc = "CodeCompanion chat (new)",
+          icon = { icon = " ", color = "green" },
+        },
+        {
           "<leader>ac",
           function()
             require("codecompanion").actions({})
           end,
           mode = "n",
+          desc = "CodeCompanion actions",
+          icon = { icon = " ", color = "green" },
+        },
+        {
+          "<leader>ac",
+          "<cmd>'<,'>CodeCompanionActions<cr>",
+          mode = "v",
+          desc = "CodeCompanion actions",
+          icon = { icon = " ", color = "green" },
+        },
+        {
+          "<cmd>CodeCompanion /document<cr>",
+          "<leader>agd",
+          mode = "v",
           desc = "CodeCompanion actions",
           icon = { icon = " ", color = "green" },
         },
