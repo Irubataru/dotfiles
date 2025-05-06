@@ -2,6 +2,7 @@ return {
   {
     -- Automatic list continuation and formatting for neovim
     "gaoDean/autolist.nvim",
+    enabled = false,
     ft = { "markdown", "text" },
     -- Load this after other apps, default priority is 50
     priority = 0,
