@@ -18,3 +18,5 @@ data:
         password_id: SSH authentication key Omegapoint
       - name: omegapoint_sign
         password_id: SSH Signing key Omegapoint
+      - name: azure_dev_omegapoint
+        password_id: Azure DevOps SSH Key
