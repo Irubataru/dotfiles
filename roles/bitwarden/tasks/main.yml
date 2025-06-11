@@ -16,23 +16,12 @@
     - install
     - package_manager == "pacman"
 
-- name: Initialise the path template
-  ansible.builtin.template:
-    src: "path.zsh.j2"
-    dest: "{{ role_path }}/path.zsh"
-    mode: u=rw,g=r,o=r
-
-- name: Initialise pwdfzf template
-  ansible.builtin.template:
-    src: "pwdfzf.j2"
-    dest: "{{ role_path }}/bin/_pwdfzf-bin-script"
-    mode: u=rwx,g=rx,o=rx
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
   when:
-    - data.system.copy_command is defined
-    - data.system.copy_command != ""
+    - "'fish' in modules"
 
-- name: Initialise pwdshow template
-  ansible.builtin.template:
-    src: "pwdshow.j2"
-    dest: "{{ role_path }}/bin/_pwdshow-bin-script"
-    mode: u=rwx,g=rx,o=rx
+- name: Zsh configuration
+  ansible.builtin.import_tasks: zsh.yml
+  when:
+    - "'zsh' in modules"

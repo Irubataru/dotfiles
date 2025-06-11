@@ -13,6 +13,8 @@
       - pacman
       - keyboard
       - zsh
+      - atuin
+      - starship
       - zoxide
       - fonts
       - laptop

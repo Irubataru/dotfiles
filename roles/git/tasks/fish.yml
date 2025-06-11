@@ -1,0 +1,19 @@
+# vi: set ft=yaml.ansible :
+
+- name: Define cr alias
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/cr.fish"
+    dest: "{{ config_directory }}/fish/functions/cr.fish"
+    state: link
+
+- name: Define git-config-op alias
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/git-config-op.fish"
+    dest: "{{ config_directory }}/fish/functions/git-config-op.fish"
+    state: link
+
+- name: Define lg -> lazygit alias
+  ansible.builtin.shell:
+    cmd: alias --save lg="lazygit"
+    executable: /usr/bin/fish
+    creates: "{{ home_directory }}/.config/fish/functions/lg.fish"

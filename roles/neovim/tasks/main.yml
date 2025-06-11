@@ -17,6 +17,11 @@
     - install
     - package_manager == "apt"
 
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"
+
 - name: Create vim temp storage directory
   ansible.builtin.file:
     path: "{{ home_directory }}/.tmp"

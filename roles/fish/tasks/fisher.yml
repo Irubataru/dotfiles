@@ -1,0 +1,10 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install fisher
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish \
+        | source && fisher install jorgebucaran/fisher
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/fisher.fish"

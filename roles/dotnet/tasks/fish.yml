@@ -1,0 +1,9 @@
+# vi: set ft=yaml.ansible :
+
+- name: Add dotnet tools to path
+  ansible.builtin.shell:
+    cmd: fish_add_path ~/.dotnet/tools
+    executable: /usr/bin/fish
+  register: path_exists
+  changed_when: false
+  failed_when: path_exists.rc != 0 and path_exists.rc != 1

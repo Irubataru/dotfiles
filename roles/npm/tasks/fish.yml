@@ -1,0 +1,13 @@
+# vi: set ft=yaml.ansible :
+
+- name: Set default nvm version
+  ansible.builtin.shell:
+    cmd: set --universal nvm_default_version latest
+    executable: /usr/bin/fish
+  changed_when: false
+
+- name: Install nvm.fish
+  ansible.builtin.shell:
+    cmd: fisher install jorgebucaran/nvm.fish
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/nvm.fish"

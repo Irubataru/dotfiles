@@ -25,6 +25,7 @@
   ansible.builtin.set_fact:
     install: "{{ install | default(false) }}"
     home_directory: "{{ data.user.home_dir }}"
+    config_directory: "{{ data.user.home_dir + '/.config' }}"
     dotfiles_directory: "{{ data.user.dotfiles_dir | default(data.user.home_dir + '/.dotfiles') }}"
     package_manager: "{{ data.system.package_manager }}"
   tags:

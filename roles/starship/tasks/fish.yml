@@ -1,0 +1,13 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install starship (cargo)
+  community.general.cargo:
+    name: starship
+    state: present
+  when: install
+
+- name: Link starship.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/starship.fish"
+    dest: "{{ config_directory }}/fish/conf.d/starship.fish"
+    state: link

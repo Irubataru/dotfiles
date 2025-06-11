@@ -7,6 +7,7 @@ import subprocess
 # List of headset MAC addresses to watch
 HEADSET_MACS = [
     "60:AB:D2:3D:68:A7", # FlutterComfort
+    "EC:66:D1:C3:FA:D0", # Bower & Wilkins Pi6
     "08:C8:C2:D3:6F:59"  # Jabra Elite 8 Active
 ]
 

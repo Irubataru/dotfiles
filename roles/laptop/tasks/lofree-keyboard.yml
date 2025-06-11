@@ -8,6 +8,7 @@
     group: root
     mode: u=rwx,g=rx,o=rx
   become: true
+  when: ansible_become | default(false)
 
 - name: Allow user to use fn-lock without sudo password
   community.general.sudoers:
@@ -17,3 +18,4 @@
     commands: /usr/local/bin/fn-lock
     nopassword: true
   become: true
+  when: ansible_become | default(false)

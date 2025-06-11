@@ -1,0 +1,12 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link spaceship config
+  ansible.builtin.file:
+    src: "{{ role_path }}/starship.toml"
+    dest: "~/.config/starship.toml"
+    state: link
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"

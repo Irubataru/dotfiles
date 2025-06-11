@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link latex.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/latex.fish"
+    dest: "{{ config_directory }}/fish/conf.d/latex.fish"
+    state: link

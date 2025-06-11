@@ -1,0 +1,9 @@
+# vi: set ft=yaml.ansible :
+
+- name: "Initialize fnm completions"
+  ansible.builtin.shell:
+    cmd: fnm completions --shell zsh > completions.zsh
+    executable: /usr/bin/zsh
+  args:
+    chdir: "{{ role_path }}"
+  changed_when: false

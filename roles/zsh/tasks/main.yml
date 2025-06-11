@@ -40,16 +40,6 @@
     dest: "{{ role_path }}/fpath.zsh"
     mode: u=rw,g=r,o=r
 
-- name: Link spaceship config
-  ansible.builtin.file:
-    src: "{{ role_path }}/starship.toml"
-    dest: "~/.config/starship.toml"
-    state: link
-
-- name: Include tasks fro atuin
-  ansible.builtin.include_tasks: atuin.yml
-  when: zsh.plugins.atuin
-
 - name: Change user default shell
   ansible.builtin.user:
     name: "{{ data.user.username }}"

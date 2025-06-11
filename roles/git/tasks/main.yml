@@ -28,7 +28,6 @@
     - package_manager == "pacman"
     - git.difftool == "delta"
 
-
 - name: Install git programs (apt)
   ansible.builtin.apt:
     name:
@@ -41,13 +40,15 @@
     - package_manager == "apt"
 
 - name: Install lazygit (apt)
-  ansible.builtin.shell: |
-   set -o pipefail
-   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-   curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-   tar xf lazygit.tar.gz lazygit
-   sudo install lazygit -D -t /usr/local/bin/
-   rm lazygit.tar.gz lazygit
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+      curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+      tar xf lazygit.tar.gz lazygit
+      sudo install lazygit -D -t /usr/local/bin/
+      rm lazygit.tar.gz lazygit
+    creates: /usr/local/bin/lazygit
   become: true
   when:
     - install
@@ -65,29 +66,18 @@
     dest: "~/.gitconfig"
     mode: u=rw,g=r,o=r
 
-- name: Initialise the path template
-  ansible.builtin.template:
-    src: "path.zsh.j2"
-    dest: "{{ role_path }}/path.zsh"
-    mode: u=rw,g=r,o=r
-
-- name: Initialise git-config-op template
-  ansible.builtin.template:
-    src: "git-config-op.j2"
-    dest: "{{ role_path }}/bin/git-config-op"
-    mode: u=rwx,g=rx,o=rx
-  when:
-    - data.system is defined
-    - data.system.hardware == "omegapoint-hp-elitebook"
-
 - name: Link tig config file
   ansible.builtin.file:
     src: "{{ role_path }}/tigrc"
     dest: "~/.tigrc"
     state: link
 
-# - name: Initialise git api token
-#   template:
-#     src: "github_api_token.zsh.j2"
-#     dest: "{{ role_path }}/github_api_token.zsh"
-#   ignore_errors: true
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"
+
+- name: Zsh configuration
+  ansible.builtin.import_tasks: zsh.yml
+  when:
+    - "'zsh' in modules"

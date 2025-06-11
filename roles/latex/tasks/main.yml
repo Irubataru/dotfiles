@@ -25,3 +25,8 @@
   ansible.builtin.git:
     repo: "https://github.com/Irubataru/beamer-themes.git"
     dest: "{{ home_directory }}/.texmf/tex/latex/beamer/theme"
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"

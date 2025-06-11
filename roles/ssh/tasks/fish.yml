@@ -1,0 +1,18 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link ssh-auth-socket.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/ssh-auth-socket.fish"
+    dest: "{{ config_directory }}/fish/conf.d/ssh-auth-socket.fish"
+    state: link
+
+- name: Set ssh_keys variable
+  ansible.builtin.set_fact:
+    ssh_keys: "{{ data.ssh.key_config }}"
+  when: data.ssh.key_config is defined
+
+- name: Initialise ssh-add-all fish function
+  ansible.builtin.template:
+    src: "ssh-add-all.fish.j2"
+    dest: "{{ config_directory }}/fish/functions/ssh-add-all.fish"
+    mode: u=rw,g=r,o=r

@@ -1,0 +1,16 @@
+# vi: set ft=yaml.ansible :
+
+- name: Initialise the path template
+  ansible.builtin.template:
+    src: "path.zsh.j2"
+    dest: "{{ role_path }}/path.zsh"
+    mode: u=rw,g=r,o=r
+
+- name: Initialise git-config-op template
+  ansible.builtin.template:
+    src: "git-config-op.j2"
+    dest: "{{ role_path }}/bin/git-config-op"
+    mode: u=rwx,g=rx,o=rx
+  when:
+    - data.system is defined
+    - data.system.hardware == "omegapoint-hp-elitebook"

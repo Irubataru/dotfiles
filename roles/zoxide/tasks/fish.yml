@@ -1,0 +1,13 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link zoxide.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/zoxide.fish"
+    dest: "{{ config_directory }}/fish/conf.d/zoxide.fish"
+    state: link
+
+- name: Define cd -> z alias
+  ansible.builtin.shell:
+    cmd: alias --save cd="z"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/cd.fish"

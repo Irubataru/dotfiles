@@ -12,6 +12,8 @@
       - basic
       - pacman
       - zsh
+      - atuin
+      - starship
       - zoxide
       - fonts
 

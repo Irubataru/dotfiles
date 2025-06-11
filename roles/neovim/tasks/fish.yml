@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Define vim -> neovim alias
+  ansible.builtin.shell:
+    cmd: alias --save vim="nvim"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/vim.fish"

@@ -1,0 +1,71 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install fish (pacman)
+  community.general.pacman:
+    name: fish
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Change user default shell
+  ansible.builtin.user:
+    name: "{{ data.user.username }}"
+    shell: /bin/fish
+  become: true
+  when: ansible_become | default(false)
+
+- name: Link config.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/config.fish"
+    dest: "{{ config_directory }}/fish/config.fish"
+    state: link
+
+- name: Link keybinds.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/keybinds.fish"
+    dest: "{{ config_directory }}/fish/conf.d/keybinds.fish"
+    state: link
+
+- name: Install fisher plugin manager
+  ansible.builtin.include_tasks: fisher.yml
+
+- name: Install kanagawa fish theme
+  ansible.builtin.shell:
+    cmd: fisher install uajqq/fish-kanagawa
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/themes/kanagawa.theme"
+
+- name: Install catpuccin fish theme
+  ansible.builtin.shell:
+    cmd: fisher install catppuccin/fish
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/themes/Catppuccin\ Mocha.theme"
+
+# - name: Find fish configuration files for each module
+#   ansible.builtin.find:
+#     paths: "{{ data.user.dotfiles }}/roles/{{ item }}/"
+#     patterns: "*.fish"
+#     file_type: file
+#   register: fish_files
+#   loop: "{{ modules }}"
+#   loop_control:
+#     loop_var: item
+#
+# - name: Create symlinks for fish configuration files
+#   ansible.builtin.file:
+#     src: "{{ item.path }}"
+#     dest: "~/.config/fish/conf.d/{{ item.module }}-{{ item.path | basename }}"
+#     state: link
+#   loop: >-
+#       [
+#         {% for result in fish_files.results %}
+#           {% for file in result.files %}
+#             {
+#               'module': '{{ result.item }}',
+#               'path': '{{ file.path }}'
+#             },
+#           {% endfor %}
+#         {% endfor %}
+#       ]

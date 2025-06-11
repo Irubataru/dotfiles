@@ -1,0 +1,154 @@
+function ssh-add-all -d "Add all SSH keys to ssh-agent using passwords from Bitwarden"
+    # Function to show success or failure indicator
+    function _show_status
+        set -l status_code $argv[1]
+        set -l message $argv[2]
+        
+        if test $status_code -eq 0
+            printf "\033[1;32m✓\033[0m %s\n" "$message"
+        else
+            printf "\033[1;31m✗\033[0m %s\n" "$message"
+        end
+    end
+
+    # Function to check if expect is installed
+    function _check_expect_installed
+        if not command -v expect >/dev/null 2>&1
+            printf "\033[1;31m✗\033[0m Error: 'expect' command is not installed. Please install it first.\n"
+            return 1
+        end
+    end
+
+    # Function to check if the Bitwarden CLI is installed
+    function _check_bw_installed
+        if not command -v bw >/dev/null 2>&1
+            printf "\033[1;31m✗\033[0m Error: Bitwarden CLI ('bw') is not installed. Please install it first.\n"
+            return 1
+        end
+    end
+
+    # Function to check if the Bitwarden session is authenticated
+    function _check_bw_authentication
+        set -l bw_status (bw status | jq -r '.status')
+        
+        switch $bw_status
+            case "locked"
+                printf "\033[1;31m✗\033[0m Bitwarden vault is locked. Please run 'bw unlock' or the 'bw-unlock' script first.\n"
+                return 1
+            case "unauthenticated"
+                printf "\033[1;31m✗\033[0m Bitwarden is not authenticated. Please run 'bw login' first.\n"
+                return 1
+            case "unlocked"
+                return 0
+            case '*'
+                printf "\033[1;31m✗\033[0m Unknown Bitwarden status: %s\n" "$bw_status"
+                return 1
+        end
+    end
+
+    # Function to get the password from Bitwarden
+    function _get_password_from_bw
+        set -l item_name $argv[1]
+        set -l item (bw get item "$item_name" 2>/dev/null)
+        
+        if test -z "$item"
+            return 1
+        end
+        
+        set -l password (echo "$item" | jq -r '.fields[] | select(.name == "Password") | .value')
+        
+        if test -z "$password"
+            return 1
+        end
+        
+        echo "$password"
+        return 0
+    end
+
+    # Function to add SSH key to ssh-agent
+    function _add_ssh_key_to_agent
+        set -l ssh_key_path $argv[1]
+        set -l item_name $argv[2]
+        set -l key_name (basename "$ssh_key_path")
+        
+        # Get password first
+        set -l password (_get_password_from_bw "$item_name")
+        if test $status -ne 0
+            _show_status 1 "Key $key_name (failed to get password)"
+            return 1
+        end
+        
+        # Create temporary expect script
+        set -l expect_script (mktemp)
+        
+        # Escape special characters for expect
+        set -l escaped_password (string replace -a '\\' '\\\\' -- $password)
+        set escaped_password (string replace -a '[' '\\[' -- $escaped_password)
+        set escaped_password (string replace -a '$' '\\$' -- $escaped_password)
+        set escaped_password (string replace -a '^' '\\^' -- $escaped_password)
+        set escaped_password (string replace -a '*' '\\*' -- $escaped_password)
+        set escaped_password (string replace -a '|' '\\|' -- $escaped_password)
+        set escaped_password (string replace -a '(' '\\(' -- $escaped_password)
+        set escaped_password (string replace -a ')' '\\)' -- $escaped_password)
+        set escaped_password (string replace -a '{' '\\{' -- $escaped_password)
+        set escaped_password (string replace -a '}' '\\}' -- $escaped_password)
+        set escaped_password (string replace -a '.' '\\.' -- $escaped_password)
+        set escaped_password (string replace -a '?' '\\?' -- $escaped_password)
+        
+        # Write expect script
+        printf '#!/usr/bin/expect -f
+set timeout 10
+spawn ssh-add "%s"
+expect {
+    "Enter passphrase" {
+        send "%s\\r"
+        expect eof
+        exit 0
+    }
+    timeout {
+        exit 1
+    }
+    eof {
+        exit 0
+    }
+}
+' "$ssh_key_path" "$escaped_password" > $expect_script
+        
+        chmod +x $expect_script
+        
+        # Run expect script and get exit status
+        $expect_script >/dev/null 2>&1
+        set -l exit_status $status
+        
+        # Clean up temporary script
+        rm -f $expect_script
+        
+        # Show success or failure indicator
+        _show_status $exit_status "Key $key_name"
+        return $exit_status
+    end
+
+    # Main execution
+    # Check if 'expect' is installed
+    _check_expect_installed; or return 1
+    
+    # Check if Bitwarden CLI is installed
+    _check_bw_installed; or return 1
+    
+    # Ensure Bitwarden is authenticated
+    _check_bw_authentication; or return 1
+    
+    # Define SSH keys and their corresponding Bitwarden item names
+    set -l ssh_keys \
+        {% for item in ssh_keys %}
+        "$HOME/.ssh/{{ item.name }}" "{{ item.password_id }}" \
+        {% endfor %}
+        # EOL
+    
+    # Process each SSH key
+    for i in (seq 1 2 (count $ssh_keys))
+        set -l ssh_key_path $ssh_keys[$i]
+        set -l item_name $ssh_keys[(math $i + 1)]
+        _add_ssh_key_to_agent "$ssh_key_path" "$item_name"
+    end
+end

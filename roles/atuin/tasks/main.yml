@@ -21,3 +21,8 @@
     dest: "{{ home_directory }}/.config/atuin/config.toml"
     state: link
     force: true
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"

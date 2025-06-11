@@ -8,11 +8,13 @@
   vars:
     modules:
       # Basics
+      - fish
       - system
       - basic
       - keyboard
       - bluetooth
-      - zsh
+      - atuin
+      - starship
       - zoxide
       - fonts
       - laptop

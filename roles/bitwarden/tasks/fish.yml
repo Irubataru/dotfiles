@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link bw-unlock function
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/bw-unlock.fish"
+    dest: "{{ config_directory }}/fish/functions/bw-unlock.fish"
+    state: link

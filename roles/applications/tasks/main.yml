@@ -12,3 +12,8 @@
     dest: ~/.config/mimeapps.list
     state: link
   ignore_errors: true
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"

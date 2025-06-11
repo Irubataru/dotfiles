@@ -1,5 +1,11 @@
-- name: Link environment variables
-  file:
-    src: "{{ role_path }}/files/environment.local.zsh"
-    dest: "{{ role_path }}/environment.zsh"
-    state: link
+# vi: set ft=yaml.ansible :
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"
+
+- name: Zsh configuration
+  ansible.builtin.import_tasks: zsh.yml
+  when:
+    - "'zsh' in modules"
