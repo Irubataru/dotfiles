@@ -53,3 +53,8 @@
 
 - name: Import tasks for installing bat
   import_tasks: bat.yml
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"

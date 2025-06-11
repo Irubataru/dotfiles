@@ -1,0 +1,37 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link frg.fish function
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/frg.fish"
+    dest: "{{ config_directory }}/fish/functions/frg.fish"
+    state: link
+
+- name: Define ls -> to alias
+  ansible.builtin.shell:
+    cmd: alias --save ls="lsd --group-directories-first --ignore-glob=\"*~\""
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/ls.fish"
+
+- name: Define cargoup alias
+  ansible.builtin.shell:
+    cmd: alias --save cargoup="cargo install-update -a"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/cargoup.fish"
+
+- name: Define clock alias
+  ansible.builtin.shell:
+    cmd: alias --save clock="tclock clock"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/clock.fish"
+
+- name: Define timer alias
+  ansible.builtin.shell:
+    cmd: alias --save timer="tclock timer"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/timer.fish"
+
+- name: Define stopwatch alias
+  ansible.builtin.shell:
+    cmd: alias --save stopwatch="tclock stopwatch"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/stopwatch.fish"
