@@ -476,5 +476,8 @@
   "wallpaper.image": "/home/aleksandra/Pictures/Wallpapers/firewatch.jpg",
   "menus.media.displayTimeTooltip": false,
   "menus.media.displayTime": false,
-  "wallpaper.enable": true
+  "wallpaper.enable": true,
+  "bar.customModules.storage.paths": [
+    "/"
+  ]
 }
