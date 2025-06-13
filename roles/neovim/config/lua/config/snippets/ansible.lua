@@ -211,6 +211,68 @@ luasnip.add_snippets("ansible", {
       }
     )
   ),
+  snippet(
+    { trig = "fish", descr = "Fish configuration" },
+    fmta(
+      [[
+        - name: Fish configuration
+          ansible.builtin.import_tasks: fish.yml
+          when:
+            - "'fish' in modules"
+      ]],
+      {}
+    )
+  ),
+  snippet(
+    { trig = "zsh", descr = "Zsh configuration" },
+    fmta(
+      [[
+        - name: Zsh configuration
+          ansible.builtin.import_tasks: zsh.yml
+          when:
+            - "'zsh' in modules"
+      ]],
+      {}
+    )
+  ),
+  snippet(
+    { trig = "alias-fish", descr = "Define alias in fish" },
+    fmta(
+      [[
+        - name: Define <> ->> <> alias
+          ansible.builtin.shell:
+            cmd: alias --save <>="<>"
+            executable: /usr/bin/fish
+            creates: "{{ config_directory }}/fish/functions/<>.fish"
+      ]],
+      {
+        i(1, "from"),
+        i(2, "to"),
+        f(copy, 1),
+        f(copy, 2),
+        f(copy, 1),
+      }
+    )
+  ),
+  snippet(
+    { trig = "path-fish", descr = "Add to path in fish" },
+    fmta(
+      [[
+        - name: Add <> to path
+          ansible.builtin.shell:
+            cmd: fish_add_path ~/<>
+            executable: /usr/bin/fish
+          register: path_exists
+          changed_when: false
+          failed_when: path_exists.rc != 0 and path_exists.rc != 1
+      ]],
+      {
+        i(1, "item"),
+        i(2, "path"),
+      }
+    )
+  ),
   snippet({ trig = "home", descr = "Home directory" }, t("{{ home_directory }}")),
+  snippet({ trig = "config", descr = "Config directory" }, t("{{ config_directory }}")),
   snippet({ trig = "role", descr = "Role directory" }, t("{{ role_path }}")),
 })
