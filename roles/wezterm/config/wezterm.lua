@@ -9,4 +9,6 @@ config.enable_wayland = true
 require("appearance").apply(config)
 require("keymaps").apply(config)
 
+require("tabs").format_tab_title()
+
 return config
