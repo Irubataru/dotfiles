@@ -15,15 +15,15 @@ return {
       picker = {},
     },
     keys = {
-      -- {
-      --   "<c-b>",
-      --   function()
-      --     if not require("noice.lsp").scroll(-4) then
-      --       Snacks.picker.buffers(buffer_picker_opts)
-      --     end
-      --   end,
-      --   desc = "Buffers",
-      -- },
+      {
+        "<c-b>",
+        function()
+          if not require("noice.lsp").scroll(-4) then
+            Snacks.picker.buffers(buffer_picker_opts)
+          end
+        end,
+        desc = "Buffers",
+      },
       {
         "<leader>,",
         function()
@@ -54,7 +54,7 @@ return {
   {
     "folke/noice.nvim",
     keys = {
-      -- { "<c-b>", expr = true, mode = { "i", "n", "s" }, false },
+      { "<c-b>", expr = true, mode = { "i", "n", "s" }, false },
     },
   },
 }

@@ -1,7 +1,7 @@
 return {
   {
     -- A plugin to split and join arguments
-    "echasnovski/mini.splitjoin",
+    "nvim-mini/mini.splitjoin",
     opts = {
       mappings = {
         toggle = "",
@@ -19,7 +19,7 @@ return {
     },
     config = function()
       -- Combine treesj with mini.splitjoin
-      -- https://github.com/echasnovski/mini.nvim/discussions/36#discussioncomment-8382869
+      -- https://github.com/nvim-mini/mini.nvim/discussions/36#discussioncomment-8382869
 
       local tsj = require("treesj")
 

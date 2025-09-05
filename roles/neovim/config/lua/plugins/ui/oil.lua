@@ -7,6 +7,6 @@ return {
       },
     },
     lazy = false,
-    dependencies = { { "echasnovski/mini.icons" } },
+    dependencies = { { "nvim-mini/mini.icons" } },
   },
 }
