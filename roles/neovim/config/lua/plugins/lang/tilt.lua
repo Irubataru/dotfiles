@@ -12,7 +12,7 @@ return {
     opts = { ensure_installed = { "starlark" } },
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = { ensure_installed = { "tilt" } },
   },
 }
