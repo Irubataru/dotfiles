@@ -5,3 +5,9 @@
     src: "{{ role_path }}/omegapoint-hp-elitebook/kanshi"
     dest: "{{ home_directory }}/.config/kanshi"
     state: link
+
+- name: Define playerctld-start alias
+  ansible.builtin.shell:
+    cmd: alias --save playerctld-start="systemctl --user start playerctld.service"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/playerctld-start.fish"

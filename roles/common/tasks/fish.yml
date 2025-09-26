@@ -5,3 +5,9 @@
     src: "{{ role_path }}/fish/environment.fish"
     dest: "{{ config_directory }}/fish/conf.d/environment.fish"
     state: link
+
+- name: Define l -> ls alias
+  ansible.builtin.shell:
+    cmd: alias --save l="ls"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/l.fish"
