@@ -476,8 +476,12 @@
   "wallpaper.image": "/home/aleksandra/Pictures/Wallpapers/firewatch.jpg",
   "menus.media.displayTimeTooltip": false,
   "menus.media.displayTime": false,
-  "wallpaper.enable": true,
+  "wallpaper.enable": false,
   "bar.customModules.storage.paths": [
     "/"
-  ]
+  ],
+  "theme.bar.buttons.battery.enableBorder": false,
+  "theme.bar.buttons.systray.enableBorder": false,
+  "theme.bar.border.location": "none",
+  "bar.launcher.autoDetectIcon": false
 }
