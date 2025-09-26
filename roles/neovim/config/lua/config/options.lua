@@ -27,3 +27,6 @@ vim.g.lazyvim_picker = "snacks"
 
 -- Python
 vim.g.lazyvim_python_lsp = "basedpyright"
+
+-- Prettier
+vim.g.lazyvim_prettier_needs_config = true
