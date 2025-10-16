@@ -1,5 +1,67 @@
 local relative_path = require("utils.file").relative_path
 
+local system_prompt = [[[
+You are an AI programming assistant named "CodeCompanion", working within the Neovim text editor.
+
+You can answer general programming questions and perform the following tasks:
+* Answer general programming questions.
+* Explain how the code in a Neovim buffer works.
+* Review the selected code from a Neovim buffer.
+* Generate unit tests for the selected code.
+* Propose fixes for problems in the selected code.
+* Scaffold code for a new workspace.
+* Find relevant code to the user's query.
+* Propose fixes for test failures.
+* Answer questions about Neovim.
+
+
+Follow the user's requirements carefully and to the letter.
+Use the context and attachments the user provides.
+Keep your answers short and impersonal, especially if the user's context is outside your core tasks.
+All non-code text responses must be written in the ${language} language.
+Use Markdown formatting in your answers.
+Do not use H1 or H2 markdown headers.
+When suggesting code changes or new content, use Markdown code blocks.
+To start a code block, use 4 backticks.
+After the backticks, add the programming language name as the language ID.
+To close a code block, use 4 backticks on a new line.
+If the code modifies an existing file or should be placed at a specific location, add a line comment with 'filepath:' and the file path.
+If you want the user to decide where to place the code, do not add the file path comment.
+In the code block, use a line comment with '...existing code...' to indicate code that is already present in the file.
+Code block example:
+````languageId
+// filepath: /path/to/file
+// ...existing code...
+{ changed code }
+// ...existing code...
+{ changed code }
+// ...existing code...
+````
+Ensure line comments use the correct syntax for the programming language (e.g. "#" for Python, "--" for Lua).
+For code blocks use four backticks to start and end.
+Avoid wrapping the whole response in triple backticks.
+Do not include diff formatting unless explicitly asked.
+Do not include line numbers in code blocks.
+
+Response guidelines:
+* Skip pleasantries, greetings, and unnecessary politeness. Get straight to the point.
+* Be critical and analytical. Assume the user is asking because they suspect issues or want rigorous review, not validation.
+* Keep responses concise. Don't summarize unless explicitly asked.
+* For architectural or conceptual questions, omit code examples unless they're essential to explain the concept. The user will ask for code if needed.
+* Focus on potential problems, edge cases, and better alternatives rather than affirming existing solutions.
+* Be direct about flaws, inefficiencies, or misconceptions.
+
+When given a task:
+1. Think step-by-step and, unless the user requests otherwise or the task is very simple, describe your plan in pseudocode.
+2. When outputting code blocks, ensure only relevant code is included, avoiding any repeating or unrelated code.
+3. End your response with a short suggestion for the next user turn that directly supports continuing the conversation.
+
+Additional context:
+The current date is ${date}.
+The user's Neovim version is ${version}.
+The user is working on a ${os} machine. Please respond with system specific commands if applicable.
+]]
+
 ---Adds a file to CodeCompanion chat
 ---@param path string? The path to the file to add, if not set, use current buffer
 ---@param chat CodeCompanion.Chat? The chat to add the file to, opens last chat or new chat if not set
@@ -30,145 +92,61 @@ local function add_file_to_chat(path, chat)
   })
 end
 
----Save the CodeCompanion buffer to a file in .ai.chats/
----@param bufnr number The buffer number to save
----@return nil
-local function save_codecompanion_buffer(bufnr)
-  ---Get the directory where files should be saved
-  ---@return string # The path to the save directory
-  local function get_save_directory()
-    -- Try to find git root
-    local git_root = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null"):gsub("\n", "")
-
-    local save_dir
-    if git_root ~= "" and vim.fn.isdirectory(git_root) == 1 then
-      -- We're in a git repository, use .ai.chats at the root
-      save_dir = git_root .. "/.ai.chats/"
-    else
-      -- Not in a git repository, use ai.chats in current working directory
-      save_dir = vim.fn.getcwd() .. "/.ai.chats/"
-    end
-
-    -- Create directory if it doesn't exist
-    if vim.fn.isdirectory(save_dir) == 0 then
-      vim.fn.mkdir(save_dir, "p")
-    end
-    return save_dir
-  end
-
-  if not vim.api.nvim_buf_is_valid(bufnr) then
-    return
-  end
-
-  local bufname = vim.api.nvim_buf_get_name(bufnr)
-  local save_dir = get_save_directory()
-
-  -- Extract the unique ID from the buffer name
-  local id = bufname:match("%[CodeCompanion%] (%d+)")
-  local date = os.date("%Y-%m-%d")
-  local save_path
-
-  if id then
-    -- Use date plus ID to ensure uniqueness
-    save_path = save_dir .. date .. "_codecompanion_" .. id .. ".md"
-  else
-    -- Fallback with timestamp to ensure uniqueness if no ID
-    save_path = save_dir .. date .. "_codecompanion_" .. os.date("%H%M%S") .. ".md"
-  end
-
-  -- Write buffer content to file
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  local file = io.open(save_path, "w")
-  if file then
-    file:write(table.concat(lines, "\n"))
-    file:close()
-  end
-end
-
 return {
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      {
-        "Davidyz/VectorCode",
-        enabled = false,
-        version = "*",
-        build = "uv tool upgrade vectorcode",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = "VectorCode",
-        opts = true,
-      },
+      "ravitemer/codecompanion-history.nvim",
     },
-    opts = function()
-      -- Autocommand to save code companion chats
-      vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "BufLeave", "FocusLost" }, {
-        group = vim.api.nvim_create_augroup("CodeCompanionAutoSave", { clear = true }),
-        callback = function(args)
-          local bufnr = args.buf
-          local bufname = vim.api.nvim_buf_get_name(bufnr)
-
-          if bufname:match("%[CodeCompanion%]") then
-            save_codecompanion_buffer(bufnr)
-          end
-        end,
-      })
-
-      return {
-        opts = {
-          log_level = "DEBUG",
-        },
-        adapters = {
-          anthropic = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-              schema = {
-                extended_thinking = {
-                  default = false,
-                },
+    opts = {
+      adapters = {
+        anthropic = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            schema = {
+              extended_thinking = {
+                default = false,
               },
-            })
-          end,
+            },
+          })
+        end,
+      },
+      display = {
+        chat = {
+          show_settings = false,
         },
-        display = {
-          chat = {
-            show_settings = false,
-          },
-          diff = {
-            provider = "mini_diff",
-          },
+        diff = {
+          provider = "mini_diff",
         },
-        strategies = {
-          chat = {
-            adapter = "anthropic",
-            -- slash_commands = {
-            --   codebase = require("vectorcode.integrations").codecompanion.chat.make_slash_command(),
-            -- },
-            -- tools = {
-            --   vectorcode = {
-            --     description = "Run VectorCode to retrieve the project context.",
-            --     callback = require("vectorcode.integrations").codecompanion.chat.make_tool(),
-            --   },
-            -- },
-          },
-          inline = {
-            adapter = "anthropic",
+      },
+      strategies = {
+        chat = {
+          adapter = "anthropic",
+          model = "claude-sonnet-4-5",
+          opts = {
+            system_prompt = system_prompt,
           },
         },
-        prompt_library = {
-          ["Investigator"] = {
-            strategy = "workflow",
-            description = "Answer coding questions by investigating the repository",
-            prompts = {
+        inline = {
+          adapter = "anthropic",
+          model = "claude-sonnet-4-5",
+        },
+      },
+      prompt_library = {
+        ["Investigator"] = {
+          strategy = "workflow",
+          description = "Answer coding questions by investigating the repository",
+          prompts = {
+            {
               {
-                {
-                  name = "Setup investigation",
-                  role = "user",
-                  opts = { auto_submit = false },
-                  content = function()
-                    vim.g.codecompanion_auto_tool_mode = true
+                name = "Setup investigation",
+                role = "user",
+                opts = { auto_submit = false },
+                content = function()
+                  vim.g.codecompanion_auto_tool_mode = true
 
-                    return [[### Instructions
+                  return [[### Instructions
 
 Your instructions here
 
@@ -182,26 +160,26 @@ Things you can do:
 3. Use the @files tool to read necessary files
 
 We'll repeat this cycle until you have found a reasonable answer to the question. Ensure that you under no circumstances edit any of the files.]]
-                  end,
-                },
+                end,
               },
             },
           },
-          ["Document"] = {
-            strategy = "inline",
-            description = "Add documentation to the code",
-            opts = {
-              is_slash_cmd = false,
-              modes = { "v" },
-              short_name = "document",
-              auto_submit = true,
-              user_prompt = false,
-              stop_context_insertion = true,
-            },
-            prompts = {
-              {
-                role = "system",
-                content = [[When asked to add documentation to code, follow these steps
+        },
+        ["Document"] = {
+          strategy = "inline",
+          description = "Add documentation to the code",
+          opts = {
+            is_slash_cmd = false,
+            modes = { "v" },
+            short_name = "document",
+            auto_submit = true,
+            user_prompt = false,
+            stop_context_insertion = true,
+          },
+          prompts = {
+            {
+              role = "system",
+              content = [[When asked to add documentation to code, follow these steps
 
 1. Identify the programming language.
 2. Add documentation headers to functions, classes, ... where appropriate using the @editor tool
@@ -210,36 +188,109 @@ Use the natural documenentation formatting for different languages. For example
 - Lua uses luals annotations
 - C# uses the standard XML documentation
 - Typescript uses TSDoc and optionally JSDoc where necessary]],
-                opts = {
-                  visible = false,
-                },
+              opts = {
+                visible = false,
               },
-              {
-                role = "user",
-                content = function(context)
-                  local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+            },
+            {
+              role = "user",
+              content = function(context)
+                local code = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
 
-                  return string.format(
-                    [[Please add docstrings to this code from buffer %d:
+                return string.format(
+                  [[Please add docstrings to this code from buffer %d:
 
 ```%s
 %s
 ```
 ]],
-                    context.bufnr,
-                    context.filetype,
-                    code
-                  )
-                end,
-                opts = {
-                  contains_code = true,
-                },
+                  context.bufnr,
+                  context.filetype,
+                  code
+                )
+              end,
+              opts = {
+                contains_code = true,
               },
             },
           },
         },
-      }
-    end,
+      },
+      extensions = {
+
+        history = {
+          enabled = true,
+          opts = {
+            -- Keymap to open history from chat buffer (default: gh)
+            keymap = "gh",
+            -- Keymap to save the current chat manually (when auto_save is disabled)
+            save_chat_keymap = "sc",
+            -- Save all chats by default (disable to save only manually using 'sc')
+            auto_save = true,
+            -- Number of days after which chats are automatically deleted (0 to disable)
+            expiration_days = 0,
+            -- Picker interface (auto resolved to a valid picker)
+            picker = "default", --- ("telescope", "snacks", "fzf-lua", or "default")
+            ---Optional filter function to control which chats are shown when browsing
+            chat_filter = nil, -- function(chat_data) return boolean end
+            -- Customize picker keymaps (optional)
+            picker_keymaps = {
+              rename = { n = "r", i = "<M-r>" },
+              delete = { n = "d", i = "<M-d>" },
+              duplicate = { n = "<C-y>", i = "<C-y>" },
+            },
+            ---Automatically generate titles for new chats
+            auto_generate_title = true,
+            title_generation_opts = {
+              ---Number of user prompts after which to refresh the title (0 to disable)
+              refresh_every_n_prompts = 5, -- e.g., 3 to refresh after every 3rd user prompt
+              ---Maximum number of times to refresh the title (default: 3)
+              max_refreshes = 3,
+            },
+            ---On exiting and entering neovim, loads the last chat on opening chat
+            continue_last_chat = false,
+            ---When chat is cleared with `gx` delete the chat from history
+            delete_on_clearing_chat = false,
+            ---Directory path to save the chats
+            dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+
+            -- Summary system
+            summary = {
+              -- Keymap to generate summary for current chat (default: "gcs")
+              create_summary_keymap = "gcs",
+              -- Keymap to browse summaries (default: "gbs")
+              browse_summaries_keymap = "gbs",
+
+              generation_opts = {
+                context_size = 90000, -- max tokens that the model supports
+                include_references = true, -- include slash command content
+                include_tool_outputs = true, -- include tool execution results
+                system_prompt = nil, -- custom system prompt (string or function)
+                format_summary = nil, -- custom function to format generated summary e.g to remove <think/> tags from summary
+              },
+            },
+
+            -- -- Memory system (requires VectorCode CLI)
+            -- memory = {
+            --   -- Automatically index summaries when they are generated
+            --   auto_create_memories_on_summary_generation = true,
+            --   -- Path to the VectorCode executable
+            --   vectorcode_exe = "vectorcode",
+            --   -- Tool configuration
+            --   tool_opts = {
+            --     -- Default number of memories to retrieve
+            --     default_num = 10,
+            --   },
+            --   -- Enable notifications for indexing progress
+            --   notify = true,
+            --   -- Index all existing memories on startup
+            --   -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
+            --   index_on_startup = false,
+            -- },
+          },
+        },
+      },
+    },
     cmd = { "CodeCompanion", "CodeCompanionActions", "CodeCompanionChat" },
   },
   {
