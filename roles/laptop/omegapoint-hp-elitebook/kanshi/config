@@ -2,6 +2,13 @@ profile default {
   output eDP-1 enable scale 1
 }
 
+profile obos {
+  output eDP-1 enable scale 1 position 0,0
+  # output DP-1 disable
+  # output HDMI-A-1 mode 5120x1440 position 1920,0
+  output "Philips Consumer Electronics Company PHL 499P9 *" mode 5120x1440 position 1920,0
+}
+
 profile hdmi-connected {
   output eDP-1 enable scale 1 position 2560,0
   output HDMI-A-1 mode 2560x1440 position 0,0
@@ -17,9 +24,4 @@ profile home-docked-lid-open {
   output eDP-1 enable scale 1 position 5120,0
   output "Samsung Electric Company S27H85x H4ZM100783" mode 2560x1440 position 0,0
   output "Acer Technologies XB271HU T4TEE0028502" mode 2560x1440 position 2560,0
-}
-
-profile obos {
-  output eDP-1 enable scale 1 position 0,0
-  output "Philips Consumer Electronics Company PHL 499P9 AU02209004437" mode 3840x1080 position 1920,0
 }
