@@ -54,6 +54,7 @@
       - tldr
       - utilities
       - vifm
+      - vicinae
       - wezterm
       - zathura
   pre_tasks:

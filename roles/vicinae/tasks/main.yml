@@ -1,0 +1,23 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install vicinae (aur)
+  kewlfft.aur.aur:
+    name: vicinae
+    state: present
+  become: true
+  become_user: aur_builder
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Create vicinae config directory
+  ansible.builtin.file:
+    path: "{{ config_directory }}/vicinae"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+
+- name: Link vicinae config
+  ansible.builtin.file:
+    src: "{{ role_path }}/vicinae.json"
+    dest: "{{ config_directory }}/vicinae/vicinae.json"
+    state: link
