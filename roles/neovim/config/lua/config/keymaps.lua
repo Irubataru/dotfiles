@@ -185,12 +185,15 @@ vim.keymap.set("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous
 vim.keymap.set("n", "<leader>zc", "<cmd>set foldlevel=0<cr>", {desc = "Close all folds"})
 vim.keymap.set("n", "<leader>zo", "<cmd>set foldlevel=99<cr>", {desc = "Open all folds"})
 
--- -- native snippets. only needed on < 0.11, as 0.11 creates these by default
--- if vim.fn.has("nvim-0.11") == 0 then
---   vim.keymap.set("s", "<Tab>", function()
---     return vim.snippet.active({ direction = 1 }) and "<cmd>lua vim.snippet.jump(1)<cr>" or "<Tab>"
---   end, { expr = true, desc = "Jump Next" })
---   vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
---     return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<S-Tab>"
---   end, { expr = true, desc = "Jump Previous" })
--- end
+-- unimpaired
+vim.keymap.set("n", "[<space>", function()
+  local repeated = vim.fn["repeat"]({ "" }, vim.v.count1)
+  local line = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, line - 1, line - 1, true, repeated)
+end, {desc ="Insert blank lines above"})
+
+vim.keymap.set("n", "]<space>", function()
+    local repeated = vim.fn["repeat"]({ "" }, vim.v.count1)
+    local line = vim.api.nvim_win_get_cursor(0)[1]
+    vim.api.nvim_buf_set_lines(0, line, line, true, repeated)
+end, {desc = "Insrt blank lines below"})
