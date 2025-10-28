@@ -30,3 +30,6 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 
 -- Prettier
 vim.g.lazyvim_prettier_needs_config = true
+
+-- Eslint
+vim.g.lazyvim_eslint_auto_format = false
