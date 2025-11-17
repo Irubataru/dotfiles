@@ -104,6 +104,7 @@ return {
       adapters = {
         anthropic = function()
           return require("codecompanion.adapters").extend("anthropic", {
+            model = "claude-sonnet-4-5",
             schema = {
               extended_thinking = {
                 default = false,
@@ -123,14 +124,12 @@ return {
       strategies = {
         chat = {
           adapter = "anthropic",
-          model = "claude-sonnet-4-5",
           opts = {
             system_prompt = system_prompt,
           },
         },
         inline = {
           adapter = "anthropic",
-          model = "claude-sonnet-4-5",
         },
       },
       prompt_library = {
