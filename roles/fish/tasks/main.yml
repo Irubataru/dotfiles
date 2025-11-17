@@ -16,10 +16,28 @@
   become: true
   when: ansible_become | default(false)
 
+- name: Create fish config directories
+  ansible.builtin.file:
+    path: "{{ config_directory }}/fish/{{ directory }}"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+    recurse: true
+  loop:
+    - functions
+    - conf.d
+  loop_control:
+    loop_var: directory
+
 - name: Link config.fish
   ansible.builtin.file:
     src: "{{ role_path }}/config.fish"
     dest: "{{ config_directory }}/fish/config.fish"
+    state: link
+
+- name: Link 00_paths.fish
+  ansible.builtin.file:
+    src: "{{ role_path }}/00_paths.fish"
+    dest: "{{ config_directory }}/fish/conf.d/00_paths.fish"
     state: link
 
 - name: Link keybinds.fish

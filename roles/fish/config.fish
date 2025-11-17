@@ -2,9 +2,6 @@
 function fish_greeting
 end
 
-# Add paths
-fish_add_path ~/.local/bin
-
 # Abbreviations
 abbr -a ... '../..'
 abbr -a .... '../../..'
