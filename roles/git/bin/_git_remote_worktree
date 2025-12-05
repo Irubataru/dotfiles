@@ -4,89 +4,96 @@ script_name="git remote-worktree"
 
 # Help function
 show_help() {
-    echo "Usage: $script_name <remote_name> <branch_name> [local_branch_name]"
-    echo
-    echo "Create a new git worktree based on a remote branch and place it in a directory"
-    echo "with the same name as the branch in the root directory."
-    echo
-    echo "Arguments:"
-    echo "  <remote_name>       Name of the remote (e.g., origin)"
-    echo "  <branch_name>       Name of the remote branch to create worktree from"
-    echo "  [local_branch_name] Local branch name (optional, defaults to remote branch name)"
-    echo
-    echo "Example:"
-    echo "  $script_name origin feature-123"
-    echo "  $script_name upstream develop my-develop"
-    exit 1
+  echo "Usage: $script_name <remote_name> <branch_name> [local_branch_name]"
+  echo
+  echo "Create a new git worktree based on a remote branch and place it in a directory"
+  echo "with the same name as the branch in the root directory."
+  echo
+  echo "Arguments:"
+  echo "  <remote_name>       Name of the remote (e.g., origin)"
+  echo "  <branch_name>       Name of the remote branch to create worktree from"
+  echo "  [local_branch_name] Local branch name (optional, defaults to remote branch name)"
+  echo
+  echo "Example:"
+  echo "  $script_name origin feature-123"
+  echo "  $script_name upstream develop my-develop"
+  exit 1
 }
 
 # Check if we're in the root of a git worktree setup
 check_repo_structure() {
-    if [ ! -f .git ] || [ ! -d .bare ]; then
-        echo "Error: Not in the root of a git worktree setup."
-        echo "Expected to find .git file and .bare directory."
-        exit 1
-    fi
+  if [ ! -f .git ] || [ ! -d .bare ]; then
+    echo "Error: Not in the root of a git worktree setup."
+    echo "Expected to find .git file and .bare directory."
+    exit 1
+  fi
 }
 
 # Main function
 main() {
-    # Check arguments
-    if [ $# -lt 2 ]; then
-        show_help
+  # Check arguments
+  if [ $# -lt 2 ]; then
+    show_help
+  fi
+
+  remote_name="$1"
+  remote_branch="$2"
+  local_branch="${3:-$remote_branch}"
+
+  # Check if we're in the root directory of the git worktree setup
+  check_repo_structure
+
+  # Fetch the latest from remote
+  echo "Fetching latest changes from $remote_name..."
+  if ! git --git-dir=.bare fetch "$remote_name"; then
+    echo "Error: Failed to fetch from remote '$remote_name'."
+    exit 1
+  fi
+
+  # Check if the remote branch exists
+  if ! git --git-dir=.bare show-ref --verify --quiet "refs/remotes/$remote_name/$remote_branch"; then
+    echo "Error: Remote branch '$remote_name/$remote_branch' does not exist."
+    exit 1
+  fi
+
+  # Check if the directory already exists
+  if [ -d "$local_branch" ]; then
+    echo "Error: Directory '$local_branch' already exists."
+    exit 1
+  fi
+
+  # Check if the local branch already exists
+  if git --git-dir=.bare show-ref --verify --quiet "refs/heads/$local_branch"; then
+    echo "Local branch '$local_branch' exists. Creating worktree for existing branch..."
+    # Create worktree for existing branch
+    if git --git-dir=.bare worktree add "$local_branch" "$local_branch"; then
+      echo "Successfully created worktree for existing branch '$local_branch'."
+      echo "You can cd into the worktree with: cd $local_branch"
+    else
+      echo "Error: Failed to create worktree for existing branch."
+      exit 1
     fi
-
-    remote_name="$1"
-    remote_branch="$2"
-    local_branch="${3:-$remote_branch}"
-    
-    # Check if we're in the root directory of the git worktree setup
-    check_repo_structure
-
-    # Fetch the latest from remote
-    echo "Fetching latest changes from $remote_name..."
-    if ! git --git-dir=.bare fetch "$remote_name"; then
-        echo "Error: Failed to fetch from remote '$remote_name'."
-        exit 1
-    fi
-
-    # Check if the remote branch exists
-    if ! git --git-dir=.bare show-ref --verify --quiet "refs/remotes/$remote_name/$remote_branch"; then
-        echo "Error: Remote branch '$remote_name/$remote_branch' does not exist."
-        exit 1
-    fi
-
-    # Check if the local branch already exists
-    if git --git-dir=.bare show-ref --verify --quiet "refs/heads/$local_branch"; then
-        echo "Error: Local branch '$local_branch' already exists."
-        exit 1
-    fi
-
-    # Check if the directory already exists
-    if [ -d "$local_branch" ]; then
-        echo "Error: Directory '$local_branch' already exists."
-        exit 1
-    fi
-
+  else
     echo "Creating new worktree '$local_branch' based on '$remote_name/$remote_branch'..."
-    
+
     # Create the new worktree
     if git --git-dir=.bare worktree add "$local_branch" -b "$local_branch" "$remote_name/$remote_branch"; then
-        echo "Successfully created worktree in directory '$local_branch'."
-        
-        # Set up upstream tracking
-        echo "Setting upstream to '$remote_name/$remote_branch'..."
-        if (cd "$local_branch" && git branch --set-upstream-to="$remote_name/$remote_branch" "$local_branch"); then
-            echo "Successfully set upstream tracking."
-            echo "You can cd into the worktree with: cd $local_branch"
-        else
-            echo "Warning: Failed to set upstream tracking. You may need to set it manually."
-            echo "You can cd into the worktree with: cd $local_branch"
-        fi
+      echo "Successfully created worktree in directory '$local_branch'."
+
+      # Set up upstream tracking
+      echo "Setting upstream to '$remote_name/$remote_branch'..."
+      if (cd "$local_branch" && git branch --set-upstream-to="$remote_name/$remote_branch" "$local_branch"); then
+        echo "Successfully set upstream tracking."
+        echo "You can cd into the worktree with: cd $local_branch"
+      else
+        echo "Warning: Failed to set upstream tracking. You may need to set it manually."
+        echo "You can cd into the worktree with: cd $local_branch"
+      fi
     else
-        echo "Error: Failed to create worktree."
-        exit 1
+      echo "Error: Failed to create worktree."
+      exit 1
     fi
+  fi
 }
 
 # Execute main function with all arguments

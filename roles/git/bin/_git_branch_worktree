@@ -41,12 +41,6 @@ main() {
     # Check if we're in the root directory of the git worktree setup
     check_repo_structure
 
-    # Check if the branch already exists
-    if git --git-dir=.bare show-ref --verify --quiet "refs/heads/$branch_name"; then
-        echo "Error: Branch '$branch_name' already exists."
-        exit 1
-    fi
-
     # Check if the directory already exists
     if [ -d "$branch_name" ]; then
         echo "Error: Directory '$branch_name' already exists."
@@ -56,12 +50,26 @@ main() {
     echo "Creating new worktree '$branch_name' based on '$base_branch'..."
     
     # Create the new worktree
-    if git --git-dir=.bare worktree add -b "$branch_name" "$branch_name" "$base_branch"; then
-        echo "Successfully created worktree '$branch_name' in directory '$branch_name'."
-        echo "You can cd into it with: cd $branch_name"
+    if git --git-dir=.bare show-ref --verify --quiet "refs/heads/$branch_name"; then
+        echo "Branch '$branch_name' exists locally. Creating worktree for existing branch..."
+        # Create worktree for existing branch
+        if git --git-dir=.bare worktree add "$branch_name" "$branch_name"; then
+            echo "Successfully created worktree '$branch_name' for existing branch."
+            echo "You can cd into it with: cd $branch_name"
+        else
+            echo "Error: Failed to create worktree for existing branch."
+            exit 1
+        fi
     else
-        echo "Error: Failed to create worktree."
-        exit 1
+        echo "Creating new worktree '$branch_name' based on '$base_branch'..."
+        # Create the new worktree with new branch
+        if git --git-dir=.bare worktree add -b "$branch_name" "$branch_name" "$base_branch"; then
+            echo "Successfully created worktree '$branch_name' in directory '$branch_name'."
+            echo "You can cd into it with: cd $branch_name"
+        else
+            echo "Error: Failed to create worktree."
+            exit 1
+        fi
     fi
 }
 

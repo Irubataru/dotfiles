@@ -1,4 +1,10 @@
 # vi: set ft=yaml.ansible :
+#
+- name: Add git scripts bin to path
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/conf.d/01_git_scripts.fish"
+    dest: "{{ config_directory }}/fish/conf.d/01_git_scripts.fish"
+    state: link
 
 - name: Define cr alias
   ansible.builtin.file:
