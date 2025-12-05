@@ -10,8 +10,8 @@ profile obos {
 }
 
 profile hdmi-connected {
-  output eDP-1 enable scale 1 position 2560,0
-  output HDMI-A-1 mode 2560x1440 position 0,0
+  output eDP-1 enable scale 1 position 0,0
+  output HDMI-A-1 scale 1 mode 1920x1080 position 1920,0
 }
 
 profile home-docked-lid-closed {
