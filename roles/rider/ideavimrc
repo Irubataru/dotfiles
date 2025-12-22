@@ -61,10 +61,10 @@ set easymotion
 
 " NERDTree
 set NERDTree
-map <C-N> :NERDTreeFocus<CR>
+map <leader>e :NERDTree<cr>
 nmap <leader>nc :NERDTreeClose<CR>
 
-"" -- Plugin-like keymaps --
+"DTreeToggle-likDTreeToggle-
 
 " fugitive
 nmap <leader>gd <Action>(Compare.SameVersion)
