@@ -1,0 +1,13 @@
+# vi: set ft=yaml.ansible :
+
+- name: Create zellij config directory
+  ansible.builtin.file:
+    path: "{{ home_directory }}/.config/zellij"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
+
+- name: Link zellij config file
+  ansible.builtin.file:
+    src: "{{ role_path }}/config.kdl"
+    dest: "{{ home_directory }}/.config/zellij/config.kdl"
+    state: link
