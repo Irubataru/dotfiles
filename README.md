@@ -14,7 +14,7 @@ The playbooks do not by default install any applications, to do so you need to
 pass the `install = true` variable.
 
 ```bash
-ansible-playbook playbooks/[playbook.yml] --ask-become-pass --extra-vars "install=true"
+ansible-playbook playbooks/[playbook.yml] --ask-become-pass --extra-vars '{"install": true}'
 ```
 
 One can also run a single role by passing the `--tags` (or `-t`) option

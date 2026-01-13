@@ -1,0 +1,57 @@
+# vi: set ft=yaml.ansible :
+
+- name: Configure Omegapoint laptop
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../vars/sn-wsl-arch.yml
+  vars:
+    modules:
+      # Basics
+      - fish
+      - system
+      - basic
+      - atuin
+      - starship
+      - zoxide
+
+      # Programming languages
+      - clang
+      - lua
+      - npm
+      - python
+      - rust
+
+      # Applications
+      - ai
+      - common
+      - git
+      - neovim
+      - ssh
+      - tldr
+      - utilities
+      - vifm
+      - zellij
+  pre_tasks:
+    - name: Merge variables
+      ansible.builtin.include_tasks: ../tasks/merge_vars.yml
+      tags:
+        - always
+  tasks:
+    # - name: "Print modules"
+    #   ansible.builtin.debug:
+    #     var: modules
+    # - name: "Print data"
+    #   ansible.builtin.debug:
+    #     var: data
+    #   tags:
+    #     - always
+    - name: Run all modules
+      ansible.builtin.include_role:
+        apply:
+          tags:
+            - "{{ item }}"
+        name: "{{ item }}"
+      loop: "{{ modules }}"
+      tags:
+        - always

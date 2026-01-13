@@ -1,0 +1,13 @@
+data:
+  system:
+    hardware: space-norway-zbook
+
+  git:
+    sign:
+      key_type: ssh
+      key_name: signing_key
+
+  ssh:
+    key_config:
+      - name: id_ed25519
+        password_id: SSH auth key Space Norway
