@@ -38,6 +38,7 @@ local autoformat_ft = {
   "javascriptreact",
   "typescript",
   "typescriptreact",
+  "python",
 }
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
