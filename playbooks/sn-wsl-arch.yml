@@ -25,6 +25,7 @@
       # Applications
       - ai
       - common
+      - docker
       - git
       - neovim
       - ssh
@@ -38,14 +39,6 @@
       tags:
         - always
   tasks:
-    # - name: "Print modules"
-    #   ansible.builtin.debug:
-    #     var: modules
-    # - name: "Print data"
-    #   ansible.builtin.debug:
-    #     var: data
-    #   tags:
-    #     - always
     - name: Run all modules
       ansible.builtin.include_role:
         apply:

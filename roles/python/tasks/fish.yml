@@ -1,0 +1,26 @@
+- name: Link venv fish function
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/venv.fish"
+    dest: "{{ config_directory }}/fish/functions/venv.fish"
+    state: link
+
+- name: Define runserver alias
+  ansible.builtin.shell:
+    cmd: alias runserver --save "poetry run python manage.py runserver"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/runserver.fish"
+  when: python.poetry.aliases
+
+- name: Define migrate alias
+  ansible.builtin.shell:
+    cmd: alias migrate --save "poetry run python manage.py migrate"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/migrate.fish"
+  when: python.poetry.aliases
+
+- name: Define makemigrations alias
+  ansible.builtin.shell:
+    cmd: alias makemigrations --save "poetry run python manage.py makemigrations"
+    executable: /usr/bin/fish
+    creates: "{{ config_directory }}/fish/functions/makemigrations.fish"
+  when: python.poetry.aliases

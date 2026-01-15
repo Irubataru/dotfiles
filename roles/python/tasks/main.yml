@@ -24,3 +24,8 @@
     dest: "{{ home_directory }}/.config/pip/pip.conf"
     mode: u=rw,g=r,o=r
   when: python.pip.break_system_packages
+
+- name: Fish configuration
+  ansible.builtin.import_tasks: fish.yml
+  when:
+    - "'fish' in modules"

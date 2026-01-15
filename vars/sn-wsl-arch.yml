@@ -11,3 +11,10 @@ data:
     key_config:
       - name: id_ed25519
         password_id: SSH auth key Space Norway
+
+  software:
+    python:
+      poetry:
+        aliases: true
+    docker:
+      aliases: true

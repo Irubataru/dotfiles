@@ -1,3 +1,5 @@
 python:
   pip:
     break_system_packages: false
+  poetry:
+    aliases: false
