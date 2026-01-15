@@ -11,6 +11,7 @@ keybinds clear-defaults=true {
         bind "n" { GoToNextTab; SwitchToMode "locked"; }
         bind "p" { GoToPreviousTab; SwitchToMode "locked"; }
         bind "a" { Write 1; SwitchToMode "locked"; }
+        bind "Ctrl a" { ToggleTab; SwitchToMode "locked"; }
     }
     locked {
         bind "Ctrl a" { SwitchToMode "normal"; }
@@ -166,8 +167,10 @@ keybinds clear-defaults=true {
         bind "Alt Shift p" { ToggleGroupMarking; }
     }
     shared_except "locked" "renametab" "renamepane" {
-        bind "Ctrl a" { SwitchToMode "locked"; }
         bind "Ctrl q" { Quit; }
+    }
+    shared_except "locked" "normal" "renametab" "renamepane" {
+        bind "Ctrl a" { SwitchToMode "locked"; }
     }
     shared_except "locked" "entersearch" {
         bind "enter" { SwitchToMode "locked"; }
