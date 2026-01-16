@@ -1,38 +1,26 @@
 # vi: set ft=yaml.ansible :
 
-- name: Install fzf, ripgrep (pacman)
-  community.general.pacman:
-    name:
-      - fzf
-      - ripgrep
-    state: present
-  become: true
+- name: Pacman install
+  ansible.builtin.import_tasks: pacman.yml
   when:
-    - install
     - package_manager == "pacman"
 
-- name: Install fzf, ripgrep (apt)
-  ansible.builtin.apt:
-    name:
-      - fzf
-      # - ripgrep
-    state: present
-  become: true
+- name: Apt install
+  ansible.builtin.import_tasks: apt.yml
   when:
-    - install
     - package_manager == "apt"
 
-- name: Install thefuck (pipx)
-  community.general.pipx:
-    name: thefuck
-    state: latest
-  when: install
+# - name: Install thefuck (pipx)
+#   community.general.pipx:
+#     name: thefuck
+#     state: latest
+#   when: install
 
-- name: Install bpytop (pipx)
-  community.general.pipx:
-    name: bpytop
-    state: latest
-  when: install
+# - name: Install bpytop (pipx)
+#   community.general.pipx:
+#     name: bpytop
+#     state: latest
+#   when: install
 
 - name: Install dtrx (pipx)
   community.general.pipx:
@@ -40,14 +28,13 @@
     state: latest
   when: install
 
-- name: Install lsd, fd, bat, cargo-update (cargo)
+- name: Install lsd, fd, bat, cargo-update, clock-tui, rip-cli (cargo)
   community.general.cargo:
     name:
-      - lsd
-      - fd-find
       - bat
       - cargo-update
       - clock-tui
+      - rip-cli
     state: present
   when: install
 

@@ -1,0 +1,19 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install fzf, ripgrep (apt)
+  ansible.builtin.apt:
+    name:
+      - fzf
+      # - ripgrep
+    state: present
+  become: true
+  when:
+    - install
+
+- name: Install lsd, fd (cargo)
+  community.general.cargo:
+    name:
+      - lsd
+      - fd-find
+    state: present
+  when: install

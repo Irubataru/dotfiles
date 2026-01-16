@@ -1,0 +1,19 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install fzf, ripgrep, btop (pacman)
+  community.general.pacman:
+    name:
+      - fzf
+      - ripgrep
+      - btop
+      - dua-cli
+      - fd-find
+      - lsd
+      - presenterm
+      - atac
+      - netscanner
+      - rainfrog
+    state: present
+  become: true
+  when:
+    - install

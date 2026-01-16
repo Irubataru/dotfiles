@@ -1,5 +1,14 @@
 # vi: set ft=yaml.ansible :
 
+- name: Install glim (pacman)
+  community.general.pacman:
+    name: glim
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
 - name: Link Space Norway gitconfig
   ansible.builtin.file:
     src: "{{ role_path }}/gitconfig-spn"
