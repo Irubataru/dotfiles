@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link Space Norway gitconfig
+  ansible.builtin.file:
+    src: "{{ role_path }}/gitconfig-spn"
+    dest: "{{ home_directory }}/.gitconfig-spn"
+    state: link

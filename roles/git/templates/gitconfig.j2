@@ -58,3 +58,7 @@
 [merge]
   conflictstyle = zdiff3
 {% endif %}
+{% if data.system.work == "spn" %}
+[includeIf "gitdir:~/Projects/"]
+  path = .gitconfig-spn
+{% endif %}

@@ -1,6 +1,7 @@
 data:
   system:
     hardware: space-norway-zbook
+    work: spn
 
   git:
     sign:

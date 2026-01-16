@@ -72,6 +72,10 @@
     dest: "~/.tigrc"
     state: link
 
+- name: Space Norway configuration
+  ansible.builtin.import_tasks: spn.yml
+  when: data.system.work == "spn"
+
 - name: Fish configuration
   ansible.builtin.import_tasks: fish.yml
   when:
