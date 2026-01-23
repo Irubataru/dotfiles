@@ -39,6 +39,9 @@ return {
       interactions = {
         chat = {
           adapter = "azure_openai",
+          opts = {
+            system_prompt = require("config.prompts").system_prompt,
+          },
         },
         inline = {
           adapter = "azure_openai",
@@ -50,17 +53,6 @@ return {
         },
         diff = {
           provider = "mini_diff",
-        },
-      },
-      strategies = {
-        chat = {
-          adapter = "azure_openai",
-          opts = {
-            system_prompt = require("config.prompts").system_prompt,
-          },
-        },
-        inline = {
-          adapter = "azure_openai",
         },
       },
       prompt_library = require("config.prompts").library,
