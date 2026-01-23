@@ -4,7 +4,7 @@ return {
     optional = true,
     opts = {
       formatters_by_ft = {
-        ["python"] = { "ruff_fix", "ruff_organize_imports" },
+        ["python"] = { "ruff_fix", "ruff_organize_imports", lsp_format = "first" },
       },
     },
   },
