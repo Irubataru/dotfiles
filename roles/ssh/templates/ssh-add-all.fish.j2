@@ -55,7 +55,7 @@ function ssh-add-all -d "Add all SSH keys to ssh-agent using passwords from Bitw
             return 1
         end
         
-        set -l password (echo "$item" | jq -r '.fields[] | select(.name == "Password") | .value')
+        set -l password (echo "$item" | jq -r '.login.password')
         
         if test -z "$password"
             return 1

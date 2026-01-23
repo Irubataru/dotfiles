@@ -3,6 +3,7 @@
     name: "@bitwarden/cli"
     global: true
     state: present
+  when: install
 
 - name: Install bitwarden packages (apt)
   ansible.builtin.import_tasks: apt.yml

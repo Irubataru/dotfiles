@@ -12,6 +12,8 @@ data:
     key_config:
       - name: id_ed25519
         password_id: SSH auth key Space Norway
+      - name: signing_key
+        password_id: SSH sign key Space Norway
 
   software:
     python:

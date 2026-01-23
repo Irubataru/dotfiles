@@ -24,6 +24,7 @@
 
       # Applications
       - ai
+      - bitwarden
       - common
       - docker
       - git
