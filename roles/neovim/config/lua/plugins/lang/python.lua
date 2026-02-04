@@ -8,4 +8,17 @@ return {
       },
     },
   },
+  {
+    "mfussenegger/nvim-dap-python",
+    config = function()
+      require("dap-python").setup("debugpy-adapter")
+      table.insert(require("dap").configurations.python, {
+        type = "python",
+        request = "launch",
+        name = "Django runserver",
+        program = "manage.py",
+        args = { "runserver" },
+      })
+    end,
+  },
 }
