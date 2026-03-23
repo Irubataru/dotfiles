@@ -5,16 +5,16 @@
     docker: "{{ docker | combine(data.software.docker, recursive=True) }}"
   when: data.software.docker is defined | default(false)
 
-- name: Define compose up alias
-  ansible.builtin.shell:
-    cmd: alias up --save "docker compose up --detach --remove-orphans"
-    executable: /usr/bin/fish
-    creates: "{{ config_directory }}/fish/functions/up.fish"
+- name: Link compose up alias
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/up.fish"
+    dest: "{{ config_directory }}/fish/functions/up.fish"
+    state: link
   when: docker.aliases
 
-- name: Define compose down alias
-  ansible.builtin.shell:
-    cmd: alias down --save "docker compose down"
-    executable: /usr/bin/fish
-    creates: "{{ config_directory }}/fish/functions/down.fish"
+- name: Link compose down alias
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/down.fish"
+    dest: "{{ config_directory }}/fish/functions/down.fish"
+    state: link
   when: docker.aliases
