@@ -1,4 +1,17 @@
 return {
+  recommended = function()
+    return LazyVim.extras.wants({
+      ft = "python",
+      root = {
+        "pyproject.toml",
+        "setup.py",
+        "setup.cfg",
+        "requirements.txt",
+        "Pipfile",
+        "pyrightconfig.json",
+      },
+    })
+  end,
   {
     "stevearc/conform.nvim",
     optional = true,
@@ -9,16 +22,80 @@ return {
     },
   },
   {
-    "mfussenegger/nvim-dap-python",
-    config = function()
-      require("dap-python").setup("debugpy-adapter")
-      table.insert(require("dap").configurations.python, {
-        type = "python",
-        request = "launch",
-        name = "Django runserver",
-        program = "manage.py",
-        args = { "runserver" },
-      })
-    end,
+    "mason-org/mason.nvim",
+    opts = { ensure_installed = { "ruff", "ty" } },
+  },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   optional = true,
+  --   dependencies = "mason-org/mason.nvim",
+  --   opts = {
+  --     linters_by_ft = { python = { "mypy" } },
+  --   },
+  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = { ensure_installed = { "ninja", "rst" } },
+  },
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "nvim-neotest/neotest-python",
+    },
+    opts = {
+      adapters = {
+        ["neotest-python"] = {
+          -- Here you can specify the settings for the adapter, i.e.
+          -- runner = "pytest",
+          -- python = ".venv/bin/python",
+        },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      "mfussenegger/nvim-dap-python",
+      -- stylua: ignore
+      keys = {
+        { "<leader>dPt", function() require('dap-python').test_method() end, desc = "Debug Method", ft = "python" },
+        { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
+      },
+      config = function()
+        require("dap-python").setup("debugpy-adapter")
+        table.insert(require("dap").configurations.python, {
+          type = "python",
+          request = "launch",
+          name = "Django runserver",
+          program = "manage.py",
+          args = { "runserver" },
+        })
+      end,
+    },
+  },
+
+  {
+    "linux-cultist/venv-selector.nvim",
+    cmd = "VenvSelect",
+    opts = {
+      options = {
+        notify_user_on_venv_activation = true,
+      },
+    },
+    --  Call config for Python files and load the cached venv automatically
+    ft = "python",
+    keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv", ft = "python" } },
+  },
+  -- Don't mess up DAP adapters provided by nvim-dap-python
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    optional = true,
+    opts = {
+      handlers = {
+        python = function() end,
+      },
+    },
   },
 }

@@ -25,9 +25,6 @@ vim.g.autoformat = false
 -- enabled with `:LazyExtras`
 vim.g.lazyvim_picker = "snacks"
 
--- Python
-vim.g.lazyvim_python_lsp = "ty"
-
 -- Prettier
 vim.g.lazyvim_prettier_needs_config = true
 

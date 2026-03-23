@@ -20,6 +20,7 @@ return {
 Use the natural documenentation formatting for different languages. For example
 - Lua uses luals annotations
 - C# uses the standard XML documentation
+- Python uses the reST docstrings format
 - Typescript uses TSDoc and optionally JSDoc where necessary]],
       opts = {
         visible = false,
