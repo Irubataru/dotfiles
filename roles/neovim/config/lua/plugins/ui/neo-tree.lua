@@ -2,8 +2,9 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      sources = { "filesystem" },
       -- NOTE: https://github.com/folke/edgy.nvim/discussions/4
-      open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
+      open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline", "edgy" },
       commands = {
         copy_selector = function(state)
           local node = state.tree:get_node()
@@ -50,13 +51,8 @@ return {
       },
     },
     keys = {
-      {
-        "<leader>gE",
-        function()
-          require("neo-tree.command").execute({ source = "git_status", toggle = true })
-        end,
-        desc = "Git Explorer (neo-tree)",
-      },
+      { "<leader>ge", false },
+      { "<leader>be", false },
     },
   },
 }
