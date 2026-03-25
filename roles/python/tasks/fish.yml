@@ -1,6 +1,6 @@
 - name: Link venv fish function
   ansible.builtin.file:
-    src: "{{ role_path }}/fish/venv.fish"
+    src: "{{ role_path }}/fish/functions/venv.fish"
     dest: "{{ config_directory }}/fish/functions/venv.fish"
     state: link
 
@@ -24,3 +24,15 @@
     executable: /usr/bin/fish
     creates: "{{ config_directory }}/fish/functions/makemigrations.fish"
   when: python.poetry.aliases
+
+- name: Link autovenv function
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/functions/_venv_autoactivate.fish"
+    dest: "{{ config_directory }}/fish/functions/_venv_autoactivate.fish"
+    state: link
+
+- name: Link autovenv config
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/conf.d/autovenv.fish"
+    dest: "{{ config_directory }}/fish/conf.d/autovenv.fish"
+    state: link
