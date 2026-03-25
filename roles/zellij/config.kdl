@@ -111,42 +111,50 @@ keybinds clear-defaults=true {
         bind "w" { SearchToggleOption "Wrap"; }
     }
     session {
-        bind "a" {
-            LaunchOrFocusPlugin "zellij:about" {
+        bind "Ctrl o" { SwitchToMode "Locked"; }
+        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "d" { Detach; }
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
                 floating true
                 move_to_focused_tab true
-            }
-            SwitchToMode "locked"
+            };
+            SwitchToMode "Locked"
         }
         bind "c" {
             LaunchOrFocusPlugin "configuration" {
                 floating true
                 move_to_focused_tab true
-            }
-            SwitchToMode "locked"
+            };
+            SwitchToMode "Locked"
         }
-        bind "d" { Detach; }
-        bind "o" { SwitchToMode "normal"; }
         bind "p" {
             LaunchOrFocusPlugin "plugin-manager" {
                 floating true
                 move_to_focused_tab true
-            }
-            SwitchToMode "locked"
+            };
+            SwitchToMode "Locked"
+        }
+        bind "a" {
+            LaunchOrFocusPlugin "zellij:about" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Locked"
         }
         bind "s" {
             LaunchOrFocusPlugin "zellij:share" {
                 floating true
                 move_to_focused_tab true
-            }
-            SwitchToMode "locked"
+            };
+            SwitchToMode "Locked"
         }
-        bind "w" {
-            LaunchOrFocusPlugin "session-manager" {
+        bind "l" {
+            LaunchOrFocusPlugin "zellij:layout-manager" {
                 floating true
                 move_to_focused_tab true
-            }
-            SwitchToMode "locked"
+            };
+            SwitchToMode "Locked"
         }
     }
     shared_among "normal" "locked" {
