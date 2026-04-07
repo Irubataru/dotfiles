@@ -15,6 +15,7 @@ end
 
 vim.o.list = false
 vim.o.startofline = true
+vim.o.foldlevelstart = 99
 
 -- Do not autoformat on save
 vim.g.autoformat = false
