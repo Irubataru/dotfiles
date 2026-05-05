@@ -34,5 +34,5 @@
 - name: Link autovenv config
   ansible.builtin.file:
     src: "{{ role_path }}/fish/conf.d/autovenv.fish"
-    dest: "{{ config_directory }}/fish/conf.d/autovenv.fish"
+    dest: "{{ config_directory }}/fish/conf.d/ZZ_autovenv.fish"
     state: link
