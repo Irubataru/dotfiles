@@ -46,9 +46,10 @@ return {
     opts = {
       adapters = {
         ["neotest-python"] = {
-          -- Here you can specify the settings for the adapter, i.e.
-          -- runner = "pytest",
-          -- python = ".venv/bin/python",
+          dap = {
+            justMyCode = true,
+          },
+          args = { "-vv" },
         },
       },
     },
@@ -64,13 +65,14 @@ return {
         { "<leader>dPc", function() require('dap-python').test_class() end, desc = "Debug Class", ft = "python" },
       },
       config = function()
-        require("dap-python").setup("debugpy-adapter")
+        require("dap-python").setup("python")
         table.insert(require("dap").configurations.python, {
           type = "python",
           request = "launch",
           name = "Django runserver",
           program = "manage.py",
           args = { "runserver" },
+          justMyCode = false,
         })
       end,
     },
