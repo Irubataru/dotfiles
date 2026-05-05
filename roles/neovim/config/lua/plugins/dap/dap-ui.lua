@@ -125,6 +125,10 @@ return {
       local dapui = require("dapui")
       dapui.setup(opts)
       dap.listeners.after.event_initialized["dapui_config"] = function()
+        if require("utils.lazy").is_loaded("edgy.nvim") then
+          require("edgy").close()
+        end
+
         dapui.open({ layout = 1 })
         dapui.open({ layout = 3 })
       end
@@ -143,5 +147,48 @@ return {
         { "<leader>du", group = "+dap ui" },
       },
     },
+  },
+  {
+    "folke/edgy.nvim",
+    optional = true,
+    opts = function(_, opts)
+      opts.bottom = opts.bottom or {}
+      table.insert(opts.bottom, {
+        title = " Debug REPL",
+        ft = "dap-repl",
+        size = {
+          height = 0.2,
+        },
+      })
+      table.insert(opts.bottom, {
+        title = "Debug console",
+        ft = "dapui_console",
+        size = {
+          height = 0.2,
+        },
+      })
+
+      opts.left = opts.left or {}
+      table.insert(opts.left, {
+        title = " Scopes",
+        ft = "dapui_scopes",
+      })
+      table.insert(opts.left, {
+        title = " Scopes",
+        ft = "dapui_scopes",
+      })
+      table.insert(opts.left, {
+        title = " Watches",
+        ft = "dapui_watches",
+      })
+      table.insert(opts.left, {
+        title = " Stacks",
+        ft = "dapui_stacks",
+      })
+      table.insert(opts.left, {
+        title = " Breakpoints",
+        ft = "dapui_breakpoints",
+      })
+    end,
   },
 }
