@@ -7,6 +7,7 @@ return {
     opts = {
       save_key = "git_root",
       show_icons = true,
+      leader_key = "<A-m>",
       buffer_leader_key = "M", -- Per Buffer Mappings
     },
     keys = {

@@ -11,7 +11,7 @@ return {
       adapters = {
         anthropic = function()
           return require("codecompanion.adapters").extend("anthropic", {
-            model = "claude-sonnet-4-5",
+            model = "claude-sonnet-4-6",
             schema = {
               extended_thinking = {
                 default = false,
@@ -41,6 +41,11 @@ return {
           adapter = "azure_openai",
           opts = {
             system_prompt = require("config.prompts").system_prompt,
+          },
+          keymaps = {
+            send = {
+              modes = { n = "<C-s>", i = "<C-s>" },
+            },
           },
         },
         inline = {
