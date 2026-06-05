@@ -12,7 +12,15 @@ return {
   {
     "snacks.nvim",
     opts = {
-      picker = {},
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["H"] = "toggle_ignored",
+            },
+          },
+        },
+      },
     },
     keys = {
       {

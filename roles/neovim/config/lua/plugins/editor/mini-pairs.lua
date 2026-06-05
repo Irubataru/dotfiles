@@ -1,3 +1,10 @@
+if true then
+  return {
+    "nvim-mini/mini.pairs",
+    enabled = false,
+  }
+end
+
 return {
   {
     -- A plugin to automatically manage character pairs

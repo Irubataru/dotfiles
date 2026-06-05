@@ -21,6 +21,11 @@ return {
         end,
         desc = "Git explorer (diffview)",
       },
+      {
+        "<leader>gE",
+        "<cmd>DiffviewOpen main<cr>",
+        desc = "Diff explorer against main",
+      },
       { "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", desc = "File history" },
     },
     opts = {
