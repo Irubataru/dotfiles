@@ -25,11 +25,11 @@ return {
               env = {
                 api_key = "SPN_OPENAI_API_KEY",
                 endpoint = "SPN_OPENAI_ENDPOINT",
-                deployment = "gpt-5.2",
+                deployment = "gpt-5.4",
               },
               schema = {
                 model = {
-                  default = "gpt-5.2",
+                  default = "gpt-5.4",
                 },
               },
             })
