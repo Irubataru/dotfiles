@@ -1,58 +1,28 @@
 # vi: set ft=yaml.ansible :
 
-- name: Enable workspaces for every monitor
-  ansible.builtin.command:
-    gsettings set org.gnome.mutter workspaces-only-on-primary false
-  changed_when: false
+- name: Set GNOME keybinds
+  ansible.builtin.import_tasks: keybinds.yml
 
-- name: Disable dash-to-dock hot-keys (Super+1..9 app launch)
-  ansible.builtin.command: >
-    gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
-  changed_when: false
+- name: Link reset-keybinds script
+  ansible.builtin.file:
+    src: "{{ role_path }}/systemd/reset-tiling-keys.bash"
+    dest: "{{ home_directory }}/.local/bin/reset-tiling-keys.bash"
+    state: link
 
-- name: Disable ibus empoji keybind (Super+.)
-  ansible.builtin.command: >
-    gsettings set org.freedesktop.ibus.panel.emoji hotkey "['<Super>semicolon']"
-  changed_when: false
+- name: Create systemd directory
+  ansible.builtin.file:
+    path: "{{ home_directory }}/.config/systemd/user"
+    state: directory
+    mode: u=rwx,g=rx,o=rx
 
-- name: Disable rotate video keybind (Super+o)
-  ansible.builtin.command: >
-    gsettings set org.gnome.settings-daemon.plugins.media-keys rotate-video-lock-static "['XF86RotationLockToggle']"
-  changed_when: false
+- name: Link tiling-key service
+  ansible.builtin.file:
+    src: "{{ role_path }}/systemd/tiling-keys.service"
+    dest: "{{ home_directory }}/.config/systemd/user/tiling-keys.service"
+    state: link
 
-- name: Disable mutter switch-monitor keybind (Super+p)
-  ansible.builtin.command: >
-    gsettings set org.gnome.mutter.keybindings switch-monitor "['XF86Display']"
-  changed_when: false
-
-- name: Set switch-to-workspace keybindings (Super+1..4)
-  ansible.builtin.command: >
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-{{ item.index }} "['{{ item.switch }}']"
-  loop: "{{ gnome_workspace_bindings }}"
-  changed_when: false
-
-- name: Set move-to-workspace keybindings (Shift+Super+1..4)
-  ansible.builtin.command: >
-    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-{{ item.index }} "['{{ item.move }}']"
-  loop: "{{ gnome_workspace_bindings }}"
-  changed_when: false
-
-- name: Disable tile-left keybind (Super+Left)
-  ansible.builtin.command: >
-    gsettings set org.gnome.shell.extensions.tiling-assistant tile-left-half []
-  changed_when: false
-
-- name: Set switch-to-previousworkspace (Super+Left)
-  ansible.builtin.command: >
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<Super>Left']"
-  changed_when: false
-
-- name: Disable tile-right keybind (Super+Right)
-  ansible.builtin.command: >
-    gsettings set org.gnome.shell.extensions.tiling-assistant tile-right-half []
-  changed_when: false
-
-- name: Set switch-to-next workspace (Super+Right)
-  ansible.builtin.command: >
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<Super>Right']"
-  changed_when: false
+- name: Enable tiling-keys service
+  ansible.builtin.systemd:
+    name: "tiling-keys.service"
+    enabled: true
+    scope: user

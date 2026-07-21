@@ -21,7 +21,7 @@
     path: "{{ config_directory }}/fish/{{ directory }}"
     state: directory
     mode: u=rwx,g=rx,o=rx
-    recurse: true
+    recurse: false
   loop:
     - functions
     - conf.d

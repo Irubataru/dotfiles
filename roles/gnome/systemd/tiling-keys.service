@@ -1,0 +1,9 @@
+[Unit]
+Description=Reset Tiling Assistant keybindings
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/reset-tiling-keys.bash
+
+[Install]
+WantedBy=default.target
