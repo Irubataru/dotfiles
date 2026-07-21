@@ -1,37 +1,51 @@
+local enable_csharp = vim.fn.executable("dotnet") == 1
+
+if not enable_csharp then
+  return {}
+end
+
 return {
+  recommended = function()
+    return LazyVim.extras.wants({
+      ft = { "cs", "vb", "fsharp" },
+      root = { "*.sln", "*.csproj", "*.fsproj", "omnisharp.json", "function.json", "paket.dependencies", "paket.lock" },
+    })
+  end,
+
+  { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
   {
-    "iabdelkareem/csharp.nvim",
-    dependencies = {
-      "mason-org/mason.nvim", -- Required, automatically installs omnisharp
-      "mfussenegger/nvim-dap",
-      "Tastyep/structlog.nvim", -- Optional, but highly recommended for debugging
-    },
-    ft = { "cs" },
+    "nvim-treesitter/nvim-treesitter",
+    opts = { ensure_installed = { "c_sharp", "fsharp" } },
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    optional = true,
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, nls.builtins.formatting.csharpier)
+      table.insert(opts.sources, nls.builtins.formatting.fantomas)
+    end,
+  },
+  {
+    "stevearc/conform.nvim",
+    optional = true,
     opts = {
-      lsp = {
-        omnisharp = {
-          enable = false,
-        },
+      formatters_by_ft = {
+        cs = { "csharpier" },
+        fsharp = { "fantomas" },
       },
     },
-    init = function()
-      vim.keymap.set("n", "<leader>xa", function()
-        require("csharp").fix_all()
-      end, { desc = "Fix all (C#)" })
-
-      vim.keymap.set("n", "<leader>cv", function()
-        require("csharp").view_user_secrets()
-      end, { desc = "View user secrets (C#)" })
-
-      vim.keymap.set("n", "<leader>dd", function()
-        require("csharp").debug_project()
-      end, { desc = "Debug project" })
-    end,
+  },
+  {
+    "mason-org/mason.nvim",
+    opts = { ensure_installed = { "csharpier", "netcoredbg", "fantomas" } },
   },
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        fsautocomplete = {},
         omnisharp = {
           handlers = {
             ["textDocument/definition"] = function(...)
@@ -41,12 +55,10 @@ return {
           keys = {
             {
               "gd",
-              function()
-                if LazyVim.has("telescope.nvim") then
-                  return require("omnisharp_extended").telescope_lsp_definitions()
-                else
-                  return require("omnisharp_extended").lsp_definitions()
-                end
+              LazyVim.has("telescope.nvim") and function()
+                require("omnisharp_extended").telescope_lsp_definitions()
+              end or function()
+                require("omnisharp_extended").lsp_definitions()
               end,
               desc = "Goto Definition",
             },
@@ -54,6 +66,53 @@ return {
           enable_roslyn_analyzers = true,
           organize_imports_on_format = true,
           enable_import_completion = true,
+        },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    opts = function()
+      local dap = require("dap")
+      if not dap.adapters["netcoredbg"] then
+        require("dap").adapters["netcoredbg"] = {
+          type = "executable",
+          command = vim.fn.exepath("netcoredbg"),
+          args = { "--interpreter=vscode" },
+          options = {
+            detached = false,
+          },
+        }
+      end
+      for _, lang in ipairs({ "cs", "fsharp", "vb" }) do
+        if not dap.configurations[lang] then
+          dap.configurations[lang] = {
+            {
+              type = "netcoredbg",
+              name = "Launch file",
+              request = "launch",
+              ---@diagnostic disable-next-line: redundant-parameter
+              program = function()
+                return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/", "file")
+              end,
+              cwd = "${workspaceFolder}",
+            },
+          }
+        end
+      end
+    end,
+  },
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "Nsidorenco/neotest-vstest",
+    },
+    opts = {
+      adapters = {
+        ["neotest-vstest"] = {
+          -- Here we can set options for neotest-vstest
         },
       },
     },
