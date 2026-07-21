@@ -1,0 +1,30 @@
+data:
+  user:
+    full_name: Aleksandra Glesaaen Ødegård
+    email: aleksandra@glesaaen.com
+
+  system:
+    distro: ubuntu
+    package_manager: apt
+    window_manager: gnome
+    hardware: space-norway-zbook
+    work: spn
+
+  git:
+    sign:
+      key_type: ssh
+      key_name: signing_key
+
+  ssh:
+    key_config:
+      - name: id_ed25519
+        password_id: SSH auth key Space Norway
+      - name: signing_key
+        password_id: SSH sign key Space Norway
+
+  software:
+    python:
+      poetry:
+        aliases: true
+    docker:
+      aliases: true

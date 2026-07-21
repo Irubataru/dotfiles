@@ -10,25 +10,7 @@
   when:
     - package_manager == "apt"
 
-# - name: Install thefuck (pipx)
-#   community.general.pipx:
-#     name: thefuck
-#     state: latest
-#   when: install
-
-# - name: Install bpytop (pipx)
-#   community.general.pipx:
-#     name: bpytop
-#     state: latest
-#   when: install
-
-- name: Install dtrx (pipx)
-  community.general.pipx:
-    name: dtrx
-    state: latest
-  when: install
-
-- name: Install lsd, fd, bat, cargo-update, clock-tui, rip-cli (cargo)
+- name: Install bat, cargo-update, clock-tui, rip-cli (cargo)
   community.general.cargo:
     name:
       - bat
@@ -36,10 +18,11 @@
       - clock-tui
       - rip-cli
     state: present
+    locked: true
   when: install
 
 - name: Import tasks for installing bat
-  import_tasks: bat.yml
+  ansible.builtin.import_tasks: bat.yml
 
 - name: Fish configuration
   ansible.builtin.import_tasks: fish.yml

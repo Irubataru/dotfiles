@@ -5,54 +5,17 @@
     git: "{{ git | combine(data.git, recursive=True) }}"
   when: data.git is defined
 
-- name: Install git programs (pacman)
-  community.general.pacman:
-    name:
-      - git
-      - tig
-      - lazygit
-      - github-cli
-    state: present
-  become: true
+- name: Install git packages (pacman)
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
-- name: Install git-delta programs (pacman)
-  community.general.pacman:
-    name: git-delta
-    state: present
-  become: true
-  when:
-    - install
-    - package_manager == "pacman"
-    - git.difftool == "delta"
-
-- name: Install git programs (apt)
-  ansible.builtin.apt:
-    name:
-      - git
-      - tig
-    state: present
-  become: true
+- name: Install git packages (apt)
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
     - package_manager == "apt"
-
-- name: Install lazygit (apt)
-  ansible.builtin.shell:
-    cmd: |
-      set -o pipefail
-      LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-      curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-      tar xf lazygit.tar.gz lazygit
-      sudo install lazygit -D -t /usr/local/bin/
-      rm lazygit.tar.gz lazygit
-    creates: /usr/local/bin/lazygit
-  become: true
-  when:
-    - install
-    - package_manager != "pacman"
 
 - name: Link default gitignore
   ansible.builtin.file:

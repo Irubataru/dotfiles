@@ -24,10 +24,10 @@
     dest: "{{ home_directory }}/.config/bat/themes/gruvbox"
     version: bat-source
   ignore_errors: true
-  register: clone_status
+  register: utilities_clone_status
 
 - name: Update bat cache
   ansible.builtin.shell:
     cmd: bat cache --build
   ignore_errors: true
-  when: clone_status.changed
+  when: utilities_clone_status.changed

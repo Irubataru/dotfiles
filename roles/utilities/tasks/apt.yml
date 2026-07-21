@@ -1,19 +1,24 @@
 # vi: set ft=yaml.ansible :
 
-- name: Install fzf, ripgrep (apt)
+- name: Install btop, fzf, ripgrep (apt)
   ansible.builtin.apt:
     name:
+      - btop
       - fzf
-      # - ripgrep
+      - ripgrep
     state: present
   become: true
   when:
     - install
 
-- name: Install lsd, fd (cargo)
+- name: Install dua, lsd, fd, presenterm, rainfrog (cargo)
   community.general.cargo:
     name:
+      - dua-cli
       - lsd
       - fd-find
+      - presenterm
+      - rainfrog
     state: present
+    locked: true
   when: install

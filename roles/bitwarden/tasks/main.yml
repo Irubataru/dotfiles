@@ -1,10 +1,3 @@
-- name: Install bitwarden
-  community.general.npm:
-    name: "@bitwarden/cli"
-    global: true
-    state: present
-  when: install
-
 - name: Install bitwarden packages (apt)
   ansible.builtin.import_tasks: apt.yml
   when:
@@ -16,6 +9,13 @@
   when:
     - install
     - package_manager == "pacman"
+
+- name: Install bitwarden
+  community.general.npm:
+    name: "@bitwarden/cli"
+    global: true
+    state: present
+  when: install
 
 - name: Fish configuration
   ansible.builtin.import_tasks: fish.yml

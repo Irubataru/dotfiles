@@ -4,6 +4,7 @@
   community.general.cargo:
     name: zoxide
     state: present
+    locked: true
   when: install
 
 - name: Fish configuration

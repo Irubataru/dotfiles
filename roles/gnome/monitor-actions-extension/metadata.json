@@ -1,0 +1,7 @@
+{
+  "name": "Monitor Actions",
+  "description": "Tiling WM-inspired monitor actions for GNOME",
+  "uuid": "monitor-actions@local",
+  "shell-version": ["45", "46", "47"],
+  "version": 1
+}

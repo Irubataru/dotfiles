@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link Ruby Gem env file
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/ruby_gem_env.fish"
+    dest: "{{ config_directory }}/fish/conf.d/ruby_gem_env.fish"
+    state: link

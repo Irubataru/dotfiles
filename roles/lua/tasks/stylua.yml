@@ -4,6 +4,7 @@
   community.general.cargo:
     name: stylua
     state: present
+    locked: true
   when: install
 
 - name: Create stylua config directory

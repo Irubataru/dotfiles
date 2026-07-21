@@ -1,25 +1,17 @@
 # vi: set ft=yaml.ansible :
 
-- name: Install mpd, ncmpcpp (pacman)
-  community.general.pacman:
-    name:
-      - mpd
-      - ncmpcpp
-    state: present
-  become: true
+
+- name: Install mpd packages (pacman)
+  ansible.builtin.import_tasks: pacman.yml
   when:
     - install
     - package_manager == "pacman"
 
-- name: Install mpd-mpris (aur)
-  kewlfft.aur.aur:
-    name: mpd-mpris
-    state: present
-  become: true
-  become_user: aur_builder
+- name: Install mpd packages (apt)
+  ansible.builtin.import_tasks: apt.yml
   when:
     - install
-    - package_manager == "pacman"
+    - package_manager == "apt"
 
 - name: Create mpd config directory
   ansible.builtin.file:
@@ -62,9 +54,11 @@
     name: "mpd.service"
     enabled: true
     scope: user
+  when: package_manager == "pacman"
 
 - name: Enable mpd-mpris service
   ansible.builtin.systemd:
     name: "mpd-mpris.service"
     enabled: true
     scope: user
+  when: package_manager == "pacman"

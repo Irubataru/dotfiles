@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link try fish config
+  ansible.builtin.file:
+    src: "{{ role_path }}/fish/try.fish"
+    dest: "{{ config_directory }}/fish/conf.d/try.fish"
+    state: link

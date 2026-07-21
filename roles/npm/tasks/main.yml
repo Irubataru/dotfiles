@@ -6,16 +6,11 @@
     - install
     - package_manager == "pacman"
 
-- name: Install npm from apt
-  ansible.builtin.import_tasks: apt.yml
-  when:
-    - install
-    - package_manager == "apt"
-
 - name: Install fnm (cargo)
   community.general.cargo:
     name: fnm
     state: present
+    locked: true
   when: install
 
 - name: Fish configuration

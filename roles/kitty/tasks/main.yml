@@ -1,0 +1,7 @@
+# vi: set ft=yaml.ansible :
+
+- name: Link kitty config
+  ansible.builtin.file:
+    src: "{{ role_path }}/config"
+    dest: "{{ config_directory }}/kitty"
+    state: link

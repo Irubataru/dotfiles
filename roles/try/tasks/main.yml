@@ -1,5 +1,11 @@
 # vi: set ft=yaml.ansible :
 
+- name: Install try (gem)
+  community.general.gem:
+    name: try-cli
+    state: present
+  when: install
+
 - name: Fish configuration
   ansible.builtin.import_tasks: fish.yml
   when:

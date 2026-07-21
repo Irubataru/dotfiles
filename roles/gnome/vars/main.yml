@@ -1,0 +1,8 @@
+# vi: set ft=yaml.ansible :
+
+gnome_workspace_bindings:
+  - { index: 1, switch: "<Super>1",  move: "<Shift><Super>1" }
+  - { index: 2, switch: "<Super>2",  move: "<Shift><Super>2" }
+  - { index: 3, switch: "<Super>3",  move: "<Shift><Super>3" }
+  - { index: 4, switch: "<Super>4",  move: "<Shift><Super>4" }
+  - { index: 5, switch: "<Super>5",  move: "<Shift><Super>5" }

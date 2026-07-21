@@ -1,6 +1,7 @@
 - name: Install bw dependencies (apt)
   ansible.builtin.apt:
     name:
+      - build-essential
       - jq
     state: present
   become: true

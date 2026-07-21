@@ -9,6 +9,15 @@
     - install
     - package_manager == "pacman"
 
+- name: Install atuin (cargo)
+  community.general.cargo:
+    name: atuin
+    state: present
+    locked: true
+  when:
+    - install
+    - package_manager != "pacman"
+
 - name: Create atuin config directory
   ansible.builtin.file:
     path: "{{ home_directory }}/.config/atuin"

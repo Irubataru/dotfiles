@@ -1,0 +1,44 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install git programs (apt)
+  ansible.builtin.apt:
+    name:
+      - git
+      - tig
+    state: present
+  become: true
+
+- name: Install lazygit (apt)
+  ansible.builtin.shell:
+    executable: /bin/bash
+    cmd: |
+      set -o pipefail
+      LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+      curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+      tar xf lazygit.tar.gz lazygit
+      install lazygit -D -t {{ home_directory }}/.local/bin/
+      rm lazygit.tar.gz lazygit
+    creates: "{{ home_directory }}/.local/bin/lazygit"
+
+- name: Install git-delta (cargo)
+  community.general.cargo:
+    name: git-delta
+    state: present
+    locked: true
+  when:
+    - git.difftool == "delta"
+
+- name: Check whether GitHub CLI is installed
+  ansible.builtin.command: gh --version
+  register: git_gh_cli_check
+  changed_when: false
+  failed_when: false
+
+- name: Manual reminder for GitHub CLI
+  ansible.builtin.pause:
+    seconds: 1
+    prompt: |
+      Manual step required:
+      Install GitHub CLI (gh) after this play finishes.
+      See: https://cli.github.com/manual/installation
+  when: git_gh_cli_check.rc != 0

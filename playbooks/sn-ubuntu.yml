@@ -1,25 +1,30 @@
 # vi: set ft=yaml.ansible :
 
-- name: Configure Space Norway WSL
+- name: Configure Space Norway Ubuntu
   hosts: localhost
   connection: local
   vars_files:
-    - ../vars/sn-wsl-arch.yml
+    - ../vars/sn-ubuntu.yml
   vars:
     modules:
       # Basics
       - fish
       - system
       - basic
+      - laptop
       - atuin
       - starship
       - zoxide
+
+      # Window manager
+      - gnome
 
       # Programming languages
       - clang
       - lua
       - npm
       - python
+      - ruby
       - rust
 
       # Applications
@@ -28,12 +33,17 @@
       - common
       - docker
       - git
+      - kitty
+      - mpd
       - neovim
       - ssh
       - tldr
+      - try
       - utilities
       - vifm
+      - vicinae
       - zellij
+      - zathura
   pre_tasks:
     - name: Merge variables
       ansible.builtin.include_tasks: ../tasks/merge_vars.yml

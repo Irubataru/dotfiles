@@ -1,7 +1,0 @@
-- name: Install npm (apt)
-  ansible.builtin.apt:
-    name:
-      - npm
-    state: present
-  become: true
-  ignore_errors: true

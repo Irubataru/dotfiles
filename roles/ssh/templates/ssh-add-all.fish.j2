@@ -78,8 +78,19 @@ function ssh-add-all -d "Add all SSH keys to ssh-agent using passwords from Bitw
             return 1
         end
         
-        # Create temporary expect script
-        set -l expect_script (mktemp)
+        # Create temporary expect script in a user-writable temp dir
+        set -l tmpdir "$HOME/.local/tmp"
+        mkdir -p "$tmpdir"
+        or begin
+            _show_status 1 "Key $key_name (failed to create temp dir)"
+            return 1
+        end
+
+        set -l expect_script (mktemp "$tmpdir/ssh-add-all.XXXXXXXXXX")
+        if test $status -ne 0 -o -z "$expect_script"
+            _show_status 1 "Key $key_name (failed to create temp file)"
+            return 1
+        end
         
         # Escape special characters for expect
         set -l escaped_password (string replace -a '\\' '\\\\' -- $password)

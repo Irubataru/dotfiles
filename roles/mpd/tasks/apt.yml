@@ -1,0 +1,9 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install mpd and ncmcpp (pacman)
+  ansible.builtin.apt:
+    name:
+      - mpd
+      - ncmpcpp
+    state: present
+  become: true

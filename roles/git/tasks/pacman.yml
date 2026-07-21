@@ -1,0 +1,24 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install git programs (pacman)
+  community.general.pacman:
+    name:
+      - git
+      - tig
+      - lazygit
+      - github-cli
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+
+- name: Install git-delta programs (pacman)
+  community.general.pacman:
+    name: git-delta
+    state: present
+  become: true
+  when:
+    - install
+    - package_manager == "pacman"
+    - git.difftool == "delta"

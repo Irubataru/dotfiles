@@ -1,0 +1,16 @@
+# vi: set ft=yaml.ansible :
+
+- name: Install mpd, ncmpcpp (pacman)
+  community.general.pacman:
+    name:
+      - mpd
+      - ncmpcpp
+    state: present
+  become: true
+
+- name: Install mpd-mpris (aur)
+  kewlfft.aur.aur:
+    name: mpd-mpris
+    state: present
+  become: true
+  become_user: aur_builder

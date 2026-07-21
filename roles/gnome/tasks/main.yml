@@ -1,0 +1,58 @@
+# vi: set ft=yaml.ansible :
+
+- name: Enable workspaces for every monitor
+  ansible.builtin.command:
+    gsettings set org.gnome.mutter workspaces-only-on-primary false
+  changed_when: false
+
+- name: Disable dash-to-dock hot-keys (Super+1..9 app launch)
+  ansible.builtin.command: >
+    gsettings set org.gnome.shell.extensions.dash-to-dock hot-keys false
+  changed_when: false
+
+- name: Disable ibus empoji keybind (Super+.)
+  ansible.builtin.command: >
+    gsettings set org.freedesktop.ibus.panel.emoji hotkey "['<Super>semicolon']"
+  changed_when: false
+
+- name: Disable rotate video keybind (Super+o)
+  ansible.builtin.command: >
+    gsettings set org.gnome.settings-daemon.plugins.media-keys rotate-video-lock-static "['XF86RotationLockToggle']"
+  changed_when: false
+
+- name: Disable mutter switch-monitor keybind (Super+p)
+  ansible.builtin.command: >
+    gsettings set org.gnome.mutter.keybindings switch-monitor "['XF86Display']"
+  changed_when: false
+
+- name: Set switch-to-workspace keybindings (Super+1..4)
+  ansible.builtin.command: >
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-{{ item.index }} "['{{ item.switch }}']"
+  loop: "{{ gnome_workspace_bindings }}"
+  changed_when: false
+
+- name: Set move-to-workspace keybindings (Shift+Super+1..4)
+  ansible.builtin.command: >
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-{{ item.index }} "['{{ item.move }}']"
+  loop: "{{ gnome_workspace_bindings }}"
+  changed_when: false
+
+- name: Disable tile-left keybind (Super+Left)
+  ansible.builtin.command: >
+    gsettings set org.gnome.shell.extensions.tiling-assistant tile-left-half []
+  changed_when: false
+
+- name: Set switch-to-previousworkspace (Super+Left)
+  ansible.builtin.command: >
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<Super>Left']"
+  changed_when: false
+
+- name: Disable tile-right keybind (Super+Right)
+  ansible.builtin.command: >
+    gsettings set org.gnome.shell.extensions.tiling-assistant tile-right-half []
+  changed_when: false
+
+- name: Set switch-to-next workspace (Super+Right)
+  ansible.builtin.command: >
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right "['<Super>Right']"
+  changed_when: false

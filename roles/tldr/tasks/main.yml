@@ -4,6 +4,7 @@
   community.general.cargo:
     name: tealdeer
     state: present
+    locked: true
   when: install
 
 - name: Create tldr custom pages directory

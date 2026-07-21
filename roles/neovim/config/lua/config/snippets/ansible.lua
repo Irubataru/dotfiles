@@ -69,6 +69,7 @@ luasnip.add_snippets("ansible", {
           community.general.cargo:
             name: <>
             state: present
+            locked: true
           when: install
       ]],
       {
