@@ -54,11 +54,16 @@
     name: "mpd.service"
     enabled: true
     scope: user
-  when: package_manager == "pacman"
+
+- name: Check whether mpd-mpris is installed
+  ansible.builtin.command: which mpd-mpris
+  register: mpd_mpris_check
+  changed_when: false
+  failed_when: false
 
 - name: Enable mpd-mpris service
   ansible.builtin.systemd:
     name: "mpd-mpris.service"
     enabled: true
     scope: user
-  when: package_manager == "pacman"
+  when: mpd_mpris_check.rc == 0

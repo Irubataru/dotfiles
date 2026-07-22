@@ -42,6 +42,21 @@ luasnip.add_snippets("ansible", {
     )
   ),
   snippet(
+    { trig = "pacman-include", descr = "Include pacman tasks" },
+    fmta(
+      [[
+        - name: Install <> packages (pacman)
+          ansible.builtin.import_tasks: pacman.yml
+          when:
+            - install
+            - package_manager == "pacman"
+      ]],
+      {
+        i(1, "package"),
+      }
+    )
+  ),
+  snippet(
     { trig = "aur", descr = "Install a package with paru" },
     fmta(
       [[
@@ -75,6 +90,39 @@ luasnip.add_snippets("ansible", {
       {
         i(1, "package"),
         i(2, "package"),
+      }
+    )
+  ),
+  snippet(
+    { trig = "apt", descr = "Install a package with apt" },
+    fmta(
+      [[
+        - name: Install <> (apt)
+          ansible.builtin.apt:
+            name: <>
+            state: present
+          when:
+            - install
+            - package_manager == "apt"
+      ]],
+      {
+        i(1, "package"),
+        i(2, "package"),
+      }
+    )
+  ),
+  snippet(
+    { trig = "apt-include", descr = "Include apt tasks" },
+    fmta(
+      [[
+        - name: Install <> packages (apt)
+          ansible.builtin.import_tasks: apt.yml
+          when:
+            - install
+            - package_manager == "apt"
+      ]],
+      {
+        i(1, "package"),
       }
     )
   ),

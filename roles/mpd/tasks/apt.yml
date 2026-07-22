@@ -1,9 +1,22 @@
 # vi: set ft=yaml.ansible :
 
-- name: Install mpd and ncmcpp (pacman)
+- name: Install mpd and ncmcpp (apt)
   ansible.builtin.apt:
     name:
       - mpd
       - ncmpcpp
     state: present
   become: true
+
+- name: Remind to install mpd-mpris with Go
+  ansible.builtin.debug:
+    msg: >
+      Install mpd-mpris manually with Go, for example:
+      go install github.com/natsukagami/mpd-mpris/cmd/mpd-mpris@latest
+
+
+- name: Link mpd-mpris.service
+  ansible.builtin.file:
+    src: "{{ role_path }}/mpd-mpris.service"
+    dest: "{{ config_directory }}/systemd/user/mpd-mpris.service"
+    state: link

@@ -17,6 +17,15 @@
     - install
     - package_manager == "apt"
 
+- name: Install git-stack (cargo)
+  community.general.cargo:
+    name:
+      - git-stack
+      - git-branch-stash-cli
+    state: present
+    locked: true
+  when: install
+
 - name: Link default gitignore
   ansible.builtin.file:
     src: "{{ role_path }}/gitignore"
