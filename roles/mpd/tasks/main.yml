@@ -67,3 +67,17 @@
     enabled: true
     scope: user
   when: mpd_mpris_check.rc == 0
+
+- name: Link playerctld.service
+  ansible.builtin.file:
+    src: "{{ role_path }}/playerctld.service"
+    dest: "{{ config_directory }}/systemd/user/playerctld.service"
+    state: link
+  when: data.system.window_manager == "gnome"
+
+- name: Enable playerctld service
+  ansible.builtin.systemd:
+    name: "playerctld.service"
+    enabled: true
+    scope: user
+  when: data.system.window_manager == "gnome"

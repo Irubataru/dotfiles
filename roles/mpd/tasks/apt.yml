@@ -14,7 +14,6 @@
       Install mpd-mpris manually with Go, for example:
       go install github.com/natsukagami/mpd-mpris/cmd/mpd-mpris@latest
 
-
 - name: Link mpd-mpris.service
   ansible.builtin.file:
     src: "{{ role_path }}/mpd-mpris.service"
