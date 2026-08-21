@@ -1,24 +1,15 @@
 return {
   {
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview-plus.nvim",
     cmd = {
       "DiffviewOpen",
+      "DiffviewToggle",
       "DiffviewFileHistory",
     },
     keys = {
       {
         "<leader>ge",
-        function()
-          local lib = require("diffview.lib")
-          local view = lib.get_current_view()
-          if view then
-            -- Current tabpage is a Diffview; close it
-            vim.cmd.DiffviewClose()
-          else
-            -- No open Diffview exists: open a new one
-            vim.cmd.DiffviewOpen()
-          end
-        end,
+        "<cmd>DiffviewToggle<cr>",
         desc = "Git explorer (diffview)",
       },
       {
@@ -49,6 +40,18 @@ return {
         win_config = {
           position = "top",
           height = 10,
+        },
+      },
+      keymaps = {
+        view = {
+          ["q"] = function()
+            require("diffview.actions").goto_file_edit_close()
+          end,
+        },
+        file_panel = {
+          ["q"] = function()
+            vim.cmd("DiffviewClose")
+          end,
         },
       },
     },

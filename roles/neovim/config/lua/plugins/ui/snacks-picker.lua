@@ -57,6 +57,7 @@ return {
         end,
         desc = "Find text",
       },
+      { "<leader>gd", false },
     },
   },
   {

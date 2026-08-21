@@ -65,8 +65,8 @@ return {
   -- A simple and pretty pink colorscheme for Neovim made with Lush.
   scheme("pink_panic", { "scysta/pink-panic.nvim" }),
 
-  -- A dark and light Neovim theme written in fennel, inspired by IBM Carbon.
-  scheme("oxocarbon", { "nyoom-engineering/oxocarbon.nvim" }),
+  -- -- A dark and light Neovim theme written in fennel, inspired by IBM Carbon.
+  -- scheme("oxocarbon", { "nyoom-engineering/oxocarbon.nvim" }),
 
   -- NeoVim dark colorscheme inspired by the colors of the famous painting by Katsushika Hokusai.
   scheme("kanagawa", { "rebelot/kanagawa.nvim" }),
