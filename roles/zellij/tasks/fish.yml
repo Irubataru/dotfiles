@@ -5,3 +5,5 @@
     src: "{{ role_path }}/fish/zellij.fish"
     dest: "{{ config_directory }}/fish/conf.d/zellij.fish"
     state: link
+  when:
+    - "'kitty' not in modules"

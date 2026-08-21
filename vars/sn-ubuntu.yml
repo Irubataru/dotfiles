@@ -9,6 +9,8 @@ data:
     window_manager: gnome
     hardware: space-norway-zbook
     work: spn
+    accessories:
+      - lofree_keyboard
 
   git:
     sign:
