@@ -1,8 +1,15 @@
 # vi: set ft=yaml.ansible :
+#
+- name: Update default vars
+  ansible.builtin.set_fact:
+    ssh_config: "{{ ssh_config | combine(data.ssh, recursive=True) }}"
+  when: data.ssh is defined
 
 - name: Include ssh-agent service tasks
   ansible.builtin.import_tasks: agent.yml
-  when: package_manager == "pacman"
+  when:
+    - ssh_config.use_agent_socket
+    - package_manager == "pacman"
 
 - name: Fish configuration
   ansible.builtin.import_tasks: fish.yml

@@ -18,6 +18,7 @@ data:
       key_name: signing_key
 
   ssh:
+    use_agent_socket: false
     key_config:
       - name: id_ed25519
         password_id: SSH auth key Space Norway

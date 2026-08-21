@@ -1,0 +1,4 @@
+# vi: set ft=yaml.ansible :
+
+ssh_config:
+  use_agent_socket: true

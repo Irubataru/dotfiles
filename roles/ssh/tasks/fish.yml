@@ -5,6 +5,7 @@
     src: "{{ role_path }}/fish/ssh-auth-socket.fish"
     dest: "{{ config_directory }}/fish/conf.d/ssh-auth-socket.fish"
     state: link
+  when: ssh_config.use_agent_socket
 
 - name: Set ssh_keys variable
   ansible.builtin.set_fact:
