@@ -3,6 +3,11 @@
 - name: Set GNOME keybinds
   ansible.builtin.import_tasks: keybinds.yml
 
+- name: Set keyboard settings (enable right alt, disable caps-lock)
+  ansible.builtin.command:
+    gsettings set org.gnome.desktop.input-sources xkb-options "['compose:rwin', 'caps:none']"
+  changed_when: false
+
 - name: Link reset-keybinds script
   ansible.builtin.file:
     src: "{{ role_path }}/systemd/reset-tiling-keys.bash"
