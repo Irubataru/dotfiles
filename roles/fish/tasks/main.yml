@@ -43,7 +43,7 @@
 - name: Link keybinds.fish
   ansible.builtin.file:
     src: "{{ role_path }}/keybinds.fish"
-    dest: "{{ config_directory }}/fish/conf.d/keybinds.fish"
+    dest: "{{ config_directory }}/fish/functions/fish_user_key_bindings.fish"
     state: link
 
 - name: Install fisher plugin manager
