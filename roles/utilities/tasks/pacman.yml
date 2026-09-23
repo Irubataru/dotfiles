@@ -7,7 +7,7 @@
       - ripgrep
       - btop
       - dua-cli
-      - fd-find
+      - fd
       - lsd
       - presenterm
       - atac

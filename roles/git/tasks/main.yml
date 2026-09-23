@@ -46,7 +46,7 @@
 
 - name: Space Norway configuration
   ansible.builtin.import_tasks: spn.yml
-  when: data.system.work == "spn"
+  when: (data.system.work | default("")) == "spn"
 
 - name: Fish configuration
   ansible.builtin.import_tasks: fish.yml

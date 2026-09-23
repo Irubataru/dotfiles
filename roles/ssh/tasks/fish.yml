@@ -17,3 +17,4 @@
     src: "ssh-add-all.fish.j2"
     dest: "{{ config_directory }}/fish/functions/ssh-add-all.fish"
     mode: u=rw,g=r,o=r
+  when: data.ssh.key_config is defined

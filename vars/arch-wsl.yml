@@ -1,0 +1,20 @@
+data:
+  user:
+    full_name: Aleksandra Glesaaen Ødegård
+    email: aleksandra@glesaaen.com
+
+  system:
+    distro: archlinux
+    package_manager: pacman
+
+  git:
+    sign:
+      key_type: ssh
+      key_name: id_ed25519
+
+  software:
+    python:
+      poetry:
+        aliases: true
+    docker:
+      aliases: true
