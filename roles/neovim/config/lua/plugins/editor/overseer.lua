@@ -1,5 +1,18 @@
 return {
   {
+    "stevearc/overseer.nvim",
+    opts = {
+      task_list = {
+        keymaps = {
+          ["o"] = { "keymap.open", opts = { dir = "float" }, desc = "Open task output in float" },
+        },
+      },
+      task_win = {
+        border = "rounded",
+      },
+    },
+  },
+  {
     "folke/edgy.nvim",
     optional = true,
     opts = function(_, opts)

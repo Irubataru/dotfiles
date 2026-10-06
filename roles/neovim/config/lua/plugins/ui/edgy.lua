@@ -5,6 +5,9 @@ return {
       animate = {
         enabled = false,
       },
+      keys = {
+        ["<c-q>"] = false,
+      },
     },
   },
 }

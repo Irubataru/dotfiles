@@ -39,6 +39,8 @@ local autoformat_ft = {
   "typescript",
   "typescriptreact",
   "python",
+  "cpp",
+  "cuda",
 }
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -60,5 +62,17 @@ vim.api.nvim_create_autocmd({ "FileType", "BufRead", "BufNewFile" }, {
   pattern = { "tex" },
   callback = function()
     vim.bo.textwidth = 120
+  end,
+})
+
+-- User q to close Overseer windows
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "OverseerList", "OverseerForm", "OverseerOutput" },
+  callback = function(args)
+    vim.keymap.set("n", "q", "<cmd>close<cr>", {
+      buffer = args.buf,
+      silent = true,
+      desc = "Close window",
+    })
   end,
 })
